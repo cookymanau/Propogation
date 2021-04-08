@@ -108,7 +108,6 @@ namespace PropoPlot
                 timercounter = 0;
                 udpStrings.Clear();
             }
-
         }
 
 
