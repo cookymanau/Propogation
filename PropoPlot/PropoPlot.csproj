@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Interop.DxAtlas">
+      <HintPath>..\..\Loginfo\Loginfo\Interop.DxAtlas.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.OmniRig">
+      <HintPath>..\..\Loginfo\Loginfo\Interop.OmniRig.dll</HintPath>
+    </Reference>
+    <Reference Include="WsjtxUdpLib">
+      <HintPath>..\..\WsjtxUdpLib\WsjtxUdpLib\bin\Debug\netstandard2.0\WsjtxUdpLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

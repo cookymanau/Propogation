@@ -1,0 +1,100 @@
+﻿<Window x:Class="PropoPlot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropoPlot"
+        mc:Ignorable="d"
+        Title="UDP Plotter" Height="680" Width="420">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="WSJT Message Handling" Margin="5" FontSize="14" FontWeight="Bold"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnUDPport"   Content="UDP Port"       Click="ButtonUDPport_click"        Grid.Column="0" Margin="5,5"/>
+                <Button x:Name="btnUDPStart"  Content="Get UDP" Grid.Column="1" Grid.ColumnSpan="2" Click="btnUDPStart_Click" Margin="5,5"/>
+                <TextBlock x:Name="listCnt" Text="Timer" Grid.Column="3" Margin="5,5"/>
+                <TextBlock x:Name="avgdbm" Text="AvgdBm" Grid.Column="4" Margin="5,5"/>
+                <!-- <Button x:Name="btnUDPStop"  Content="Stop UDP" Grid.Column="2" Click="btnUDPStop_Click" Margin="5,5"/> -->
+           <!--    <Button x:Name="btnClearText"     Content=" ClearTxtBlock" Click="ButtonClearTxtBlock"        Grid.Column="3" Margin="5,5"/> -->
+               <!--  <Button x:Name="btnClearList" Content=" Clear List"     Click="ButtonClearTxtList"         Grid.Column="4" Margin="5,5"/> -->
+                
+            </Grid>
+
+            <TextBlock Text="Plot Destinations" Margin="5" FontSize="14" FontWeight="Bold"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnDXatlas" Content=" DX Atlas"  Grid.Column="0" Margin="5,5" Click="btnDXatlas_Click"/>
+                <Button x:Name="btnGoogleEarth" Content="Earth"  Grid.Column="1" Margin="5,5" Click="btnGoogleEarth_Click"/>
+                
+                <TextBlock x:Name="loopCnt" Text="UDP's" Grid.Column="3" Margin="5,5"/>
+
+            </Grid>
+
+
+
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--<ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBox Name="message" 
+                            Grid.Column="1"   
+                            Text="Click DXAtlas!" 
+                       Cursor="Hand" 
+                       ScrollViewer.CanContentScroll="True"
+                     VerticalScrollBarVisibility="Visible"
+                     Grid.Row="0"                     
+                    Height="200"
+                        TextChanged="message_TextChanged" 
+                             Width="370"
+                             Margin="0,0,0,10"
+                       />
+                </ScrollViewer>-->
+
+            </Grid>
+            <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBox Name="plotmessage" 
+                            Grid.Column="1"   
+                            Text="" 
+                       Cursor="Hand" 
+                       ScrollViewer.CanContentScroll="True"
+                     VerticalScrollBarVisibility="Visible"
+                     Grid.Row="0"
+                     Height="500" 
+                            TextChanged="plotmessage_TextChanged" 
+                             Width="370"
+                             Margin="0,10,0,0"
+                       />
+                </ScrollViewer>
+
+
+
+
+
+
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
