@@ -23,10 +23,7 @@ namespace PropoPlot
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads
-                                                      //Declaring timer - a FORMS timer
-    
-
+      List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads
         //make a global instatiation of our class
         UdpDataload ul = new UdpDataload();
 
@@ -101,12 +98,20 @@ namespace PropoPlot
 
 
             timercounter += 2;
-            listCnt.Text = timercounter.ToString();
-            if (timercounter >= 10)
+            timerBar.Value = timercounter;
+            
+
+           // listCnt.Text = timercounter.ToString();
+            if (timercounter >= timerInterval) //every timerInterval seconds process the udp strings
             {
-                GetQsosDXAtlas();
+                GetQsosDXAtlas(); 
+                
                 timercounter = 0;
+               // timerBar.Value = timercounter;
                 udpStrings.Clear();
+                tblaggingCount.Text = laggingCount.ToString();
+                
+
             }
         }
 
@@ -116,7 +121,7 @@ namespace PropoPlot
 
         private void btnUDPStop_Click(object sender, RoutedEventArgs e)
         {
-            stopLoop = false;
+           // stopLoop = false;
         }
     }
 

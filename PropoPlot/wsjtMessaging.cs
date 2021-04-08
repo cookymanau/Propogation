@@ -12,8 +12,14 @@ namespace PropoPlot
 {
     public partial  class  MainWindow
     {
-
-        public bool stopLoop = true;
+        public double[] avgs = new double[15] ;  //declare an array of five elements
+        public int avgsCounter = 0;
+        double laggingAvg = 0;
+        int laggingCount = 0;
+        double laggingTotal = 0.0;
+        int laggingWindow = 5;
+        int timerInterval = 14;
+        //public bool stopLoop = true;
 
         /// <summary>
         /// This runs the M0LTE dll in a infinite loop
@@ -78,8 +84,8 @@ namespace PropoPlot
             counter += counter;
             bool isEmpty = false;
             string cleandata = "";
-                double averagedbm = 0;
-                double totaldbm = 0;
+            double averagedbm = 0;
+            double totaldbm = 0;
 
                 foreach (var item in udpStrings)
                 {
@@ -104,9 +110,9 @@ namespace PropoPlot
                     if (!isEmpty && ul.udpqso3.Length > 1)
                         ul.udpqso3 = wrdmsg[8];
                     else
-                        ul.udpqso3 = "$$";
+                        ul.udpqso3 = "$$";  //stop a exception 
 
-                    if (ul.udpqso3.Length == 4
+                    if (ul.udpqso3.Length == 4  //ie if there is a valid length of 4 chars
                         && (ul.udpqso3.Substring(0, 2) != "$$"
                         && ul.udpqso3.Substring(0, 2) != "73"
                         && ul.udpqso3.Substring(0, 2) != "RR"
@@ -120,14 +126,42 @@ namespace PropoPlot
                      ))
                     {
                         plotmessage.Text += $"Time is:{ul.udptime}  Grid {ul.udpqso3} Strength {ul.udpdbm} \r\n";
-                    counter++;
-                        totaldbm += double.Parse(ul.udpdbm);
+                        counter++;  //this counter goes up by not 1
+                        if (ul.udpdbm != "" || ul.udpdbm != null)
+                        {
+                            totaldbm += double.Parse(ul.udpdbm);
+                        }
+                        
+                        
                     }
-                    loopCnt.Text = counter.ToString();
+                    loopCnt.Text = counter.ToString();  //is the number of decodes with a grid square
+                }//end of foreach loop
+
+                // we count all of the good grids
+                if (counter > 0)
+                {
+                    avgdbm.Text = Math.Round(totaldbm / counter, 0).ToString();
+                    laggingCount += 1;
+                    avgs[laggingCount] = totaldbm / counter; //shove the avgdbm data into my array.  counter runs from 0 to however many good decodes there are
+                    //laggingTotal += (totaldbm / counter );
                 }
 
-                avgdbm.Text = (totaldbm / counter).ToString();
-              //  udpStrings.Clear();  //clear because we have what we need from the udp list
+               // if (counter == 0)
+                //    laggingCount -= 1;  // try to account for an empty get  data
+
+
+                if (laggingCount >= laggingWindow) //lagging window is set elsewhere
+                {
+
+                    laggingTotal = sumarray();  //thats sum array
+                    
+                    laggingAvg = laggingTotal / laggingWindow +1 ;
+                    
+                    runningAvgDbm.Text= Math.Round(laggingAvg,1).ToString();
+                    laggingCount = 0;
+                    //laggingAvg = 0;
+                    //laggingTotal = 0;
+                }
             }
             catch (Exception)
             {
@@ -143,7 +177,16 @@ namespace PropoPlot
         }
 
 
+        private double sumarray()
+        {
+            double total=0;
 
+            for (int i=0;i<15;i++)
+            {
+                total += avgs[i];
+            }
+            return total;
+        }
 
 
 
