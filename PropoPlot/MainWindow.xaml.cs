@@ -26,7 +26,7 @@ namespace PropoPlot
       List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads
         //make a global instatiation of our class
         UdpDataload ul = new UdpDataload();
-
+        int timercounter = 0; 
 
         public MainWindow()
         {
@@ -38,21 +38,21 @@ namespace PropoPlot
 
         }
 
-        private void ButtonClearTxtBlock(object sender, RoutedEventArgs e)
-        {
-         //   message.Text = String.Empty;
-        }
+   //  private void ButtonClearTxtBlock(object sender, RoutedEventArgs e)
+   //  {
+   //   //   message.Text = String.Empty;
+   //  }
 
-        private void ButtonClearTxtList(object sender, RoutedEventArgs e)
-        {
-            udpStrings.Clear();
+  //   private void ButtonClearTxtList(object sender, RoutedEventArgs e)
+  //   {
+  //       udpStrings.Clear();
+  //
+  //   }
 
-        }
-
-        private void message_TextChanged(object sender, TextChangedEventArgs e)
-        {
-          //  message.ScrollToEnd();
-        }
+  //   private void message_TextChanged(object sender, TextChangedEventArgs e)
+  //   {
+  //     //  message.ScrollToEnd();
+  //   }
         private void plotmessage_TextChanged(object sender, TextChangedEventArgs e)
         {
             plotmessage.ScrollToEnd();
@@ -60,13 +60,14 @@ namespace PropoPlot
 
         private void btnDXatlas_Click(object sender, RoutedEventArgs e)
         {
-            
-            DXAtlasplotPoints();
+
+            plotToDxAtlas = true;
+            DXAtlasplotPoints();  //THIS stuff is found in the PlotDXAtlas stuff
         }
 
         private void btnGoogleEarth_Click(object sender, RoutedEventArgs e)
         {
-          // GetQsosDXAtlas();
+          // GetQsosFromList();
         }
 
         /// <summary>
@@ -82,46 +83,78 @@ namespace PropoPlot
             //stopLoop = true;
             wsjtmessages();
 
-            // now start the timer to process the UDP stuff
+            btnUDPStart.Content = "Running";
 
+            // now start the timer to process the UDP stuff
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);//two second increments
             dispatcherTimer.Start();
-
-
         }
 
-             int  timercounter = 0;
+          
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
+            //anything we want to do in a timer, do it here
 
-
-            timercounter += 2;
-            timerBar.Value = timercounter;
-            
-
-           // listCnt.Text = timercounter.ToString();
+            timercounter += 2; //going up in 2 second increments.  It seemed less busy that way
+            timerBar.Value = timercounter;  //up date the indicator - something IS happening
+           
             if (timercounter >= timerInterval) //every timerInterval seconds process the udp strings
             {
-                GetQsosDXAtlas(); 
+                GetQsosFromList();  //get the qsos for this round of 15 seconds
                 
-                timercounter = 0;
+                timercounter = 0; //reset this
                // timerBar.Value = timercounter;
-                udpStrings.Clear();
-                tblaggingCount.Text = laggingCount.ToString();
-                
-
+                udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
+                tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
             }
         }
 
-
-
-
-
-        private void btnUDPStop_Click(object sender, RoutedEventArgs e)
+        private void btnTest_click(object sender, RoutedEventArgs e)
         {
-           // stopLoop = false;
+            // Maiden2latitude("OF87aa");
+
+          
+            //plotToDxAtlas = !plotToDxAtlas;
+
+            //if(plotToDxAtlas)
+
+ 
+            
+            
+ //      Udppoint[0, 0] = "vk6dw";
+ //      Udppoint[0, 1] = "-11";
+ //      Udppoint[0, 2] = "OF87";
+ //      Udppoint[0, 3] = ""; 
+ //      Udppoint[0, 4] = "";
+ //      Udppoint[0, 5] = "";
+ //      Udppoint[0,3] =   Maiden2latitude(Udppoint[0, 2]);
+ //      Udppoint[0,4] =   Maiden2longitude(Udppoint[0, 2]);
+ //
+ //      Udppoint[1, 0] = "vk6dw";
+ //      Udppoint[1, 1] = "5";
+ //      Udppoint[1, 2] = "OF86";
+ //      Udppoint[1, 3] = "";
+ //      Udppoint[1, 4] = "";
+ //      Udppoint[1, 5] = "";
+ //      Udppoint[1, 3] = Maiden2latitude(Udppoint[1, 2]);
+ //      Udppoint[1, 4] = Maiden2longitude(Udppoint[1, 2]);
+ //
+ //
+ //      QSOsThiInterval = 2;
+ //      DXAtlasplotPoints();
+
+        }
+
+        private void btnClearMap_Click(object sender, RoutedEventArgs e)
+        {
+            weHaveConnectedAlready = !weHaveConnectedAlready;
+
+            if(weHaveConnectedAlready)
+            btnClearMap.Content = "Keep Dots";
+            else
+            btnClearMap.Content = "Clear Dots";
         }
     }
 
