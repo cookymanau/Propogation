@@ -61,8 +61,20 @@ namespace PropoPlot
         private void btnDXatlas_Click(object sender, RoutedEventArgs e)
         {
 
-            plotToDxAtlas = true;
-            DXAtlasplotPoints();  //THIS stuff is found in the PlotDXAtlas stuff
+            _connectAndConfigureAtlas();  // we only want to do this once, so doing it here
+
+            plotToDxAtlas = !plotToDxAtlas;
+            if (plotToDxAtlas == true)
+            {
+                btnDXAtlas.Content = "DX Atlas Plotting";
+                //btnDXAtlas.Background = "#eee";
+                DXAtlasplotPoints();  //THIS stuff is found in the PlotDXAtlas stuff
+            }
+            else
+            {
+                //btnDXAtlas.Background = "";
+                btnDXAtlas.Content = "DX Atlas";
+            }
         }
 
         private void btnGoogleEarth_Click(object sender, RoutedEventArgs e)
@@ -107,54 +119,73 @@ namespace PropoPlot
                 timercounter = 0; //reset this
                // timerBar.Value = timercounter;
                 udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
-                tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
+                                    //***              tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
+               // runningAvgDbm.Text = laggingCount.ToString();
             }
         }
 
         private void btnTest_click(object sender, RoutedEventArgs e)
         {
             // Maiden2latitude("OF87aa");
-
-          
             //plotToDxAtlas = !plotToDxAtlas;
-
             //if(plotToDxAtlas)
 
- 
-            
-            
- //      Udppoint[0, 0] = "vk6dw";
- //      Udppoint[0, 1] = "-11";
- //      Udppoint[0, 2] = "OF87";
- //      Udppoint[0, 3] = ""; 
- //      Udppoint[0, 4] = "";
- //      Udppoint[0, 5] = "";
- //      Udppoint[0,3] =   Maiden2latitude(Udppoint[0, 2]);
- //      Udppoint[0,4] =   Maiden2longitude(Udppoint[0, 2]);
- //
- //      Udppoint[1, 0] = "vk6dw";
- //      Udppoint[1, 1] = "5";
- //      Udppoint[1, 2] = "OF86";
- //      Udppoint[1, 3] = "";
- //      Udppoint[1, 4] = "";
- //      Udppoint[1, 5] = "";
- //      Udppoint[1, 3] = Maiden2latitude(Udppoint[1, 2]);
- //      Udppoint[1, 4] = Maiden2longitude(Udppoint[1, 2]);
- //
- //
- //      QSOsThiInterval = 2;
- //      DXAtlasplotPoints();
+            //*****************************            
+            //      Udppoint[0, 0] = "vk6dw";
+            //      Udppoint[0, 1] = "-11";
+            //      Udppoint[0, 2] = "OF87";
+            //      Udppoint[0, 3] = ""; 
+            //      Udppoint[0, 4] = "";
+            //      Udppoint[0, 5] = "";
+            //      Udppoint[0,3] =   Maiden2latitude(Udppoint[0, 2]);
+            //      Udppoint[0,4] =   Maiden2longitude(Udppoint[0, 2]);
+            //
+            //      Udppoint[1, 0] = "vk6dw";
+            //      Udppoint[1, 1] = "5";
+            //      Udppoint[1, 2] = "OF86";
+            //      Udppoint[1, 3] = "";
+            //      Udppoint[1, 4] = "";
+            //      Udppoint[1, 5] = "";
+            //      Udppoint[1, 3] = Maiden2latitude(Udppoint[1, 2]);
+            //      Udppoint[1, 4] = Maiden2longitude(Udppoint[1, 2]);
+            //
+            //
+            //      QSOsThiInterval = 2;
+            //      DXAtlasplotPoints();
+            //*************************************************
+
+            //      _connectAndConfigureAtlas();
+
+            //    _atlas.Map.BeginUpdate();
+            //    _atlas.Map.CustomLayers.Clear();
+
+
+            //     _atlas.Map.EndUpdate();
+           // DxAtlasMapClear();
+
 
         }
 
         private void btnClearMap_Click(object sender, RoutedEventArgs e)
         {
-            weHaveConnectedAlready = !weHaveConnectedAlready;
+            clearDXAtlasEachTime = !clearDXAtlasEachTime;
 
-            if(weHaveConnectedAlready)
-            btnClearMap.Content = "Keep Dots";
-            else
-            btnClearMap.Content = "Clear Dots";
+            if (clearDXAtlasEachTime == true)
+            {
+
+                btnClearMap.Content = "Clear Dots";
+               // DxAtlasMapClear();  //does not do anything
+
+            }
+            else  //does this when false
+            {
+                btnClearMap.Content = "Keep Dots";
+            }
+        }
+
+        private void btnClearMapOfArtifacts_Click(object sender, RoutedEventArgs e)
+        {
+            DxAtlasMapClear();
         }
     }
 

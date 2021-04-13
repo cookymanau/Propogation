@@ -28,6 +28,7 @@ namespace PropoPlot
     {
 
         private bool weHaveConnectedAlready = false;
+        private bool clearDXAtlasEachTime = true;
 
         // Declare the CustomLayer objects
         private CustomLayer _redLabels, _greenLabels, _blueLines, _aquaPoints, _redPoints, _niceGlyphs, _yellowPoints,_greenPoints,_bluePoints;
@@ -43,12 +44,32 @@ namespace PropoPlot
         private void DXAtlasplotPoints()
         {
 
-           // CustomLayer AquaPoints, RedLabels;
+            // CustomLayer AquaPoints, RedLabels;
 
-           if(!weHaveConnectedAlready) //************If we comment this out and run through connect and Configure, then we dont clear the map each time
-            _connectAndConfigureAtlas();
+        //    if (!weHaveConnectedAlready) //************If we comment this out and run through connect and Configure, then we dont clear the map each time
+       //         DxAtlasMapClear();
 
+            // _connectAndConfigureAtlas();
             _fillDxLocations();
+
+            if (clearDXAtlasEachTime == true)  //this gets asked each period
+            {
+              //  DxAtlasMapClear(); //this is currenlty empty  and does nothing, but it does not make up custom layer each time
+            }
+            else  //starts up in true so these are not made each time anew. That means they hang around
+            {
+                _aquaPoints = _atlas.Map.CustomLayers.Add(EnumLayerKind.LK_POINTS);
+                _yellowPoints = _atlas.Map.CustomLayers.Add(EnumLayerKind.LK_POINTS);
+                _redPoints = _atlas.Map.CustomLayers.Add(EnumLayerKind.LK_POINTS);
+                _greenPoints = _atlas.Map.CustomLayers.Add(EnumLayerKind.LK_POINTS);
+                _bluePoints = _atlas.Map.CustomLayers.Add(EnumLayerKind.LK_POINTS);
+
+           //this method only sort of works.  If you start Keeping points, and then go back not
+           //clearing pointsd, all the ones already there stay on the map.
+                
+            }
+
+
             _showQso();
 
         }
@@ -106,7 +127,7 @@ namespace PropoPlot
             _atlas.Map.EndUpdate();
             _atlas.Visible = true;
             _atlas.BringToFront();
-        }
+        }//end
 
 
         private void _showPointsC()
@@ -128,7 +149,7 @@ namespace PropoPlot
                 int dBm = int.Parse(dBmstr) ;
                 
 
-                  if (dBm > -40  && dBm <= -20){ //yellow
+                  if (dBm > -40  && dBm <= -15){ //yellow
                     object[] pt = new object[2];
                     pt[0] = DxC[i, 0];
                     pt[1] = DxC[i, 1];
@@ -136,7 +157,7 @@ namespace PropoPlot
                 }
 
 
-                if (dBm > -20 && dBm <= -10) //these are aqua
+                if (dBm > -15 && dBm <= -8) //these are aqua
                 {
                     object[] pt = new object[2];
                     pt[0] = DxC[i, 0];
@@ -144,7 +165,7 @@ namespace PropoPlot
                     pointsLT10[i] = pt;
                 }
 
-                if (dBm > -10 && dBm <= 0) //these are green
+                if (dBm > -8 && dBm <= 0) //these are green
                 {
                     object[] pt = new object[2];
                     pt[0] = DxC[i, 0];
@@ -166,8 +187,8 @@ namespace PropoPlot
             pointsLT20 = pointsLT20.Where(c => c != null).ToArray();//get rid of any nulls.  There shouldnt be any
             _yellowPoints.SetData(pointsLT20);
             _yellowPoints.BrushColor = EnumColor.clYellow;
-            _yellowPoints.PenColor = EnumColor.clRed;
-            _yellowPoints.PointSize = 3;
+            _yellowPoints.PenColor = EnumColor.clDkGray;
+            _yellowPoints.PointSize = 4;
             _yellowPoints.Visible = true;
 
 
@@ -293,6 +314,7 @@ namespace PropoPlot
                  _atlas.Map.CqZonesVisible = false;
                  _atlas.Clock.Visible = true;
                  _atlas.Clock.UtcMode = true;
+            _atlas.ToolbarVisible = false;
             //
             _atlas.Map.PrefixesVisible = false;
                // _atlas.Map.Projection = EnumProjection.PRJ_AZIMUTHAL;  // dont set this - we wnat it to stay where we put it
@@ -303,8 +325,8 @@ namespace PropoPlot
                  _atlas.Map.HomeLatitude = -31.990f;
                 _atlas.Map.HomeLongitude = 116.0500f;
             
-                //_atlas.Map.CenterLatitude = 0F;   //dont home the map
-                // _atlas.Map.CenterLongitude = 116F;
+                _atlas.Map.CenterLatitude = 0F;   //dont home the map
+                 _atlas.Map.CenterLongitude = 116F;
 
             // layers
                 _aquaPoints = _atlas.Map.CustomLayers.Add(EnumLayerKind.LK_POINTS);
@@ -356,8 +378,8 @@ namespace PropoPlot
 
                 //_niceGlyphs.LoadGlyphsFromFile(Application.StartupPath + "\\Glyphs.bmp", 1, 15);
 
-                _atlas.Height = 750;
-                _atlas.Width = 1051;
+                _atlas.Height = 550;
+                _atlas.Width = 900;
                // this.Top = _atlas.Top + _atlas.Height + 10;
               //  this.Left = _atlas.Left + ((_atlas.Width - this.Width) / 2);
 
@@ -372,8 +394,20 @@ namespace PropoPlot
         }
 
 
+        /// <summary>
+        /// clears the map
+        /// </summary>
+        private void DxAtlasMapClear() {
 
+             
+              _atlas.Map.CustomLayers.Clear();
+            _connectAndConfigureAtlas();
+            
 
+     
+         
+
+        }
 
 
 

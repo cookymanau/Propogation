@@ -5,108 +5,137 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="UDP Plotter" Height="680" Width="620">
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="WSJT Message Handling" Margin="5" FontSize="14" FontWeight="Bold"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+       Title="WSJT Propogation" Height="575" Width="540" >
+    <Border Margin="10,0,10,10">
 
-                <Button x:Name="btnUDPport"   Content="UDP Port"       Click="ButtonUDPport_click"        Grid.Column="0" Margin="5,5"/>
-                <Button x:Name="btnUDPStart"  Content="Start" Grid.Column="1" Grid.ColumnSpan="1" Click="btnUDPStart_Click" Margin="5,5"/>
-                <!--<TextBlock x:Name="listCnt" Text="Timer" Grid.Column="2" Margin="5,5"/> -->
-                <ProgressBar x:Name="timerBar" Grid.Column="2" Grid.ColumnSpan="2" Minimum="0" Maximum="14" Margin="5,5" Foreground="#FFEBFBEE"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/> <!-- fixed this to a reasonable size-->
+                <!-- buttons -->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
 
-                <TextBlock x:Name="avgdbm" Text="AvgdBm" Grid.Column="2" Margin="5,5" HorizontalAlignment="Right"/>
-                <TextBlock Text="Avg" Grid.Column="2" Margin="5,5" HorizontalAlignment="Left"/>
-                <TextBlock x:Name="runningAvgDbm" Text="WtAvg" Grid.Column="3" Margin="5,5" HorizontalAlignment="Right"/>
-                <TextBlock Text="Wtd" Grid.Column="3" Margin="5,5" HorizontalAlignment="Left"/>
-                <TextBlock x:Name="tblaggingCount" Text="lagCnt" Grid.Column="4" Margin="5,5"/>
+            </Grid.RowDefinitions>
 
+            <TextBlock Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Text="Version Alpha" Background="#ddd" />
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <Border BorderThickness="1" BorderBrush="Black" >
+                    <TextBlock Text="Actions" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                </Border>
+                <Button x:Name="btnUDPport" Click="ButtonUDPport_click"   Content="UDP Port" Grid.Column="0" Margin="5,5"/>
+                <Button x:Name="btnUDPStart"  Click="btnUDPStart_Click"  Content="Start Capture" Grid.Column="0" Margin="5,5"  />
+                <ProgressBar x:Name="timerBar" Grid.Column="0" Grid.ColumnSpan="1" Minimum="0" Maximum="14" Height="10" Margin="5,5" Foreground="#FFEBFBEE"/>
+                <Border BorderThickness="1" BorderBrush="Black" >
+                    <TextBlock Text="Destinations" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." ToolTipService.IsEnabled="False"/>
+                </Border>
+                <Button x:Name="btnDXAtlas" Click="btnDXatlas_Click"  Content="DX Atlas" Grid.Column="0" Margin="5,5"/>
+                <Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>
+                <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" />
+                <Button x:Name="btnClearMapOfArtifacts" Content="Make Bare Map" Grid.Column="0" Margin="5,5" Click="btnClearMapOfArtifacts_Click" />
 
+                <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnGraphA"   Content="  Graph  " Grid.Column="0" Margin="5,5"/>
+                <Button x:Name="btnTest"   Content="   Test    " Grid.Column="0" Margin="5,5" Click="btnTest_click"/>
+                    
+                </StackPanel>
+                
 
-                <!-- <Button x:Name="btnUDPStop"  Content="Stop UDP" Grid.Column="2" Click="btnUDPStop_Click" Margin="5,5"/> -->
-                <!--    <Button x:Name="btnClearText"     Content=" ClearTxtBlock" Click="ButtonClearTxtBlock"        Grid.Column="3" Margin="5,5"/> -->
-                <!--  <Button x:Name="btnClearList" Content=" Clear List"     Click="ButtonClearTxtList"         Grid.Column="4" Margin="5,5"/> -->
+                <Border BorderThickness="1" BorderBrush="Black" >
+                    <TextBlock Text="Plot Options" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                </Border>
+                <CheckBox Name="chkLabels" Content="Labels Visible" Margin="5,5" />
+                <CheckBox Name="chkLines" Content="Lines Visible" Margin="5,5"/>
+                <CheckBox Name="chkHome" Content="Home Visible" Margin="5,5"/>
+                <CheckBox Name="chkToolTip" Content="Tool Tips" Margin="5,5"/>
 
-            </Grid>
+                <Border BorderThickness="1" BorderBrush="Black" >
+                    <TextBlock Text="Statistics" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                </Border>
 
-            <TextBlock Text="Plot Destinations" Margin="5" FontSize="14" FontWeight="Bold"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnDXatlas" Content=" DX Atlas"  Grid.Column="0" Margin="5,5" Click="btnDXatlas_Click"/>
-                <Button x:Name="btnGoogleEarth" Content="Earth"  Grid.Column="1" Margin="5,5" Click="btnGoogleEarth_Click"/>
-
-                <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="2" Margin="5,5" Click="btnClearMap_Click" />
-                <TextBlock x:Name="loopCnt" Text="GS4's" Grid.Column="3" Margin="5,5"/>
-               <!-- <Button x:Name="btntest" Content="test"  Grid.Column="3" Margin="5,5" Click="btnTest_click"/>  -->
-
-            </Grid>
-
-
-
-
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <!--<ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBox Name="message" 
-                            Grid.Column="1"   
-                            Text="Click DXAtlas!" 
-                       Cursor="Hand" 
-                       ScrollViewer.CanContentScroll="True"
-                     VerticalScrollBarVisibility="Visible"
-                     Grid.Row="0"                     
-                    Height="200"
-                        TextChanged="message_TextChanged" 
-                             Width="370"
-                             Margin="0,0,0,10"
-                       />
-                </ScrollViewer>-->
-
-            </Grid>
-            <Grid>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBox Name="plotmessage" 
-                            Grid.Column="0"   
-                            Text="" 
-                       Cursor="Hand" 
-                       ScrollViewer.CanContentScroll="True"
-                     VerticalScrollBarVisibility="Visible"
-                     Grid.Row="0"
-                     Height="500" 
-                            TextChanged="plotmessage_TextChanged" 
-                             Width="570"
-                             Margin="0,10,0,0"
-                       />
-                </ScrollViewer>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
 
+                    <TextBlock Text="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="5"/>
+                    <TextBlock Text="Value" Name="avgdbm" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                    <TextBlock Text="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="5"/>
+                    <TextBlock Text="Value" x:Name="runningAvgDbm" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                    <TextBlock Text="GS4's"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5"/>
+                    <TextBlock Text="Value" x:Name="loopCnt"  Grid.Column="1" Grid.Row="2" Margin="5"/>
+                    <TextBlock Text="Total" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5"/>
+                    <TextBlock Text="Value"   Grid.Column="1" Grid.Row="3" Margin="5"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="1">
+
+                <Border BorderThickness="1" BorderBrush="Black" >
+                    <TextBlock Text="UDP Decodes with valid GS4" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                </Border>
+                <TextBox Name="plotmessage"  Grid.Column="1"  Height="300" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>
+                <Border BorderThickness="1" BorderBrush="Black"  >
+                    <TextBlock Text="Averages" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                </Border>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Eu" Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Text="Ja" Grid.Column="1" Grid.Row="0"/>
+                    <TextBlock Text="Na" Grid.Column="2" Grid.Row="0"/>
+                    <TextBlock Text="Oc" Grid.Column="3" Grid.Row="0"/>
+                    <TextBlock Text="Af" Grid.Column="4" Grid.Row="0"/>
+                    <TextBlock Text="Sa" Grid.Column="5" Grid.Row="0"/>
+                    <ProgressBar Grid.Column="0" Grid.Row="2"/>
+                    <ProgressBar Grid.Column="1" Grid.Row="2"/>
+                    <ProgressBar Grid.Column="2" Grid.Row="2"/>
+                    <ProgressBar Grid.Column="3" Grid.Row="2"/>
+                    <ProgressBar Grid.Column="4" Grid.Row="2"/>
+                    <ProgressBar Grid.Column="5" Grid.Row="2"/>
+
+                    <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="6" >
+                        <TextBlock Text="Colour Ramp" Background="#bbb" FontWeight="Bold"  Grid.Row="3" Grid.ColumnSpan="6"  Margin="1"/>
+                    </Border>
+                    <TextBlock Text="           LT -15 dBm" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="Yellow" Margin="1"/>
+                    <TextBlock Text="       -8dBm to -15dBm " Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="Aqua" Margin="1"/>
+                    <TextBlock Text="        0dBm to -8dBm " Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="Blue" Foreground="White" Margin="1"/>
+                    <TextBlock Text="           GT 0dBm " Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="Red" Margin="1"/>
+                </Grid>
+            </StackPanel>
 
 
-
-
-
-            </Grid>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

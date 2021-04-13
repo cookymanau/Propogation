@@ -134,7 +134,7 @@ namespace PropoPlot
                         Udppoint[counter, 4] = longitude;
                         Udppoint[counter, 5] = ul.udptime;
 
-                        plotmessage.Text += $"Time:{ul.udptime} Grid: {ul.udpqso3}   dBm: {ul.udpdbm} DX: {ul.udpqso2} Long: {longitude} Lat:{latitude} \r\n";   //this just a display of data
+                        plotmessage.Text += $"UTC:{ul.udptime} Grid:{ul.udpqso3} dBm:{ul.udpdbm} DX:{ul.udpqso2} Long:{longitude} Lat:{latitude} \r\n";   //this just a display of data
                         counter++;  //this counter goes up by not 1
                         if (ul.udpdbm != "" || ul.udpdbm != null)
                         {
@@ -143,7 +143,7 @@ namespace PropoPlot
 
                     }
 
-                    loopCnt.Text = $"GS4's:{counter.ToString()}";  //is the number of decodes with a grid square
+                    loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square
                     QSOsThiInterval = counter;
 
                 }//end of foreach loop
@@ -213,16 +213,13 @@ namespace PropoPlot
                 timerBar.Foreground = System.Windows.Media.Brushes.LightYellow;
 
             if (value > -20)
-                timerBar.Foreground = System.Windows.Media.Brushes.LightGoldenrodYellow;
-
-            if (value > -15.1)
-                timerBar.Foreground = System.Windows.Media.Brushes.Orange;
+                timerBar.Foreground = System.Windows.Media.Brushes.Aqua;
 
             if (value > -10.1)
-                timerBar.Foreground = System.Windows.Media.Brushes.DarkOrange;
+                timerBar.Foreground = System.Windows.Media.Brushes.Blue;
 
-            if (value > -5)
-                timerBar.Foreground = System.Windows.Media.Brushes.IndianRed;
+//            if (value > -5)
+//                timerBar.Foreground = System.Windows.Media.Brushes.IndianRed;
 
             if (value == 0 )
                 timerBar.Foreground = System.Windows.Media.Brushes.LightGray;
