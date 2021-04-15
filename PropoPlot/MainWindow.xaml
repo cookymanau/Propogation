@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-       Title="WSJT Propogation" Height="575" Width="540" >
+       Title="WSJT Propogation" Height="575" Width="540"  Name="window">
     <Border Margin="10,0,10,10">
 
         <Grid>
@@ -25,16 +25,26 @@
                 <Border BorderThickness="1" BorderBrush="Black" >
                     <TextBlock Text="Actions" Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
-                <Button x:Name="btnUDPport" Click="ButtonUDPport_click"   Content="UDP Port" Grid.Column="0" Margin="5,5"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                
+                    <TextBlock Text="UDP Port" Grid.Column="0" Margin="5,5" ToolTip="Use 2233 for JTDX only. 2334 if using JTAlert UDP retransmit then 2334. Change port BEFORE Start Capture."/>
+                 <TextBox x:Name="UDPportEntry" Grid.Column="1" Margin="5,5" Text="2334" HorizontalAlignment="Center" />
+                </Grid>
+                
                 <Button x:Name="btnUDPStart"  Click="btnUDPStart_Click"  Content="Start Capture" Grid.Column="0" Margin="5,5"  />
                 <ProgressBar x:Name="timerBar" Grid.Column="0" Grid.ColumnSpan="1" Minimum="0" Maximum="14" Height="10" Margin="5,5" Foreground="#FFEBFBEE"/>
                 <Border BorderThickness="1" BorderBrush="Black" >
-                    <TextBlock Text="Destinations" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." ToolTipService.IsEnabled="False"/>
+                    <TextBlock Text="Destinations" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." />
                 </Border>
-                <Button x:Name="btnDXAtlas" Click="btnDXatlas_Click"  Content="DX Atlas" Grid.Column="0" Margin="5,5"/>
+                <Button x:Name="btnDXAtlas" Click="btnDXatlas_Click"  Content="DX Atlas" Grid.Column="0" Margin="5,5" ToolTip="Start and Stop plotting to DX Atlas."/>
                 <Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>
-                <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" />
-                <Button x:Name="btnClearMapOfArtifacts" Content="Make Bare Map" Grid.Column="0" Margin="5,5" Click="btnClearMapOfArtifacts_Click" />
+                <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" ToolTip="Clear the dots or not, this is a toggle."/>
+                <Button x:Name="btnClearMapOfArtifacts" Content="Make Bare Map" Grid.Column="0" Margin="5,5" Click="btnClearMapOfArtifacts_Click" ToolTip="Clear the map."/>
 
                 <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnGraphA"   Content="  Graph  " Grid.Column="0" Margin="5,5"/>
@@ -48,9 +58,9 @@
                 </Border>
                 <CheckBox Name="chkLabels" Content="Labels Visible" Margin="5,5" />
                 <CheckBox Name="chkLines" Content="Lines Visible" Margin="5,5"/>
-                <CheckBox Name="chkHome" Content="Home Visible" Margin="5,5"/>
-                <CheckBox Name="chkToolTip" Content="Tool Tips" Margin="5,5"/>
-
+                <CheckBox Name="chkHome" Content="Home Visible" Margin="5,5" />
+                <CheckBox Name="chkToolTip" Content="Tool Tips" Margin="5,5" IsChecked="True" />
+                <!--<CheckBox IsChecked="{Binding Path=(ToolTipBehavior.IsToolTipEnabled), ElementName=window}" Content="Enable ToolTip"/>-->
                 <Border BorderThickness="1" BorderBrush="Black" >
                     <TextBlock Text="Statistics" Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
@@ -69,14 +79,14 @@
                     </Grid.RowDefinitions>
 
 
-                    <TextBlock Text="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="5"/>
-                    <TextBlock Text="Value" Name="avgdbm" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                    <TextBlock Text="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="5" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square."/>
+                    <TextBlock Text="Value" Name="avgdbm" Grid.Column="1" Grid.Row="0" Margin="5" ToolTip="The average of all decodes over a 6 decode period."/>
                     <TextBlock Text="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="5"/>
                     <TextBlock Text="Value" x:Name="runningAvgDbm" Grid.Column="1" Grid.Row="1" Margin="5"/>
-                    <TextBlock Text="GS4's"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5"/>
+                    <TextBlock Text="GS4's"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5" ToolTip="The number of decodes in the last period"/>
                     <TextBlock Text="Value" x:Name="loopCnt"  Grid.Column="1" Grid.Row="2" Margin="5"/>
-                    <TextBlock Text="Total" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5"/>
-                    <TextBlock Text="Value"   Grid.Column="1" Grid.Row="3" Margin="5"/>
+                    <TextBlock Text="TotalChars" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5" ToolTip="How big the decode text buffer is.  It is turned over every 10k characters."/>
+                    <TextBlock Text="Value" Name="sumChr"  Grid.Column="1" Grid.Row="3" Margin="5"/>
 
                 </Grid>
             </StackPanel>

@@ -399,9 +399,17 @@ namespace PropoPlot
         /// </summary>
         private void DxAtlasMapClear() {
 
-             
+            try
+            {
               _atlas.Map.CustomLayers.Clear();
             _connectAndConfigureAtlas();
+
+            }
+            catch (Exception)
+            {
+
+//                throw;
+            }
             
 
      

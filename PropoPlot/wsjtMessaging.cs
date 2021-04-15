@@ -32,7 +32,7 @@ namespace PropoPlot
         public bool plotToDxAtlas = false;
         public int QSOsThiInterval = 0;
 
-
+        
 
         public string[,] Udppoint = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
         //0 = callsign
@@ -52,14 +52,17 @@ namespace PropoPlot
         //private async Task wsjtmessages()  //should this be returning a Task cause void is bad?
         private void wsjtmessages()  //should this be returning a Task cause void is bad?
         {
-                //input parameters
-                    var client = new WsjtxClient((msg, from) =>
+
+            int UDPport = int.Parse( UDPportEntry.Text) ;
+
+        //input parameters
+        var client = new WsjtxClient((msg, from) =>
                     {
                         //sequence of statments here
                         string strmsg = msg.ToString();
                         Debug.WriteLine(msg); //write to the immdiate window
                         udpStrings.Add(msg.ToString()); //collect the strings into a list
-                    }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: true);
+                    }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: true, port:UDPport);
         }//end
 
 
@@ -147,7 +150,7 @@ namespace PropoPlot
                     QSOsThiInterval = counter;
 
                 }//end of foreach loop
-                        plotmessage.Text += "----------------------- --------------\n";
+                        plotmessage.Text += "--------------------------------- -----------------------------\n";
 
                 // we count all of the good grids only - ie where there is at least one grid
                 if (counter > 0)
@@ -160,11 +163,21 @@ namespace PropoPlot
 
                 //lets display the contents of the array
 
-             //   for (int i = 0; i < counter; i++)
-              //  {
-             //       plotmessage.Text += $"Time:{Udppoint[i, 5]} Grid: {Udppoint[i, 2]} dBm: {Udppoint[i, 1]} DX: {Udppoint[1, 0]} Long: {Udppoint[i, 4]} Lat:{Udppoint[i, 3]} \r\n";   //this just a display of data
-             //   }
+              //  for (int i = 0; i < counter; i++)
+               // {
+              //      plotmessage.Text += $"Time:{Udppoint[i, 5]} Grid: {Udppoint[i, 2]} dBm: {Udppoint[i, 1]} DX: {Udppoint[1, 0]} Long: {Udppoint[i, 4]} Lat:{Udppoint[i, 3]} \r\n";   //this just a display of data
+              //  }
 
+                sumChr.Text = plotmessage.Text.Length.ToString();
+                //it would be good to just remove the first 8000 chars and then keep it like that
+
+                if (plotmessage.Text.Length > 9000) 
+                {
+                    string pm = plotmessage.Text.Substring(plotmessage.Text.Length - 2000,2000);
+                    
+                    plotmessage.Text = "Truncated.." + pm;
+
+                }
 
                 //now lets workout the weightd average - its a lagging indicator of signal strength
                 if (laggingCount > laggingWindow  || laggingRound == true) //lagging window is set elsewhere
