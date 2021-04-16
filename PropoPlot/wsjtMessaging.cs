@@ -21,6 +21,9 @@ namespace PropoPlot
     public partial  class  MainWindow
     {
         public double[] avgs = new double[8] ;  //declare an array of elements that we use for the lagging signal strength
+
+        
+
         public int avgsCounter = 0;
         double laggingAvg = 0;  //wtd avg
         int laggingCount = 0; //wtd avg
@@ -32,7 +35,8 @@ namespace PropoPlot
         public bool plotToDxAtlas = false;
         public int QSOsThiInterval = 0;
 
-        
+        //public bool wsjtClientAbort = false;
+
 
         public string[,] Udppoint = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
         //0 = callsign
@@ -41,7 +45,15 @@ namespace PropoPlot
         //3 = Latitude
         //4 = Longitude
         //5 = time
+       // public string[,] UdppointEU = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+       // public string[,] UdppointJA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+        public string[,] UdppointOC = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+        public string[,] UdppointNA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+        public string[,] UdppointSA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+        public string[,] UdppointAF = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
         
+
+
 
         /// <summary>
         /// This runs the M0LTE dll in a infinite loop. Have no control over this once it starts
@@ -52,18 +64,33 @@ namespace PropoPlot
         //private async Task wsjtmessages()  //should this be returning a Task cause void is bad?
         private void wsjtmessages()  //should this be returning a Task cause void is bad?
         {
+            
 
-            int UDPport = int.Parse( UDPportEntry.Text) ;
+      //      if (wsjtClientAbort == false) {
 
-        //input parameters
-        var client = new WsjtxClient((msg, from) =>
-                    {
+     //           wsjtClientAbort = true;
+
+                int UDPport = int.Parse(UDPportEntry.Text);
+
+                //input parameters
+                  var client = new WsjtxClient((msg, from) =>
+                            {
                         //sequence of statments here
                         string strmsg = msg.ToString();
-                        Debug.WriteLine(msg); //write to the immdiate window
+                                Debug.WriteLine(msg); //write to the immdiate window
                         udpStrings.Add(msg.ToString()); //collect the strings into a list
-                    }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: true, port:UDPport);
+                    }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: true, port: UDPport);
+
+       //     }
+       //     else
+       //     {
+       //       //  btnUDPStart.Content = "Start Capture";
+       //         wsjtClientAbort = true;
+       //     }
+
         }//end
+
+        
 
 
         /// <summary>
@@ -85,6 +112,11 @@ namespace PropoPlot
             string cleandata = "";
             double averagedbm = 0;
             double totaldbm = 0;
+
+            double totaldbmJA = 0;
+                int counterJA = 0;
+            double totaldbmEU = 0;
+                int counterEU = 0;
 
 
                 foreach (var item in udpStrings)
@@ -124,7 +156,7 @@ namespace PropoPlot
                         && ul.udpqso3.Substring(0, 2) != "+1"
                         && ul.udpqso3.Substring(0, 2) != "+2"
                      ))
-                    { //this fires for every string that has grtid data
+                    { //this fires for every string that has grid data
 
                         //lets try putting data into our matrix udppoint  //using counter (which is the number of decoded qsos with a grid square
                         Udppoint[counter, 0] = ul.udpqso2;
@@ -133,17 +165,37 @@ namespace PropoPlot
                         string latitude = Maiden2latitude(ul.udpqso3);
                         string longitude = Maiden2longitude(ul.udpqso3);
 
+                        double dlatitude = double.Parse(latitude);
+                        double dlongitude = double.Parse(longitude);
+
+
                         Udppoint[counter, 3] = latitude;
                         Udppoint[counter, 4] = longitude;
                         Udppoint[counter, 5] = ul.udptime;
 
+
+                        if (dlatitude > 28 && dlatitude < 54  && dlongitude > 121 && dlongitude <  150) 
+                        {
+                            totaldbmJA += double.Parse(ul.udpdbm);
+                            counterJA += 1;
+                        }
+
+                        if (dlatitude > 36 && dlatitude < 72  && dlongitude > -12 && dlongitude <  58) 
+                        {
+                            totaldbmEU += double.Parse(ul.udpdbm);
+                            counterEU += 1;
+                        }
+
+
+
+
                         plotmessage.Text += $"UTC:{ul.udptime} Grid:{ul.udpqso3} dBm:{ul.udpdbm} DX:{ul.udpqso2} Long:{longitude} Lat:{latitude} \r\n";   //this just a display of data
                         counter++;  //this counter goes up by not 1
+ 
                         if (ul.udpdbm != "" || ul.udpdbm != null)
                         {
                             totaldbm += double.Parse(ul.udpdbm);
                         }
-
                     }
 
                     loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square
@@ -158,25 +210,28 @@ namespace PropoPlot
                     avgdbm.Text = Math.Round(totaldbm / counter, 0).ToString();  //thi is the average for THIS time period
                     avgs[laggingCount] = totaldbm / counter; //shove the avgdbm data into an array. It doesnt matter which slot really (I dont think)
                     laggingCount += 1;
-                    
+
+
                 }
 
-                //lets display the contents of the array
+                JAdbm.Text = Math.Round((totaldbmJA / counterJA),0).ToString();
+                JAdbmCount.Text = counterJA.ToString();
+                setColourJA(totaldbmJA / counterJA);
 
-              //  for (int i = 0; i < counter; i++)
-               // {
-              //      plotmessage.Text += $"Time:{Udppoint[i, 5]} Grid: {Udppoint[i, 2]} dBm: {Udppoint[i, 1]} DX: {Udppoint[1, 0]} Long: {Udppoint[i, 4]} Lat:{Udppoint[i, 3]} \r\n";   //this just a display of data
-              //  }
+
+                EUdbm.Text =  Math.Round( (totaldbmEU / counterEU),0).ToString();
+                setColourEU(totaldbmEU / counterEU);
+
+
+
 
                 sumChr.Text = plotmessage.Text.Length.ToString();
                 //it would be good to just remove the first 8000 chars and then keep it like that
 
                 if (plotmessage.Text.Length > 9000) 
-                {
+               {
                     string pm = plotmessage.Text.Substring(plotmessage.Text.Length - 2000,2000);
-                    
                     plotmessage.Text = "Truncated.." + pm;
-
                 }
 
                 //now lets workout the weightd average - its a lagging indicator of signal strength
@@ -220,8 +275,6 @@ namespace PropoPlot
 
         private void  setTimerBarColour(double value) {
 
-
-
             if (value > -40)
                 timerBar.Foreground = System.Windows.Media.Brushes.LightYellow;
 
@@ -231,18 +284,50 @@ namespace PropoPlot
             if (value > -10.1)
                 timerBar.Foreground = System.Windows.Media.Brushes.Blue;
 
-//            if (value > -5)
-//                timerBar.Foreground = System.Windows.Media.Brushes.IndianRed;
-
             if (value == 0 )
                 timerBar.Foreground = System.Windows.Media.Brushes.LightGray;
 
             if (value > 0)
                 timerBar.Foreground = System.Windows.Media.Brushes.Red;
-        
         }
 
+        private void setColourJA(double value)
+        {
 
+            if (value > -40)
+                JAprog. Background = System.Windows.Media.Brushes.LightYellow;
+
+            if (value > -20)
+                JAprog.Background = System.Windows.Media.Brushes.Aqua;
+
+            if (value > -10.1)
+                JAprog.Background = System.Windows.Media.Brushes.Blue;
+
+            if (value == 0)
+                JAprog.Background = System.Windows.Media.Brushes.LightGray;
+
+            if (value > 0)
+                JAprog.Background = System.Windows.Media.Brushes.Red;
+        }
+
+        private void setColourEU(double value)
+        {
+
+            if (value > -40)
+                EUprog.Background = System.Windows.Media.Brushes.LightYellow;
+
+            if (value > -20)
+                EUprog.Background = System.Windows.Media.Brushes.Aqua;
+
+            if (value > -10.1)
+                EUprog.Background = System.Windows.Media.Brushes.Blue;
+
+            if (value == 0)
+                EUprog.Background = System.Windows.Media.Brushes.LightGray;
+
+            if (value > 0)
+                EUprog.Background = System.Windows.Media.Brushes.Red;
+        }
 
         private string Maiden2latitude(string grid)  //this is from loginfo, translated from VB
         {

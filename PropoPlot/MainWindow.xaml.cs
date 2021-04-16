@@ -39,21 +39,7 @@ namespace PropoPlot
 
         }
 
-   //  private void ButtonClearTxtBlock(object sender, RoutedEventArgs e)
-   //  {
-   //   //   message.Text = String.Empty;
-   //  }
-
-  //   private void ButtonClearTxtList(object sender, RoutedEventArgs e)
-  //   {
-  //       udpStrings.Clear();
-  //
-  //   }
-
-  //   private void message_TextChanged(object sender, TextChangedEventArgs e)
-  //   {
-  //     //  message.ScrollToEnd();
-  //   }
+ 
         private void plotmessage_TextChanged(object sender, TextChangedEventArgs e)
         {
             plotmessage.ScrollToEnd();
@@ -98,7 +84,7 @@ namespace PropoPlot
 
             btnUDPStart.Content = "Running";
 
-            // now start the timer to process the UDP stuff
+            // now start the timer to process the UDP stuff now that we have started it.
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2);//two second increments
@@ -164,6 +150,7 @@ namespace PropoPlot
             //     _atlas.Map.EndUpdate();
            // DxAtlasMapClear();
 
+            
 
         }
 
@@ -187,6 +174,29 @@ namespace PropoPlot
         private void btnClearMapOfArtifacts_Click(object sender, RoutedEventArgs e)
         {
             DxAtlasMapClear();
+        }
+
+        private void cmboUDP_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("2222");
+            data.Add("2233");
+            data.Add("2334");
+            data.Add("2221");
+            data.Add("2223");
+
+            var combo = sender as ComboBox;
+            combo.ItemsSource = data;
+            combo.SelectedIndex = 0;
+
+        }
+
+        private void cmboUDP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedcomboitem = sender as ComboBox;
+            string name = selectedcomboitem.SelectedItem as string;
+            //  MessageBox.Show(name);
+            UDPportEntry.Text = name;
         }
     }
 
