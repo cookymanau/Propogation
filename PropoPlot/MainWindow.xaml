@@ -136,17 +136,21 @@
                     <TextBlock Text="Af" Grid.Column="4" Grid.Row="0"/>
                     <TextBlock Text="Sa" Grid.Column="5" Grid.Row="0"/>
 
-                    <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Margin="5,0,0,0" />
+                    <TextBlock Name="EUdbmCount" Text="EUJAcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
+                    <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
+                    <TextBlock Name="NAdbmCount" Text="NAcnt" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
+                    <TextBlock Name="SAdbmCount" Text="SAcnt" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
 
                     <ProgressBar Grid.Column="0" Grid.Row="2" Name="EUprog"/>
                     <ProgressBar Grid.Column="1" Grid.Row="2" Name="JAprog"/>
-                    <ProgressBar Grid.Column="2" Grid.Row="2"/>
-                    <ProgressBar Grid.Column="3" Grid.Row="2"/>
+                    <ProgressBar Grid.Column="2" Grid.Row="2" Name="NAprog"/>
+                    <ProgressBar Grid.Column="3" Grid.Row="2" Name="SAprog"/>
                     <ProgressBar Grid.Column="4" Grid.Row="2"/>
                     <ProgressBar Grid.Column="5" Grid.Row="2"/>
 
-                    <TextBlock Name="JAdbm" Text="JA" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="5,5"/>
-                    <TextBlock Name="EUdbm" Text="EU" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="5"/>
+                    <TextBlock Name="EUdbm" Text="EU" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1" Padding="20,0,0,0"/>
+                    <TextBlock Name="JAdbm" Text="JA" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="NAdbm" Text="NA" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
                       
                       
                       <!--The Colour Ramp and spare space to the right of the ramp-->

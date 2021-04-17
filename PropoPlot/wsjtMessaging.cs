@@ -117,6 +117,14 @@ namespace PropoPlot
                 int counterJA = 0;
             double totaldbmEU = 0;
                 int counterEU = 0;
+            double totaldbmNA = 0;
+                int counterNA = 0;
+            double totaldbmSA = 0;
+                int counterSA = 0;
+            double totaldbmAF = 0;
+                int counterAF = 0;
+            double totaldbmOC = 0;
+                int counterOC = 0;
 
 
                 foreach (var item in udpStrings)
@@ -173,17 +181,25 @@ namespace PropoPlot
                         Udppoint[counter, 4] = longitude;
                         Udppoint[counter, 5] = ul.udptime;
 
-
-                        if (dlatitude > 28 && dlatitude < 54  && dlongitude > 121 && dlongitude <  150) 
+                        //JA
+                        if (dlatitude > 28 && dlatitude < 46  && dlongitude > 129 && dlongitude <  146) 
                         {
                             totaldbmJA += double.Parse(ul.udpdbm);
                             counterJA += 1;
                         }
 
-                        if (dlatitude > 36 && dlatitude < 72  && dlongitude > -12 && dlongitude <  58) 
+                        //Europe
+                        if (dlatitude > 36 && dlatitude < 72  && dlongitude > -12 && dlongitude <  47) 
                         {
                             totaldbmEU += double.Parse(ul.udpdbm);
                             counterEU += 1;
+                        }
+
+                        //NA
+                        if (dlatitude > 12 && dlatitude < 90 && dlongitude > -131 && dlongitude < -54)
+                        {
+                            totaldbmNA += double.Parse(ul.udpdbm);
+                            counterNA += 1;
                         }
 
 
@@ -214,13 +230,28 @@ namespace PropoPlot
 
                 }
 
-                JAdbm.Text = Math.Round((totaldbmJA / counterJA),0).ToString();
-                JAdbmCount.Text = counterJA.ToString();
-                setColourJA(totaldbmJA / counterJA);
-
 
                 EUdbm.Text =  Math.Round( (totaldbmEU / counterEU),0).ToString();
-                setColourEU(totaldbmEU / counterEU);
+                EUdbmCount.Text = counterEU.ToString();
+                if(totaldbmEU /counterEU > -40)
+                    setColourEU(totaldbmEU / counterEU);
+                else
+                    setColourEU(-100);    
+                
+                JAdbm.Text =  Math.Round( (totaldbmJA / counterJA),0).ToString();
+                JAdbmCount.Text = counterJA.ToString();
+                if(totaldbmJA /counterJA > -40)
+                    setColourJA(totaldbmJA / counterJA);
+                else
+                    setColourJA(-100);
+
+                NAdbm.Text = Math.Round((totaldbmNA / counterNA), 0).ToString();
+                NAdbmCount.Text = counterNA.ToString();
+                if (totaldbmNA / counterNA > -40)
+                    setColourNA(totaldbmNA / counterNA);
+                else
+                    setColourNA(-100);
+
 
 
 
@@ -273,61 +304,10 @@ namespace PropoPlot
             return total;
         }
 
-        private void  setTimerBarColour(double value) {
 
-            if (value > -40)
-                timerBar.Foreground = System.Windows.Media.Brushes.LightYellow;
+  
 
-            if (value > -20)
-                timerBar.Foreground = System.Windows.Media.Brushes.Aqua;
-
-            if (value > -10.1)
-                timerBar.Foreground = System.Windows.Media.Brushes.Blue;
-
-            if (value == 0 )
-                timerBar.Foreground = System.Windows.Media.Brushes.LightGray;
-
-            if (value > 0)
-                timerBar.Foreground = System.Windows.Media.Brushes.Red;
-        }
-
-        private void setColourJA(double value)
-        {
-
-            if (value > -40)
-                JAprog. Background = System.Windows.Media.Brushes.LightYellow;
-
-            if (value > -20)
-                JAprog.Background = System.Windows.Media.Brushes.Aqua;
-
-            if (value > -10.1)
-                JAprog.Background = System.Windows.Media.Brushes.Blue;
-
-            if (value == 0)
-                JAprog.Background = System.Windows.Media.Brushes.LightGray;
-
-            if (value > 0)
-                JAprog.Background = System.Windows.Media.Brushes.Red;
-        }
-
-        private void setColourEU(double value)
-        {
-
-            if (value > -40)
-                EUprog.Background = System.Windows.Media.Brushes.LightYellow;
-
-            if (value > -20)
-                EUprog.Background = System.Windows.Media.Brushes.Aqua;
-
-            if (value > -10.1)
-                EUprog.Background = System.Windows.Media.Brushes.Blue;
-
-            if (value == 0)
-                EUprog.Background = System.Windows.Media.Brushes.LightGray;
-
-            if (value > 0)
-                EUprog.Background = System.Windows.Media.Brushes.Red;
-        }
+  
 
         private string Maiden2latitude(string grid)  //this is from loginfo, translated from VB
         {

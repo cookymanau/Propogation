@@ -87,10 +87,6 @@ namespace PropoPlot
                 float longitude = float.Parse(Udppoint[i, 4]);
                 float latitude = float.Parse(Udppoint[i, 3]);
 
-         //      Dx[i, 0] = longitude;
-         //      Dx[i, 1] = latitude;
-         //      Dx[i, 2] = Udppoint[i, 0];  //the callsign
-         //
                 DxC[i, 0] = longitude;
                 DxC[i, 1] = latitude;
                 DxC[i, 2] = Udppoint[i, 0];  //the callsign
