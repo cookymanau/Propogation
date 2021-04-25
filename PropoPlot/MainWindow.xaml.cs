@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using M0LTE.WsjtxUdpLib.Client;
+using Microsoft.Win32;
+using System.IO;
 
 
 namespace PropoPlot
@@ -24,7 +26,11 @@ namespace PropoPlot
     /// </summary>
     public partial class MainWindow : Window
     {
-      List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads
+        continentData cd = new continentData();  //this is our class holding all of the data
+     
+        List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads
+
+        List<string> continentList = new List<string>();
         //make a global instatiation of our class
         UdpDataload ul = new UdpDataload();
         int timercounter = 0; 
@@ -179,9 +185,11 @@ namespace PropoPlot
         private void cmboUDP_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> data = new List<string>();
-            data.Add("2222");
-            data.Add("2233");
             data.Add("2334");
+            data.Add("2237");
+            data.Add("2233");
+            data.Add("2234");
+            data.Add("2222");
             data.Add("2221");
             data.Add("2223");
 
@@ -197,6 +205,44 @@ namespace PropoPlot
             string name = selectedcomboitem.SelectedItem as string;
             //  MessageBox.Show(name);
             UDPportEntry.Text = name;
+        }
+
+        private void btnSaveFile_Click(object sender, RoutedEventArgs e)
+        {
+            //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
+            //using System.IO; is for SttreamWriter
+
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "PropoPlot"; // Default file name
+            dlg.DefaultExt = ".csv"; // Default file extension
+            dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+
+            // now send all to the filename
+            using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    // writer.WriteLine($"UTC:{ul.udptime} Grid:{ul.udpqso3} dBm:{ul.udpdbm} DX:{ul.udpqso2} Long:{longitude} Lat:{latitude} \r\n");   //this just a display of data)
+                    writer.WriteLine("RingAnt,EUdbm,JAdbm,NAdbm,OCdbm,AFdbm,SAdbm,FAdbm,EUcnt,JAcnt,NAcnt,OCcnt,AFcnt,SAcnt,FAcnt");
+
+                    foreach (string item in continentList)
+                    {
+
+                        //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
+                        writer.WriteLine(item);
+                    }
+                }
+           
+
+            }
+
         }
     }
 

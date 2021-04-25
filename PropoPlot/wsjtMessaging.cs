@@ -8,21 +8,31 @@ using M0LTE.WsjtxUdpLib.Client;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
- //***************************************
-     //ProgName: wstMessaging
-     //Date: April 2021
-     //Author: Ian Cook
-     //Purose: To decode the UDP strings from WSJT-x
-     //Comment:				
-     //************************************************
+
+//***************************************
+//ProgName: wstMessaging
+//Date: April 2021
+//Author: Ian Cook
+//Purose: To decode the UDP strings from WSJT-x
+//Comment:				
+//************************************************
 
 namespace PropoPlot
 {
     public partial  class  MainWindow
     {
         public double[] avgs = new double[8] ;  //declare an array of elements that we use for the lagging signal strength
-
         
+       // int EUavgsCnt = 0;
+
+        public double[] FAavgs = new double[8];
+        public double[] JAavgs = new double[8];
+        public double[] EUavgs = new double[8];
+        public double[] NAavgs = new double[8];
+        public double[] OCavgs = new double[8];
+        public double[] SAavgs = new double[8];
+        public double[] AFavgs = new double[8];
+
 
         public int avgsCounter = 0;
         double laggingAvg = 0;  //wtd avg
@@ -113,8 +123,8 @@ namespace PropoPlot
             double averagedbm = 0;
             double totaldbm = 0;
 
-            double totaldbmJA = 0;
-                int counterJA = 0;
+            double totaldbmJA = 0; //these are for the average for a single period  - add all of the dBms together
+                int counterJA = 0; // then divide by the number of reports
             double totaldbmEU = 0;
                 int counterEU = 0;
             double totaldbmNA = 0;
@@ -125,7 +135,13 @@ namespace PropoPlot
                 int counterAF = 0;
             double totaldbmOC = 0;
                 int counterOC = 0;
+           
+            double totaldbmFA = 0;
+            double sumFAarray = 0;
+                double averageFAarray = 0;
+                int counterFA = 0;
 
+           
 
                 foreach (var item in udpStrings)
                 {
@@ -181,15 +197,16 @@ namespace PropoPlot
                         Udppoint[counter, 4] = longitude;
                         Udppoint[counter, 5] = ul.udptime;
 
+                        // this subdivdes the dataload into areas on the globe and keeps a running tally of the dbms
                         //JA
-                        if (dlatitude > 28 && dlatitude < 46  && dlongitude > 129 && dlongitude <  146) 
+                        if (dlatitude > 30 && dlatitude < 46  && dlongitude > 130 && dlongitude <  146) 
                         {
-                            totaldbmJA += double.Parse(ul.udpdbm);
-                            counterJA += 1;
+                            totaldbmJA += double.Parse(ul.udpdbm);  //this is the running tally of the dbms
+                            counterJA += 1;                         //this is the number of stations in the continent
                         }
 
                         //Europe
-                        if (dlatitude > 36 && dlatitude < 72  && dlongitude > -12 && dlongitude <  47) 
+                        if (dlatitude > 34 && dlatitude < 72  && dlongitude > -12 && dlongitude <  60) 
                         {
                             totaldbmEU += double.Parse(ul.udpdbm);
                             counterEU += 1;
@@ -202,6 +219,34 @@ namespace PropoPlot
                             counterNA += 1;
                         }
 
+
+                        //OC
+                        if (dlatitude > -54 && dlatitude < 28 && dlongitude > 112 && dlongitude < 126)
+                        {
+                            totaldbmOC += double.Parse(ul.udpdbm);
+                            counterOC += 1;
+                        }
+
+
+                        //AF
+                        if (dlatitude > -35 && dlatitude < 34 && dlongitude > -20 && dlongitude < 50)
+                        {
+                            totaldbmAF += double.Parse(ul.udpdbm);
+                            counterAF += 1;
+                        }
+
+                        //SA
+                        if (dlatitude > -60 && dlatitude < 12 && dlongitude > -90 && dlongitude < -32)
+                        {
+                            totaldbmSA += double.Parse(ul.udpdbm);
+                            counterSA += 1;
+                        }
+                        //FA Far East China india indonesia phillppines Japan
+                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
+                        {
+                            totaldbmFA += double.Parse(ul.udpdbm);
+                            counterFA += 1;
+                        }
 
 
 
@@ -226,34 +271,69 @@ namespace PropoPlot
                     avgdbm.Text = Math.Round(totaldbm / counter, 0).ToString();  //thi is the average for THIS time period
                     avgs[laggingCount] = totaldbm / counter; //shove the avgdbm data into an array. It doesnt matter which slot really (I dont think)
                     laggingCount += 1;
-
-
                 }
 
 
-                EUdbm.Text =  Math.Round( (totaldbmEU / counterEU),0).ToString();
-                EUdbmCount.Text = counterEU.ToString();
-                if(totaldbmEU /counterEU > -40)
-                    setColourEU(totaldbmEU / counterEU);
+                //thes call a series of functions to calculate the weightd average of the dBm
+                if (totaldbmEU / counterEU > -40)
+                {
+                    runningEUContinentalAverage(totaldbmEU / counterEU, EUprog, EUdbm, counterEU, EUavgs);
+                }//end of if
                 else
-                    setColourEU(-100);    
-                
-                JAdbm.Text =  Math.Round( (totaldbmJA / counterJA),0).ToString();
-                JAdbmCount.Text = counterJA.ToString();
-                if(totaldbmJA /counterJA > -40)
-                    setColourJA(totaldbmJA / counterJA);
-                else
-                    setColourJA(-100);
+                    EUdbmCount.Text = "0";
 
-                NAdbm.Text = Math.Round((totaldbmNA / counterNA), 0).ToString();
-                NAdbmCount.Text = counterNA.ToString();
+
+                if (totaldbmFA / counterFA > -40)
+                {
+                    runningFAContinentalAverage(totaldbmFA / counterFA, FAprog, FAdbm, counterFA, FAavgs);
+                }//end of if
+                else
+                    FAdbmCount.Text = "0";
+
+
+                if (totaldbmJA / counterJA > -40)
+                {
+                    runningJAContinentalAverage(totaldbmJA / counterJA, JAprog, JAdbm, counterJA, JAavgs);
+                }//end of if
+                else
+                    JAdbmCount.Text = "0";
+
+
                 if (totaldbmNA / counterNA > -40)
-                    setColourNA(totaldbmNA / counterNA);
+                {
+                    runningNAContinentalAverage(totaldbmNA / counterNA, NAprog, NAdbm, counterNA, NAavgs);
+                }//end of if
                 else
-                    setColourNA(-100);
+                    NAdbmCount.Text = "0";
 
 
 
+                if (totaldbmOC / counterOC > -40)
+                {
+                    runningOCContinentalAverage(totaldbmOC / counterOC, OCprog, OCdbm, counterOC, OCavgs);
+                }//end of if
+                else
+                    OCdbmCount.Text = "0";
+
+
+                if (totaldbmAF / counterAF > -40)
+                {
+                    runningAFContinentalAverage(totaldbmAF / counterAF, AFprog, AFdbm, counterAF, AFavgs);
+                }//end of if
+                else
+                    AFdbmCount.Text = "0";
+
+
+                if (totaldbmSA / counterSA > -40)
+                {
+                    runningSAContinentalAverage(totaldbmSA / counterSA, SAprog, SAdbm, counterSA, SAavgs);
+                }//end 
+                else
+                    SAdbmCount.Text = "0";
+
+//now we save the last lof of data to our contint list
+//                continentList.Add($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
+                continentList.Add($"Kenwood 1,{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
 
 
                 sumChr.Text = plotmessage.Text.Length.ToString();

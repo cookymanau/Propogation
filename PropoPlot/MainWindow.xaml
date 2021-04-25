@@ -36,7 +36,7 @@
                     </Grid.RowDefinitions>
                 
                     <TextBlock Text="UDP Port" Grid.Column="0" Margin="5,5" ToolTip="2222 for CatSync and JTDX; Radio 2233 for JTDX only. 2334 if using JTAlert UDP retransmit. Change port BEFORE Start Capture."/>
-                    <TextBox x:Name="UDPportEntry" Grid.Column="1" Margin="5,5" Text="2222" HorizontalAlignment="Center" />
+                    <TextBox x:Name="UDPportEntry" Grid.Column="1" Margin="5,5" Text="2334" HorizontalAlignment="Center" />
                     <TextBlock Text="Select" Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="1" Margin="5,5"/>
                     <ComboBox Grid.Column="1" Grid.Row="2" x:Name="cmboUDP" Loaded="cmboUDP_Loaded" SelectionChanged="cmboUDP_SelectionChanged" Margin="5,5" />
                 </Grid>
@@ -54,7 +54,7 @@
 
                 <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnGraphA"   Content="  Graph  " Grid.Column="0" Margin="5,5"/>
-                <Button x:Name="btnTest"   Content="   Test    " Grid.Column="0" Margin="5,5" Click="btnTest_click"/>
+                <Button x:Name="btnSaveFile"   Content=" Save File  " Grid.Column="0" Margin="5,5" Click="btnSaveFile_Click"/>
                     
                 </StackPanel>
                 
@@ -116,6 +116,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20" />
@@ -135,32 +136,53 @@
                     <TextBlock Text="Oc" Grid.Column="3" Grid.Row="0"/>
                     <TextBlock Text="Af" Grid.Column="4" Grid.Row="0"/>
                     <TextBlock Text="Sa" Grid.Column="5" Grid.Row="0"/>
+                    <TextBlock Text="FarEast" Grid.Column="6" Grid.Row="0"/>
 
-                    <TextBlock Name="EUdbmCount" Text="EUJAcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
-                    <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
-                    <TextBlock Name="NAdbmCount" Text="NAcnt" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
-                    <TextBlock Name="SAdbmCount" Text="SAcnt" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="10,0,0,0" />
+                    <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="NAdbmCount" Text="NAcnt" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="OCdbmCount" Text="OCcnt" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="AFdbmCount" Text="AFcnt" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="SAdbmCount" Text="SAcnt" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="FAdbmCount" Text="FAcnt" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
 
                     <ProgressBar Grid.Column="0" Grid.Row="2" Name="EUprog"/>
                     <ProgressBar Grid.Column="1" Grid.Row="2" Name="JAprog"/>
                     <ProgressBar Grid.Column="2" Grid.Row="2" Name="NAprog"/>
-                    <ProgressBar Grid.Column="3" Grid.Row="2" Name="SAprog"/>
-                    <ProgressBar Grid.Column="4" Grid.Row="2"/>
-                    <ProgressBar Grid.Column="5" Grid.Row="2"/>
+                    <ProgressBar Grid.Column="3" Grid.Row="2" Name="OCprog"/>
+                    <ProgressBar Grid.Column="4" Grid.Row="2" Name="AFprog"/>
+                    <ProgressBar Grid.Column="5" Grid.Row="2" Name="SAprog"/>
+                    <ProgressBar Grid.Column="6" Grid.Row="2" Name="FAprog"/>
 
                     <TextBlock Name="EUdbm" Text="EU" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1" Padding="20,0,0,0"/>
                     <TextBlock Name="JAdbm" Text="JA" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
                     <TextBlock Name="NAdbm" Text="NA" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="OCdbm" Text="OC" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="AFdbm" Text="AF" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="SAdbm" Text="SA" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="FAdbm" Text="FA" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
                       
                       
                       <!--The Colour Ramp and spare space to the right of the ramp-->
-                    <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="6" >
-                        <TextBlock Text="Colour Ramp" Background="#bbb" FontWeight="Bold"  Grid.Row="3" Grid.ColumnSpan="6"  Margin="1"/>
+                    <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="7" >
+                        <TextBlock Text="Colour Ramp" Background="#bbb" FontWeight="Bold"  Grid.Row="3"   Margin="1"/>
                     </Border>
                     <TextBlock Text="          LT -15 dBm" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="Yellow" Margin="1"/>
                     <TextBlock Text="     -8dBm to -15dBm " Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="Aqua" Margin="1"/>
                     <TextBlock Text="      0dBm to -8dBm " Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="Blue" Foreground="White" Margin="1"/>
                     <TextBlock Text="         GT 0dBm " Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="Red" Margin="1"/>
+
+<!--
+                    <TextBlock Text="1" Name="Eudbm1" Grid.Column="3" Grid.Row="4"/>
+                    <TextBlock Text="2" Name="Eudbm2" Grid.Column="4" Grid.Row="4"/>
+                    <TextBlock Text="3" Name="Eudbm3" Grid.Column="5" Grid.Row="4"/>
+                    <TextBlock Text="ravg"  Grid.Column="2" Grid.Row="5"/>
+                    <TextBlock Text="ravgVal" Name="ravgVal"   Grid.Column="3" Grid.Row="5"/>
+                    <TextBlock Text="Count->"  Grid.Column="4" Grid.Row="5"/>
+                    <TextBlock Text="cnt" Name="arraycounterFa"   Grid.Column="5" Grid.Row="5"/>
+                    <TextBlock Text="rTotal" Name="rTotal"   Grid.Column="6" Grid.Row="4"/>
+                    <TextBlock Text="rAverage" Name="rAverage"   Grid.Column="6" Grid.Row="5"/> -->
+
                 </Grid>
             </StackPanel>
 <!--The End-->
