@@ -157,6 +157,8 @@ namespace PropoPlot
                     ul.udpqso2 = wrdmsg[7];
                     ul.udpqso3 = wrdmsg[8];
 
+                    cd.pTime = ul.udptime;  //add the time to the record
+
                     isEmpty = String.IsNullOrWhiteSpace(ul.udpqso3);
                     int qso3Length;
 
@@ -199,21 +201,24 @@ namespace PropoPlot
 
                         // this subdivdes the dataload into areas on the globe and keeps a running tally of the dbms
                         //JA
-                        if (dlatitude > 30 && dlatitude < 46  && dlongitude > 130 && dlongitude <  146) 
+                        if (dlatitude > double.Parse(tll.JALatMin.Text) && dlatitude < double.Parse(tll.JALatMax.Text) && dlongitude > double.Parse(tll.JALongMin.Text) && dlongitude < double.Parse(tll.JALongMax.Text)) 
+                        //if (dlatitude > 30 && dlatitude < 46  && dlongitude > 130 && dlongitude <  146) 
                         {
                             totaldbmJA += double.Parse(ul.udpdbm);  //this is the running tally of the dbms
                             counterJA += 1;                         //this is the number of stations in the continent
                         }
 
                         //Europe
-                        if (dlatitude > 34 && dlatitude < 72  && dlongitude > -12 && dlongitude <  60) 
+                        //if (dlatitude > 34 && dlatitude < 72  && dlongitude > -12 && dlongitude <  60) 
+                        if (dlatitude > double.Parse(tll.EULatMin.Text) && dlatitude < double.Parse(tll.EULatMax.Text) && dlongitude > double.Parse(tll.EULongMin.Text) && dlongitude < double.Parse(tll.EULongMax.Text)) 
                         {
                             totaldbmEU += double.Parse(ul.udpdbm);
                             counterEU += 1;
                         }
 
                         //NA
-                        if (dlatitude > 12 && dlatitude < 90 && dlongitude > -131 && dlongitude < -54)
+                        //if (dlatitude > 12 && dlatitude < 90 && dlongitude > -131 && dlongitude < -54)
+                        if (dlatitude > double.Parse(tll.NALatMin.Text) && dlatitude < double.Parse(tll.NALatMax.Text) && dlongitude > double.Parse(tll.NALongMin.Text) && dlongitude < double.Parse(tll.NALongMax.Text))
                         {
                             totaldbmNA += double.Parse(ul.udpdbm);
                             counterNA += 1;
@@ -221,7 +226,8 @@ namespace PropoPlot
 
 
                         //OC
-                        if (dlatitude > -54 && dlatitude < 28 && dlongitude > 112 && dlongitude < 126)
+                        //if (dlatitude > -54 && dlatitude < 28 && dlongitude > 112 && dlongitude < 126)
+                        if (dlatitude > double.Parse(tll.OCLatMin.Text) && dlatitude < double.Parse(tll.OCLatMax.Text) && dlongitude > double.Parse(tll.OCLongMin.Text) && dlongitude < double.Parse(tll.OCLongMax.Text))
                         {
                             totaldbmOC += double.Parse(ul.udpdbm);
                             counterOC += 1;
@@ -229,20 +235,23 @@ namespace PropoPlot
 
 
                         //AF
-                        if (dlatitude > -35 && dlatitude < 34 && dlongitude > -20 && dlongitude < 50)
+                        //if (dlatitude > -35 && dlatitude < 34 && dlongitude > -20 && dlongitude < 50)
+                        if (dlatitude > double.Parse(tll.AFLatMin.Text) && dlatitude < double.Parse(tll.AFLatMax.Text) && dlongitude > double.Parse(tll.AFLongMin.Text) && dlongitude < double.Parse(tll.AFLongMax.Text))
                         {
                             totaldbmAF += double.Parse(ul.udpdbm);
                             counterAF += 1;
                         }
 
                         //SA
-                        if (dlatitude > -60 && dlatitude < 12 && dlongitude > -90 && dlongitude < -32)
+                        //if (dlatitude > -60 && dlatitude < 12 && dlongitude > -90 && dlongitude < -32)
+                        if (dlatitude > double.Parse(tll.SALatMin.Text) && dlatitude < double.Parse(tll.SALatMax.Text) && dlongitude > double.Parse(tll.SALongMin.Text) && dlongitude < double.Parse(tll.SALongMax.Text))
                         {
                             totaldbmSA += double.Parse(ul.udpdbm);
                             counterSA += 1;
                         }
                         //FA Far East China india indonesia phillppines Japan
-                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
+//                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
+                        if (dlatitude > double.Parse(tll.FALatMin.Text) && dlatitude < double.Parse(tll.FALatMax.Text) && dlongitude > double.Parse(tll.FALongMin.Text) && dlongitude < double.Parse(tll.FALongMax.Text))
                         {
                             totaldbmFA += double.Parse(ul.udpdbm);
                             counterFA += 1;
@@ -278,7 +287,9 @@ namespace PropoPlot
                 if (totaldbmEU / counterEU > -40)
                 {
                     runningEUContinentalAverage(totaldbmEU / counterEU, EUprog, EUdbm, counterEU, EUavgs);
-                }//end of if
+                }
+                else if (totaldbmEU == 0 && counterEU == 0)
+                    runningEUContinentalAverage(-30, EUprog, EUdbm, 0, EUavgs);
                 else
                     EUdbmCount.Text = "0";
 
@@ -287,7 +298,9 @@ namespace PropoPlot
                 {
                     runningFAContinentalAverage(totaldbmFA / counterFA, FAprog, FAdbm, counterFA, FAavgs);
                 }//end of if
-                else
+                else if(totaldbmFA == 0 && counterFA == 0)
+                    runningFAContinentalAverage(-30, FAprog, FAdbm, 0, FAavgs);
+                else 
                     FAdbmCount.Text = "0";
 
 
@@ -295,14 +308,19 @@ namespace PropoPlot
                 {
                     runningJAContinentalAverage(totaldbmJA / counterJA, JAprog, JAdbm, counterJA, JAavgs);
                 }//end of if
+                else if (totaldbmJA == 0 && counterJA == 0)
+                    runningJAContinentalAverage(-30, JAprog, JAdbm, 0, JAavgs);
                 else
                     JAdbmCount.Text = "0";
+
 
 
                 if (totaldbmNA / counterNA > -40)
                 {
                     runningNAContinentalAverage(totaldbmNA / counterNA, NAprog, NAdbm, counterNA, NAavgs);
                 }//end of if
+                else if (totaldbmNA == 0 && counterNA == 0)
+                    runningNAContinentalAverage(-30, NAprog, NAdbm, 0, NAavgs);
                 else
                     NAdbmCount.Text = "0";
 
@@ -312,6 +330,8 @@ namespace PropoPlot
                 {
                     runningOCContinentalAverage(totaldbmOC / counterOC, OCprog, OCdbm, counterOC, OCavgs);
                 }//end of if
+                else if (totaldbmOC == 0 && counterOC == 0)
+                    runningOCContinentalAverage(-30, OCprog, OCdbm, 0, OCavgs);
                 else
                     OCdbmCount.Text = "0";
 
@@ -320,6 +340,8 @@ namespace PropoPlot
                 {
                     runningAFContinentalAverage(totaldbmAF / counterAF, AFprog, AFdbm, counterAF, AFavgs);
                 }//end of if
+                else if (totaldbmAF == 0 && counterAF == 0)
+                    runningAFContinentalAverage(-30, AFprog, AFdbm, 0, AFavgs);
                 else
                     AFdbmCount.Text = "0";
 
@@ -328,13 +350,14 @@ namespace PropoPlot
                 {
                     runningSAContinentalAverage(totaldbmSA / counterSA, SAprog, SAdbm, counterSA, SAavgs);
                 }//end 
+                else if (totaldbmSA == 0 && counterSA == 0)
+                    runningSAContinentalAverage(-30, SAprog, SAdbm, 0, SAavgs);
                 else
                     SAdbmCount.Text = "0";
 
-//now we save the last lof of data to our contint list
-//                continentList.Add($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
-                continentList.Add($"Kenwood 1,{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
-
+                //now we save the last lot of data to our continent list
+                continentList.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
+                continentListDC.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm},{cd.pSAnumber},{cd.pFAdbm},{cd.pFAnumber} ");
 
                 sumChr.Text = plotmessage.Text.Length.ToString();
                 //it would be good to just remove the first 8000 chars and then keep it like that

@@ -13,7 +13,10 @@ namespace PropoPlot
     public partial class MainWindow
     {
 
-      //  continentData cd = new continentData();
+        string EUlast, NAlast, SAlast, OClast, JAlast, FAlast, AFlast = "";
+
+
+      //  continentData cd = new continentData();  
         private void setTimerBarColour(double value)
         {
 
@@ -80,18 +83,21 @@ namespace PropoPlot
           //  double totaldbmFA = 0;
             double sumFAarray = 0;
             double averageFAarray = 0;
-           // int counterFA = 0;
+            int avgSet = 8;
+            int avgSetm1 = avgSet - 1;
+
+            // int counterFA = 0;
 
             FAdbmCount.Text = counterFA.ToString(); //this is the number of stations decoded
 
             arr[FAavgsCnt] = pAv;
 
             sumFAarray = arr.Aggregate((total, next) => total + next);
-            averageFAarray = Math.Round(sumFAarray / 4, 1);
+            averageFAarray = Math.Round(sumFAarray / avgSet, 1);
            // rTotal.Text = sumFAarray.ToString(); //sums the array of whatever is in it..uses LINQ
 
             int countResults = arr.Count(x => x != 0);  //using linq again
-            if (countResults > 3) //we have filled the array
+            if (countResults > avgSetm1) //we have filled the array
             {
                // rAverage.Text = averageFAarray.ToString();
                 FAdbm.Text = averageFAarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
@@ -99,7 +105,7 @@ namespace PropoPlot
             }
           //  arraycounterFa.Text = FAavgsCnt.ToString();  //show the current count value 0,1,2,3
 
-            if (FAavgsCnt == 3)
+            if (FAavgsCnt == avgSetm1)
             {
                 FAavgsCnt = -1;  //start again
             }
@@ -107,154 +113,238 @@ namespace PropoPlot
             FAavgsCnt += 1;
 
             //thats the end lets store something
-            cd.pFAdbm = pAv.ToString();
+            if (pAv == -30)
+            {
+                cd.pFAdbm = FAlast;  //this should be the last good reading
+            }
+            else
+            {
+             cd.pFAdbm = pAv.ToString();
+            }
+            FAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             cd.pFAnumber = counterFA.ToString();
 
         }
 
-
+//****************************************************************************
         int JAavgsCnt = 0;
         public void runningJAContinentalAverage(double pAv, ProgressBar barname, TextBlock contDbm, int counter, double[] arr)
         {
             double sumFAarray = 0;
             double averageOfarray = 0;
-            
+            int avgSet = 8;
+            int avgSetm1 = avgSet - 1;
+
+
             JAdbmCount.Text = counter.ToString(); //this is the number of stations decoded
             arr[JAavgsCnt] = pAv; //*********
 
             sumFAarray = arr.Aggregate((total, next) => total + next);
-            averageOfarray = Math.Round(sumFAarray / 4, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
+            averageOfarray = Math.Round(sumFAarray / avgSet, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
  
             int countResults = arr.Count(x => x != 0);  //using linq again
-            if (countResults > 3) //we have filled the array
+            if (countResults > avgSetm1) //we have filled the array
             {
                // rAverage.Text = averageOfarray.ToString();
                 JAdbm.Text = averageOfarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
             }
  
-            if (JAavgsCnt == 3)//this is 0,1,2,3 ie 4 slots in the array
+            if (JAavgsCnt == avgSetm1)//this is 0,1,2,3 ie 4 slots in the array
                    JAavgsCnt = -1;  //start again
             
             JAavgsCnt += 1;
-
-            cd.pJAdbm = pAv.ToString();
             cd.pJAnumber = counter.ToString();
-        }//end of the averaging
 
+            //thats the end lets store something
+            if (pAv == -30)
+            {
+                cd.pJAdbm = JAlast;  //this should be the last good reading
+            }
+            else
+            {
+                cd.pJAdbm = pAv.ToString();
+            }
+                JAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
+            cd.pJAnumber = counter.ToString();
+
+
+        }//end of the averaging
+         //******************************************************************************
         int EUavgsCnt = 0;
         public void runningEUContinentalAverage(double pAv, ProgressBar barname, TextBlock contDbm, int counter, double[] arr)
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
+            int avgSet = 8;
+            int avgSetm1 = avgSet - 1;
 
             EUdbmCount.Text = counter.ToString(); //this is the number of stations decoded
             arr[EUavgsCnt] = pAv;  //**********
 
             sumOfArray = arr.Aggregate((total, next) => total + next);
-            averageOfarray = Math.Round(sumOfArray / 4, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
+/* 4*/            averageOfarray = Math.Round(sumOfArray / avgSet, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
            // rTotal.Text = sumOfArray.ToString(); //sums the array of whatever is in it..uses LINQ
 
             int countResults = arr.Count(x => x != 0);  //using linq again
-            if (countResults > 3) //we have filled the array
+/* 3 */            if (countResults > avgSetm1) //we have filled the array
             {
               //  rAverage.Text = averageOfarray.ToString();
                 EUdbm.Text = averageOfarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
             }
 
-            if (EUavgsCnt == 3)//this is 0,1,2,3 ie 4 slots in the array
+/*3 */            if (EUavgsCnt == avgSetm1)//this is 0,1,2,3 ie 4 slots in the array
                 EUavgsCnt = -1;  //start again
 
             EUavgsCnt += 1;
-            cd.pEUdbm = pAv.ToString();
             cd.pEUnumber = counter.ToString();
-        }//end of the averaging
 
+            //thats the end lets store something
+            if (pAv == -30)
+            {
+                cd.pEUdbm = EUlast;  //this should be the last good reading
+            }
+            else
+            {
+                cd.pEUdbm = pAv.ToString();
+            }
+                EUlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
+            cd.pEUnumber = counter.ToString();
+
+
+
+        }//end of the averaging
+         //*****************************************************************************
         int NAavgsCnt = 0;  //****this one
         public void runningNAContinentalAverage(double pAv, ProgressBar barname, TextBlock contDbm, int counter, double[] arr)  //***this one
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
+            int avgSet = 8;
+            int avgSetm1 = avgSet - 1;
+
 
             NAdbmCount.Text = counter.ToString(); //this is the number of stations decoded   ***this one
             arr[NAavgsCnt] = pAv; //*********
 
             sumOfArray = arr.Aggregate((total, next) => total + next);
-            averageOfarray = Math.Round(sumOfArray / 4, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
+            averageOfarray = Math.Round(sumOfArray / avgSet, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
            
             int countResults = arr.Count(x => x != 0);  //using linq again
-            if (countResults > 3) //we have filled the array
+            if (countResults > avgSetm1) //we have filled the array
             {
                 NAdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
             }
 
-            if (EUavgsCnt == 3)//this is 0,1,2,3 ie 4 slots in the array
+            if (NAavgsCnt == avgSetm1)//this is 0,1,2,3 ie 4 slots in the array
                 NAavgsCnt = -1;  //start again   **** this one
 
             NAavgsCnt += 1;  //****this one
-            cd.pNAdbm = pAv.ToString();
+            NAlast = pAv.ToString();
+
+            if (pAv == -30)
+            {
+                //NAlast = "";
+                cd.pNAdbm = NAlast;  //this should be the last good reading
+            }
+            else
+            {
+                cd.pNAdbm = pAv.ToString();
+            }
+                NAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             cd.pNAnumber = counter.ToString();
+
         }//end of the av
 
-
+//********************************************************************************
         int OCavgsCnt = 0;  //****this one
         public void runningOCContinentalAverage(double pAv, ProgressBar barname, TextBlock contDbm, int counter, double[] arr)  //***this one
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
+            int avgSet = 8;
+            int avgSetm1 = avgSet - 1;
+
 
             OCdbmCount.Text = counter.ToString(); //***this is the number of stations decoded   ***this one
             arr[OCavgsCnt] = pAv; //******this one
 
             sumOfArray = arr.Aggregate((total, next) => total + next);
-            averageOfarray = Math.Round(sumOfArray / 4, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
+            averageOfarray = Math.Round(sumOfArray / avgSet, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
            
 
             int countResults = arr.Count(x => x != 0);  //using linq again
-            if (countResults > 3) //we have filled the array
+            if (countResults > avgSetm1) //we have filled the array
             {
            
                 OCdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
             }
 
-            if (OCavgsCnt == 3)//**** this one   this is 0,1,2,3 ie 4 slots in the array
+            if (OCavgsCnt == avgSetm1)//**** this one   this is 0,1,2,3 ie 4 slots in the array
                 OCavgsCnt = -1;  //start again   **** this one
 
             OCavgsCnt += 1;  //****this one
-            cd.pOCdbm = pAv.ToString();
+            OClast = pAv.ToString();
+
+            if (pAv == -30)
+            {
+                //OClast = "";
+                cd.pOCdbm = OClast;  //this should be the last good reading
+            }
+            else
+            {
+                cd.pOCdbm = pAv.ToString();
+            }
+  /*****/   OClast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             cd.pOCnumber = counter.ToString();
         }//end of the av
-
+//********************************************************************
         int AFavgsCnt = 0;  //****this one
         public void runningAFContinentalAverage(double pAv, ProgressBar barname, TextBlock contDbm, int counter, double[] arr)  //***this one
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
+            int avgSet = 8;
+            int avgSetm1 = avgSet - 1;
+
 
             AFdbmCount.Text = counter.ToString(); //***this is the number of stations decoded   ***this one
             arr[AFavgsCnt] = pAv; //*** this one
 
             sumOfArray = arr.Aggregate((total, next) => total + next);
-            averageOfarray = Math.Round(sumOfArray / 4, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
+            averageOfarray = Math.Round(sumOfArray / avgSet, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
 
 
             int countResults = arr.Count(x => x != 0);  //using linq again
-            if (countResults > 3) //we have filled the array
+            if (countResults > avgSetm1) //we have filled the array
             {
 
                 AFdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
             }
 
-            if (AFavgsCnt == 3)//**** this one   this is 0,1,2,3 ie 4 slots in the array
+            if (AFavgsCnt == avgSetm1)//**** this one   this is 0,1,2,3 ie 4 slots in the array
                 AFavgsCnt = -1;  //start again   **** this one
 
             AFavgsCnt += 1;  //****this one
-            cd.pAFdbm = pAv.ToString();
+            AFlast = pAv.ToString();
+
+            if (pAv == -30)
+            {
+                //AFlast = "";
+                cd.pAFdbm = AFlast;  //this should be the last good reading
+
+            }
+            else
+            {
+                cd.pAFdbm = pAv.ToString();
+                AFlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
+            }
             cd.pAFnumber = counter.ToString();
+
         }//end of the av
 
         int SAavgsCnt = 0;  //****this one
@@ -262,27 +352,41 @@ namespace PropoPlot
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
+            int avgSet = 8;
+            int avgSetm1 = avgSet - 1;
+
 
             SAdbmCount.Text = counter.ToString(); //***this is the number of stations decoded   ***this one
             arr[SAavgsCnt] = pAv; //*** this one
 
             sumOfArray = arr.Aggregate((total, next) => total + next);
-            averageOfarray = Math.Round(sumOfArray / 4, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
+            averageOfarray = Math.Round(sumOfArray / avgSet, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
 
 
             int countResults = arr.Count(x => x != 0);  //using linq again
-            if (countResults > 3) //we have filled the array
+            if (countResults > avgSetm1) //we have filled the array
             {
 
                 SAdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
             }
 
-            if (SAavgsCnt == 3)//**** this one   this is 0,1,2,3 ie 4 slots in the array
+            if (SAavgsCnt == avgSetm1)//**** this one   this is 0,1,2,3 ie 4 slots in the array
                 SAavgsCnt = -1;  //start again   **** this one
 
             SAavgsCnt += 1;  //****this one
-            cd.pSAdbm = pAv.ToString();
+            SAlast = pAv.ToString();
+
+            if (pAv == -30)
+            {
+                //SAlast = "";
+                cd.pSAdbm = SAlast;  //this should be the last good reading
+            }
+            else
+            {
+                cd.pSAdbm = pAv.ToString();
+                SAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
+            }
             cd.pSAnumber = counter.ToString();
         }//end 
 

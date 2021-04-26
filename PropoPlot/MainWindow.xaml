@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-       Title="WSJT Propogation" Height="615" Width="540"  Name="window">
+       Title="WSJT Propogation Version Beta 1" Height="615" Width="540"  Name="window">
     <Border Margin="10,0,10,10">
 
         <Grid>
@@ -19,7 +19,27 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 <!-- The top line-->
-            <TextBlock Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Text="Version Alpha 2" Background="#ddd" />
+            <Menu Grid.ColumnSpan="3">
+                
+                <MenuItem Header="_File" >
+                    <MenuItem Header="_Save 15sec continents" Name="save15secCont" Click="save15secCont_Click" />
+                    <MenuItem Header="_Save Avg continents" Name="saveAvgCont" Click="saveAvgCont_Click"/>
+                    <MenuItem Header="_Exit" Name="ExitPropoPlot" Click="ExitPropoPlot_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Tools" >
+                    <MenuItem Header="_Options" />
+                    <MenuItem Header="_Continent Lat Long" Name="toolsContLatLongSettings" Click="toolsContLatLongSettings_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Help" >
+                    <MenuItem Header="_Overview" Name="Overview" Click="Overview_Click"/>
+                    <MenuItem Header="_UDP capture" Name="UDP" Click="UDP_Click" />
+                    <MenuItem Header="_Continents" Name="Continent" Click="Continent_Click"/>
+                    <MenuItem Header="_dBm Averages" Name="dbmAvg" Click="dbmAvg_Click" />
+                    <MenuItem Header="_Statistics" Name="Statistics" Click="Statistics_Click" />
+                </MenuItem>
+                
+            </Menu>
+<!--            <TextBlock Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Text="Version Alpha 2" Background="#ddd" /> -->
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <Border BorderThickness="1" BorderBrush="Black" >
                     <TextBlock Text="Start Up" Background="#bbb" FontWeight="Bold" Margin="1"/>
@@ -54,7 +74,7 @@
 
                 <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnGraphA"   Content="  Graph  " Grid.Column="0" Margin="5,5"/>
-                <Button x:Name="btnSaveFile"   Content=" Save File  " Grid.Column="0" Margin="5,5" Click="btnSaveFile_Click"/>
+                <Button x:Name="btnSaveFile"   Content=" Spare  " Grid.Column="0" Margin="5,5" Click="btnSaveFile_Click"/>
                     
                 </StackPanel>
                 
@@ -104,7 +124,7 @@
                 </Border>
                 <TextBox Name="plotmessage"  Grid.Column="1"  Height="300" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>
                 <Border BorderThickness="1" BorderBrush="Black"  >
-                    <TextBlock Text="Averages" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                    <TextBlock Text="dBm Averages by continent and period decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
 
   <!--tHESE ARE  THE Averages by Continent -->
@@ -136,7 +156,7 @@
                     <TextBlock Text="Oc" Grid.Column="3" Grid.Row="0"/>
                     <TextBlock Text="Af" Grid.Column="4" Grid.Row="0"/>
                     <TextBlock Text="Sa" Grid.Column="5" Grid.Row="0"/>
-                    <TextBlock Text="FarEast" Grid.Column="6" Grid.Row="0"/>
+                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0"/>
 
                     <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
                     <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />

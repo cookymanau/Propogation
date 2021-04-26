@@ -26,13 +26,19 @@ namespace PropoPlot
     /// </summary>
     public partial class MainWindow : Window
     {
-        continentData cd = new continentData();  //this is our class holding all of the data
+        continentData cd = new continentData();  //this is our class holding all of the data we generate dBm average, number of decodes
      
-        List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads
+        List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads. Its where write the decode period for 15 seconds
 
-        List<string> continentList = new List<string>();
-        //make a global instatiation of our class
-        UdpDataload ul = new UdpDataload();
+        List<string> continentList = new List<string>();  //we store the data into a new list record every period
+        List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
+
+
+        toolsContLatLongSetting tll = new toolsContLatLongSetting();  //this class here so we can see it every where we need it Holds the lat min, lat max longMin and longMax for the continents
+
+        
+        UdpDataload ul = new UdpDataload(); //make a global instatiation of our class. We store the current data load here Only ever one record
+
         int timercounter = 0; 
 
         public MainWindow()
@@ -209,6 +215,12 @@ namespace PropoPlot
 
         private void btnSaveFile_Click(object sender, RoutedEventArgs e)
         {
+
+        }//end function
+
+
+        private void save15secCont_Click(object sender, RoutedEventArgs e)
+        {
             //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
             //using System.IO; is for SttreamWriter
 
@@ -226,23 +238,97 @@ namespace PropoPlot
                 // Save document
                 string filename = dlg.FileName;
 
-            // now send all to the filename
-            using (StreamWriter writer = new StreamWriter(filename))
+                // now send all to the filename
+                using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    // writer.WriteLine($"UTC:{ul.udptime} Grid:{ul.udpqso3} dBm:{ul.udpdbm} DX:{ul.udpqso2} Long:{longitude} Lat:{latitude} \r\n");   //this just a display of data)
-                    writer.WriteLine("RingAnt,EUdbm,JAdbm,NAdbm,OCdbm,AFdbm,SAdbm,FAdbm,EUcnt,JAcnt,NAcnt,OCcnt,AFcnt,SAcnt,FAcnt");
+                    writer.WriteLine("RingAnt,Zulu,EUdbm,JAdbm,NAdbm,OCdbm,AFdbm,SAdbm,FAdbm,EUcnt,JAcnt,NAcnt,OCcnt,AFcnt,SAcnt,FAcnt"); //this is the csv file header
 
                     foreach (string item in continentList)
                     {
-
                         //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
                         writer.WriteLine(item);
-                    }
-                }
-           
+                    }//end foreach - writing the list
+                }//und using
 
-            }
 
+            }//end if result == true
+
+
+        }
+
+        private void saveAvgCont_Click(object sender, RoutedEventArgs e)
+        {
+            //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
+            //using System.IO; is for SttreamWriter
+
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "PropodBmCnt"; // Default file name
+            dlg.DefaultExt = ".csv"; // Default file extension
+            dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+
+                // now send all to the filename
+                using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    writer.WriteLine("RingAnt,Zulu,EUdbm,EUcnt,JAdbm,JAcnt,NAdbm,NAcnt,OCdbm,OCcnt,AFdbm,AFcnt,SAdbm,SAcnt,FAdbm,FAcnt"); //this is the csv file header
+
+                    foreach (string item in continentListDC)
+                    {
+                        //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
+                        writer.WriteLine(item);
+                    }//end foreach - writing the list
+                }//und using
+
+
+            }//end if result == true
+
+
+        }
+
+        private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Statistics_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void dbmAvg_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Continent_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UDP_Click(object sender, RoutedEventArgs e)
+        {
+            helpUDP hu = new helpUDP();
+            hu.ShowDialog();
+        }
+
+        private void Overview_Click(object sender, RoutedEventArgs e)
+        {
+            helpOverview ho = new helpOverview();
+            ho.ShowDialog();
+        }
+
+        private void toolsContLatLongSettings_Click(object sender, RoutedEventArgs e)
+        {
+           // toolsContLatLongSetting tll = new toolsContLatLongSetting();
+            tll.ShowDialog();
         }
     }
 

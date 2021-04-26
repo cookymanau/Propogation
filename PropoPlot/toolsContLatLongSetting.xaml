@@ -1,0 +1,87 @@
+﻿<Window x:Class="PropoPlot.toolsContLatLongSetting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropoPlot"
+        mc:Ignorable="d"
+        Title="toolsContLatLongSetting" Height="450" Width="600">
+    <Border BorderThickness="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Continent" Grid.Row="0" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="LatMin" Grid.Row="0" Grid.Column="1"  FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="LatMax" Grid.Row="0" Grid.Column="2" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="LongMin" Grid.Row="0" Grid.Column="3" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="LongMax" Grid.Row="0" Grid.Column="4" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="Europe" Grid.Row="1" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="Japan" Grid.Row="2" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="North America" Grid.Row="3" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="South America" Grid.Row="4" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="Oceania" Grid.Row="5" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="Africa" Grid.Row="6" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="User Defined" Grid.Row="7" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            
+            <!--Now the input areas-->
+            <TextBox x:Name="EULatMin" Grid.Row="1" Grid.Column="1" Margin="10" Text="30.000" />
+            <TextBox x:Name="EULatMax" Grid.Row="1" Grid.Column="2" Margin="10" Text="72.000" />
+            <TextBox x:Name="EULongMin" Grid.Row="1" Grid.Column="3" Margin="10" Text="-12.000" />
+            <TextBox x:Name="EULongMax" Grid.Row="1" Grid.Column="4" Margin="10" Text="60.000" />
+
+            <TextBox x:Name="JALatMin" Grid.Row="2" Grid.Column="1" Margin="10" Text="30.000" />
+            <TextBox x:Name="JALatMax" Grid.Row="2" Grid.Column="2" Margin="10" Text="46.000" />
+            <TextBox x:Name="JALongMin" Grid.Row="2" Grid.Column="3" Margin="10" Text="130.000" />
+            <TextBox x:Name="JALongMax" Grid.Row="2" Grid.Column="4" Margin="10" Text="146.000" />
+
+            <TextBox x:Name="NALatMin" Grid.Row="3" Grid.Column="1" Margin="10" Text="12.000" />
+            <TextBox x:Name="NALatMax" Grid.Row="3" Grid.Column="2" Margin="10" Text="90.000" />
+            <TextBox x:Name="NALongMin" Grid.Row="3" Grid.Column="3" Margin="10" Text="-131.000" />
+            <TextBox x:Name="NALongMax" Grid.Row="3" Grid.Column="4" Margin="10" Text="-54.000" />
+
+            <TextBox x:Name="SALatMin" Grid.Row="4" Grid.Column="1" Margin="10" Text="-60.000" />
+            <TextBox x:Name="SALatMax" Grid.Row="4" Grid.Column="2" Margin="10" Text="12.000" />
+            <TextBox x:Name="SALongMin" Grid.Row="4" Grid.Column="3" Margin="10" Text="-90.000" />
+            <TextBox x:Name="SALongMax" Grid.Row="4" Grid.Column="4" Margin="10" Text="-32.000" />            
+ 
+            <TextBox x:Name="OCLatMin" Grid.Row="5" Grid.Column="1" Margin="10" Text="-54.000" />
+            <TextBox x:Name="OCLatMax" Grid.Row="5" Grid.Column="2" Margin="10" Text="28.000" />
+            <TextBox x:Name="OCLongMin" Grid.Row="5" Grid.Column="3" Margin="10" Text="112.000" />
+            <TextBox x:Name="OCLongMax" Grid.Row="5" Grid.Column="4" Margin="10" Text="126.000" />
+
+            <TextBox x:Name="AFLatMin" Grid.Row="6" Grid.Column="1" Margin="10" Text="-35.000" />
+            <TextBox x:Name="AFLatMax" Grid.Row="6" Grid.Column="2" Margin="10" Text="34.000" />
+            <TextBox x:Name="AFLongMin" Grid.Row="6" Grid.Column="3" Margin="10" Text="-20.000" />
+            <TextBox x:Name="AFLongMax" Grid.Row="6" Grid.Column="4" Margin="10" Text="50.000" />
+
+            <TextBox x:Name="FALatMin" Grid.Row="7" Grid.Column="1" Margin="10" Text="-9.000" />
+            <TextBox x:Name="FALatMax" Grid.Row="7" Grid.Column="2" Margin="10" Text="90.000" />
+            <TextBox x:Name="FALongMin" Grid.Row="7" Grid.Column="3" Margin="10" Text="60.000" />
+            <TextBox x:Name="FALongMax" Grid.Row="7" Grid.Column="4" Margin="10" Text="144.000" />
+            <TextBlock Text="Notes:" Grid.Row="8" Grid.Column="0" Margin="10" Grid.ColumnSpan="1"/>
+            <TextBlock Text="West of 0 long is -ve.  East of 0 long is +ve: North of equator is +ve, south -ve."  Grid.Row="8" Grid.Column="1" Margin="10" Grid.ColumnSpan="5"/>
+
+            <Button x:Name="toolContLatLongExit" Grid.Row="9" Grid.ColumnSpan="10" Content="Close" Click="toolContLatLongExit_Click"  />
+
+        </Grid>
+    </Border>
+</Window>
