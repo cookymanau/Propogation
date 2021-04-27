@@ -22,16 +22,19 @@ namespace PropoPlot
     public partial  class  MainWindow
     {
         public double[] avgs = new double[8] ;  //declare an array of elements that we use for the lagging signal strength
-        
-       // int EUavgsCnt = 0;
 
-        public double[] FAavgs = new double[8];
-        public double[] JAavgs = new double[8];
-        public double[] EUavgs = new double[8];
-        public double[] NAavgs = new double[8];
-        public double[] OCavgs = new double[8];
-        public double[] SAavgs = new double[8];
-        public double[] AFavgs = new double[8];
+        // int EUavgsCnt = 0;
+        //4 per minute
+        //8 is able to hold 2 minutes worth
+        
+
+        public double[] FAavgs = new double[18];
+        public double[] JAavgs = new double[18];
+        public double[] EUavgs = new double[18];
+        public double[] NAavgs = new double[18];
+        public double[] OCavgs = new double[18];
+        public double[] SAavgs = new double[18];
+        public double[] AFavgs = new double[18];
 
 
         public int avgsCounter = 0;
@@ -356,8 +359,15 @@ namespace PropoPlot
                     SAdbmCount.Text = "0";
 
                 //now we save the last lot of data to our continent list
+                // the headers are set in MainWindow.xml.cs in their respective methods
                 continentList.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
-                continentListDC.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm},{cd.pSAnumber},{cd.pFAdbm},{cd.pFAnumber} ");
+                
+                //this is bad - we should have on list with different ordering possible
+               // continentListDC.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm},{cd.pSAnumber},{cd.pFAdbm},{cd.pFAnumber} ");
+
+
+                continentAVGList.Add($"WTDavg,{cd.pTime},  {cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},   {cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},   {cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
+                //continentAVGList.Add($"WTDavg,{cd.pTime},  {cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},   {cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber}");
 
                 sumChr.Text = plotmessage.Text.Length.ToString();
                 //it would be good to just remove the first 8000 chars and then keep it like that

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
+
 /// <summary>
 /// Helper class
 /// </summary>
@@ -13,10 +14,15 @@ namespace PropoPlot
     public partial class MainWindow
     {
 
+        
+
         string EUlast, NAlast, SAlast, OClast, JAlast, FAlast, AFlast = "";
+        
+        
+       //4 = 1 minute, 8=2 minutes, 16 = 4 minutes 32 = 8 minutes
+        int avgPeriods = int.Parse(tset.toolsAvgPrd.Text);  //MUST be less than 100 and set it in a tools options
 
-
-      //  continentData cd = new continentData();  
+        //  continentData cd = new continentData();  
         private void setTimerBarColour(double value)
         {
 
@@ -78,17 +84,18 @@ namespace PropoPlot
 
        
         int FAavgsCnt = 0;
-        public void runningFAContinentalAverage(double pAv,ProgressBar barname, TextBlock contDbm, int counterFA,double[] arr)
+        public void runningFAContinentalAverage(double pAv,ProgressBar barname, TextBlock contDbm, int counter,double[] arr)
         {
           //  double totaldbmFA = 0;
             double sumFAarray = 0;
             double averageFAarray = 0;
-            int avgSet = 8;
+            int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
 
+            
             // int counterFA = 0;
 
-            FAdbmCount.Text = counterFA.ToString(); //this is the number of stations decoded
+            FAdbmCount.Text = counter.ToString(); //this is the number of stations decoded
 
             arr[FAavgsCnt] = pAv;
 
@@ -102,6 +109,8 @@ namespace PropoPlot
                // rAverage.Text = averageFAarray.ToString();
                 FAdbm.Text = averageFAarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
                 setBarColour(averageFAarray, barname, contDbm);  //this is the average
+                cdAvg.pFAdbm = FAdbm.Text;  //set the value into the averages class
+                cdAvg.pFAnumber = counter.ToString();
             }
           //  arraycounterFa.Text = FAavgsCnt.ToString();  //show the current count value 0,1,2,3
 
@@ -120,9 +129,9 @@ namespace PropoPlot
             else
             {
              cd.pFAdbm = pAv.ToString();
-            }
             FAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
-            cd.pFAnumber = counterFA.ToString();
+            }
+            cd.pFAnumber = counter.ToString();
 
         }
 
@@ -132,7 +141,8 @@ namespace PropoPlot
         {
             double sumFAarray = 0;
             double averageOfarray = 0;
-            int avgSet = 8;
+            //int avgSet = avgPeriods;
+            int avgSet = int.Parse(tset.toolsAvgPrd.Text);
             int avgSetm1 = avgSet - 1;
 
 
@@ -148,6 +158,8 @@ namespace PropoPlot
                // rAverage.Text = averageOfarray.ToString();
                 JAdbm.Text = averageOfarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
+                cdAvg.pJAdbm = JAdbm.Text;  //set the value into the averages class
+                cdAvg.pJAnumber = counter.ToString();
             }
  
             if (JAavgsCnt == avgSetm1)//this is 0,1,2,3 ie 4 slots in the array
@@ -176,7 +188,7 @@ namespace PropoPlot
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
-            int avgSet = 8;
+            int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
 
             EUdbmCount.Text = counter.ToString(); //this is the number of stations decoded
@@ -192,6 +204,8 @@ namespace PropoPlot
               //  rAverage.Text = averageOfarray.ToString();
                 EUdbm.Text = averageOfarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
+                cdAvg.pEUdbm = EUdbm.Text;  //set the value into the averages class
+                cdAvg.pEUnumber = counter.ToString();
             }
 
 /*3 */            if (EUavgsCnt == avgSetm1)//this is 0,1,2,3 ie 4 slots in the array
@@ -221,14 +235,14 @@ namespace PropoPlot
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
-            int avgSet = 8;
+            int sumOfArrayCount = 0;
+            int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
-
 
             NAdbmCount.Text = counter.ToString(); //this is the number of stations decoded   ***this one
             arr[NAavgsCnt] = pAv; //*********
 
-            sumOfArray = arr.Aggregate((total, next) => total + next);
+            sumOfArray = arr.Aggregate((total, next) => total + next);  //this sums the dBms stored in the array
             averageOfarray = Math.Round(sumOfArray / avgSet, 1);  //this number 4 is how many slots to fill for the averaging  4 is 1 minute in FT8 
            
             int countResults = arr.Count(x => x != 0);  //using linq again
@@ -236,6 +250,9 @@ namespace PropoPlot
             {
                 NAdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
+                cdAvg.pNAdbm = NAdbm.Text;  //set the value into the averages class
+                cdAvg.pNAnumber = counter.ToString();
+
             }
 
             if (NAavgsCnt == avgSetm1)//this is 0,1,2,3 ie 4 slots in the array
@@ -246,8 +263,7 @@ namespace PropoPlot
 
             if (pAv == -30)
             {
-                //NAlast = "";
-                cd.pNAdbm = NAlast;  //this should be the last good reading
+               cd.pNAdbm = NAlast;  //this should be the last good reading
             }
             else
             {
@@ -264,7 +280,7 @@ namespace PropoPlot
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
-            int avgSet = 8;
+            int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
 
 
@@ -281,6 +297,8 @@ namespace PropoPlot
            
                 OCdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
+                cdAvg.pOCdbm = OCdbm.Text;  //set the value into the averages class
+                cdAvg.pOCnumber = counter.ToString();
             }
 
             if (OCavgsCnt == avgSetm1)//**** this one   this is 0,1,2,3 ie 4 slots in the array
@@ -298,7 +316,7 @@ namespace PropoPlot
             {
                 cd.pOCdbm = pAv.ToString();
             }
-  /*****/   OClast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
+             OClast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             cd.pOCnumber = counter.ToString();
         }//end of the av
 //********************************************************************
@@ -307,7 +325,7 @@ namespace PropoPlot
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
-            int avgSet = 8;
+            int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
 
 
@@ -324,6 +342,8 @@ namespace PropoPlot
 
                 AFdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
+                cdAvg.pAFdbm = AFdbm.Text;  //set the value into the averages class
+                cdAvg.pAFnumber = counter.ToString();
             }
 
             if (AFavgsCnt == avgSetm1)//**** this one   this is 0,1,2,3 ie 4 slots in the array
@@ -341,8 +361,8 @@ namespace PropoPlot
             else
             {
                 cd.pAFdbm = pAv.ToString();
-                AFlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             }
+                AFlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             cd.pAFnumber = counter.ToString();
 
         }//end of the av
@@ -352,7 +372,7 @@ namespace PropoPlot
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
-            int avgSet = 8;
+            int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
 
 
@@ -369,6 +389,8 @@ namespace PropoPlot
 
                 SAdbm.Text = averageOfarray.ToString();  //****this one
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
+                cdAvg.pSAdbm = SAdbm.Text;  //set the value into the averages class
+                cdAvg.pSAnumber = counter.ToString();
             }
 
             if (SAavgsCnt == avgSetm1)//**** this one   this is 0,1,2,3 ie 4 slots in the array
@@ -385,8 +407,8 @@ namespace PropoPlot
             else
             {
                 cd.pSAdbm = pAv.ToString();
-                SAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             }
+                SAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             cd.pSAnumber = counter.ToString();
         }//end 
 

@@ -26,17 +26,20 @@ namespace PropoPlot
     /// </summary>
     public partial class MainWindow : Window
     {
-        continentData cd = new continentData();  //this is our class holding all of the data we generate dBm average, number of decodes
+        continentData cd = new continentData();  //this is our class holding all of the data we generate dBm PERIOD average, number of decodes
+        continentData cdAvg = new continentData();  //this is our class holding all of the data we generate dBm WEIGHTED average, number of decodes
      
         List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads. Its where write the decode period for 15 seconds
 
         List<string> continentList = new List<string>();  //we store the data into a new list record every period
         List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
 
+        List<string> continentAVGList = new List<string>();  //we store the data into a new list record every period
 
         toolsContLatLongSetting tll = new toolsContLatLongSetting();  //this class here so we can see it every where we need it Holds the lat min, lat max longMin and longMax for the continents
 
-        
+     static  toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
+
         UdpDataload ul = new UdpDataload(); //make a global instatiation of our class. We store the current data load here Only ever one record
 
         int timercounter = 0; 
@@ -117,7 +120,7 @@ namespace PropoPlot
                 
                 timercounter = 0; //reset this
                // timerBar.Value = timercounter;
-                udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
+               udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
                                     //***              tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
                // runningAvgDbm.Text = laggingCount.ToString();
             }
@@ -262,7 +265,7 @@ namespace PropoPlot
             //using System.IO; is for SttreamWriter
 
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "PropodBmCnt"; // Default file name
+            dlg.FileName = "PropoAverages"; // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -278,9 +281,9 @@ namespace PropoPlot
                 // now send all to the filename
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    writer.WriteLine("RingAnt,Zulu,EUdbm,EUcnt,JAdbm,JAcnt,NAdbm,NAcnt,OCdbm,OCcnt,AFdbm,AFcnt,SAdbm,SAcnt,FAdbm,FAcnt"); //this is the csv file header
+                    writer.WriteLine("RingAnt,Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
 
-                    foreach (string item in continentListDC)
+                    foreach (string item in continentAVGList)
                     {
                         //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
                         writer.WriteLine(item);
@@ -329,6 +332,19 @@ namespace PropoPlot
         {
            // toolsContLatLongSetting tll = new toolsContLatLongSetting();
             tll.ShowDialog();
+        }
+
+        private void toolOptions_Click(object sender, RoutedEventArgs e)
+        {
+
+            toolsSettings ts = new toolsSettings();
+            ts.ShowDialog();
+        }
+
+        private void btnGraphPlot_Click(object sender, RoutedEventArgs e)
+        {
+            graphPlot gp = new graphPlot(continentAVGList);
+            gp.Show();
         }
     }
 

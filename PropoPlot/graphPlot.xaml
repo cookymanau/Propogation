@@ -1,0 +1,15 @@
+﻿<Window x:Class="PropoPlot.graphPlot"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropoPlot"
+        mc:Ignorable="d"
+        Title="graphPlot" Height="450" Width="800">
+    <Border Margin="10">
+    <Grid>
+            <WpfPlot Name="dataPlot" />
+            <WpfPlot HorizontalAlignment="Left" Margin="413,196,0,0" VerticalAlignment="Top"/>
+        </Grid>
+    </Border>
+</Window>

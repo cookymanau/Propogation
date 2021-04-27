@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ScottPlot.WPF" Version="4.0.48" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Interop.DxAtlas">
       <HintPath>..\..\Loginfo\Loginfo\Interop.DxAtlas.dll</HintPath>
     </Reference>
