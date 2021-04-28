@@ -5,11 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="graphPlot" Height="450" Width="800">
+        Title="graphPlot" Height="850" Width="900">
     <Border Margin="10">
     <Grid>
-            <WpfPlot Name="dataPlot" />
-            <WpfPlot HorizontalAlignment="Left" Margin="413,196,0,0" VerticalAlignment="Top"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+        
+            <WpfPlot Name="dataPlotEU"  Grid.Column="1" Grid.Row="0"/>
+            <WpfPlot Name="dataPlotJA"  Grid.Column="1" Grid.Row="1"/>
+            <WpfPlot Name="dataPlotNA"  Grid.Column="1" Grid.Row="2"/>
+            <WpfPlot Name="dataPlotOC"  Grid.Column="1" Grid.Row="3"/>
+            <WpfPlot Name="dataPlotAF"  Grid.Column="1" Grid.Row="4"/>
+            <WpfPlot Name="dataPlotSA"  Grid.Column="1" Grid.Row="5"/>
+            <WpfPlot Name="dataPlotFA"  Grid.Column="1" Grid.Row="6"/>
+            
         </Grid>
     </Border>
 </Window>

@@ -343,8 +343,30 @@ namespace PropoPlot
 
         private void btnGraphPlot_Click(object sender, RoutedEventArgs e)
         {
+         //   graphPlot gp = new graphPlot(continentAVGList);
+        //    gp.Show();
+        }
+
+        private void graphAll_Click(object sender, RoutedEventArgs e)
+        {
             graphPlot gp = new graphPlot(continentAVGList);
             gp.Show();
+        }
+
+        private void graphEu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void graphMain_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void graphSingle_Click(object sender, RoutedEventArgs e)
+        {
+            graphSinglePlot gs = new graphSinglePlot(continentAVGList);
+            gs.Show();
         }
     }
 

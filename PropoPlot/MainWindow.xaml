@@ -30,6 +30,12 @@
                     <MenuItem Header="_Options" Name="toolOptions" Click="toolOptions_Click" />
                     <MenuItem Header="_Continent Lat Long" Name="toolsContLatLongSettings" Click="toolsContLatLongSettings_Click"/>
                 </MenuItem>
+  
+                <MenuItem Header="_Graphs" >
+                    <MenuItem Header="_All" Name="graphAll" Click="graphAll_Click"  />
+                     <MenuItem Header="_Single" Name="graphSingle" Click="graphSingle_Click"  />
+                </MenuItem>
+
                 <MenuItem Header="_Help" >
                     <MenuItem Header="_Overview" Name="Overview" Click="Overview_Click"/>
                     <MenuItem Header="_UDP capture" Name="UDP" Click="UDP_Click" />
@@ -73,7 +79,7 @@
                 <Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>
 
                 <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnGraphPlot"   Content="  Graph  " Grid.Column="0" Margin="5,5" Click="btnGraphPlot_Click"/>
+                <Button x:Name="btnGraphPlot"   Content="  Spare  " Grid.Column="0" Margin="5,5" Click="btnGraphPlot_Click"/>
                 <Button x:Name="btnSaveFile"   Content=" Spare  " Grid.Column="0" Margin="5,5" Click="btnSaveFile_Click"/>
                     
                 </StackPanel>
