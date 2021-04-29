@@ -196,6 +196,8 @@ namespace PropoPlot
             List<string> data = new List<string>();
             data.Add("2334");
             data.Add("2237");
+            data.Add("2238");
+            data.Add("2239");
             data.Add("2233");
             data.Add("2234");
             data.Add("2222");
@@ -367,6 +369,14 @@ namespace PropoPlot
         {
             graphSinglePlot gs = new graphSinglePlot(continentAVGList);
             gs.Show();
+        }
+
+        private void graphCompare_Click(object sender, RoutedEventArgs e)
+        {
+            //open a new window with two open file dialogs and then graph the contents
+            //but it means you have to save the files first - use the 'File Save Avg continents'
+            graphCompare gp = new graphCompare();
+            gp.Show();
         }
     }
 

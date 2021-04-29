@@ -64,7 +64,7 @@
                         </Grid.ColumnDefinitions>
 
                      <TextBlock  Text="No. periods"  Grid.Column="0" Margin="4"/>
-                    <TextBox x:Name="toolsAvgPrd" Text="2" Grid.Column="1" Margin="4"/> <!--*******************-->
+                    <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Margin="4"/> <!--*******************-->
                     </Grid>
                 </StackPanel>
             </GroupBox>

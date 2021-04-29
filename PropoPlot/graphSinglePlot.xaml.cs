@@ -69,7 +69,7 @@ namespace PropoPlot
         }
 
 
-        private void PrepareArrays()
+        public void PrepareArrays()
         {
 
             string time = "";
@@ -147,7 +147,7 @@ namespace PropoPlot
 
         }
 
-        private void PlotTheLists()
+        public void PlotTheLists()
         {
  
 
@@ -245,7 +245,7 @@ namespace PropoPlot
 
         }//end
 
-        private void graphSingleRedraw_Click(object sender, RoutedEventArgs e)
+        public void graphSingleRedraw_Click(object sender, RoutedEventArgs e)
         {
            //got to set the arrays back to full size , rinse and repeat style
             int count = 6000;

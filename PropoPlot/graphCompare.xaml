@@ -1,0 +1,46 @@
+﻿<Window x:Class="PropoPlot.graphCompare"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropoPlot"
+        mc:Ignorable="d"
+        Title="graphCompare" Height="450" Width="1400">
+    <Border Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <WpfPlot Name="graphCompare2Files" Grid.Column="1"  >
+                <WpfPlot.Background>
+                    <SolidColorBrush Color="Gray" Opacity=".25"/>
+                    <!--doesnt work-->
+
+                </WpfPlot.Background>
+            </WpfPlot>
+            <StackPanel>
+                <TextBlock Text="Open Files" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                <Button x:Name="fileOpen1" Content="Open 1" Margin="5,5" Grid.Column="0" Click="fileOpen1_Click" />
+                <Button x:Name="fileOpen2" Content="Open 2" Margin="5,5" Grid.Column="0" Click="fileOpen2_Click" />
+                <Button x:Name="graphCompareFile" Content="Compare" Margin="5,5" Grid.Column="0" Click="graphCompareFile_Click" />
+
+                <TextBlock Text="Draw Plot" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkJAGraphs" Content="JA" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkNAGraphs" Content="NA" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="true"/>
+                <CheckBox Name="chkAFGraphs" Content="AF" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkSAGraphs" Content="SA" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkFAGraphs" Content="Usr" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkCountsGraphs" Content="Decodes" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkRawPointsGraphs" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+
+                <Button x:Name="graphCompareRedraw" Content="Redraw" Margin="2,2" Grid.Column="0" Click="graphCompareRedraw_Click"   />
+            </StackPanel>
+
+
+        </Grid>
+    </Border>
+</Window>

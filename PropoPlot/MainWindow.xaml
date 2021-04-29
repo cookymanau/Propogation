@@ -34,6 +34,7 @@
                 <MenuItem Header="_Graphs" >
                     <MenuItem Header="_All" Name="graphAll" Click="graphAll_Click"  />
                      <MenuItem Header="_Single" Name="graphSingle" Click="graphSingle_Click"  />
+                     <MenuItem Header="_CompareFiles" Name="graphCompare" Click="graphCompare_Click"   />
                 </MenuItem>
 
                 <MenuItem Header="_Help" >
