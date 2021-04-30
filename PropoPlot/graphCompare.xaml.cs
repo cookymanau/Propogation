@@ -147,7 +147,7 @@ namespace PropoPlot
             //got to set the arrays back to full size , rinse and repeat style
             int count = 6000;
             // get rid of the 0's on the end
-           // Array.Resize(ref dataX, count);
+            Array.Resize(ref dataX, count);
             Array.Resize(ref dataEUR, count);
             Array.Resize(ref dataEUA, count);
             Array.Resize(ref dataEUC, count);
@@ -229,7 +229,7 @@ namespace PropoPlot
 
                 string[] wrdmsg = item.Split(',');
 
-               // dataX[count] = count; //the X values
+                dataX[count] = count; //the X values time
 
                 double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
                 double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
@@ -305,7 +305,7 @@ namespace PropoPlot
 
                 string[] wrdmsg = item.Split(',');
 
-                //dataX[count] = count; //the X values
+                dataX[count] = count; //the X values
 
                 double.TryParse(wrdmsg[2], out dataEUR2[count]); //Europe
                 double.TryParse(wrdmsg[3], out dataEUA2[count]); //EuropeAverage
@@ -397,8 +397,8 @@ namespace PropoPlot
 
             if (chkJAGraphs.IsChecked == true)
             {
-                graphCompare2Files.plt.PlotSignal(dataJAA, label: "JAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Maroon);
-                graphCompare2Files.plt.PlotSignal(dataJAA2, label: "JAAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Lavender);
+                graphCompare2Files.plt.PlotSignal(dataJAA, label: "JAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkRed);
+                graphCompare2Files.plt.PlotSignal(dataJAA2, label: "JAAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkSalmon);
                 if (chkCountsGraphs.IsChecked == true)
                     graphCompare2Files.plt.PlotSignal(dataJAC, label: "JACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.DashDotDot, color: System.Drawing.Color.Maroon);
                 if (chkRawPointsGraphs.IsChecked == true)

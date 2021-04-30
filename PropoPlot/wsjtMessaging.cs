@@ -7,6 +7,9 @@ using System.Net;
 using M0LTE.WsjtxUdpLib.Client;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Windows;
+using System.Diagnostics;    //this is the debug class
+
 
 
 //***************************************
@@ -21,20 +24,20 @@ namespace PropoPlot
 {
     public partial  class  MainWindow
     {
-        public double[] avgs = new double[8] ;  //declare an array of elements that we use for the lagging signal strength
+        public double[] avgs = new double[120] ;  //declare an array of elements that we use for the lagging signal strength
 
         // int EUavgsCnt = 0;
         //4 per minute
         //8 is able to hold 2 minutes worth
         
 
-        public double[] FAavgs = new double[18];
-        public double[] JAavgs = new double[18];
-        public double[] EUavgs = new double[18];
-        public double[] NAavgs = new double[18];
-        public double[] OCavgs = new double[18];
-        public double[] SAavgs = new double[18];
-        public double[] AFavgs = new double[18];
+        public double[] FAavgs = new double[120];
+        public double[] JAavgs = new double[120];
+        public double[] EUavgs = new double[120];
+        public double[] NAavgs = new double[120];
+        public double[] OCavgs = new double[120];
+        public double[] SAavgs = new double[120];
+        public double[] AFavgs = new double[120];
 
 
         public int avgsCounter = 0;
@@ -78,11 +81,6 @@ namespace PropoPlot
         private void wsjtmessages()  //should this be returning a Task cause void is bad?
         {
             
-
-      //      if (wsjtClientAbort == false) {
-
-     //           wsjtClientAbort = true;
-
                 int UDPport = int.Parse(UDPportEntry.Text);
 
                 //input parameters
@@ -92,14 +90,8 @@ namespace PropoPlot
                         string strmsg = msg.ToString();
                                 Debug.WriteLine(msg); //write to the immdiate window
                         udpStrings.Add(msg.ToString()); //collect the strings into a list
-                    }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: true, port: UDPport);
+                    }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: false, port: UDPport);
 
-       //     }
-       //     else
-       //     {
-       //       //  btnUDPStart.Content = "Start Capture";
-       //         wsjtClientAbort = true;
-       //     }
 
         }//end
 
@@ -144,14 +136,15 @@ namespace PropoPlot
                 double averageFAarray = 0;
                 int counterFA = 0;
 
-           
+            foreach (var item in udpStrings)
+            {
+                RegexOptions options = RegexOptions.None;
+                Regex regex = new Regex("[ ]{2,}", options);
+                cleandata = regex.Replace(item, " ");
+                string[] wrdmsg = cleandata.Split(' ');
 
-                foreach (var item in udpStrings)
+                if (wrdmsg.Length == 11)   //this is normal  CQ VK6DW OF88
                 {
-                    RegexOptions options = RegexOptions.None;
-                    Regex regex = new Regex("[ ]{2,}", options);
-                    cleandata = regex.Replace(item, " ");
-                    string[] wrdmsg = cleandata.Split(' ');
                     ul.udptime = wrdmsg[1];
                     ul.udpdbm = wrdmsg[2];
                     ul.udpdt = wrdmsg[3];
@@ -159,22 +152,43 @@ namespace PropoPlot
                     ul.udpqso1 = wrdmsg[6];
                     ul.udpqso2 = wrdmsg[7];
                     ul.udpqso3 = wrdmsg[8];
+                    ul.udpqso4 = wrdmsg[9];//this is usually empty ""
 
-                    cd.pTime = ul.udptime;  //add the time to the record
+                    if (ul.udpqso4.Length > 1)  //this is for CQ NA VK6DW OF88
+                        ul.udpqso3 = ul.udpqso4; // puts the qso4 into qso3, could also just make ul.udpqso3="$$$$" and ignore this
 
-                    isEmpty = String.IsNullOrWhiteSpace(ul.udpqso3);
-                    int qso3Length;
+               // Debug.WriteLine($"route 1    3 = {ul.udpqso3} 4 = {ul.udpqso4}  String is {cleandata} ");
+                }
+                else if (wrdmsg.Length == 10)  //WQ6L YB6C NJ93  
+                {
+                    ul.udptime = wrdmsg[1];
+                    ul.udpdbm = wrdmsg[2];
+                    ul.udpdt = wrdmsg[3];
+                    ul.udphz = wrdmsg[4];
+                    ul.udpqso1 = wrdmsg[6];
+                    ul.udpqso2 = wrdmsg[7];
+                    ul.udpqso3 = wrdmsg[8];
+               // Debug.WriteLine($"route 2   3 = {ul.udpqso3} 4 = {ul.udpqso4} String is {cleandata} ");
+                }
+                else if (wrdmsg.Length < 10  || wrdmsg.Length > 11) //this is very bad  something like CQ MISSISSIPPI OR anything
+                {
+                    ul.udptime = wrdmsg[1];
+                    ul.udpdbm = wrdmsg[2];
+                    ul.udpdt = wrdmsg[3];
+                    ul.udphz = wrdmsg[4];
+                    ul.udpqso1 = wrdmsg[6];
+                    ul.udpqso2 = wrdmsg[7];
+                    ul.udpqso3 = "$$$$";  //anything strange ignore it  
+              //  Debug.WriteLine($"route 3    3 = {ul.udpqso3} 4 = {ul.udpqso4} String is {cleandata} ");
+                }
+            
+            //ul.udpqso4 = wrdmsg[9];//
 
-                    if (!isEmpty)
-                        qso3Length = ul.udpqso3.Length;
+            cd.pTime = ul.udptime;  //add the time to the record
 
-                    if (!isEmpty && ul.udpqso3.Length > 1)
-                        ul.udpqso3 = wrdmsg[8];
-                    else
-                        ul.udpqso3 = "$$";  //stop a exception 
-
+ 
                     if (ul.udpqso3.Length == 4  //ie if there is a valid length of 4 chars this is the filter to get rid
-                        && (ul.udpqso3.Substring(0, 2) != "$$"  //of anything that is not a grid square.  Ther is only ever one instance
+                        && (ul.udpqso3.Substring(0, 2) != "$$"  //of anything that is not a grid square.  There is only ever one instance
                         && ul.udpqso3.Substring(0, 2) != "73"   //for the record we are processing from the list
                         && ul.udpqso3.Substring(0, 2) != "RR"
                         && ul.udpqso3.Substring(0, 2) != "R-"
@@ -184,6 +198,9 @@ namespace PropoPlot
                         && ul.udpqso3.Substring(0, 2) != "-2"
                         && ul.udpqso3.Substring(0, 2) != "+1"
                         && ul.udpqso3.Substring(0, 2) != "+2"
+                        && ul.udpqso3.Substring(0, 4) != "LOTW"
+                        && ul.udpqso3.Substring(0, 4) != "eQSL"
+                        && ul.udpqso3.Substring(0, 4) != "SGNL" //as in Nice SIGNAL
                      ))
                     { //this fires for every string that has grid data
 
@@ -191,7 +208,10 @@ namespace PropoPlot
                         Udppoint[counter, 0] = ul.udpqso2;
                         Udppoint[counter, 1] = ul.udpdbm;
                         Udppoint[counter, 2] = ul.udpqso3;
-                        string latitude = Maiden2latitude(ul.udpqso3);
+
+                    //if there is an issue with the string  - like we can get a callsign like WU7X if he calls CQDX WU7X DN17
+                   // Debug.WriteLine($"Sending a GRID of  {ul.udpqso3}  to lat long conversion");
+                    string latitude = Maiden2latitude(ul.udpqso3);
                         string longitude = Maiden2longitude(ul.udpqso3);
 
                         double dlatitude = double.Parse(latitude);
@@ -274,7 +294,10 @@ namespace PropoPlot
                     loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square
                     QSOsThiInterval = counter;
 
-                }//end of foreach loop
+                ul.udpqso4 = ""; //reset just this one, all of the others get overwritten each time
+
+            }//end of foreach loop
+           
                         plotmessage.Text += "--------------------------------- -----------------------------\n";
 
                 // we count all of the good grids only - ie where there is at least one grid
@@ -391,9 +414,15 @@ namespace PropoPlot
                         laggingCount = 0; //go to set this back to 0 so we use the same array slots
                     }
                 }
-            }
-            catch (Exception)
+          
+              }//try
+            catch (Exception ex)
             {
+                //MessageBox.Show($"Error in GetQsosFromList() {ex} ");
+                frmMessageDialog md = new frmMessageDialog();
+                md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
+                md.messageBoxLower.Text = $"{ex}";
+                md.Show();
             }
 
             //now some code to plot to dxAtlas
@@ -401,6 +430,7 @@ namespace PropoPlot
             
             if (plotToDxAtlas == true)
                DXAtlasplotPoints();
+            
             setTimerBarColour(laggingAvg); //this is our progress bar
  
         }

@@ -23,9 +23,17 @@ namespace PropoPlot
     public partial class graphSinglePlot : Window
     {
 
+
+        public bool liveRedraw { get; set; }
+
         List<string> _thlist;
 
         double[] dataX = new double[6000];
+        DateTime[] DTdates = new DateTime[6000];
+       
+      
+        
+        double [] Dubdates = new double[6000];
 
         double[] dataEUA = new double[6000]; //Average
         double[] dataEUR = new double[6000]; //Raw
@@ -57,33 +65,41 @@ namespace PropoPlot
         double[] dataFAR = new double[6000];
         double[] dataFAC = new double[6000];
        
+/// <summary>
+/// Constructor
+/// </summary>
+/// <param name="thlist"></param>
         public graphSinglePlot(List<string> thlist)
         {
             InitializeComponent();
             _thlist = thlist;
+           // _thlist.Add("");
 
             PrepareArrays();
            
             PlotTheLists();
-
         }
 
 
         public void PrepareArrays()
         {
+            string[] wrdmsg= { };
+
+            try
+            {
 
             string time = "";
-
-
-
             int count = 0;
             foreach (var item in _thlist)
             {
                 // double defaultValue = 0;
 
-                string[] wrdmsg = item.Split(',');
+                 wrdmsg = item.Split(',');
 
                 dataX[count] = count; //the X values
+
+                DTdates[count] = DateTime.Parse(wrdmsg[1]);
+                Dubdates[count] = DTdates[count].ToOADate();
 
                 double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
                 double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
@@ -118,6 +134,8 @@ namespace PropoPlot
             }
 
             // get rid of the 0's on the end
+            Array.Resize(ref Dubdates, count);
+
             Array.Resize(ref dataX, count);
             Array.Resize(ref dataEUR, count);
             Array.Resize(ref dataEUA, count);
@@ -145,6 +163,19 @@ namespace PropoPlot
             Array.Resize(ref dataFAA, count);
             Array.Resize(ref dataFAC, count);
 
+
+
+            }
+            catch (Exception ex)
+            {
+                frmMessageDialog md = new frmMessageDialog();
+                md.messageBoxUpper.Text = $"Error in graphSinglePlot.PrepareArrays()  string is {wrdmsg}";
+                md.messageBoxLower.Text = $"{ex}";
+                md.Show();
+
+
+            }
+
         }
 
         public void PlotTheLists()
@@ -161,60 +192,67 @@ namespace PropoPlot
             
             if (chkEUGraphs.IsChecked == true)
             {
-                graphSingle.plt.PlotSignal(dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
-                if(chkCountsGraphs.IsChecked == true)
-                graphSingle.plt.PlotSignal(dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle:LineStyle.Solid,    color: System.Drawing.Color.Blue);
-                if(chkRawPointsGraphs.IsChecked == true)
-                graphSingle.plt.PlotSignal(dataEUR, label: "EURaw", markerSize: 0, lineStyle:LineStyle.Solid,    color: System.Drawing.Color.Blue);
+                if (chkAvgPointsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkBlue);
+                if (chkCountsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                if (chkRawPointsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
             }
 
             if (chkJAGraphs.IsChecked == true)
             {
-                graphSingle.plt.PlotSignal(dataJAA, label: "JAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Maroon);
+                if (chkAvgPointsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataJAA, label: "JAAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGray);
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataJAC, label: "JACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.DashDotDot, color: System.Drawing.Color.Maroon);
+                    graphSingle.plt.PlotScatter(Dubdates, dataJAC, label: "JACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Gray);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataJAR, label: "JARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Maroon);
+                    graphSingle.plt.PlotScatter(Dubdates, dataJAR, label: "JARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Gray);
 
             }
 
             if (chkNAGraphs.IsChecked == true)
             {
-                graphSingle.plt.PlotSignal(dataNAA, label: "NAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Brown);
+                if (chkAvgPointsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataNAA, label: "NAAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkOliveGreen);
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataNAC, label: "NACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Dash, color: System.Drawing.Color.Brown);
+                    graphSingle.plt.PlotScatter(Dubdates, dataNAC, label: "NACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkOliveGreen);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataNAR, label: "NARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Brown);
+                    graphSingle.plt.PlotScatter(Dubdates, dataNAR, label: "NARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Olive);
 
             }
 
             if (chkOCGraphs.IsChecked == true)
             {
-                graphSingle.plt.PlotSignal(dataOCA, label: "OCAvg", markerSize: 0, lineWidth:2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
+                if (chkAvgPointsGraphs.IsChecked == true)
+                graphSingle.plt.PlotScatter(Dubdates,dataOCA, label: "OCAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataOCC, label: "OCCnt", markerSize: 0, lineWidth:2, lineStyle : LineStyle.Dot, color: System.Drawing.Color.DarkCyan);
+                    graphSingle.plt.PlotScatter(Dubdates,dataOCC, label: "OCCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataOCR, label: "OCRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
+                     graphSingle.plt.PlotScatter(Dubdates,dataOCR, label: "OCRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
 
+ 
             }
 
             if (chkAFGraphs.IsChecked == true)
             {
-                graphSingle.plt.PlotSignal(dataAFA, label: "AFAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Red);
+                if (chkAvgPointsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataAFA, label: "AFAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGoldenrod);
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataAFC, label: "AFCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Dot, color: System.Drawing.Color.Red);
+                    graphSingle.plt.PlotScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Goldenrod);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataAFR, label: "AFRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Red);
+                    graphSingle.plt.PlotScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGoldenrod);
 
             }
 
             if (chkSAGraphs.IsChecked == true)
             {
-                graphSingle.plt.PlotSignal(dataSAA, label: "SAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Green);
+                if (chkAvgPointsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataSAA, label: "SAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGreen);
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataSAC, label: "SACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Dot, color: System.Drawing.Color.Green );
+                    graphSingle.plt.PlotScatter(Dubdates, dataSAC, label: "SACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGreen);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataSAR, label: "SARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Green);
+                    graphSingle.plt.PlotScatter(Dubdates, dataSAR, label: "SARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGreen);
 
             }
 
@@ -222,16 +260,12 @@ namespace PropoPlot
 
             if (chkFAGraphs.IsChecked == true)
             {
-            sigFaAvg = graphSingle.plt.PlotSignal(dataFAA,label:"FaAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
+                if (chkAvgPointsGraphs.IsChecked == true)
+                    graphSingle.plt.PlotScatter(Dubdates, dataFAA, label: "UsrAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkMagenta);
                 if (chkCountsGraphs.IsChecked == true)
-                    sigFaCnt = graphSingle.plt.PlotSignal(dataFAC,label:"FaCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Dot, color:System.Drawing.Color.Magenta);
+                    graphSingle.plt.PlotScatter(Dubdates, dataFAC, label: "UsrCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotSignal(dataFAR, label: "FARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
-
-
-                //sigFaAvg.color = Color.R
-                //sigFaAvg.visible = true;
-                //sigFaCnt.visible = true;
+                    graphSingle.plt.PlotScatter(Dubdates, dataFAR, label: "UsrRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
             }
 
 
@@ -239,7 +273,8 @@ namespace PropoPlot
 
             graphSingle.plt.Legend(location:legendLocation.lowerLeft);
             graphSingle.plt.YLabel("dBm");
-            graphSingle.plt.XLabel("Periods");
+            graphSingle.plt.XLabel("Time(Zulu)");
+            graphSingle.plt.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss");
 
            
 
@@ -247,9 +282,17 @@ namespace PropoPlot
 
         public void graphSingleRedraw_Click(object sender, RoutedEventArgs e)
         {
-           //got to set the arrays back to full size , rinse and repeat style
+            redrawThePlot();
+        }
+
+        public void redrawThePlot()
+        {
+
+
+            //got to set the arrays back to full size , rinse and repeat style
             int count = 6000;
             // get rid of the 0's on the end
+            Array.Resize(ref Dubdates, count);
             Array.Resize(ref dataX, count);
             Array.Resize(ref dataEUR, count);
             Array.Resize(ref dataEUA, count);
@@ -274,13 +317,11 @@ namespace PropoPlot
             Array.Resize(ref dataFAC, count);
 
             PrepareArrays();
-
             graphSingle.plt.Clear();
-            
             PlotTheLists();
             graphSingle.Render();
 
-
         }
+
     }
 }

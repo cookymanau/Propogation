@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-    Title="graphSinglePlot" Height="350" Width="900">
+    Title="graphSinglePlot" Height="380" Width="900">
 
-    <Border Margin="10">
+    <Border Margin="5">
     <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
@@ -22,15 +22,17 @@
             </WpfPlot>
             <StackPanel>
                 <TextBlock Text="Draw Plot" Background="#bbb" FontWeight="Bold" Margin="1"/>
-                <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="true"/>
+                <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="false"/>
                 <CheckBox Name="chkJAGraphs" Content="JA" Margin="5,5" Grid.Column="0" IsChecked="true"/>
-                <CheckBox Name="chkNAGraphs" Content="NA" Margin="5,5" Grid.Column="0" IsChecked="true"/>
-                <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="true"/>
-                <CheckBox Name="chkAFGraphs" Content="AF" Margin="5,5" Grid.Column="0" IsChecked="true"/>
-                <CheckBox Name="chkSAGraphs" Content="SA" Margin="5,5" Grid.Column="0" IsChecked="true"/>
-                <CheckBox Name="chkFAGraphs" Content="Usr" Margin="5,5" Grid.Column="0" IsChecked="true"/>
-                <CheckBox Name="chkCountsGraphs" Content="Decodes" Margin="5,5" Grid.Column="0" IsChecked="true"/>
+                <CheckBox Name="chkNAGraphs" Content="NA" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="false"/>
+                <CheckBox Name="chkAFGraphs" Content="AF" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkSAGraphs" Content="SA" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkFAGraphs" Content="Usr" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkAvgPointsGraphs" Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="true"/>
                 <CheckBox Name="chkRawPointsGraphs" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkCountsGraphs" Content="Decodes" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkLiveUpdate" Content="Live Data" Margin="5,5" Grid.Column="0" IsChecked="false"/>
 
                 <Button x:Name="graphSingleRedraw" Content="Redraw" Margin="2,2" Grid.Column="0" Click="graphSingleRedraw_Click" />
             </StackPanel>

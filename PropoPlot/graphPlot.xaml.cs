@@ -22,6 +22,7 @@ namespace PropoPlot
     {
 
         List<string> _thlist;
+
         double[] dataX = new double[1000] ;
         double[] dataEU = new double[1000] ;
         double[] dataEUA = new double[1000] ;

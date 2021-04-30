@@ -20,7 +20,8 @@ namespace PropoPlot
         
         
        //4 = 1 minute, 8=2 minutes, 16 = 4 minutes 32 = 8 minutes
-        int avgPeriods = int.Parse(tset.toolsAvgPrd.Text);  //MUST be less than 100 and set it in a tools options
+        //int avgPeriods = int.Parse(tset.toolsAvgPrd.Text);  //MUST be less than 100 and set it in a tools options
+        int avgPeriods = int.Parse(Properties.Settings.Default.AvgPrd);  //MUST be less than 100 and set it in a tools options
 
         //  continentData cd = new continentData();  
         private void setTimerBarColour(double value)

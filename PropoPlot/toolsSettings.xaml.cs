@@ -22,10 +22,15 @@ namespace PropoPlot
         public toolsSettings()
         {
             InitializeComponent();
+            //so we have just opened the form...get the users last changes to the dialog boxes
+            toolsAvgPrd.Text = Properties.Settings.Default.AvgPrd;
         }
 
         private void toolSettingsClose_Click(object sender, RoutedEventArgs e)
         {
+
+            Properties.Settings.Default.AvgPrd = toolsAvgPrd.Text;  //save whatever the user puts into the averaging interval box.
+            Properties.Settings.Default.Save();
             this.Close();
         }
 

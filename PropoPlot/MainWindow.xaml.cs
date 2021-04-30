@@ -34,7 +34,8 @@ namespace PropoPlot
         List<string> continentList = new List<string>();  //we store the data into a new list record every period
         List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
 
-        List<string> continentAVGList = new List<string>();  //we store the data into a new list record every period
+      // static List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
+        List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
 
         toolsContLatLongSetting tll = new toolsContLatLongSetting();  //this class here so we can see it every where we need it Holds the lat min, lat max longMin and longMax for the continents
 
@@ -47,6 +48,7 @@ namespace PropoPlot
         public MainWindow()
         {
             InitializeComponent();
+            //continentAVGList.Add("");  // initialising the list with something
         }
 
         private void ButtonUDPport_click(object sender, RoutedEventArgs e)
@@ -106,9 +108,13 @@ namespace PropoPlot
             dispatcherTimer.Start();
         }
 
-          
+
+        
+
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
+
+         
             //anything we want to do in a timer, do it here
 
             timercounter += 2; //going up in 2 second increments.  It seemed less busy that way
@@ -121,8 +127,10 @@ namespace PropoPlot
                 timercounter = 0; //reset this
                // timerBar.Value = timercounter;
                udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
-                                    //***              tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
-               // runningAvgDbm.Text = laggingCount.ToString();
+                                   //***  tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
+
+              //  gs.redrawThePlot();
+
             }
         }
 
@@ -367,9 +375,21 @@ namespace PropoPlot
 
         private void graphSingle_Click(object sender, RoutedEventArgs e)
         {
-            graphSinglePlot gs = new graphSinglePlot(continentAVGList);
-            gs.Show();
+            redrawSingle();
         }
+
+
+        private void redrawSingle()
+        {
+            graphSinglePlot gs = new graphSinglePlot(continentAVGList);
+
+            //if (gs.chkLiveUpdate.IsChecked == true)
+             //   gs.liveRedraw = true;
+
+            gs.Show();
+
+        }
+
 
         private void graphCompare_Click(object sender, RoutedEventArgs e)
         {
