@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-       Title="WSJT Propogation Version Beta 1.2" Height="515" Width="540"  Name="window">
+       Title="WSJT Propogation Version Beta 1.2" Height="490" Width="540"  Name="window">
     <Border Margin="10,0,10,10">
 
         <Grid>
@@ -50,7 +50,6 @@
                 <MenuItem Header="_Graphs" >
                     <MenuItem Header="_All Continents live data" Name="graphAll" Click="graphAll_Click"  />
                      <MenuItem Header="_Single Graph live data" Name="graphSingle" Click="graphSingle_Click"  />
-                     <MenuItem Header="_Single Graph updating" Name="graphSingleUpdating"  />
                     <Separator/>
                     <MenuItem Header="_CompareFiles Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
                 </MenuItem>
@@ -139,7 +138,7 @@
                 <Border BorderThickness="1" BorderBrush="Black" >
                     <TextBlock Text="UDP Decodes with valid GS4" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
-                <TextBox Name="plotmessage"  Grid.Column="1"  Height="250" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>
+                <TextBox Name="plotmessage"  Grid.Column="1"  Height="220" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>
                 <Border BorderThickness="1" BorderBrush="Black"  >
                     <TextBlock Text="dBm Averages by continent and period decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>

@@ -34,5 +34,353 @@ namespace PropoPlot.Properties {
                 this["AvgPrd"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-9.0")]
+        public string FALatMin {
+            get {
+                return ((string)(this["FALatMin"]));
+            }
+            set {
+                this["FALatMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90.0")]
+        public string FALatMax {
+            get {
+                return ((string)(this["FALatMax"]));
+            }
+            set {
+                this["FALatMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public string FALongMin {
+            get {
+                return ((string)(this["FALongMin"]));
+            }
+            set {
+                this["FALongMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("144")]
+        public string FALongMax {
+            get {
+                return ((string)(this["FALongMax"]));
+            }
+            set {
+                this["FALongMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public string EULatMin {
+            get {
+                return ((string)(this["EULatMin"]));
+            }
+            set {
+                this["EULatMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("72")]
+        public string EULatMax {
+            get {
+                return ((string)(this["EULatMax"]));
+            }
+            set {
+                this["EULatMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-12")]
+        public string EULongMin {
+            get {
+                return ((string)(this["EULongMin"]));
+            }
+            set {
+                this["EULongMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public string EULongMax {
+            get {
+                return ((string)(this["EULongMax"]));
+            }
+            set {
+                this["EULongMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public string JALatMin {
+            get {
+                return ((string)(this["JALatMin"]));
+            }
+            set {
+                this["JALatMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("46")]
+        public string JALatMax {
+            get {
+                return ((string)(this["JALatMax"]));
+            }
+            set {
+                this["JALatMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("130")]
+        public string JALongMin {
+            get {
+                return ((string)(this["JALongMin"]));
+            }
+            set {
+                this["JALongMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("145")]
+        public string JALongMax {
+            get {
+                return ((string)(this["JALongMax"]));
+            }
+            set {
+                this["JALongMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public string NALatMin {
+            get {
+                return ((string)(this["NALatMin"]));
+            }
+            set {
+                this["NALatMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public string NALatMax {
+            get {
+                return ((string)(this["NALatMax"]));
+            }
+            set {
+                this["NALatMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-131")]
+        public string NALongMin {
+            get {
+                return ((string)(this["NALongMin"]));
+            }
+            set {
+                this["NALongMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-54")]
+        public string NALongMax {
+            get {
+                return ((string)(this["NALongMax"]));
+            }
+            set {
+                this["NALongMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-60")]
+        public string SALatMin {
+            get {
+                return ((string)(this["SALatMin"]));
+            }
+            set {
+                this["SALatMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public string SALatMax {
+            get {
+                return ((string)(this["SALatMax"]));
+            }
+            set {
+                this["SALatMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-90")]
+        public string SALongMin {
+            get {
+                return ((string)(this["SALongMin"]));
+            }
+            set {
+                this["SALongMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-32")]
+        public string SALongMax {
+            get {
+                return ((string)(this["SALongMax"]));
+            }
+            set {
+                this["SALongMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-54")]
+        public string OCLatMin {
+            get {
+                return ((string)(this["OCLatMin"]));
+            }
+            set {
+                this["OCLatMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("28")]
+        public string OCLatMax {
+            get {
+                return ((string)(this["OCLatMax"]));
+            }
+            set {
+                this["OCLatMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("112")]
+        public string OCLongMin {
+            get {
+                return ((string)(this["OCLongMin"]));
+            }
+            set {
+                this["OCLongMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("126")]
+        public string OCLongMax {
+            get {
+                return ((string)(this["OCLongMax"]));
+            }
+            set {
+                this["OCLongMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-35")]
+        public string AFLatMin {
+            get {
+                return ((string)(this["AFLatMin"]));
+            }
+            set {
+                this["AFLatMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("34")]
+        public string AFLatMax {
+            get {
+                return ((string)(this["AFLatMax"]));
+            }
+            set {
+                this["AFLatMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-20")]
+        public string AFLongMin {
+            get {
+                return ((string)(this["AFLongMin"]));
+            }
+            set {
+                this["AFLongMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public string AFLongMax {
+            get {
+                return ((string)(this["AFLongMax"]));
+            }
+            set {
+                this["AFLongMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public string PeriodTimer {
+            get {
+                return ((string)(this["PeriodTimer"]));
+            }
+            set {
+                this["PeriodTimer"] = value;
+            }
+        }
     }
 }

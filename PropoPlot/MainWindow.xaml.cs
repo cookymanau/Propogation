@@ -236,9 +236,10 @@ namespace PropoPlot
         {
             //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
             //using System.IO; is for SttreamWriter
+            string now = DateTime.Now.ToString("h:mm:ss tt");
 
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "PropoPlot"; // Default file name
+            dlg.FileName = $"Propo_{now}_"; // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -340,7 +341,7 @@ namespace PropoPlot
 
         private void toolsContLatLongSettings_Click(object sender, RoutedEventArgs e)
         {
-           // toolsContLatLongSetting tll = new toolsContLatLongSetting();
+            toolsContLatLongSetting tll = new toolsContLatLongSetting();
             tll.ShowDialog();
         }
 

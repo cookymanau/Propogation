@@ -30,9 +30,6 @@ namespace PropoPlot
 
         double[] dataX = new double[6000];
         DateTime[] DTdates = new DateTime[6000];
-       
-      
-        
         double [] Dubdates = new double[6000];
 
         double[] dataEUA = new double[6000]; //Average
@@ -282,6 +279,23 @@ namespace PropoPlot
 
         public void graphSingleRedraw_Click(object sender, RoutedEventArgs e)
         {
+
+            if (chkLiveUpdate.IsChecked == true)
+            {
+                // now start the timer to process the UDP stuff now that we have started it.
+                System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
+                dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
+                dispatcherTimer2.Interval = new TimeSpan(0, 0, 10);
+                dispatcherTimer2.Start();
+
+            }
+            else
+             redrawThePlot();
+        }
+
+        private void dispatcherTimer2_Tick(object sender, EventArgs e)
+        {
+            //code for timer2 in here
             redrawThePlot();
         }
 

@@ -5,5 +5,92 @@
     <Setting Name="AvgPrd" Type="System.String" Scope="User">
       <Value Profile="(Default)">6</Value>
     </Setting>
+    <Setting Name="FALatMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-9.0</Value>
+    </Setting>
+    <Setting Name="FALatMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">90.0</Value>
+    </Setting>
+    <Setting Name="FALongMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="FALongMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">144</Value>
+    </Setting>
+    <Setting Name="EULatMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="EULatMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">72</Value>
+    </Setting>
+    <Setting Name="EULongMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-12</Value>
+    </Setting>
+    <Setting Name="EULongMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="JALatMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="JALatMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">46</Value>
+    </Setting>
+    <Setting Name="JALongMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">130</Value>
+    </Setting>
+    <Setting Name="JALongMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">145</Value>
+    </Setting>
+    <Setting Name="NALatMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="NALatMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="NALongMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-131</Value>
+    </Setting>
+    <Setting Name="NALongMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-54</Value>
+    </Setting>
+    <Setting Name="SALatMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-60</Value>
+    </Setting>
+    <Setting Name="SALatMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="SALongMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-90</Value>
+    </Setting>
+    <Setting Name="SALongMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-32</Value>
+    </Setting>
+    <Setting Name="OCLatMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-54</Value>
+    </Setting>
+    <Setting Name="OCLatMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">28</Value>
+    </Setting>
+    <Setting Name="OCLongMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">112</Value>
+    </Setting>
+    <Setting Name="OCLongMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">126</Value>
+    </Setting>
+    <Setting Name="AFLatMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-35</Value>
+    </Setting>
+    <Setting Name="AFLatMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">34</Value>
+    </Setting>
+    <Setting Name="AFLongMin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-20</Value>
+    </Setting>
+    <Setting Name="AFLongMax" Type="System.String" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="PeriodTimer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

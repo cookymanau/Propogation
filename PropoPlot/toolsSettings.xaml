@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                
             </Grid.ColumnDefinitions>
 
 
@@ -40,31 +40,42 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox x:Name="PeriodFileGroup" Header="Period Files" Grid.Column="1" Grid.Row="1">
+            <!--<GroupBox x:Name="PeriodFileGroup" Header="Period Files" Grid.Column="1" Grid.Row="1">
                 <StackPanel>
                     <RadioButton GroupName="per" Name="perType1"  IsChecked="True" Checked="perType1_Checked">Type 1</RadioButton>
                     <RadioButton GroupName="per" Name="perType2" Checked="perType2_Checked" >Type 2</RadioButton>
                 </StackPanel>
-            </GroupBox>
+            </GroupBox>-->
 
 
-            <GroupBox x:Name="AverageFileGroup" Header="Average Files" Grid.Column="1" Grid.Row="2">
+            <!--<GroupBox x:Name="AverageFileGroup" Header="Average Files" Grid.Column="1" Grid.Row="2">
                 <StackPanel>
                     <RadioButton GroupName="avg" Name="avgType1" IsChecked="True">Type 1</RadioButton>
                     <RadioButton GroupName="avg" Name="avgType2">Type 2</RadioButton>
                 </StackPanel>
-            </GroupBox>
+            </GroupBox>-->
  
          <GroupBox x:Name="AverageSettingsGroup" Header="Average Settings" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="1">
-                <StackPanel Orientation="Vertical">
+                <StackPanel >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            
+                        </Grid.RowDefinitions>
 
-                     <TextBlock  Text="No. Periods"  Grid.Column="0" Margin="4"/>
-                    <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Margin="4"/> <!--*******************-->
+                        
+
+
+
+                        <TextBlock  Text="No. Periods"  Grid.Column="0" Grid.Row="0" Margin="4"/>
+                    <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Grid.Row="0" Margin="4"/> 
+                        <TextBlock  Text="Timer"  Grid.Column="0" Grid.Row="1" Margin="4"/>
+                        <TextBox x:Name="toolsMainTimer" Text="15" Grid.Column="1" Grid.Row="1" Margin="4"/>
                     </Grid>
                 </StackPanel>
             </GroupBox>

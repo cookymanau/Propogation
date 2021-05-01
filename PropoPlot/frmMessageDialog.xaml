@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="frmMessageDialog" Height="450" Width="800">
+        Title="frmMessageDialog" Height="200" Width="500">
     <Border Margin="10">
         
     <Grid>
@@ -19,7 +19,7 @@
             <TextBlock Text="Messaging" Background="#ccc"/>
             <TextBox Grid.Row="1" Text="blah1" Name="messageBoxUpper"/> 
             <TextBox Grid.Row="2" Text="blah1" Name="messageBoxLower"/>
-            <TextBlock Text="The Program should still be going"  Grid.Row="3" Background="#ccc"/>
+            <TextBlock Text="Close this Message, PropPlot will continue"  Grid.Row="3" Background="#ccc"/>
         </Grid>
     </Border>
 </Window>

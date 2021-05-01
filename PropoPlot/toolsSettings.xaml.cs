@@ -24,12 +24,14 @@ namespace PropoPlot
             InitializeComponent();
             //so we have just opened the form...get the users last changes to the dialog boxes
             toolsAvgPrd.Text = Properties.Settings.Default.AvgPrd;
+            toolsMainTimer.Text = Properties.Settings.Default.PeriodTimer;  
         }
 
         private void toolSettingsClose_Click(object sender, RoutedEventArgs e)
         {
 
             Properties.Settings.Default.AvgPrd = toolsAvgPrd.Text;  //save whatever the user puts into the averaging interval box.
+            Properties.Settings.Default.PeriodTimer = toolsMainTimer.Text; //this is the number we ut into the decode timer loop
             Properties.Settings.Default.Save();
             this.Close();
         }

@@ -45,7 +45,7 @@ namespace PropoPlot
         int laggingCount = 0; //wtd avg
         double laggingTotal = 0.0; //wtd avg
         int laggingWindow = 5; //wtd avg
-        int timerInterval = 14;  //this is how often we should process the data (its seconds)
+        int timerInterval = int.Parse(Properties.Settings.Default.PeriodTimer); //14;  //this is how often we should process the data (its seconds)
         bool laggingRound = false;
         
         public bool plotToDxAtlas = false;
