@@ -142,8 +142,8 @@ namespace PropoPlot
         {
             double sumFAarray = 0;
             double averageOfarray = 0;
-            //int avgSet = avgPeriods;
-            int avgSet = int.Parse(tset.toolsAvgPrd.Text);
+            int avgSet = avgPeriods;
+            //int avgSet = int.Parse(tset.toolsAvgPrd.Text);
             int avgSetm1 = avgSet - 1;
 
 
@@ -236,7 +236,7 @@ namespace PropoPlot
         {
             double sumOfArray = 0;
             double averageOfarray = 0;
-            int sumOfArrayCount = 0;
+          //  int sumOfArrayCount = 0;
             int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
 

@@ -24,7 +24,12 @@ namespace PropoPlot
             InitializeComponent();
             //so we have just opened the form...get the users last changes to the dialog boxes
             toolsAvgPrd.Text = Properties.Settings.Default.AvgPrd;
-            toolsMainTimer.Text = Properties.Settings.Default.PeriodTimer;  
+            toolsMainTimer.Text = Properties.Settings.Default.PeriodTimer;
+
+
+
+           //toolsEUAvgColor.SelectedColor = Properties.Settings.Default.EUAvgColor;
+
         }
 
         private void toolSettingsClose_Click(object sender, RoutedEventArgs e)
@@ -32,6 +37,12 @@ namespace PropoPlot
 
             Properties.Settings.Default.AvgPrd = toolsAvgPrd.Text;  //save whatever the user puts into the averaging interval box.
             Properties.Settings.Default.PeriodTimer = toolsMainTimer.Text; //this is the number we ut into the decode timer loop
+
+
+            Properties.Settings.Default.EUAvgColor = toolsEUAvgColor.SelectedColor.ToString();
+
+
+
             Properties.Settings.Default.Save();
             this.Close();
         }
@@ -46,5 +57,8 @@ namespace PropoPlot
         {
           //  MessageBox.Show("period header, type 2 selected");
         }
+
+
+      
     }
 }

@@ -382,5 +382,17 @@ namespace PropoPlot.Properties {
                 this["PeriodTimer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EUAvgColor {
+            get {
+                return ((string)(this["EUAvgColor"]));
+            }
+            set {
+                this["EUAvgColor"] = value;
+            }
+        }
     }
 }

@@ -63,12 +63,12 @@ namespace PropoPlot
         //5 = time
        // public string[,] UdppointEU = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
        // public string[,] UdppointJA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-        public string[,] UdppointOC = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-        public string[,] UdppointNA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-        public string[,] UdppointSA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-        public string[,] UdppointAF = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-        
+     //   public string[,] UdppointOC = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+     //   public string[,] UdppointNA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+     //   public string[,] UdppointSA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+     //   public string[,] UdppointAF = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
 
+        int totalDecodes = 0; //a running tally of how many decodes we have done
 
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace PropoPlot
             try
             {
 
-
+                
            int counter = 0;
            counter +=  counter;///???
             
@@ -296,6 +296,10 @@ namespace PropoPlot
 
                 ul.udpqso4 = ""; //reset just this one, all of the others get overwritten each time
 
+                    totalDecodes += 1;
+
+                    displayTotalDecodes.Text = totalDecodes.ToString();
+
             }//end of foreach loop
            
                         plotmessage.Text += "--------------------------------- -----------------------------\n";
@@ -392,7 +396,7 @@ namespace PropoPlot
                 continentAVGList.Add($"WTDavg,{cd.pTime},  {cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},   {cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},   {cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
                 //continentAVGList.Add($"WTDavg,{cd.pTime},  {cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},   {cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber}");
 
-                sumChr.Text = plotmessage.Text.Length.ToString();
+                
                 //it would be good to just remove the first 8000 chars and then keep it like that
 
                 if (plotmessage.Text.Length > 9000) 
@@ -418,11 +422,11 @@ namespace PropoPlot
               }//try
             catch (Exception ex)
             {
-                //MessageBox.Show($"Error in GetQsosFromList() {ex} ");
-                frmMessageDialog md = new frmMessageDialog();
-                md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
-                md.messageBoxLower.Text = $"{ex}";
-                md.Show();
+               
+             //   frmMessageDialog md = new frmMessageDialog();
+            //    md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
+            //    md.messageBoxLower.Text = $"{ex}";
+            //   md.Show();
             }
 
             //now some code to plot to dxAtlas

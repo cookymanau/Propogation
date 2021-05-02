@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
+         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
-        Title="toolsSettings" Height="450" Width="600">
+        Title="toolsSettings" Height="630" Width="600">
         <Border BorderThickness="10">
     <Grid>
             <Grid.RowDefinitions>
@@ -31,7 +32,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox x:Name="InterfaceGroup" Header="Interface" Grid.Column="1" Grid.Row="0">
+            <GroupBox x:Name="InterfaceGroup" Header="Interface" Grid.Column="0" Grid.Row="1">
                 <StackPanel>
                     <CheckBox Name="chkToolTips" Content="ToolTips" Margin="5,5" />
                     <CheckBox Name="chkItem2"  Content="I2" Margin="5,5"/>
@@ -55,7 +56,7 @@
                 </StackPanel>
             </GroupBox>-->
  
-         <GroupBox x:Name="AverageSettingsGroup" Header="Average Settings" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="1">
+         <GroupBox x:Name="AverageSettingsGroup" Header="Average Settings" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1">
                 <StackPanel >
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -68,17 +69,111 @@
                             
                         </Grid.RowDefinitions>
 
-                        
-
-
-
                         <TextBlock  Text="No. Periods"  Grid.Column="0" Grid.Row="0" Margin="4"/>
-                    <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Grid.Row="0" Margin="4"/> 
+                        <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Grid.Row="0" Margin="4"/> 
                         <TextBlock  Text="Timer"  Grid.Column="0" Grid.Row="1" Margin="4"/>
                         <TextBox x:Name="toolsMainTimer" Text="15" Grid.Column="1" Grid.Row="1" Margin="4"/>
                     </Grid>
                 </StackPanel>
             </GroupBox>
+
+            <GroupBox x:Name="LineColourGroup" Header="Line Colors " Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="3">
+                <StackPanel >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+
+                        <TextBlock  Text="EU Avg"  Grid.Column="0" Grid.Row="0" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="0" Name="toolsEUAvgColor"/>
+                        <TextBlock  Text="EU Raw"  Grid.Column="0" Grid.Row="1" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="1" />
+                        <TextBlock  Text="EU Cnt"  Grid.Column="0" Grid.Row="2" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="2" />
+
+
+                        <TextBlock  Text="JA Avg"  Grid.Column="0" Grid.Row="3" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="3" />
+                        <TextBlock  Text="JA Raw"  Grid.Column="0" Grid.Row="4" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="4" />
+                        <TextBlock  Text="JA Cnt"  Grid.Column="0" Grid.Row="5" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="5" />
+
+                        <TextBlock  Text="NA Avg"  Grid.Column="0" Grid.Row="6" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="6" />
+                        <TextBlock  Text="NA Raw"  Grid.Column="0" Grid.Row="7" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="7" />
+                        <TextBlock  Text="NA Cnt"  Grid.Column="0" Grid.Row="8" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="8" />
+
+                        <TextBlock  Text="OC Avg"  Grid.Column="0" Grid.Row="9" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="9" />
+                        <TextBlock  Text="OC Raw"  Grid.Column="0" Grid.Row="10" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="10" />
+                        <TextBlock  Text="OC Cnt"  Grid.Column="0" Grid.Row="11" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="11" />
+
+                        <TextBlock  Text="AF Avg"  Grid.Column="0" Grid.Row="12" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="12" />
+                        <TextBlock  Text="AF Raw"  Grid.Column="0" Grid.Row="13" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="13" />
+                        <TextBlock  Text="AF Cnt"  Grid.Column="0" Grid.Row="14" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="14" />
+
+                        <TextBlock  Text="SA Avg"  Grid.Column="0" Grid.Row="15" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="15" />
+                        <TextBlock  Text="SA Raw"  Grid.Column="0" Grid.Row="16" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="16" />
+                        <TextBlock  Text="SA Cnt"  Grid.Column="0" Grid.Row="17" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="17" />
+
+                        <TextBlock  Text="Usr Avg"  Grid.Column="0" Grid.Row="18" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="18" />
+
+                        <TextBlock  Text="Usr Raw"  Grid.Column="0" Grid.Row="19" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="19" />
+
+                        <TextBlock  Text="Usr Cnt"  Grid.Column="0" Grid.Row="20" Margin="4"/>
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="20" />
+
+
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+
+
+
+
+
+
+
             <Button x:Name="toolSettingsClose" Grid.Row="9" Grid.ColumnSpan="10" Content="Close" Click="toolSettingsClose_Click"   />
     </Grid>
         </Border>

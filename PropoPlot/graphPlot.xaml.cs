@@ -141,21 +141,21 @@ namespace PropoPlot
             dataPlotEU.plt.PlotScatter(dataX, dataEU,label:"Eu"); 
             dataPlotEU.plt.PlotScatter(dataX, dataEUA,label:"EuAvg" , lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
             dataPlotEU.plt.PlotScatter(dataX, dataEUC,label:"EuCnt");
-            dataPlotEU.plt.Legend();
+            dataPlotEU.plt.Legend(location: legendLocation.lowerLeft);
             dataPlotEU.plt.YLabel("dBm");
             dataPlotEU.plt.XLabel("Periods");
 
             dataPlotJA.plt.PlotScatter(dataX, dataJA, label:"Ja", lineWidth: 1, markerSize: 4, lineStyle:LineStyle.DashDot);
             dataPlotJA.plt.PlotScatter(dataX, dataJAA, label:"JaAvg", lineWidth: 2, markerSize: 4, lineStyle:LineStyle.Solid);
             dataPlotJA.plt.PlotScatter(dataX, dataJAC, label:"JaCnt", lineWidth: 2, markerSize: 4, lineStyle:LineStyle.Solid);
-            dataPlotJA.plt.Legend();
+            dataPlotJA.plt.Legend(location: legendLocation.lowerLeft);
             dataPlotJA.plt.YLabel("dBm");
             dataPlotJA.plt.XLabel("Periods");
 
             dataPlotNA.plt.PlotScatter(dataX, dataNA,label:"Na") ;
             dataPlotNA.plt.PlotScatter(dataX, dataNAA,label:"NaAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid) ;
             dataPlotNA.plt.PlotScatter(dataX, dataNAC,label:"NaCnt") ;
-            dataPlotNA.plt.Legend();
+            dataPlotNA.plt.Legend(location: legendLocation.lowerLeft);
             dataPlotNA.plt.YLabel("dBm");
             dataPlotNA.plt.XLabel("Periods");
 
@@ -163,28 +163,28 @@ namespace PropoPlot
             dataPlotOC.plt.PlotScatter(dataX, dataOC, label:"Oc", lineStyle: LineStyle.DashDot);
             dataPlotOC.plt.PlotScatter(dataX, dataOCA, label:"OcAvg", lineWidth: 2, lineStyle: LineStyle.Solid);
             dataPlotOC.plt.PlotScatter(dataX, dataOCC, label:"OcCnt", lineStyle: LineStyle.DashDot);
-            dataPlotOC.plt.Legend();
+            dataPlotOC.plt.Legend(location: legendLocation.lowerLeft);
             dataPlotOC.plt.YLabel("dBm");
             dataPlotOC.plt.XLabel("Periods");
 
             dataPlotAF.plt.PlotScatter(dataX, dataAF, label:"Af", lineStyle: LineStyle.DashDot);
             dataPlotAF.plt.PlotScatter(dataX, dataAFA, label:"AfAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
             dataPlotAF.plt.PlotScatter(dataX, dataAFC, label:"AfCnt", lineStyle: LineStyle.DashDot);
-            dataPlotAF.plt.Legend();
+            dataPlotAF.plt.Legend(location: legendLocation.lowerLeft);
             dataPlotAF.plt.YLabel("dBm");
             dataPlotAF.plt.XLabel("Periods");
 
             dataPlotSA.plt.PlotScatter(dataX, dataSA, label: "Sa", lineStyle: LineStyle.DashDot);
             dataPlotSA.plt.PlotScatter(dataX, dataSAA, label: "SaAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
             dataPlotSA.plt.PlotScatter(dataX, dataSAC, label: "SaCnt", lineStyle: LineStyle.DashDot);
-            dataPlotSA.plt.Legend();
+            dataPlotSA.plt.Legend(location: legendLocation.lowerLeft);
             dataPlotSA.plt.YLabel("dBm");
             dataPlotSA.plt.XLabel("Periods");
 
             dataPlotFA.plt.PlotScatter(dataX, dataFA, label: "Fa", lineStyle: LineStyle.DashDot);
             dataPlotFA.plt.PlotScatter(dataX, dataFAA, label: "FaAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
             dataPlotFA.plt.PlotScatter(dataX, dataFAC, label: "FaCnt", lineStyle: LineStyle.DashDot);
-            dataPlotFA.plt.Legend();
+            dataPlotFA.plt.Legend(location: legendLocation.lowerLeft);
             dataPlotFA.plt.YLabel("dBm");
             dataPlotFA.plt.XLabel("Periods");
 

@@ -39,8 +39,8 @@ namespace PropoPlot
 
         toolsContLatLongSetting tll = new toolsContLatLongSetting();  //this class here so we can see it every where we need it Holds the lat min, lat max longMin and longMax for the continents
 
-     static  toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
-
+        static  toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
+ 
         UdpDataload ul = new UdpDataload(); //make a global instatiation of our class. We store the current data load here Only ever one record
 
         int timercounter = 0; 
@@ -274,9 +274,9 @@ namespace PropoPlot
         {
             //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
             //using System.IO; is for SttreamWriter
-
+            string now = DateTime.Now.ToString("h_mm tt");
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "PropoAverages"; // Default file name
+            dlg.FileName = $"Propo_{now}_Band_Ant";  // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -309,6 +309,10 @@ namespace PropoPlot
 
         private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
         {
+            //kill threads some how
+            
+
+
             this.Close();
         }
 
@@ -398,6 +402,17 @@ namespace PropoPlot
             //but it means you have to save the files first - use the 'File Save Avg continents'
             graphCompare gp = new graphCompare();
             gp.Show();
+        }
+
+        private void btnResetList_Click(object sender, RoutedEventArgs e)
+        {
+            udpStrings.Clear();
+            continentAVGList.Clear();
+            continentList.Clear();
+             frmMessageDialog md = new frmMessageDialog();
+             md.messageBoxUpper.Text = $"Cleared The Lists ";
+                md.messageBoxLower.Text = $"{e}";
+               md.Show();
         }
     }
 

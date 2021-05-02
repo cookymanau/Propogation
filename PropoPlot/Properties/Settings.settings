@@ -92,5 +92,8 @@
     <Setting Name="PeriodTimer" Type="System.String" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
+    <Setting Name="EUAvgColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

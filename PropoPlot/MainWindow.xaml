@@ -9,18 +9,19 @@
     <Border Margin="10,0,10,10">
 
         <Grid>
- <!--Main Grid is two columns, on fixed on the left-->
+            <!--Main Grid is two columns, on fixed on the left-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130"/> <!-- fixed this to a reasonable size-->
+                <ColumnDefinition Width="130"/>
+                <!-- fixed this to a reasonable size-->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-<!-- The top line-->
+            <!-- The top line-->
             <Menu Grid.ColumnSpan="3">
-                
+
                 <MenuItem Header="_File" >
                     <MenuItem Header="_Save Data" Name="saveAvgCont" Click="saveAvgCont_Click" >
                         <MenuItem.Icon>
@@ -40,16 +41,16 @@
 
                 </MenuItem>
 
-                
-                
+
+
                 <MenuItem Header="_Tools" >
                     <MenuItem Header="_Options" Name="toolOptions" Click="toolOptions_Click" />
                     <MenuItem Header="_Continent Lat Long" Name="toolsContLatLongSettings" Click="toolsContLatLongSettings_Click"/>
                 </MenuItem>
-  
+
                 <MenuItem Header="_Graphs" >
                     <MenuItem Header="_All Continents live data" Name="graphAll" Click="graphAll_Click"  />
-                     <MenuItem Header="_Single Graph live data" Name="graphSingle" Click="graphSingle_Click"  />
+                    <MenuItem Header="_Single Graph live data" Name="graphSingle" Click="graphSingle_Click"  />
                     <Separator/>
                     <MenuItem Header="_CompareFiles Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
                 </MenuItem>
@@ -61,14 +62,14 @@
                     <MenuItem Header="_dBm Averages" Name="dbmAvg" Click="dbmAvg_Click" />
                     <MenuItem Header="_Statistics" Name="Statistics" Click="Statistics_Click" />
                 </MenuItem>
-                
+
             </Menu>
-<!--            <TextBlock Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Text="Version Alpha 2" Background="#ddd" /> -->
+            <!--            <TextBlock Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Text="Version Alpha 2" Background="#ddd" /> -->
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <Border BorderThickness="1" BorderBrush="Black" >
                     <TextBlock Text="Start Up" Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
-<!--This is the  UDP Port selector-->
+                <!--This is the  UDP Port selector-->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -78,18 +79,18 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                
+
                     <TextBlock Text="UDP Port" Grid.Column="0" Margin="5,5" ToolTip="2222 for CatSync and JTDX; Radio 2233 for JTDX only. 2334 if using JTAlert UDP retransmit. Change port BEFORE Start Capture."/>
                     <TextBox x:Name="UDPportEntry" Grid.Column="1" Margin="5,5" Text="2334" HorizontalAlignment="Center" />
                     <TextBlock Text="Select" Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="1" Margin="5,5"/>
                     <ComboBox Grid.Column="1" Grid.Row="2" x:Name="cmboUDP" Loaded="cmboUDP_Loaded" SelectionChanged="cmboUDP_SelectionChanged" Margin="5,5" />
                 </Grid>
-                
+
                 <Button x:Name="btnUDPStart"  Click="btnUDPStart_Click"  Content="Start Capture" Grid.Column="0" Margin="5,5"  />
                 <ProgressBar x:Name="timerBar" Grid.Column="0" Grid.ColumnSpan="1" Minimum="0" Maximum="14" Height="10" Margin="5,5" Foreground="#FFEBFBEE"/>
                 <Border BorderThickness="1" BorderBrush="Black" >
-<!--These are the buttons to plot the data DX Atlas etc-->
-                 <TextBlock Text="Destinations" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." />
+                    <!--These are the buttons to plot the data DX Atlas etc-->
+                    <TextBlock Text="Mapping"  Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." />
                 </Border>
                 <Button x:Name="btnDXAtlas" Click="btnDXatlas_Click"  Content="DX Atlas" Grid.Column="0" Margin="5,5" ToolTip="Start and Stop plotting to DX Atlas."/>
                 <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" ToolTip="Clear the dots or not, this is a toggle."/>
@@ -97,11 +98,11 @@
                 <Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>
 
                 <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnGraphPlot"   Content="  Spare  " Grid.Column="0" Margin="5,5" Click="btnGraphPlot_Click"/>
-                <Button x:Name="btnSaveFile"   Content=" Spare  " Grid.Column="0" Margin="5,5" Click="btnSaveFile_Click"/>
-                    
+                    <Button x:Name="btnResetList"   Content="  Reset  " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Removes old data.  Starts again."/>
+                    <Button x:Name="btnSaveFile"   Content=" Spare  " Grid.Column="0" Margin="5,5" Click="btnSaveFile_Click"/>
+
                 </StackPanel>
-                
+
 
                 <Border BorderThickness="1" BorderBrush="Black" >
                     <TextBlock Text="Statistics" Background="#bbb" FontWeight="Bold" Margin="1"/>
@@ -120,19 +121,19 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-<!-- these are the text boxes where we can put averages etc-->
+                    <!-- these are the text boxes where we can put averages etc-->
                     <TextBlock Text="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="5" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square."/>
                     <TextBlock Text="Value" Name="avgdbm" Grid.Column="1" Grid.Row="0" Margin="5" ToolTip="The average of all decodes over a 6 decode period."/>
                     <TextBlock Text="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="5"/>
                     <TextBlock Text="Value" x:Name="runningAvgDbm" Grid.Column="1" Grid.Row="1" Margin="5"/>
                     <TextBlock Text="GS4's"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5" ToolTip="The number of decodes in the last period"/>
                     <TextBlock Text="Value" x:Name="loopCnt"  Grid.Column="1" Grid.Row="2" Margin="5"/>
-                    <TextBlock Text="TotalChars" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5" ToolTip="How big the decode text buffer is.  It is turned over every 10k characters."/>
-                    <TextBlock Text="Value" Name="sumChr"  Grid.Column="1" Grid.Row="3" Margin="5"/>
+                    <TextBlock Text="Decodes" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5,5,5,0" ToolTip="How many decodes we have done. " Height="16" VerticalAlignment="Top"/>
+                    <TextBlock Text="Value" Name="displayTotalDecodes"  Grid.Column="1" Grid.Row="3" Margin="5"/>
 
                 </Grid>
             </StackPanel>
-<!--Right hand column with the decodes window-->
+            <!--Right hand column with the decodes window-->
             <StackPanel Grid.Column="1" Grid.Row="1">
 
                 <Border BorderThickness="1" BorderBrush="Black" >
@@ -143,8 +144,8 @@
                     <TextBlock Text="dBm Averages by continent and period decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
 
-  <!--tHESE ARE  THE Averages by Continent -->
-                  <Grid>
+                <!--tHESE ARE  THE Averages by Continent -->
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -197,9 +198,9 @@
                     <TextBlock Name="AFdbm" Text="AF" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
                     <TextBlock Name="SAdbm" Text="SA" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
                     <TextBlock Name="FAdbm" Text="FA" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                      
-                      
-                      <!--The Colour Ramp and spare space to the right of the ramp-->
+
+
+                    <!--The Colour Ramp and spare space to the right of the ramp-->
                     <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="7" >
                         <TextBlock Text="Colour Ramp" Background="#bbb" FontWeight="Bold"  Grid.Row="3"   Margin="1"/>
                     </Border>
@@ -208,7 +209,7 @@
                     <TextBlock Text="      0dBm to -8dBm " Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="Blue" Foreground="White" Margin="1"/>
                     <TextBlock Text="         GT 0dBm " Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="Red" Margin="1"/>
 
-<!--
+                    <!--
                     <TextBlock Text="1" Name="Eudbm1" Grid.Column="3" Grid.Row="4"/>
                     <TextBlock Text="2" Name="Eudbm2" Grid.Column="4" Grid.Row="4"/>
                     <TextBlock Text="3" Name="Eudbm3" Grid.Column="5" Grid.Row="4"/>
@@ -221,7 +222,7 @@
 
                 </Grid>
             </StackPanel>
-<!--The End-->
+            <!--The End-->
 
         </Grid>
     </Border>

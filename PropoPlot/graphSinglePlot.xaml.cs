@@ -282,6 +282,7 @@ namespace PropoPlot
 
             if (chkLiveUpdate.IsChecked == true)
             {
+                graphSingleRedraw.Content = "Live";
                 // now start the timer to process the UDP stuff now that we have started it.
                 System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
                 dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
@@ -290,6 +291,7 @@ namespace PropoPlot
 
             }
             else
+                graphSingleRedraw.Content = "Plot";
              redrawThePlot();
         }
 
