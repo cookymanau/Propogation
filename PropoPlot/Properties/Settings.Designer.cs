@@ -385,13 +385,253 @@ namespace PropoPlot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
         public string EUAvgColor {
             get {
                 return ((string)(this["EUAvgColor"]));
             }
             set {
                 this["EUAvgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string EURawColor {
+            get {
+                return ((string)(this["EURawColor"]));
+            }
+            set {
+                this["EURawColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string EUCntColor {
+            get {
+                return ((string)(this["EUCntColor"]));
+            }
+            set {
+                this["EUCntColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string JAAvgColor {
+            get {
+                return ((string)(this["JAAvgColor"]));
+            }
+            set {
+                this["JAAvgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string JARawColor {
+            get {
+                return ((string)(this["JARawColor"]));
+            }
+            set {
+                this["JARawColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string JACntColor {
+            get {
+                return ((string)(this["JACntColor"]));
+            }
+            set {
+                this["JACntColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string NAAvgColor {
+            get {
+                return ((string)(this["NAAvgColor"]));
+            }
+            set {
+                this["NAAvgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string NARawColor {
+            get {
+                return ((string)(this["NARawColor"]));
+            }
+            set {
+                this["NARawColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string NACntColor {
+            get {
+                return ((string)(this["NACntColor"]));
+            }
+            set {
+                this["NACntColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string OCAvgColor {
+            get {
+                return ((string)(this["OCAvgColor"]));
+            }
+            set {
+                this["OCAvgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string OCRawColor {
+            get {
+                return ((string)(this["OCRawColor"]));
+            }
+            set {
+                this["OCRawColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string OCCntColor {
+            get {
+                return ((string)(this["OCCntColor"]));
+            }
+            set {
+                this["OCCntColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string AFAvgColor {
+            get {
+                return ((string)(this["AFAvgColor"]));
+            }
+            set {
+                this["AFAvgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string AFRawColor {
+            get {
+                return ((string)(this["AFRawColor"]));
+            }
+            set {
+                this["AFRawColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string AFCntColor {
+            get {
+                return ((string)(this["AFCntColor"]));
+            }
+            set {
+                this["AFCntColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string SACntColor {
+            get {
+                return ((string)(this["SACntColor"]));
+            }
+            set {
+                this["SACntColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string SARawColor {
+            get {
+                return ((string)(this["SARawColor"]));
+            }
+            set {
+                this["SARawColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string SAAvgColor {
+            get {
+                return ((string)(this["SAAvgColor"]));
+            }
+            set {
+                this["SAAvgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string FAAvgColor {
+            get {
+                return ((string)(this["FAAvgColor"]));
+            }
+            set {
+                this["FAAvgColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string FARawColor {
+            get {
+                return ((string)(this["FARawColor"]));
+            }
+            set {
+                this["FARawColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string FACntColor {
+            get {
+                return ((string)(this["FACntColor"]));
+            }
+            set {
+                this["FACntColor"] = value;
             }
         }
     }

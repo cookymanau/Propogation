@@ -15,6 +15,7 @@ using ScottPlot;
 using System.Drawing;
 
 
+
 namespace PropoPlot
 {
     /// <summary>
@@ -190,43 +191,46 @@ namespace PropoPlot
             if (chkEUGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkBlue);
+                    graphSingle.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
+                    //graphSingle.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkBlue);
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                    graphSingle.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
+                    //graphSingle.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                    graphSingle.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
+                    //graphSingle.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
             }
 
             if (chkJAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataJAA, label: "JAAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGray);
+                    graphSingle.plt.PlotScatter(Dubdates, dataJAA, label: "JAAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataJAC, label: "JACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Gray);
+                    graphSingle.plt.PlotScatter(Dubdates, dataJAC, label: "JACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataJAR, label: "JARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Gray);
+                    graphSingle.plt.PlotScatter(Dubdates, dataJAR, label: "JARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
 
             }
 
             if (chkNAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataNAA, label: "NAAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkOliveGreen);
+                    graphSingle.plt.PlotScatter(Dubdates, dataNAA, label: "NAAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataNAC, label: "NACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkOliveGreen);
+                    graphSingle.plt.PlotScatter(Dubdates, dataNAC, label: "NACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataNAR, label: "NARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Olive);
+                    graphSingle.plt.PlotScatter(Dubdates, dataNAR, label: "NARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
 
             }
 
             if (chkOCGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                graphSingle.plt.PlotScatter(Dubdates,dataOCA, label: "OCAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
+                graphSingle.plt.PlotScatter(Dubdates,dataOCA, label: "OCAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates,dataOCC, label: "OCCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
+                    graphSingle.plt.PlotScatter(Dubdates,dataOCC, label: "OCCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                     graphSingle.plt.PlotScatter(Dubdates,dataOCR, label: "OCRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
+                     graphSingle.plt.PlotScatter(Dubdates,dataOCR, label: "OCRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
 
  
             }
@@ -234,22 +238,22 @@ namespace PropoPlot
             if (chkAFGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataAFA, label: "AFAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGoldenrod);
+                    graphSingle.plt.PlotScatter(Dubdates, dataAFA, label: "AFAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Goldenrod);
+                    graphSingle.plt.PlotScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGoldenrod);
+                    graphSingle.plt.PlotScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
 
             }
 
             if (chkSAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataSAA, label: "SAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGreen);
+                    graphSingle.plt.PlotScatter(Dubdates, dataSAA, label: "SAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataSAC, label: "SACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGreen);
+                    graphSingle.plt.PlotScatter(Dubdates, dataSAC, label: "SACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataSAR, label: "SARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkGreen);
+                    graphSingle.plt.PlotScatter(Dubdates, dataSAR, label: "SARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
 
             }
 
@@ -258,11 +262,11 @@ namespace PropoPlot
             if (chkFAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataFAA, label: "UsrAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkMagenta);
+                    graphSingle.plt.PlotScatter(Dubdates, dataFAA, label: "UsrAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataFAC, label: "UsrCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
+                    graphSingle.plt.PlotScatter(Dubdates, dataFAC, label: "UsrCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataFAR, label: "UsrRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
+                    graphSingle.plt.PlotScatter(Dubdates, dataFAR, label: "UsrRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
             }
 
 

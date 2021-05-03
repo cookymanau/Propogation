@@ -1,0 +1,37 @@
+﻿Ver 1.2 beta
+	• Button that resets the lists back to scratch. For when there is bad data
+		○ Done 20210502
+	• Graph single plot-change the button from plot to live
+		○ Done 20210502
+	• A count of total decodes since start up displayed somewhere
+		○ Done 20210502
+	• Remove the error report for the recurring list change error
+		○ Done 20210502
+	• Stopping the program leaves a zombie process running.
+		○ Added Process[0].Kill etc to the close button.  20210503
+	• Single plot - colour picker and save to Properties for the lines
+	    Started this - installed the nuget package Extended.wpf.toolkit(4.02) and instructions
+		to use.  Added colour picker straight to the XAML..but how to reference the results
+		Working version 20210503 for the Single plot.  Need to extend the colors to to the other graphs
+
+
+	• Regex instead of if statement in GetQSOsFromList
+	• Refactor GetQsosFromList()
+	• Google Earth KML plot
+	• Add File names to the comparePlot
+	• The 'singlePlot' Live does not stop when I untick it
+	•
+	• Can't reliably run two instances of the program on different UDP ports
+		○ Is that because we are multiCast instead of singleCast?
+	• Add a history of propagation indicator for the continents
+		○ Maybe like a little square with a colour in it every 15 minutes?
+	• In the compare plots - align the start times some how
+	• Get rid of the dots on the All Continents graphs
+	• Is the averaging actually averaging?
+	• Long run and eventually an all continents plot causes a crash. Array size?
+	• Upgrade the help dialog boxes to have formatted text
+	• Add a 'Number Of Periods' to the display
+	• Put a compiled version up on Git Hub?
+	•
+	•
+	•

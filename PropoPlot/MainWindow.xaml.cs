@@ -310,7 +310,9 @@ namespace PropoPlot
         private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
         {
             //kill threads some how
-            
+            //this the attempt to kill off the zombie process
+                Process[] processes = Process.GetProcessesByName("PropoPlot");
+                processes[0].Kill();
 
 
             this.Close();

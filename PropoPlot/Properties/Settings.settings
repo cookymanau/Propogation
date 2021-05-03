@@ -93,7 +93,67 @@
       <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="EUAvgColor" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="EURawColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="EUCntColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="JAAvgColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="JARawColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="JACntColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="NAAvgColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="NARawColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="NACntColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="OCAvgColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="OCRawColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="OCCntColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="AFAvgColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="AFRawColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="AFCntColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="SACntColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="SARawColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="SAAvgColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="FAAvgColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="FARawColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="FACntColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
     </Setting>
   </Settings>
 </SettingsFile>

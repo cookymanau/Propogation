@@ -113,54 +113,52 @@
                         <TextBlock  Text="EU Avg"  Grid.Column="0" Grid.Row="0" Margin="4"/>
                         <wpfTool:ColorPicker Grid.Column="1" Grid.Row="0" Name="toolsEUAvgColor"/>
                         <TextBlock  Text="EU Raw"  Grid.Column="0" Grid.Row="1" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="1" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="1"  Name="toolsEURawColor"/>
                         <TextBlock  Text="EU Cnt"  Grid.Column="0" Grid.Row="2" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="2" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="2" Name="toolsEUCntColor" />
 
 
                         <TextBlock  Text="JA Avg"  Grid.Column="0" Grid.Row="3" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="3" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="3" Name="toolsJAAvgColor" />
                         <TextBlock  Text="JA Raw"  Grid.Column="0" Grid.Row="4" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="4" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="4" Name="toolsJARawColor"/>
                         <TextBlock  Text="JA Cnt"  Grid.Column="0" Grid.Row="5" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="5" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="5" Name="toolsJACntColor" />
 
                         <TextBlock  Text="NA Avg"  Grid.Column="0" Grid.Row="6" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="6" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="6" Name="toolsNAAvgColor" />
                         <TextBlock  Text="NA Raw"  Grid.Column="0" Grid.Row="7" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="7" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="7" Name="toolsNARawColor"  />
                         <TextBlock  Text="NA Cnt"  Grid.Column="0" Grid.Row="8" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="8" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="8" Name="toolsNACntColor"/>
 
                         <TextBlock  Text="OC Avg"  Grid.Column="0" Grid.Row="9" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="9" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="9" Name="toolsOCAvgColor"/>
                         <TextBlock  Text="OC Raw"  Grid.Column="0" Grid.Row="10" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="10" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="10" Name="toolsOCRawColor" />
                         <TextBlock  Text="OC Cnt"  Grid.Column="0" Grid.Row="11" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="11" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="11" Name="toolsOCCntColor"/>
 
                         <TextBlock  Text="AF Avg"  Grid.Column="0" Grid.Row="12" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="12" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="12" Name="toolsAFAvgColor"/>
                         <TextBlock  Text="AF Raw"  Grid.Column="0" Grid.Row="13" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="13" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="13" Name="toolsAFRawColor" />
                         <TextBlock  Text="AF Cnt"  Grid.Column="0" Grid.Row="14" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="14" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="14" Name="toolsAFCntColor"/>
 
                         <TextBlock  Text="SA Avg"  Grid.Column="0" Grid.Row="15" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="15" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="15" Name="toolsSAAvgColor"/>
                         <TextBlock  Text="SA Raw"  Grid.Column="0" Grid.Row="16" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="16" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="16" Name="toolsSARawColor"/>
                         <TextBlock  Text="SA Cnt"  Grid.Column="0" Grid.Row="17" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="17" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="17" Name="toolsSACntColor"/>
 
                         <TextBlock  Text="Usr Avg"  Grid.Column="0" Grid.Row="18" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="18" />
-
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="18"  Name="toolsFAAvgColor"/>
                         <TextBlock  Text="Usr Raw"  Grid.Column="0" Grid.Row="19" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="19" />
-
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="19" Name="toolsFARawColor"/>
                         <TextBlock  Text="Usr Cnt"  Grid.Column="0" Grid.Row="20" Margin="4"/>
-                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="20" />
+                        <wpfTool:ColorPicker Grid.Column="1" Grid.Row="20" Name="toolsFACntColor"/>
 
 
                     </Grid>

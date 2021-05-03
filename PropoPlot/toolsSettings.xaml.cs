@@ -22,13 +22,51 @@ namespace PropoPlot
         public toolsSettings()
         {
             InitializeComponent();
+
             //so we have just opened the form...get the users last changes to the dialog boxes
             toolsAvgPrd.Text = Properties.Settings.Default.AvgPrd;
             toolsMainTimer.Text = Properties.Settings.Default.PeriodTimer;
 
 
 
-           //toolsEUAvgColor.SelectedColor = Properties.Settings.Default.EUAvgColor;
+           toolsEUAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString( Properties.Settings.Default.EUAvgColor);
+           toolsEURawColor.SelectedColor = (Color)ColorConverter.ConvertFromString( Properties.Settings.Default.EURawColor);
+           toolsEUCntColor.SelectedColor = (Color)ColorConverter.ConvertFromString( Properties.Settings.Default.EUCntColor);
+
+            toolsJAAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.JAAvgColor);
+            toolsJARawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.JARawColor);
+            toolsJACntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.JACntColor);
+
+            toolsNAAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.NAAvgColor);
+            toolsNARawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.NARawColor);
+            toolsNACntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.NACntColor);
+
+            toolsOCAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.OCAvgColor);
+            toolsOCRawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.OCRawColor);
+            toolsOCCntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.OCCntColor);
+
+            toolsAFAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AFAvgColor);
+            toolsAFRawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AFRawColor);
+            toolsAFCntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AFCntColor);
+
+            toolsSAAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.SAAvgColor);
+            toolsSARawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.SARawColor);
+            toolsSACntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.SACntColor);
+
+            toolsFAAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FAAvgColor);
+            toolsFARawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FARawColor);
+            toolsFACntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FACntColor);
+
+
+
+
+
+
+
+
+
+
+
 
         }
 
@@ -40,7 +78,32 @@ namespace PropoPlot
 
 
             Properties.Settings.Default.EUAvgColor = toolsEUAvgColor.SelectedColor.ToString();
+            Properties.Settings.Default.EURawColor = toolsEURawColor.SelectedColor.ToString();
+            Properties.Settings.Default.EUCntColor = toolsEUCntColor.SelectedColor.ToString();
 
+            Properties.Settings.Default.JAAvgColor = toolsJAAvgColor.SelectedColor.ToString();
+            Properties.Settings.Default.JARawColor = toolsJARawColor.SelectedColor.ToString();
+            Properties.Settings.Default.JACntColor = toolsJACntColor.SelectedColor.ToString();
+
+            Properties.Settings.Default.NAAvgColor = toolsNAAvgColor.SelectedColor.ToString();
+            Properties.Settings.Default.NARawColor = toolsNARawColor.SelectedColor.ToString();
+            Properties.Settings.Default.NACntColor = toolsNACntColor.SelectedColor.ToString();
+
+            Properties.Settings.Default.OCAvgColor = toolsOCAvgColor.SelectedColor.ToString();
+            Properties.Settings.Default.OCRawColor = toolsOCRawColor.SelectedColor.ToString();
+            Properties.Settings.Default.OCCntColor = toolsOCCntColor.SelectedColor.ToString();
+
+            Properties.Settings.Default.AFAvgColor = toolsAFAvgColor.SelectedColor.ToString();
+            Properties.Settings.Default.AFRawColor = toolsAFRawColor.SelectedColor.ToString();
+            Properties.Settings.Default.AFCntColor = toolsAFCntColor.SelectedColor.ToString();
+
+            Properties.Settings.Default.SAAvgColor = toolsSAAvgColor.SelectedColor.ToString();
+            Properties.Settings.Default.SARawColor = toolsSARawColor.SelectedColor.ToString();
+            Properties.Settings.Default.SACntColor = toolsSACntColor.SelectedColor.ToString();
+
+            Properties.Settings.Default.FAAvgColor = toolsFAAvgColor.SelectedColor.ToString();
+            Properties.Settings.Default.FARawColor = toolsFARawColor.SelectedColor.ToString();
+            Properties.Settings.Default.FACntColor = toolsFACntColor.SelectedColor.ToString();
 
 
             Properties.Settings.Default.Save();
