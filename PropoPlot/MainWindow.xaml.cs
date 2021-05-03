@@ -43,12 +43,19 @@ namespace PropoPlot
  
         UdpDataload ul = new UdpDataload(); //make a global instatiation of our class. We store the current data load here Only ever one record
 
-        int timercounter = 0; 
+        int timercounter = 0;
+        int cycleCounter = 0;
+
+        
+
 
         public MainWindow()
         {
             InitializeComponent();
             //continentAVGList.Add("");  // initialising the list with something
+
+            
+
         }
 
         private void ButtonUDPport_click(object sender, RoutedEventArgs e)
@@ -125,6 +132,8 @@ namespace PropoPlot
                 GetQsosFromList();  //get the qsos for this round of 15 seconds
                 
                 timercounter = 0; //reset this
+                cycleCounter += 1;  //keep counting how many times we go throuh this
+                displayTotalCycles.Text = cycleCounter.ToString();
                // timerBar.Value = timercounter;
                udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
                                    //***  tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
@@ -288,6 +297,7 @@ namespace PropoPlot
             {
                 // Save document
                 string filename = dlg.FileName;
+                saveFileName.Text = dlg.FileName;  //write the file name on the UI
 
                 // now send all to the filename
                 using (StreamWriter writer = new StreamWriter(filename))
@@ -404,6 +414,9 @@ namespace PropoPlot
             //but it means you have to save the files first - use the 'File Save Avg continents'
             graphCompare gp = new graphCompare();
             gp.Show();
+
+            //cfFileOne.Text = gp.cFile1;
+
         }
 
         private void btnResetList_Click(object sender, RoutedEventArgs e)

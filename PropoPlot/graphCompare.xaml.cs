@@ -15,6 +15,7 @@ using System.IO;
 using System.Windows.Controls;
 using ScottPlot;
 
+
 namespace PropoPlot
 {
     /// <summary>
@@ -86,6 +87,13 @@ namespace PropoPlot
 
 
 
+
+
+      //  public string cFile1 { get; set; }
+
+
+
+
         public graphCompare()
         {
             InitializeComponent();
@@ -116,6 +124,11 @@ namespace PropoPlot
                 }
             }//end if result == true
 
+
+            cfFileName1.Text = dlg.FileName;
+
+
+
         }
 
         private void fileOpen2_Click(object sender, RoutedEventArgs e)
@@ -142,6 +155,9 @@ namespace PropoPlot
                     }
                 }
             }//end if result == true
+           
+          
+            cfFileName2.Text = dlg.FileName;
 
         }
 

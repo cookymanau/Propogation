@@ -41,12 +41,15 @@
                 </StackPanel>
             </GroupBox>
 
-            <!--<GroupBox x:Name="PeriodFileGroup" Header="Period Files" Grid.Column="1" Grid.Row="1">
+            <GroupBox x:Name="PeriodFileGroup" Header="Period Files" Grid.Column="2" Grid.Row="0">
                 <StackPanel>
-                    <RadioButton GroupName="per" Name="perType1"  IsChecked="True" Checked="perType1_Checked">Type 1</RadioButton>
-                    <RadioButton GroupName="per" Name="perType2" Checked="perType2_Checked" >Type 2</RadioButton>
+                    <wpfTool:ColorPicker Grid.Column="3"  Name="ACntColor"/>
+                    <wpfTool:ButtonSpinner Grid.Column="3"  Name="graphLineThickness" Margin="5" Content="1" MaxHeight="20" />
+
+
+
                 </StackPanel>
-            </GroupBox>-->
+            </GroupBox>
 
 
             <!--<GroupBox x:Name="AverageFileGroup" Header="Average Files" Grid.Column="1" Grid.Row="2">

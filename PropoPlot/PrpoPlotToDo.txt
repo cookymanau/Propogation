@@ -13,14 +13,16 @@
 	    Started this - installed the nuget package Extended.wpf.toolkit(4.02) and instructions
 		to use.  Added colour picker straight to the XAML..but how to reference the results
 		Working version 20210503 for the Single plot.  Need to extend the colors to to the other graphs
+	• Add a 'Number Of Periods' to the display
+		20210503 Added this to the UI
+	• Add File names to the comparePlot
+	    20210503 Done.
 
 
 	• Regex instead of if statement in GetQSOsFromList
 	• Refactor GetQsosFromList()
 	• Google Earth KML plot
-	• Add File names to the comparePlot
-	• The 'singlePlot' Live does not stop when I untick it
-	•
+	• The 'singlePlot' Live does not stop when I untick it.
 	• Can't reliably run two instances of the program on different UDP ports
 		○ Is that because we are multiCast instead of singleCast?
 	• Add a history of propagation indicator for the continents
@@ -28,10 +30,19 @@
 	• In the compare plots - align the start times some how
 	• Get rid of the dots on the All Continents graphs
 	• Is the averaging actually averaging?
-	• Long run and eventually an all continents plot causes a crash. Array size?
+	• Long run and eventually an all continents plot causes a crash. Array size?  1 hour (270 readings) is OK
 	• Upgrade the help dialog boxes to have formatted text
-	• Add a 'Number Of Periods' to the display
 	• Put a compiled version up on Git Hub?
+	• Options for line thickness and whether dots or not?
+	• A running average for the averages?
+	• Statistics like a line that is average +- 1 SD being plotted?  I want to see the trend!!!
+	• An option to auto save the file every X minutes would be nice
+	• On the Single Plot - keep the current zoom during refreshes
+	• Set the scale on the single plot
+	•
+	•
+	•
+	•
 	•
 	•
 	•

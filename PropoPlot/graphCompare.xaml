@@ -15,13 +15,20 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
 
-            <TextBlock Text="File1" Background="#bbb" FontWeight="Bold" Margin="1" Grid.Column="1"/>
-            <WpfPlot Name="graphCompare2Files" Grid.Column="1"  ></WpfPlot>
- 
-            <StackPanel>
+           <!-- <TextBlock Text="File1" Background="#bbb" FontWeight="Bold" Margin="1" Grid.Column="1"/> -->
+            <TextBlock Text="File1" Grid.Row="2" Grid.Column="0" />
+            <TextBlock Text="cfFile1" Grid.Row="2" Grid.Column="1" Name="cfFileName1" />
+            <TextBlock Text="File2" Grid.Row="4" Grid.Column="0" />
+            <TextBlock Text="cfFile2" Grid.Row="4" Grid.Column="1" Name="cfFileName2"/>
+            <WpfPlot Name="graphCompare2Files" Grid.Column="1"  Grid.RowSpan="2"></WpfPlot>
+
+            <StackPanel Grid.RowSpan="2">
             
                 <TextBlock Text="Open Files" Background="#bbb" FontWeight="Bold" Margin="1"/>
                 <Button x:Name="fileOpen1" Content="Open 1" Margin="5,5" Grid.Column="0" Click="fileOpen1_Click" />
@@ -42,9 +49,9 @@
                 <CheckBox Name="chkRawPointsGraphs" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="false"/>
                 <CheckBox Name="chkSpline" Content="Spline" Margin="5,5" Grid.Column="0" IsChecked="false"/>
 
-                <Button x:Name="graphCompareRedraw" Content="Redraw" Margin="2,2" Grid.Column="0" Click="graphCompareRedraw_Click"   />
+                <Button x:Name="graphCompareRedraw" Content="Plot" Margin="2,2" Grid.Column="0" Click="graphCompareRedraw_Click"   />
+            
             </StackPanel>
-
 
         </Grid>
     </Border>
