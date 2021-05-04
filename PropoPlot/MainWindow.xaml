@@ -99,7 +99,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnResetList"   Content="  Reset  " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Removes old data.  Starts again."/>
-                    <Button x:Name="btnSaveFile"   Content=" Spare  " Grid.Column="0" Margin="5,5" Click="btnSaveFile_Click"/>
+                    <Button x:Name="btnResetAvgs"   Content=" 0AVGs  " Grid.Column="0" Margin="5,5" Click="btnResetAvgs_Click" />
 
                 </StackPanel>
 

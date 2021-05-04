@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Controls;
 using ScottPlot;
+using System.Drawing;
 
 
 namespace PropoPlot
@@ -456,9 +457,15 @@ namespace PropoPlot
         {
             try
             {
+                int AvgLineThickness = int.Parse(Properties.Settings.Default.AvgLineThick);
+                int Avg2LineThickness = int.Parse(Properties.Settings.Default.Avg2LineThick);
+                int RawLineThickness = int.Parse(Properties.Settings.Default.RawLineThick);
+                int CntLineThickness = int.Parse(Properties.Settings.Default.CntLineThick);
+                int LineAvgDotSize = int.Parse(Properties.Settings.Default.GraphAvgDotSize);
+                int LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
+                int LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
 
-
-            ScottPlot.PlottableSignal sigFaAvg;
+                ScottPlot.PlottableSignal sigFaAvg;
             ScottPlot.PlottableSignal sigFaCnt;
 
             graphCompare2Files.plt.PlotHLine(0, color: System.Drawing.Color.Black);
@@ -467,13 +474,14 @@ namespace PropoPlot
             {
                 if (chkAvgsGraphs.IsChecked == true)
                 {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataEUA2, label: "EUAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.LightBlue);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
+                    //graphCompare2Files.plt.PlotScatter(dataXf1, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                    graphCompare2Files.plt.PlotScatter(dataXf2, dataEUA2, label: "EUAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
                 }
                 if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUC, label: "EUCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUR, label: "EURaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
                 if (chkSpline.IsChecked == true)
                 {
                     var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataEUA, resolution: 20);
@@ -492,13 +500,13 @@ namespace PropoPlot
                 if (chkAvgsGraphs.IsChecked == true)
                 {
 
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataJAA, label: "JAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkRed);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataJAA2, label: "JAAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkSalmon);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataJAA, label: "JAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
+                    graphCompare2Files.plt.PlotScatter(dataXf2, dataJAA2, label: "JAAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
                 }
                 if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataJAC, label: "JACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Maroon);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataJAC, label: "JACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataJAR, label: "JARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Maroon);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataJAR, label: "JARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
                 if (chkSpline.IsChecked == true)
                 {
                     var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataJAA, resolution: 20);
@@ -516,13 +524,13 @@ namespace PropoPlot
             {
                 if (chkAvgsGraphs.IsChecked == true)
                 {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAA, label: "NAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Brown);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataNAA2, label: "NAAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.RosyBrown);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAA, label: "NAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
+                    graphCompare2Files.plt.PlotScatter(dataXf2, dataNAA2, label: "NAAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
                 }
                 if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAC, label: "NACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Brown);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAC, label: "NACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAR, label: "NARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Brown);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAR, label: "NARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
   
                     if (chkSpline.IsChecked == true)
                 {
@@ -542,13 +550,13 @@ namespace PropoPlot
             {
                 if (chkAvgsGraphs.IsChecked == true)
                 {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataOCA, label: "OCAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataOCA2, label: "OCAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Cyan);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataOCA, label: "OCAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
+                    graphCompare2Files.plt.PlotScatter(dataXf2, dataOCA2, label: "OCAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
                 }
                 if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataOCC, label: "OCCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataOCC, label: "OCCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataOCR, label: "OCRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkCyan);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataOCR, label: "OCRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
                 if (chkSpline.IsChecked == true)
                 {
                     var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataOCA, resolution: 20);
@@ -566,13 +574,13 @@ namespace PropoPlot
             {
                 if (chkAvgsGraphs.IsChecked == true)
                 {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataAFA, label: "AFAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Red);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataAFA2, label: "AFAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.LightSalmon);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataAFA, label: "AFAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
+                    graphCompare2Files.plt.PlotScatter(dataXf2, dataAFA2, label: "AFAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
                 }  
                 if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataAFC, label: "AFCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Red);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataAFC, label: "AFCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataAFR, label: "AFRaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Red);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataAFR, label: "AFRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
                 if (chkSpline.IsChecked == true)
                 {
                     var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataAFA, resolution: 20);
@@ -591,13 +599,13 @@ namespace PropoPlot
                 if (chkAvgsGraphs.IsChecked == true)
                 {
 
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataSAA, label: "SAAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Green);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataSAA2, label: "SAAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.LightGreen);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataSAA, label: "SAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
+                    graphCompare2Files.plt.PlotScatter(dataXf2, dataSAA2, label: "SAAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
                 }
                 if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataSAC, label: "SACnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Green);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataSAC, label: "SACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataSAR, label: "SARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Green);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataSAR, label: "SARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
                 if (chkSpline.IsChecked == true)
                 {
                     var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataSAA, resolution: 20);
@@ -617,13 +625,13 @@ namespace PropoPlot
                 if (chkAvgsGraphs.IsChecked == true)
                 {
 
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataFAA, label: "FaAvg", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataFAA2, label: "FaAvg2", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.LightPink);
+                    graphCompare2Files.plt.PlotScatter(dataXf1, dataFAA, label: "FaAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
+                    graphCompare2Files.plt.PlotScatter(dataXf2, dataFAA2, label: "FaAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
                 }
                 if (chkCountsGraphs.IsChecked == true)
-                  graphCompare2Files.plt.PlotScatter(dataXf1,dataFAC, label: "FaCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
+                  graphCompare2Files.plt.PlotScatter(dataXf1,dataFAC, label: "FaCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataFAR, label: "FARaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Magenta);
+                    graphCompare2Files.plt.PlotScatter(dataXf1,dataFAR, label: "FARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
 
                 if (chkSpline.IsChecked == true)
                 {

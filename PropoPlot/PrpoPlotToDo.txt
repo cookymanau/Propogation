@@ -17,6 +17,15 @@
 		20210503 Added this to the UI
 	• Add File names to the comparePlot
 	    20210503 Done.
+	• Long run and eventually an all continents plot causes a crash. Array size?  1 hour (270 readings) is OK
+		20210504 Fixed - made the arrays larger, were [1000], [10000]
+	• Added tool controls for line thickness and dot size for the single and compare graphs.
+		20210504 Done.  Used Extended.Wpf.Toolkit 4.02
+	• Is the averaging actually averaging?
+		20210504 I think so.
+	• Set the scale on the single plot
+		02010504 - done with .plt.axis(null,null,-30,10)  so its autoscaling the X axis
+
 
 
 	• Regex instead of if statement in GetQSOsFromList
@@ -29,19 +38,14 @@
 		○ Maybe like a little square with a colour in it every 15 minutes?
 	• In the compare plots - align the start times some how
 	• Get rid of the dots on the All Continents graphs
-	• Is the averaging actually averaging?
-	• Long run and eventually an all continents plot causes a crash. Array size?  1 hour (270 readings) is OK
 	• Upgrade the help dialog boxes to have formatted text
 	• Put a compiled version up on Git Hub?
-	• Options for line thickness and whether dots or not?
 	• A running average for the averages?
 	• Statistics like a line that is average +- 1 SD being plotted?  I want to see the trend!!!
 	• An option to auto save the file every X minutes would be nice
 	• On the Single Plot - keep the current zoom during refreshes
-	• Set the scale on the single plot
-	•
-	•
-	•
+	• Add cat control and a schedule for band changing
+	• When I reset the Avgs using the 0 Avgs button - I should also see the averages reset to startup conditions.
 	•
 	•
 	•

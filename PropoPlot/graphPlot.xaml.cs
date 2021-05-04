@@ -23,30 +23,30 @@ namespace PropoPlot
 
         List<string> _thlist;
 
-        double[] dataX = new double[1000] ;
-        double[] dataEU = new double[1000] ;
-        double[] dataEUA = new double[1000] ;
-        double[] dataEUC = new double[1000] ;
+        double[] dataX = new double[10000] ;
+        double[] dataEU = new double[10000] ;
+        double[] dataEUA = new double[10000] ;
+        double[] dataEUC = new double[10000] ;
 
-        double[] dataJA = new double[1000] ;
-        double[] dataJAA = new double[1000] ;
-        double[] dataJAC = new double[1000] ;
+        double[] dataJA = new double[10000] ;
+        double[] dataJAA = new double[10000] ;
+        double[] dataJAC = new double[10000] ;
 
-        double[] dataNA = new double[1000] ;
-        double[] dataNAA = new double[1000] ;
-        double[] dataNAC = new double[1000] ;
-        double[] dataOC = new double[1000] ;
-        double[] dataOCA = new double[1000] ;
-        double[] dataOCC = new double[1000] ;
-        double[] dataAF = new double[1000] ;
-        double[] dataAFA = new double[1000] ;
-        double[] dataAFC = new double[1000] ;
-        double[] dataSA = new double[1000] ;
-        double[] dataSAA = new double[1000] ;
-        double[] dataSAC = new double[1000] ;
-        double[] dataFA = new double[1000] ;
-        double[] dataFAA = new double[1000] ;
-        double[] dataFAC = new double[1000] ;
+        double[] dataNA = new double[10000] ;
+        double[] dataNAA = new double[10000] ;
+        double[] dataNAC = new double[10000] ;
+        double[] dataOC = new double[10000] ;
+        double[] dataOCA = new double[10000] ;
+        double[] dataOCC = new double[10000] ;
+        double[] dataAF = new double[10000] ;
+        double[] dataAFA = new double[10000] ;
+        double[] dataAFC = new double[10000] ;
+        double[] dataSA = new double[10000] ;
+        double[] dataSAA = new double[10000] ;
+        double[] dataSAC = new double[10000] ;
+        double[] dataFA = new double[10000] ;
+        double[] dataFAA = new double[10000] ;
+        double[] dataFAC = new double[10000] ;
 
         public graphPlot(List<string> thlist)
         {

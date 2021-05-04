@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
+
 namespace PropoPlot
 {
     /// <summary>
@@ -57,15 +59,13 @@ namespace PropoPlot
             toolsFARawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FARawColor);
             toolsFACntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FACntColor);
 
-
-
-
-
-
-
-
-
-
+            AvgLineThickness.Value= int.Parse(Properties.Settings.Default.AvgLineThick);
+            Avg2LineThickness.Value= int.Parse(Properties.Settings.Default.Avg2LineThick);
+            RawLineThickness.Value = int.Parse(Properties.Settings.Default.RawLineThick);
+            CntLineThickness.Value = int.Parse(Properties.Settings.Default.CntLineThick);
+            GraphAvgDotSize.Value = int.Parse(Properties.Settings.Default.GraphAvgDotSize);
+            GraphRawDotSize.Value = int.Parse(Properties.Settings.Default.GraphRawDotSize);
+            GraphCntDotSize.Value = int.Parse(Properties.Settings.Default.GraphCntDotSize);
 
 
         }
@@ -105,24 +105,29 @@ namespace PropoPlot
             Properties.Settings.Default.FARawColor = toolsFARawColor.SelectedColor.ToString();
             Properties.Settings.Default.FACntColor = toolsFACntColor.SelectedColor.ToString();
 
+            Properties.Settings.Default.AvgLineThick = AvgLineThickness.Value.ToString();
+            Properties.Settings.Default.Avg2LineThick = Avg2LineThickness.Value.ToString();
+            Properties.Settings.Default.RawLineThick = RawLineThickness.Value.ToString();
+            Properties.Settings.Default.CntLineThick = CntLineThickness.Value.ToString();
+            Properties.Settings.Default.GraphAvgDotSize = GraphAvgDotSize.Value.ToString();
+            Properties.Settings.Default.GraphRawDotSize = GraphRawDotSize.Value.ToString();
+            Properties.Settings.Default.GraphCntDotSize = GraphCntDotSize.Value.ToString();
+
 
             Properties.Settings.Default.Save();
             this.Close();
         }
 
-        private void perType1_Checked(object sender, RoutedEventArgs e)
-        {
+       // private void perType1_Checked(object sender, RoutedEventArgs e)
+       // {
 
-       //     MessageBox.Show("period header, type 1 selected");
-        }
+       ////     MessageBox.Show("period header, type 1 selected");
+       // }
 
-        private void perType2_Checked(object sender, RoutedEventArgs e)
-        {
-          //  MessageBox.Show("period header, type 2 selected");
-        }
-
-
-
+       // private void perType2_Checked(object sender, RoutedEventArgs e)
+       // {
+       //   //  MessageBox.Show("period header, type 2 selected");
+       // }
 
 
     }

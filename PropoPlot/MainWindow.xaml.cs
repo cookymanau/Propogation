@@ -429,6 +429,22 @@ namespace PropoPlot
                 md.messageBoxLower.Text = $"{e}";
                md.Show();
         }
+
+        private void btnResetAvgs_Click(object sender, RoutedEventArgs e)
+        {
+           // continentAVGList.Clear();
+            Array.Clear(FAavgs, 0, 120);
+            Array.Clear(EUavgs, 0, 120);
+            Array.Clear(JAavgs, 0, 120);
+            Array.Clear(NAavgs, 0, 120);
+            Array.Clear(OCavgs, 0, 120);
+            Array.Clear(SAavgs, 0, 120);
+            Array.Clear(AFavgs, 0, 120);
+
+
+
+
+        }
     }
 
 }

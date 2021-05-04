@@ -634,5 +634,89 @@ namespace PropoPlot.Properties {
                 this["FACntColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public string AvgLineThick {
+            get {
+                return ((string)(this["AvgLineThick"]));
+            }
+            set {
+                this["AvgLineThick"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string RawLineThick {
+            get {
+                return ((string)(this["RawLineThick"]));
+            }
+            set {
+                this["RawLineThick"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string CntLineThick {
+            get {
+                return ((string)(this["CntLineThick"]));
+            }
+            set {
+                this["CntLineThick"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string GraphAvgDotSize {
+            get {
+                return ((string)(this["GraphAvgDotSize"]));
+            }
+            set {
+                this["GraphAvgDotSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string GraphRawDotSize {
+            get {
+                return ((string)(this["GraphRawDotSize"]));
+            }
+            set {
+                this["GraphRawDotSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string GraphCntDotSize {
+            get {
+                return ((string)(this["GraphCntDotSize"]));
+            }
+            set {
+                this["GraphCntDotSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string Avg2LineThick {
+            get {
+                return ((string)(this["Avg2LineThick"]));
+            }
+            set {
+                this["Avg2LineThick"] = value;
+            }
+        }
     }
 }
