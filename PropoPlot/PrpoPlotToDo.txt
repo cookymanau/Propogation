@@ -25,6 +25,10 @@
 		20210504 I think so.
 	• Set the scale on the single plot
 		02010504 - done with .plt.axis(null,null,-30,10)  so its autoscaling the X axis
+	• Add an Apply button to the options menu and leave the form open
+		20210505 Added Apply button, restructured the code a little
+	•  Add events to the chk boxes that calls the redraw routine
+		20210505 Done
 
 
 
@@ -46,6 +50,11 @@
 	• On the Single Plot - keep the current zoom during refreshes
 	• Add cat control and a schedule for band changing
 	• When I reset the Avgs using the 0 Avgs button - I should also see the averages reset to startup conditions.
+	• Single plot-  When you turn off Decodes chk box, then change the Yaxis to -30 to +5
+	• DX Atlas keeps grabbing the mouse.  Look for an alternative to plot things.  Simons World Map?
+	•
+	•
+	•
 	•
 	•
 	•

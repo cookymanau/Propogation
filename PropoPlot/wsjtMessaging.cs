@@ -387,18 +387,14 @@ namespace PropoPlot
 
                 //now we save the last lot of data to our continent list
                 // the headers are set in MainWindow.xml.cs in their respective methods
+//do we need this anymore??????
                 continentList.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
                 
-                //this is bad - we should have on list with different ordering possible
-               // continentListDC.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm},{cd.pSAnumber},{cd.pFAdbm},{cd.pFAnumber} ");
-
-
                 continentAVGList.Add($"WTDavg,{cd.pTime},  {cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},   {cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},   {cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
-                //continentAVGList.Add($"WTDavg,{cd.pTime},  {cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},   {cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber}");
 
                 
                 //it would be good to just remove the first 8000 chars and then keep it like that
-
+                //this is just to keep the string length in reasonable size, otherwise we use a lot of memory.
                 if (plotmessage.Text.Length > 9000) 
                {
                     string pm = plotmessage.Text.Substring(plotmessage.Text.Length - 2000,2000);

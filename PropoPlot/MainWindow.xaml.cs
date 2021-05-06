@@ -365,7 +365,7 @@ namespace PropoPlot
         {
 
             toolsSettings ts = new toolsSettings();
-            ts.ShowDialog();
+            ts.Show();
         }
 
         private void btnGraphPlot_Click(object sender, RoutedEventArgs e)
@@ -442,6 +442,13 @@ namespace PropoPlot
             Array.Clear(AFavgs, 0, 120);
 
 
+         //   udpStrings.Clear();
+         //   continentAVGList.Clear();
+         //   continentList.Clear();
+            frmMessageDialog md = new frmMessageDialog();
+            md.messageBoxUpper.Text = $"Cleared The Lists ";
+            md.messageBoxLower.Text = $"{e}";
+            md.Show();
 
 
         }

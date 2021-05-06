@@ -138,53 +138,67 @@ namespace PropoPlot
         private void PlotTheLists() {
 
 
-            dataPlotEU.plt.PlotScatter(dataX, dataEU,label:"Eu"); 
-            dataPlotEU.plt.PlotScatter(dataX, dataEUA,label:"EuAvg" , lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
-            dataPlotEU.plt.PlotScatter(dataX, dataEUC,label:"EuCnt");
-            dataPlotEU.plt.Legend(location: legendLocation.lowerLeft);
+            int AvgLineThickness = int.Parse(Properties.Settings.Default.AvgLineThick);
+            int RawLineThickness = int.Parse(Properties.Settings.Default.RawLineThick);
+            int CntLineThickness = int.Parse(Properties.Settings.Default.CntLineThick);
+            int LineAvgDotSize = int.Parse(Properties.Settings.Default.GraphAvgDotSize);
+            int LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
+            int LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
+            //over riding the line size
+            AvgLineThickness = 2;
+            RawLineThickness = 1;
+            CntLineThickness = 1;
+            LineAvgDotSize = 0;
+            LineRawDotSize = 0;
+            LineCntDotSize = 0;
+
+            dataPlotEU.plt.PlotScatter(dataX, dataEU,label:"Eu", lineWidth: RawLineThickness, markerSize: LineRawDotSize, lineStyle: LineStyle.Solid); 
+            dataPlotEU.plt.PlotScatter(dataX, dataEUA,label:"EuAvg" , lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid);
+            dataPlotEU.plt.PlotScatter(dataX, dataEUC,label:"EuCnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize, lineStyle: LineStyle.Solid);
+            dataPlotEU.plt.Legend(location: Alignment.LowerLeft);
             dataPlotEU.plt.YLabel("dBm");
             dataPlotEU.plt.XLabel("Periods");
 
-            dataPlotJA.plt.PlotScatter(dataX, dataJA, label:"Ja", lineWidth: 1, markerSize: 4, lineStyle:LineStyle.DashDot);
-            dataPlotJA.plt.PlotScatter(dataX, dataJAA, label:"JaAvg", lineWidth: 2, markerSize: 4, lineStyle:LineStyle.Solid);
-            dataPlotJA.plt.PlotScatter(dataX, dataJAC, label:"JaCnt", lineWidth: 2, markerSize: 4, lineStyle:LineStyle.Solid);
-            dataPlotJA.plt.Legend(location: legendLocation.lowerLeft);
+            dataPlotJA.plt.PlotScatter(dataX, dataJA, label:"Ja", lineWidth: RawLineThickness, markerSize: LineRawDotSize, lineStyle: LineStyle.Solid);
+            dataPlotJA.plt.PlotScatter(dataX, dataJAA, label:"JaAvg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle:LineStyle.Solid);
+            dataPlotJA.plt.PlotScatter(dataX, dataJAC, label:"JaCnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize, lineStyle:LineStyle.Solid);
+            dataPlotJA.plt.Legend(location: Alignment.LowerLeft);
             dataPlotJA.plt.YLabel("dBm");
             dataPlotJA.plt.XLabel("Periods");
 
-            dataPlotNA.plt.PlotScatter(dataX, dataNA,label:"Na") ;
-            dataPlotNA.plt.PlotScatter(dataX, dataNAA,label:"NaAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid) ;
-            dataPlotNA.plt.PlotScatter(dataX, dataNAC,label:"NaCnt") ;
-            dataPlotNA.plt.Legend(location: legendLocation.lowerLeft);
+            dataPlotNA.plt.PlotScatter(dataX, dataNA,label:"Na", lineWidth: RawLineThickness, markerSize: LineRawDotSize) ;
+            dataPlotNA.plt.PlotScatter(dataX, dataNAA,label:"NaAvg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid) ;
+            dataPlotNA.plt.PlotScatter(dataX, dataNAC,label:"NaCnt", lineWidth: CntLineThickness,  markerSize: LineCntDotSize) ;
+            dataPlotNA.plt.Legend(location: Alignment.LowerLeft);
             dataPlotNA.plt.YLabel("dBm");
             dataPlotNA.plt.XLabel("Periods");
 
 
-            dataPlotOC.plt.PlotScatter(dataX, dataOC, label:"Oc", lineStyle: LineStyle.DashDot);
-            dataPlotOC.plt.PlotScatter(dataX, dataOCA, label:"OcAvg", lineWidth: 2, lineStyle: LineStyle.Solid);
-            dataPlotOC.plt.PlotScatter(dataX, dataOCC, label:"OcCnt", lineStyle: LineStyle.DashDot);
-            dataPlotOC.plt.Legend(location: legendLocation.lowerLeft);
+            dataPlotOC.plt.PlotScatter(dataX, dataOC, label:"Oc", lineWidth: RawLineThickness, markerSize: LineRawDotSize,lineStyle: LineStyle.Solid);
+            dataPlotOC.plt.PlotScatter(dataX, dataOCA, label:"OcAvg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid);
+            dataPlotOC.plt.PlotScatter(dataX, dataOCC, label:"OcCnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize,lineStyle: LineStyle.Solid);
+            dataPlotOC.plt.Legend(location: Alignment.LowerLeft);
             dataPlotOC.plt.YLabel("dBm");
             dataPlotOC.plt.XLabel("Periods");
 
-            dataPlotAF.plt.PlotScatter(dataX, dataAF, label:"Af", lineStyle: LineStyle.DashDot);
-            dataPlotAF.plt.PlotScatter(dataX, dataAFA, label:"AfAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
-            dataPlotAF.plt.PlotScatter(dataX, dataAFC, label:"AfCnt", lineStyle: LineStyle.DashDot);
-            dataPlotAF.plt.Legend(location: legendLocation.lowerLeft);
+            dataPlotAF.plt.PlotScatter(dataX, dataAF, label:"Af", lineWidth: RawLineThickness, markerSize: LineRawDotSize, lineStyle: LineStyle.Solid);
+            dataPlotAF.plt.PlotScatter(dataX, dataAFA, label:"AfAvg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid);
+            dataPlotAF.plt.PlotScatter(dataX, dataAFC, label:"AfCnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize, lineStyle: LineStyle.Solid);
+            dataPlotAF.plt.Legend(location: Alignment.LowerLeft);
             dataPlotAF.plt.YLabel("dBm");
             dataPlotAF.plt.XLabel("Periods");
 
-            dataPlotSA.plt.PlotScatter(dataX, dataSA, label: "Sa", lineStyle: LineStyle.DashDot);
-            dataPlotSA.plt.PlotScatter(dataX, dataSAA, label: "SaAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
-            dataPlotSA.plt.PlotScatter(dataX, dataSAC, label: "SaCnt", lineStyle: LineStyle.DashDot);
-            dataPlotSA.plt.Legend(location: legendLocation.lowerLeft);
+            dataPlotSA.plt.PlotScatter(dataX, dataSA, label: "Sa", lineWidth: RawLineThickness, markerSize: LineRawDotSize, lineStyle: LineStyle.Solid);
+            dataPlotSA.plt.PlotScatter(dataX, dataSAA, label: "SaAvg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid);
+            dataPlotSA.plt.PlotScatter(dataX, dataSAC, label: "SaCnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize, lineStyle: LineStyle.Solid);
+            dataPlotSA.plt.Legend(location: Alignment.LowerLeft);
             dataPlotSA.plt.YLabel("dBm");
             dataPlotSA.plt.XLabel("Periods");
 
-            dataPlotFA.plt.PlotScatter(dataX, dataFA, label: "Fa", lineStyle: LineStyle.DashDot);
-            dataPlotFA.plt.PlotScatter(dataX, dataFAA, label: "FaAvg", lineWidth: 2, markerSize: 4, lineStyle: LineStyle.Solid);
-            dataPlotFA.plt.PlotScatter(dataX, dataFAC, label: "FaCnt", lineStyle: LineStyle.DashDot);
-            dataPlotFA.plt.Legend(location: legendLocation.lowerLeft);
+            dataPlotFA.plt.PlotScatter(dataX, dataFA, label: "Fa", lineWidth: RawLineThickness, markerSize: LineRawDotSize, lineStyle: LineStyle.Solid);
+            dataPlotFA.plt.PlotScatter(dataX, dataFAA, label: "FaAvg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid);
+            dataPlotFA.plt.PlotScatter(dataX, dataFAC, label: "FaCnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize, lineStyle: LineStyle.Solid);
+            dataPlotFA.plt.Legend(location: Alignment.LowerLeft);
             dataPlotFA.plt.YLabel("dBm");
             dataPlotFA.plt.XLabel("Periods");
 

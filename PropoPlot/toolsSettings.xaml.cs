@@ -73,9 +73,61 @@ namespace PropoPlot
         private void toolSettingsClose_Click(object sender, RoutedEventArgs e)
         {
 
+            //Properties.Settings.Default.AvgPrd = toolsAvgPrd.Text;  //save whatever the user puts into the averaging interval box.
+            //Properties.Settings.Default.PeriodTimer = toolsMainTimer.Text; //this is the number we ut into the decode timer loop
+
+
+            //Properties.Settings.Default.EUAvgColor = toolsEUAvgColor.SelectedColor.ToString();
+            //Properties.Settings.Default.EURawColor = toolsEURawColor.SelectedColor.ToString();
+            //Properties.Settings.Default.EUCntColor = toolsEUCntColor.SelectedColor.ToString();
+
+            //Properties.Settings.Default.JAAvgColor = toolsJAAvgColor.SelectedColor.ToString();
+            //Properties.Settings.Default.JARawColor = toolsJARawColor.SelectedColor.ToString();
+            //Properties.Settings.Default.JACntColor = toolsJACntColor.SelectedColor.ToString();
+
+            //Properties.Settings.Default.NAAvgColor = toolsNAAvgColor.SelectedColor.ToString();
+            //Properties.Settings.Default.NARawColor = toolsNARawColor.SelectedColor.ToString();
+            //Properties.Settings.Default.NACntColor = toolsNACntColor.SelectedColor.ToString();
+
+            //Properties.Settings.Default.OCAvgColor = toolsOCAvgColor.SelectedColor.ToString();
+            //Properties.Settings.Default.OCRawColor = toolsOCRawColor.SelectedColor.ToString();
+            //Properties.Settings.Default.OCCntColor = toolsOCCntColor.SelectedColor.ToString();
+
+            //Properties.Settings.Default.AFAvgColor = toolsAFAvgColor.SelectedColor.ToString();
+            //Properties.Settings.Default.AFRawColor = toolsAFRawColor.SelectedColor.ToString();
+            //Properties.Settings.Default.AFCntColor = toolsAFCntColor.SelectedColor.ToString();
+
+            //Properties.Settings.Default.SAAvgColor = toolsSAAvgColor.SelectedColor.ToString();
+            //Properties.Settings.Default.SARawColor = toolsSARawColor.SelectedColor.ToString();
+            //Properties.Settings.Default.SACntColor = toolsSACntColor.SelectedColor.ToString();
+
+            //Properties.Settings.Default.FAAvgColor = toolsFAAvgColor.SelectedColor.ToString();
+            //Properties.Settings.Default.FARawColor = toolsFARawColor.SelectedColor.ToString();
+            //Properties.Settings.Default.FACntColor = toolsFACntColor.SelectedColor.ToString();
+
+            //Properties.Settings.Default.AvgLineThick = AvgLineThickness.Value.ToString();
+            //Properties.Settings.Default.Avg2LineThick = Avg2LineThickness.Value.ToString();
+            //Properties.Settings.Default.RawLineThick = RawLineThickness.Value.ToString();
+            //Properties.Settings.Default.CntLineThick = CntLineThickness.Value.ToString();
+            //Properties.Settings.Default.GraphAvgDotSize = GraphAvgDotSize.Value.ToString();
+            //Properties.Settings.Default.GraphRawDotSize = GraphRawDotSize.Value.ToString();
+            //Properties.Settings.Default.GraphCntDotSize = GraphCntDotSize.Value.ToString();
+            //Properties.Settings.Default.Save();
+
+            saveAllSettings();
+            this.Close();
+        }
+
+        private void toolSettingsApply_Click(object sender, RoutedEventArgs e)
+        {
+            saveAllSettings();
+            
+        }
+
+         private void saveAllSettings()
+        {
             Properties.Settings.Default.AvgPrd = toolsAvgPrd.Text;  //save whatever the user puts into the averaging interval box.
             Properties.Settings.Default.PeriodTimer = toolsMainTimer.Text; //this is the number we ut into the decode timer loop
-
 
             Properties.Settings.Default.EUAvgColor = toolsEUAvgColor.SelectedColor.ToString();
             Properties.Settings.Default.EURawColor = toolsEURawColor.SelectedColor.ToString();
@@ -114,20 +166,10 @@ namespace PropoPlot
             Properties.Settings.Default.GraphCntDotSize = GraphCntDotSize.Value.ToString();
 
 
+
             Properties.Settings.Default.Save();
-            this.Close();
+
         }
-
-       // private void perType1_Checked(object sender, RoutedEventArgs e)
-       // {
-
-       ////     MessageBox.Show("period header, type 1 selected");
-       // }
-
-       // private void perType2_Checked(object sender, RoutedEventArgs e)
-       // {
-       //   //  MessageBox.Show("period header, type 2 selected");
-       // }
 
 
     }

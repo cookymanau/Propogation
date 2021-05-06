@@ -63,6 +63,11 @@ namespace PropoPlot
         double[] dataFAR = new double[6000];
         double[] dataFAC = new double[6000];
        
+
+
+
+
+
 /// <summary>
 /// Constructor
 /// </summary>
@@ -70,11 +75,13 @@ namespace PropoPlot
         public graphSinglePlot(List<string> thlist)
         {
             InitializeComponent();
-            _thlist = thlist;
-           // _thlist.Add("");
 
-            PrepareArrays();
-           
+            //add the context menu
+            
+
+            // make the graph
+            _thlist = thlist;
+             PrepareArrays();
             PlotTheLists();
         }
 
@@ -187,11 +194,6 @@ namespace PropoPlot
             int  LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
             int  LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
 
-            ScottPlot.PlottableSignal sigFaAvg;
-            ScottPlot.PlottableSignal sigFaCnt;
-
-
-            //graphSingle.Background.Opacity = 0.5;
                         
             graphSingle.plt.PlotHLine(0, color: System.Drawing.Color.Black);
             
@@ -279,12 +281,18 @@ namespace PropoPlot
 
 
 
-            graphSingle.plt.Legend(location:legendLocation.lowerLeft);
+            graphSingle.plt.Legend(location: Alignment.LowerLeft);
             graphSingle.plt.YLabel("dBm");
             graphSingle.plt.XLabel("Time(Zulu)");
-            graphSingle.plt.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss");
-            graphSingle.plt.Axis(null,null , -30, 10);// setting the Y axis limits
+            //graphSingle.plt.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss"); //this is obsolete now
+            graphSingle.plt.XAxis.DateTimeFormat(true);
+            
+          //  graphSingle.plt.YAxis.Layout(null,   -30, 20);// setting the Y axis limits  the new way  the first is padding
+          
            
+
+
+
 
         }//end
 
@@ -345,10 +353,166 @@ namespace PropoPlot
 
             PrepareArrays();
             graphSingle.plt.Clear();
+            //PlotTheLists();
+
+            //this isnt working
+            if (chkKeepZoom.IsChecked == true) //ie we are ticked
+            {
+                PlotTheLists();
+                var axislimit = graphSingle.plt.GetAxisLimits();
+         
+
+                float xmin = (float)axislimit.XMin;
+                float xmax = (float)axislimit.XMax;
+
+                //graphSingle.plt.XAxis.Layout(50, xmin, xmax);
+
+                graphSingle.plt.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
+                graphSingle.plt.AxisPan(0.0001, 0);
+                graphSingle.Render();
+            }
+            else
+            {
             PlotTheLists();
-            graphSingle.Render();
+                graphSingle.Render();
+            }
+
 
         }
+
+        private void chkEUGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkJAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkNAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkOCGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkAFGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkSAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkFAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkAvgPointsGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkRawPointsGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkCountsGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redrawThePlot();
+        }
+
+        private void chkKeepZoom_Click(object sender, RoutedEventArgs e)
+        {
+            double yy = graphSingle.Width;
+            double ht = graphSingle.ActualHeight; //size of the actual box in pixels
+            double wd = graphSingle.ActualWidth;
+            (double x, double y) =graphSingle.GetMouseCoordinates();
+            double a1 = graphSingle.MaxWidth;
+            double a2 = graphSingle.MaxHeight;
+         //   graphSingle.Configure(enableScrollWheelZoom: false);
+          //  graphSingle.Configure(lockHorizontalAxis: true);
+           // graphSingle.Configure();
+
+
+            
+
+        }
+
+        private void graphSingle_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //this is nothing like the cook book recipe for context menu
+            // comes from https://github.com/ScottPlot/ScottPlot/issues/337
+            // and some other sleuthing
+
+            graphSingle.RightClicked -= graphSingle.DefaultRightClickEvent; //this removes the original context menu
+            
+
+            //these are the new menu Items
+            MenuItem zoomHereItem = new MenuItem() { Header = "Hold Zoom" };
+            zoomHereItem.Click += zoomHere;
+            MenuItem clearPlotMenuItem = new MenuItem() { Header = "Clear Plot" };
+            clearPlotMenuItem.Click += ClearPlot;
+
+            //here we add the menu items to the context menu
+            ContextMenu rightClickMenu = new ContextMenu();  //instantiate the object
+            rightClickMenu.Items.Add(zoomHereItem);
+            rightClickMenu.Items.Add(clearPlotMenuItem);
+
+            graphSingle.ContextMenu = rightClickMenu;
+            
+
+        }
+
+        //and here is where we do the work ****vvvvvvvvvv******
+  
+        private void zoomHere(object sender, RoutedEventArgs e)
+        {
+           
+            Double nnX;
+            
+            (double x, double y) = graphSingle.GetMouseCoordinates();
+            var axislimit = graphSingle.plt.GetAxisLimits();
+
+            float xmin = (float)axislimit.XMin;
+            float xmax = (float)axislimit.XMax;
+
+            graphSingle.plt.XAxis.Layout(null, xmin,xmax );
+            graphSingle.plt.YAxis.Layout(null, (float)axislimit.YMin, (float)axislimit.YMax);
+
+//            var axislimit = graphSingle.plt.GetAxisLimits();
+            graphSingle.plt.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
+
+            //convert the x from a big number to a time
+            // DateTime dtX = DateTime.Parse(x);
+
+
+
+           //  graphSingle.plt.Axis(x - 0.0001, x+0.0001, -30, 20);// setting the Y axis limits
+           // graphSingle.plt.AxisBounds(x - .0001, x + .0001, -30, 20);
+
+       //     graphSingle.Render();
+
+        }
+
+        private void ClearPlot(object sender, RoutedEventArgs e)
+        {
+            graphSingle.plt.Clear();
+            graphSingle.plt.AxisAuto();
+            //???redrawThePlot();
+            graphSingle.Render();
+        }
+
+        //The context menu items above here
+
 
     }
 }

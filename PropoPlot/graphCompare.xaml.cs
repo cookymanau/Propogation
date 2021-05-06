@@ -164,66 +164,73 @@ namespace PropoPlot
 
         private void graphCompareRedraw_Click(object sender, RoutedEventArgs e)
         {
+            redraw();
+        }
+
+        private void redraw()
+        {
+
+
             try
             {
 
 
-            
-            //got to set the arrays back to full size , rinse and repeat style
-            int count = 6000;
-            // get rid of the 0's on the end
-            Array.Resize(ref dataXf1, count);
-            Array.Resize(ref dataXf2, count);
- 
-            Array.Resize(ref dataEUR, count);
-            Array.Resize(ref dataEUA, count);
-            Array.Resize(ref dataEUC, count);
-            Array.Resize(ref dataJAR, count);
-            Array.Resize(ref dataJAA, count);
-            Array.Resize(ref dataJAC, count);
-            Array.Resize(ref dataNAR, count);
-            Array.Resize(ref dataNAA, count);
-            Array.Resize(ref dataNAC, count);
-            Array.Resize(ref dataOCR, count);
-            Array.Resize(ref dataOCA, count);
-            Array.Resize(ref dataOCC, count);
-            Array.Resize(ref dataAFR, count);
-            Array.Resize(ref dataAFA, count);
-            Array.Resize(ref dataAFC, count);
-            Array.Resize(ref dataSAR, count);
-            Array.Resize(ref dataSAA, count);
-            Array.Resize(ref dataSAC, count);
-            Array.Resize(ref dataFAR, count);
-            Array.Resize(ref dataFAA, count);
-            Array.Resize(ref dataFAC, count);
 
-            Array.Resize(ref dataEUR2, count);
-            Array.Resize(ref dataEUA2, count);
-            Array.Resize(ref dataEUC2, count);
-            Array.Resize(ref dataJAR2, count);
-            Array.Resize(ref dataJAA2, count);
-            Array.Resize(ref dataJAC2, count);
-            Array.Resize(ref dataNAR2, count);
-            Array.Resize(ref dataNAA2, count);
-            Array.Resize(ref dataNAC2, count);
-            Array.Resize(ref dataOCR2, count);
-            Array.Resize(ref dataOCA2, count);
-            Array.Resize(ref dataOCC2, count);
-            Array.Resize(ref dataAFR2, count);
-            Array.Resize(ref dataAFA2, count);
-            Array.Resize(ref dataAFC2, count);
-            Array.Resize(ref dataSAR2, count);
-            Array.Resize(ref dataSAA2, count);
-            Array.Resize(ref dataSAC2, count);
-            Array.Resize(ref dataFAR2, count);
-            Array.Resize(ref dataFAA2, count);
-            Array.Resize(ref dataFAC2, count);
+                //got to set the arrays back to full size , rinse and repeat style
+                int count = 6000;
+                // get rid of the 0's on the end
+                Array.Resize(ref dataXf1, count);
+                Array.Resize(ref dataXf2, count);
 
-            graphCompare2Files.plt.Clear();
+                Array.Resize(ref dataEUR, count);
+                Array.Resize(ref dataEUA, count);
+                Array.Resize(ref dataEUC, count);
+                Array.Resize(ref dataJAR, count);
+                Array.Resize(ref dataJAA, count);
+                Array.Resize(ref dataJAC, count);
+                Array.Resize(ref dataNAR, count);
+                Array.Resize(ref dataNAA, count);
+                Array.Resize(ref dataNAC, count);
+                Array.Resize(ref dataOCR, count);
+                Array.Resize(ref dataOCA, count);
+                Array.Resize(ref dataOCC, count);
+                Array.Resize(ref dataAFR, count);
+                Array.Resize(ref dataAFA, count);
+                Array.Resize(ref dataAFC, count);
+                Array.Resize(ref dataSAR, count);
+                Array.Resize(ref dataSAA, count);
+                Array.Resize(ref dataSAC, count);
+                Array.Resize(ref dataFAR, count);
+                Array.Resize(ref dataFAA, count);
+                Array.Resize(ref dataFAC, count);
 
-            PrepareArraysFile1();
-            PrepareArraysFile2();
-            PlotTheLists();
+                Array.Resize(ref dataEUR2, count);
+                Array.Resize(ref dataEUA2, count);
+                Array.Resize(ref dataEUC2, count);
+                Array.Resize(ref dataJAR2, count);
+                Array.Resize(ref dataJAA2, count);
+                Array.Resize(ref dataJAC2, count);
+                Array.Resize(ref dataNAR2, count);
+                Array.Resize(ref dataNAA2, count);
+                Array.Resize(ref dataNAC2, count);
+                Array.Resize(ref dataOCR2, count);
+                Array.Resize(ref dataOCA2, count);
+                Array.Resize(ref dataOCC2, count);
+                Array.Resize(ref dataAFR2, count);
+                Array.Resize(ref dataAFA2, count);
+                Array.Resize(ref dataAFC2, count);
+                Array.Resize(ref dataSAR2, count);
+                Array.Resize(ref dataSAA2, count);
+                Array.Resize(ref dataSAC2, count);
+                Array.Resize(ref dataFAR2, count);
+                Array.Resize(ref dataFAA2, count);
+                Array.Resize(ref dataFAC2, count);
+
+                graphCompare2Files.plt.Clear();
+
+                PrepareArraysFile1();
+                PrepareArraysFile2();
+                PlotTheLists();
                 // graphCompare2Files.Render();
             }
             catch (Exception ex)
@@ -236,7 +243,14 @@ namespace PropoPlot
 
             }
 
+
+
         }
+
+
+
+
+
 
         private void graphCompareFile_Click(object sender, RoutedEventArgs e)
         {
@@ -465,8 +479,8 @@ namespace PropoPlot
                 int LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
                 int LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
 
-                ScottPlot.PlottableSignal sigFaAvg;
-            ScottPlot.PlottableSignal sigFaCnt;
+            //    ScottPlot.PlottableSignal sigFaAvg;
+           // ScottPlot.PlottableSignal sigFaCnt;
 
             graphCompare2Files.plt.PlotHLine(0, color: System.Drawing.Color.Black);
 
@@ -643,7 +657,7 @@ namespace PropoPlot
             }
 
 
-            graphCompare2Files.plt.Legend(location: legendLocation.lowerLeft);
+            graphCompare2Files.plt.Legend(location: Alignment.LowerLeft);
             graphCompare2Files.plt.YLabel("dBm");
             graphCompare2Files.plt.XLabel("RecordNumber");
             // graphCompare2Files.plt.XLabel("Time(Zulu)");
@@ -663,17 +677,60 @@ namespace PropoPlot
 
         }//end
 
+        private void chkEUGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkJAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkNAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkOCGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkAFGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkSAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkFAGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkCountsGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkAvgsGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
+        private void chkRawPointsGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
 
-
+        private void chkSpline_Click(object sender, RoutedEventArgs e)
+        {
+            redraw();
+        }
     }
 
 }
