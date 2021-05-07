@@ -40,7 +40,7 @@
             <TextBlock Text="South America" Grid.Row="4" Grid.Column="0" FontWeight="Bold" Padding="10"/>
             <TextBlock Text="Oceania" Grid.Row="5" Grid.Column="0" FontWeight="Bold" Padding="10"/>
             <TextBlock Text="Africa" Grid.Row="6" Grid.Column="0" FontWeight="Bold" Padding="10"/>
-            <TextBlock Text="User Defined" Grid.Row="7" Grid.Column="0" FontWeight="Bold" Padding="10"/>
+            <TextBlock Text="User" Grid.Row="7" Grid.Column="0" FontWeight="Bold" Padding="10"/>
             
             <!--Now the input areas-->
             <TextBox x:Name="EULatMin" Grid.Row="1" Grid.Column="1" Margin="10" Text="30.000" />
@@ -77,9 +77,9 @@
             <TextBox x:Name="FALatMax" Grid.Row="7" Grid.Column="2" Margin="10" Text="90.000" />
             <TextBox x:Name="FALongMin" Grid.Row="7" Grid.Column="3" Margin="10" Text="60.000" />
             <TextBox x:Name="FALongMax" Grid.Row="7" Grid.Column="4" Margin="10" Text="144.000" />
-            <TextBlock Text="Notes:" Grid.Row="8" Grid.Column="0" Margin="10" Grid.ColumnSpan="1"/>
-            <TextBlock Text="West of 0 long is -ve.  East of 0 long is +ve: North of equator is +ve, south -ve."  Grid.Row="8" Grid.Column="1" Margin="10" Grid.ColumnSpan="5"/>
-
+            <!--<TextBlock Text="Notes:" Grid.Row="8" Grid.Column="0" Margin="10" Grid.ColumnSpan="1"/>-->
+            <TextBox x:Name="UsrDefinedName" Grid.Row="8" Grid.Column="0" Margin="5" Text="Usr" />
+            <TextBlock Text="Note:  West of 0 -ve. East of 0 long +ve: North of 0 is +ve, south -ve."  Grid.Row="8" Grid.Column="1" Margin="10" Grid.ColumnSpan="5"/>
             <Button x:Name="toolContLatLongExit" Grid.Row="9" Grid.ColumnSpan="10" Content="Close" Click="toolContLatLongExit_Click"  />
 
         </Grid>

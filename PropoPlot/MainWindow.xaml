@@ -51,6 +51,7 @@
                 <MenuItem Header="_Graphs" >
                     <MenuItem Header="_All Continents live data" Name="graphAll" Click="graphAll_Click"  />
                     <MenuItem Header="_Single Graph live data" Name="graphSingle" Click="graphSingle_Click"  />
+                    <MenuItem Header="_Live Graph" Name="graphLive" Click="graphLive_Click"/>
                     <Separator/>
                     <MenuItem Header="_CompareFiles Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
                 </MenuItem>
@@ -180,7 +181,7 @@
                     <TextBlock Text="Oc" Grid.Column="3" Grid.Row="0"/>
                     <TextBlock Text="Af" Grid.Column="4" Grid.Row="0"/>
                     <TextBlock Text="Sa" Grid.Column="5" Grid.Row="0"/>
-                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0"/>
+                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0" Name="usrDefinedLabel"/>
 
                     <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
                     <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />

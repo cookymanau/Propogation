@@ -54,7 +54,7 @@ namespace PropoPlot
             InitializeComponent();
             //continentAVGList.Add("");  // initialising the list with something
 
-            
+            usrDefinedLabel.Text = Properties.Settings.Default.UsrDefinedName;
 
         }
 
@@ -380,15 +380,15 @@ namespace PropoPlot
             gp.Show();
         }
 
-        private void graphEu_Click(object sender, RoutedEventArgs e)
-        {
+        //private void graphEu_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void graphMain_Click(object sender, RoutedEventArgs e)
-        {
+        //private void graphMain_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
 
         private void graphSingle_Click(object sender, RoutedEventArgs e)
         {
@@ -418,7 +418,11 @@ namespace PropoPlot
             //cfFileOne.Text = gp.cFile1;
 
         }
-
+        /// <summary>
+        /// Experimental
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnResetList_Click(object sender, RoutedEventArgs e)
         {
             udpStrings.Clear();
@@ -429,7 +433,11 @@ namespace PropoPlot
                 md.messageBoxLower.Text = $"{e}";
                md.Show();
         }
-
+        /// <summary>
+        /// another experimental thing 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnResetAvgs_Click(object sender, RoutedEventArgs e)
         {
            // continentAVGList.Clear();
@@ -451,6 +459,12 @@ namespace PropoPlot
             md.Show();
 
 
+        }
+
+        private void graphLive_Click(object sender, RoutedEventArgs e)
+        {
+            graphLivePlot gl = new graphLivePlot(continentAVGList);
+            gl.Show();
         }
     }
 

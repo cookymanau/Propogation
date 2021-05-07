@@ -718,5 +718,17 @@ namespace PropoPlot.Properties {
                 this["Avg2LineThick"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Usr")]
+        public string UsrDefinedName {
+            get {
+                return ((string)(this["UsrDefinedName"]));
+            }
+            set {
+                this["UsrDefinedName"] = value;
+            }
+        }
     }
 }

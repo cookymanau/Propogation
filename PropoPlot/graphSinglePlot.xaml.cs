@@ -24,58 +24,70 @@ namespace PropoPlot
     public partial class graphSinglePlot : Window
     {
 
-
+        const int arrSize = 5000;
         public bool liveRedraw { get; set; }
 
         List<string> _thlist;
 
-        double[] dataX = new double[6000];
-        DateTime[] DTdates = new DateTime[6000];
-        double [] Dubdates = new double[6000];
+        double[] dataX = new double[arrSize];
+        DateTime[] DTdates = new DateTime[arrSize];
+        double [] Dubdates = new double[arrSize];
 
-        double[] dataEUA = new double[6000]; //Average
-        double[] dataEUR = new double[6000]; //Raw
-        double[] dataEUC = new double[6000]; //Count
-
-
-        double[] dataJAA = new double[6000];
-        double[] dataJAR = new double[6000];
-        double[] dataJAC = new double[6000];
+        double[] dataEUA = new double[arrSize]; //Average
+        double[] dataEUR = new double[arrSize]; //Raw
+        double[] dataEUC = new double[arrSize]; //Count
 
 
-        double[] dataNAA = new double[6000];
-        double[] dataNAR = new double[6000];
-        double[] dataNAC = new double[6000];
+        double[] dataJAA = new double[arrSize];
+        double[] dataJAR = new double[arrSize];
+        double[] dataJAC = new double[arrSize];
 
-        double[] dataOCA = new double[6000];
-        double[] dataOCR = new double[6000];
-        double[] dataOCC = new double[6000];
 
-        double[] dataAFA = new double[6000];
-        double[] dataAFR = new double[6000];
-        double[] dataAFC = new double[6000];
+        double[] dataNAA = new double[arrSize];
+        double[] dataNAR = new double[arrSize];
+        double[] dataNAC = new double[arrSize];
 
-        double[] dataSAA = new double[6000];
-        double[] dataSAR = new double[6000];
-        double[] dataSAC = new double[6000];
-
-        double[] dataFAA = new double[6000];
-        double[] dataFAR = new double[6000];
-        double[] dataFAC = new double[6000];
+        double[] dataOCA = new double[arrSize];
+        double[] dataOCR = new double[arrSize];
+        double[] dataOCC = new double[arrSize];
+        // double[] dataOCB = new double[arrSize];  //bollinger bands
+        OHLC[] dataOCB = new OHLC[arrSize];
        
 
+        double[] dataAFA = new double[arrSize];
+        double[] dataAFR = new double[arrSize];
+        double[] dataAFC = new double[arrSize];
+
+        double[] dataSAA = new double[arrSize];
+        double[] dataSAR = new double[arrSize];
+        double[] dataSAC = new double[arrSize];
+
+        double[] dataFAA = new double[arrSize];
+        double[] dataFAR = new double[arrSize];
+        double[] dataFAC = new double[arrSize];
 
 
 
 
-/// <summary>
-/// Constructor
-/// </summary>
-/// <param name="thlist"></param>
+        string usrLabel = Properties.Settings.Default.UsrDefinedName + "Raw";
+        string usrLabelAvg = Properties.Settings.Default.UsrDefinedName + "Avg";
+        string usrLabelCnt = Properties.Settings.Default.UsrDefinedName + "Cnt";
+
+
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="thlist"></param>
         public graphSinglePlot(List<string> thlist)
         {
             InitializeComponent();
 
+           //add the user defined text to the label onb the check box
+            chkFAGraphs.Content = Properties.Settings.Default.UsrDefinedName;
+
+
+       //    dataOCB = DataGen.RandomStockPrices(null, 30);
             //add the context menu
             
 
@@ -121,6 +133,9 @@ namespace PropoPlot
                 double.TryParse(wrdmsg[11], out dataOCR[count]);
                 double.TryParse(wrdmsg[12], out dataOCA[count]);
                 double.TryParse(wrdmsg[13], out dataOCC[count]);
+
+
+                 //   dataOCB[count] = $"OHLC:open={dataOCR[count]}";
                 
                 double.TryParse(wrdmsg[14], out dataAFR[count]);
                 double.TryParse(wrdmsg[15], out dataAFA[count]);
@@ -138,7 +153,7 @@ namespace PropoPlot
                 count += 1;
             }
 
-            // get rid of the 0's on the end
+             // get rid of the 0's on the end
             Array.Resize(ref Dubdates, count);
 
             Array.Resize(ref dataX, count);
@@ -194,52 +209,53 @@ namespace PropoPlot
             int  LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
             int  LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
 
-                        
-            graphSingle.plt.PlotHLine(0, color: System.Drawing.Color.Black);
+
+                                   
+            graphSingle.Plot.PlotHLine(0, color: System.Drawing.Color.Black);
             
             if (chkEUGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
-                    //graphSingle.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkBlue);
+                    graphSingle.Plot.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
+                    //graphSingle.Plot.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkBlue);
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
-                    //graphSingle.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                    graphSingle.Plot.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
+                    //graphSingle.Plot.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: LineRawDotSize, lineWidth:RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
-                    //graphSingle.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+                    graphSingle.Plot.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: LineRawDotSize, lineWidth:RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
+                    //graphSingle.Plot.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
             }
 
             if (chkJAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataJAA, label: "JAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataJAA, label: "JAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataJAC, label: "JACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataJAC, label: "JACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataJAR, label: "JARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataJAR, label: "JARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
 
             }
 
             if (chkNAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataNAA, label: "NAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataNAA, label: "NAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataNAC, label: "NACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataNAC, label: "NACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataNAR, label: "NARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataNAR, label: "NARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
 
             }
 
             if (chkOCGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                graphSingle.plt.PlotScatter(Dubdates,dataOCA, label: "OCAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
+                graphSingle.Plot.PlotScatter(Dubdates,dataOCA, label: "OCAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates,dataOCC, label: "OCCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates,dataOCC, label: "OCCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                     graphSingle.plt.PlotScatter(Dubdates,dataOCR, label: "OCRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
+                     graphSingle.Plot.PlotScatter(Dubdates,dataOCR, label: "OCRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
 
  
             }
@@ -247,22 +263,22 @@ namespace PropoPlot
             if (chkAFGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataAFA, label: "AFAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataAFA, label: "AFAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
 
             }
 
             if (chkSAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataSAA, label: "SAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataSAA, label: "SAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataSAC, label: "SACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataSAC, label: "SACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataSAR, label: "SARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataSAR, label: "SARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
 
             }
 
@@ -271,23 +287,24 @@ namespace PropoPlot
             if (chkFAGraphs.IsChecked == true)
             {
                 if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataFAA, label: "UsrAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataFAA, label: usrLabelAvg, markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
                 if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataFAC, label: "UsrCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataFAC, label: usrLabelCnt, markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
                 if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.plt.PlotScatter(Dubdates, dataFAR, label: "UsrRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
+                    graphSingle.Plot.PlotScatter(Dubdates, dataFAR, label: usrLabel, markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
             }
 
 
 
 
-            graphSingle.plt.Legend(location: Alignment.LowerLeft);
-            graphSingle.plt.YLabel("dBm");
-            graphSingle.plt.XLabel("Time(Zulu)");
-            //graphSingle.plt.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss"); //this is obsolete now
-            graphSingle.plt.XAxis.DateTimeFormat(true);
+           // graphSingle.Plot.Legend(location: Alignment.LowerLeft);
+            graphSingle.Plot.YLabel("dBm");
+            graphSingle.Plot.XLabel("Time(Zulu)");
+            //graphSingle.Plot.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss"); //this is obsolete now
+            graphSingle.Plot.XAxis.DateTimeFormat(true);
+            graphSingle.Plot.XAxis.TickLabelFormat("HH:mm:ss", true);
             
-          //  graphSingle.plt.YAxis.Layout(null,   -30, 20);// setting the Y axis limits  the new way  the first is padding
+          //  graphSingle.Plot.YAxis.Layout(null,   -30, 20);// setting the Y axis limits  the new way  the first is padding
           
            
 
@@ -305,7 +322,7 @@ namespace PropoPlot
                 // now start the timer to process the UDP stuff now that we have started it.
                 System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
                 dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
-                dispatcherTimer2.Interval = new TimeSpan(0, 0, 10);
+                dispatcherTimer2.Interval = new TimeSpan(0, 0, 15);
                 dispatcherTimer2.Start();
 
             }
@@ -318,6 +335,7 @@ namespace PropoPlot
         {
             //code for timer2 in here
             redrawThePlot();
+           // graphSingle.Plot.AxisPan(0.0001, 0);
         }
 
         public void redrawThePlot()
@@ -325,56 +343,61 @@ namespace PropoPlot
 
 
             //got to set the arrays back to full size , rinse and repeat style
-            int count = 6000;
-            // get rid of the 0's on the end
-            Array.Resize(ref Dubdates, count);
-            Array.Resize(ref dataX, count);
-            Array.Resize(ref dataEUR, count);
-            Array.Resize(ref dataEUA, count);
-            Array.Resize(ref dataEUC, count);
-            Array.Resize(ref dataJAR, count);
-            Array.Resize(ref dataJAA, count);
-            Array.Resize(ref dataJAC, count);
-            Array.Resize(ref dataNAR, count);
-            Array.Resize(ref dataNAA, count);
-            Array.Resize(ref dataNAC, count);
-            Array.Resize(ref dataOCR, count);
-            Array.Resize(ref dataOCA, count);
-            Array.Resize(ref dataOCC, count);
-            Array.Resize(ref dataAFR, count);
-            Array.Resize(ref dataAFA, count);
-            Array.Resize(ref dataAFC, count);
-            Array.Resize(ref dataSAR, count);
-            Array.Resize(ref dataSAA, count);
-            Array.Resize(ref dataSAC, count);
-            Array.Resize(ref dataFAR, count);
-            Array.Resize(ref dataFAA, count);
-            Array.Resize(ref dataFAC, count);
+           
+            // add the 0's on the end
+            Array.Resize(ref Dubdates, arrSize);
+            Array.Resize(ref dataX, arrSize);
+            Array.Resize(ref dataEUR, arrSize);
+            Array.Resize(ref dataEUA, arrSize);
+            Array.Resize(ref dataEUC, arrSize);
+            Array.Resize(ref dataJAR, arrSize);
+            Array.Resize(ref dataJAA, arrSize);
+            Array.Resize(ref dataJAC, arrSize);
+            Array.Resize(ref dataNAR, arrSize);
+            Array.Resize(ref dataNAA, arrSize);
+            Array.Resize(ref dataNAC, arrSize);
+            Array.Resize(ref dataOCR, arrSize);
+            Array.Resize(ref dataOCA, arrSize);
+            Array.Resize(ref dataOCC, arrSize);
+            Array.Resize(ref dataAFR, arrSize);
+            Array.Resize(ref dataAFA, arrSize);
+            Array.Resize(ref dataAFC, arrSize);
+            Array.Resize(ref dataSAR, arrSize);
+            Array.Resize(ref dataSAA, arrSize);
+            Array.Resize(ref dataSAC, arrSize);
+            Array.Resize(ref dataFAR, arrSize);
+            Array.Resize(ref dataFAA, arrSize);
+            Array.Resize(ref dataFAC, arrSize);
 
             PrepareArrays();
-            graphSingle.plt.Clear();
+          //  graphSingle.Plot.Clear();
             //PlotTheLists();
 
             //this isnt working
             if (chkKeepZoom.IsChecked == true) //ie we are ticked
             {
+                
                 PlotTheLists();
-                var axislimit = graphSingle.plt.GetAxisLimits();
-         
+                
+                var axislimit = graphSingle.Plot.GetAxisLimits();
+                double currentRightEdge = graphSingle.Plot.GetAxisLimits().XMax;
+                double currentLeftEdge = graphSingle.Plot.GetAxisLimits().XMin;
 
                 float xmin = (float)axislimit.XMin;
                 float xmax = (float)axislimit.XMax;
 
-                //graphSingle.plt.XAxis.Layout(50, xmin, xmax);
+                //graphSingle.Plot.XAxis.Layout(50, xmin, xmax);
 
-                graphSingle.plt.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
-                graphSingle.plt.AxisPan(0.0001, 0);
-                graphSingle.Render();
+                //graphSingle.Plot.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
+                graphSingle.Plot.SetAxisLimits(currentLeftEdge+0.0001,currentRightEdge+0.0001);
+                graphSingle.Plot.AxisPan(0.0001, 0);
+               // graphSingle.Render();
             }
             else
             {
-            PlotTheLists();
-                graphSingle.Render();
+                //redrawThePlot();
+                PlotTheLists();
+              //  graphSingle.Render();
             }
 
 
@@ -382,52 +405,52 @@ namespace PropoPlot
 
         private void chkEUGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+         //   redrawThePlot();
         }
 
         private void chkJAGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+         //   redrawThePlot();
         }
 
         private void chkNAGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+         //   redrawThePlot();
         }
 
         private void chkOCGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+        //    redrawThePlot();
         }
 
         private void chkAFGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+         //   redrawThePlot();
         }
 
         private void chkSAGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+         //   redrawThePlot();
         }
 
         private void chkFAGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+        //    redrawThePlot();
         }
 
         private void chkAvgPointsGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+         //   redrawThePlot();
         }
 
         private void chkRawPointsGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+        //    redrawThePlot();
         }
 
         private void chkCountsGraphs_Click(object sender, RoutedEventArgs e)
         {
-            redrawThePlot();
+        //    redrawThePlot();
         }
 
         private void chkKeepZoom_Click(object sender, RoutedEventArgs e)
@@ -438,12 +461,12 @@ namespace PropoPlot
             (double x, double y) =graphSingle.GetMouseCoordinates();
             double a1 = graphSingle.MaxWidth;
             double a2 = graphSingle.MaxHeight;
-         //   graphSingle.Configure(enableScrollWheelZoom: false);
-          //  graphSingle.Configure(lockHorizontalAxis: true);
-           // graphSingle.Configure();
+            //   graphSingle.Configure(enableScrollWheelZoom: false);
+            //  graphSingle.Configure(lockHorizontalAxis: true);
+            // graphSingle.Configure();
 
+            graphSingle.Plot.Clear();
 
-            
 
         }
 
@@ -480,24 +503,24 @@ namespace PropoPlot
             Double nnX;
             
             (double x, double y) = graphSingle.GetMouseCoordinates();
-            var axislimit = graphSingle.plt.GetAxisLimits();
+            var axislimit = graphSingle.Plot.GetAxisLimits();
 
             float xmin = (float)axislimit.XMin;
             float xmax = (float)axislimit.XMax;
 
-            graphSingle.plt.XAxis.Layout(null, xmin,xmax );
-            graphSingle.plt.YAxis.Layout(null, (float)axislimit.YMin, (float)axislimit.YMax);
+            graphSingle.Plot.XAxis.Layout(null, xmin,xmax );
+            graphSingle.Plot.YAxis.Layout(null, (float)axislimit.YMin, (float)axislimit.YMax);
 
-//            var axislimit = graphSingle.plt.GetAxisLimits();
-            graphSingle.plt.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
+//            var axislimit = graphSingle.Plot.GetAxisLimits();
+            graphSingle.Plot.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
 
             //convert the x from a big number to a time
             // DateTime dtX = DateTime.Parse(x);
 
 
 
-           //  graphSingle.plt.Axis(x - 0.0001, x+0.0001, -30, 20);// setting the Y axis limits
-           // graphSingle.plt.AxisBounds(x - .0001, x + .0001, -30, 20);
+           //  graphSingle.Plot.Axis(x - 0.0001, x+0.0001, -30, 20);// setting the Y axis limits
+           // graphSingle.Plot.AxisBounds(x - .0001, x + .0001, -30, 20);
 
        //     graphSingle.Render();
 
@@ -505,10 +528,17 @@ namespace PropoPlot
 
         private void ClearPlot(object sender, RoutedEventArgs e)
         {
-            graphSingle.plt.Clear();
-            graphSingle.plt.AxisAuto();
+            graphSingle.Plot.Clear();
+            graphSingle.Plot.AxisAuto();
             //???redrawThePlot();
-            graphSingle.Render();
+            //graphSingle.Render();
+            redrawThePlot();
+        }
+
+        private void chkLegendToggle_Click(object sender, RoutedEventArgs e)
+        {
+            //graphSingle.Plot.Legend(location: Alignment.LowerLeft);
+            graphSingle.Plot.Legend(location: Alignment.LowerLeft);
         }
 
         //The context menu items above here

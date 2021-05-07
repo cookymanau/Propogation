@@ -57,6 +57,7 @@ namespace PropoPlot
             FALatMax.Text = Properties.Settings.Default.FALatMax;
             FALongMin.Text = Properties.Settings.Default.FALongMin;
             FALongMax.Text = Properties.Settings.Default.FALongMax;
+            UsrDefinedName.Text = Properties.Settings.Default.UsrDefinedName;
 
 
 
@@ -96,6 +97,9 @@ namespace PropoPlot
             Properties.Settings.Default.AFLatMax = AFLatMax.Text;
             Properties.Settings.Default.AFLongMin = AFLongMin.Text;
             Properties.Settings.Default.AFLongMax = AFLongMax.Text;
+            
+            Properties.Settings.Default.UsrDefinedName = UsrDefinedName.Text;
+
 
             Properties.Settings.Default.Save();
             this.Close();

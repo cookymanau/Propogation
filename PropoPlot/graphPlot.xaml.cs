@@ -48,6 +48,11 @@ namespace PropoPlot
         double[] dataFAA = new double[10000] ;
         double[] dataFAC = new double[10000] ;
 
+
+        string usrLabel = Properties.Settings.Default.UsrDefinedName + "Raw";
+        string usrLabelAvg = Properties.Settings.Default.UsrDefinedName +"Avg";
+        string usrLabelCnt = Properties.Settings.Default.UsrDefinedName+"Cnt";
+
         public graphPlot(List<string> thlist)
         {
             InitializeComponent();
@@ -195,9 +200,9 @@ namespace PropoPlot
             dataPlotSA.plt.YLabel("dBm");
             dataPlotSA.plt.XLabel("Periods");
 
-            dataPlotFA.plt.PlotScatter(dataX, dataFA, label: "Fa", lineWidth: RawLineThickness, markerSize: LineRawDotSize, lineStyle: LineStyle.Solid);
-            dataPlotFA.plt.PlotScatter(dataX, dataFAA, label: "FaAvg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid);
-            dataPlotFA.plt.PlotScatter(dataX, dataFAC, label: "FaCnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize, lineStyle: LineStyle.Solid);
+            dataPlotFA.plt.PlotScatter(dataX, dataFA, label: usrLabel, lineWidth: RawLineThickness, markerSize: LineRawDotSize, lineStyle: LineStyle.Solid);
+            dataPlotFA.plt.PlotScatter(dataX, dataFAA, label: usrLabelAvg, lineWidth: AvgLineThickness, markerSize: LineAvgDotSize, lineStyle: LineStyle.Solid);
+            dataPlotFA.plt.PlotScatter(dataX, dataFAC, label: usrLabelCnt, lineWidth: CntLineThickness, markerSize: LineCntDotSize, lineStyle: LineStyle.Solid);
             dataPlotFA.plt.Legend(location: Alignment.LowerLeft);
             dataPlotFA.plt.YLabel("dBm");
             dataPlotFA.plt.XLabel("Periods");

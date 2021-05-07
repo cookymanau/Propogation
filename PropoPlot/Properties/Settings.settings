@@ -176,5 +176,8 @@
     <Setting Name="Avg2LineThick" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="UsrDefinedName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Usr</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -38,6 +38,7 @@
                 <CheckBox Name="chkAvgPointsGraphs" Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="true" Click="chkAvgPointsGraphs_Click"/>
                 <CheckBox Name="chkRawPointsGraphs" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkRawPointsGraphs_Click"/>
                 <CheckBox Name="chkCountsGraphs" Content="Count" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkCountsGraphs_Click"/>
+                <CheckBox Name="chkLegendToggle" Content="Legend" Margin="5,5" Grid.Column="0" IsChecked="true" Click="chkLegendToggle_Click"/>
                 <CheckBox Name="chkKeepZoom" Content="KeepZoom" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkKeepZoom_Click" />
                 <CheckBox Name="chkLiveUpdate" Content="Live Data" Margin="5,5" Grid.Column="0" IsChecked="false"/>
 
