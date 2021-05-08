@@ -313,6 +313,11 @@ namespace PropoPlot
 
         }//end
 
+        /// <summary>
+        /// This is the  code behind for the button on the graph window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void graphSingleRedraw_Click(object sender, RoutedEventArgs e)
         {
 
@@ -334,8 +339,8 @@ namespace PropoPlot
         private void dispatcherTimer2_Tick(object sender, EventArgs e)
         {
             //code for timer2 in here
-            redrawThePlot();
-           // graphSingle.Plot.AxisPan(0.0001, 0);
+            redrawThePlot();  //every 15 seconds
+           
         }
 
         public void redrawThePlot()
@@ -482,13 +487,18 @@ namespace PropoPlot
             //these are the new menu Items
             MenuItem zoomHereItem = new MenuItem() { Header = "Hold Zoom" };
             zoomHereItem.Click += zoomHere;
-            MenuItem clearPlotMenuItem = new MenuItem() { Header = "Clear Plot" };
+            MenuItem clearPlotMenuItem = new MenuItem() { Header = "Reset Plot" };
             clearPlotMenuItem.Click += ClearPlot;
+
+            MenuItem LegendToggleMenuItem = new MenuItem() { Header = "Legend Toggle" };
+            LegendToggleMenuItem.Click += legendToggle;
+
 
             //here we add the menu items to the context menu
             ContextMenu rightClickMenu = new ContextMenu();  //instantiate the object
             rightClickMenu.Items.Add(zoomHereItem);
             rightClickMenu.Items.Add(clearPlotMenuItem);
+            rightClickMenu.Items.Add(LegendToggleMenuItem);
 
             graphSingle.ContextMenu = rightClickMenu;
             
@@ -535,10 +545,26 @@ namespace PropoPlot
             redrawThePlot();
         }
 
+
+        private void legendToggle(object sender, RoutedEventArgs e)
+        {
+
+
+
+            if (chkLegendToggle.IsChecked == true)
+                graphSingle.Plot.Legend(location: Alignment.LowerLeft);
+            else
+                graphSingle.Plot.Legend(false);
+        }
+
+
         private void chkLegendToggle_Click(object sender, RoutedEventArgs e)
         {
-            //graphSingle.Plot.Legend(location: Alignment.LowerLeft);
-            graphSingle.Plot.Legend(location: Alignment.LowerLeft);
+
+            if (chkLegendToggle.IsChecked == true)
+                graphSingle.Plot.Legend(location: Alignment.LowerLeft);
+            else
+                graphSingle.Plot.Legend(false);
         }
 
         //The context menu items above here

@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ScottPlot;
 using System.Drawing;
+using System.Threading.Tasks;
+using System.Diagnostics; //for the stopwatch
+using System.Windows.Threading;
 
 namespace PropoPlot
 {
@@ -22,7 +25,7 @@ namespace PropoPlot
     public partial class graphLivePlot : Window
     {
 
-        const int arrSize = 5000;
+        const int arrSize = 50;
 
         double[] dataX = new double[arrSize];
         DateTime[] DTdates = new DateTime[arrSize];
@@ -59,21 +62,48 @@ namespace PropoPlot
         double[] dataFAC = new double[arrSize];
         List<string> thlist;
 
+        int currentArrSize = 0;
 
+        ScottPlot.Plottable.SignalPlot sig1;
+        ScottPlot.Plottable.SignalPlot sig2;
+        ScottPlot.Plottable.SignalPlot sig3;
+
+
+        /// <summary>
+        /// The Constructor - happens only once
+        /// </summary>
+        /// <param name="alist"></param>
         public graphLivePlot(List<string> alist)
         {
             InitializeComponent();
+
             thlist = alist;
 
+     
+            
+            PrepareArrays();
 
+          //  sizeTheArrays(currentArrSize);
+
+            PlotTheArrays();
+            
         }
 
         private void btnPlot_Click(object sender, RoutedEventArgs e)
         {
-            sizeTheArrays();
-            PrepareArrays();
-            PlotTheArrays();
-        }
+
+            PrepareArrays();  //Load new data into them from the list of strings
+
+            sig1.MaxRenderIndex = (currentArrSize-1);
+            sig2.MaxRenderIndex = (currentArrSize-1);
+            sig3.MaxRenderIndex = (currentArrSize-1);
+            //  sizeTheArrays(currentArrSize);
+
+           
+
+            graphLive.Render();
+
+       }
 
 
         public void PrepareArrays()
@@ -82,6 +112,9 @@ namespace PropoPlot
 
             string time = "";
             int count = 0;
+           
+            sizeTheArrays(arrSize);
+
             foreach (var item in thlist)
             {
                 // double defaultValue = 0;
@@ -109,9 +142,6 @@ namespace PropoPlot
                 double.TryParse(wrdmsg[12], out dataOCA[count]);
                 double.TryParse(wrdmsg[13], out dataOCC[count]);
 
-
-                //   dataOCB[count] = $"OHLC:open={dataOCR[count]}";
-
                 double.TryParse(wrdmsg[14], out dataAFR[count]);
                 double.TryParse(wrdmsg[15], out dataAFA[count]);
                 double.TryParse(wrdmsg[16], out dataAFC[count]);
@@ -128,115 +158,62 @@ namespace PropoPlot
                 count += 1;
             }
 
-            // get rid of the 0's on the end
-            Array.Resize(ref Dubdates, count);
-
-            Array.Resize(ref dataX, count);
-            Array.Resize(ref dataEUR, count);
-            Array.Resize(ref dataEUA, count);
-            Array.Resize(ref dataEUC, count);
-
-            Array.Resize(ref dataJAR, count);
-            Array.Resize(ref dataJAA, count);
-            Array.Resize(ref dataJAC, count);
-
-            Array.Resize(ref dataNAR, count);
-            Array.Resize(ref dataNAA, count);
-            Array.Resize(ref dataNAC, count);
-
-            Array.Resize(ref dataOCR, count);
-            Array.Resize(ref dataOCA, count);
-            Array.Resize(ref dataOCC, count);
-
-            Array.Resize(ref dataAFR, count);
-            Array.Resize(ref dataAFA, count);
-            Array.Resize(ref dataAFC, count);
-            Array.Resize(ref dataSAR, count);
-            Array.Resize(ref dataSAA, count);
-            Array.Resize(ref dataSAC, count);
-            Array.Resize(ref dataFAR, count);
-            Array.Resize(ref dataFAA, count);
-            Array.Resize(ref dataFAC, count);
-
-
+            currentArrSize = count;
         }
 
         public void PlotTheArrays()
                 {
                     //get the tools options user selected things
 
-                    int AvgLineThickness = int.Parse(Properties.Settings.Default.AvgLineThick);
-                    int RawLineThickness = int.Parse(Properties.Settings.Default.RawLineThick);
-                    int CntLineThickness = int.Parse(Properties.Settings.Default.CntLineThick);
-                    int LineAvgDotSize = int.Parse(Properties.Settings.Default.GraphAvgDotSize);
-                    int LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
-                    int LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
+  
 
 
-
-                 //   graphLive.plt.PlotHLine(0, color: System.Drawing.Color.Black);
-
-                    //if (chkEUGraphs.IsChecked == true)
-                    //{
-                    //    if (chkAvgPointsGraphs.IsChecked == true)
-                    //        graphLive.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
-                    //graphLive.plt.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkBlue);
-                    //if (chkCountsGraphs.IsChecked == true)
-
-              //     graphLive.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle:LineStyle.Solid  , color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
-
-                    //graphLive.plt.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
-                    //if (chkRawPointsGraphs.IsChecked == true)
-
-                    //graphLive.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
-                    //graphLive.plt.PlotScatter(Dubdates, dataJAR, label: "JARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
-                    //graphLive.plt.PlotScatter(Dubdates, dataOCR, label: "OCRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
+           // var fred4 = graphLive.Plot.AddScatter(Dubdates, dataNAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)), lineWidth: RawLineThickness,label:"NARaw");
+            sig1 =  graphLive.Plot.AddSignal(dataOCR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)), label:"OCRaw");
+            sig2 = graphLive.Plot.AddSignal(dataEUR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)), label:"EURaw");
+            sig3 = graphLive.Plot.AddSignal(dataNAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)), label:"NARaw");
 
 
-            var fred1 = graphLive.Plot.AddScatter(Dubdates, dataEUR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)), lineWidth: RawLineThickness,label:"EURaw");
-            var fred2 = graphLive.Plot.AddScatter(Dubdates, dataEUA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)), lineWidth: RawLineThickness,label:"EUAvg");
+           
+         //   sig.MaxRenderIndex = currentArrSize;
+         //   sig2.MaxRenderIndex = currentArrSize;
 
-            //graphLive.plt.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
+            graphLive.Plot.Legend(location: Alignment.LowerLeft);
 
-            graphLive.Plot.Legend(true, Alignment.LowerLeft);
-        
         }
 
 
             
-        private void sizeTheArrays()
+        private void sizeTheArrays(int resizeSize)
         {
 
-             
-            Array.Resize(ref Dubdates, arrSize);
-            Array.Resize(ref dataX, arrSize);
-            Array.Resize(ref dataEUR, arrSize);
-            Array.Resize(ref dataEUA, arrSize);
-            Array.Resize(ref dataEUC, arrSize);
-            Array.Resize(ref dataJAR, arrSize);
-            Array.Resize(ref dataJAA, arrSize);
-            Array.Resize(ref dataJAC, arrSize);
-            Array.Resize(ref dataNAR, arrSize);
-            Array.Resize(ref dataNAA, arrSize);
-            Array.Resize(ref dataNAC, arrSize);
-            Array.Resize(ref dataOCR, arrSize);
-            Array.Resize(ref dataOCA, arrSize);
-            Array.Resize(ref dataOCC, arrSize);
-            Array.Resize(ref dataAFR, arrSize);
-            Array.Resize(ref dataAFA, arrSize);
-            Array.Resize(ref dataAFC, arrSize);
-            Array.Resize(ref dataSAR, arrSize);
-            Array.Resize(ref dataSAA, arrSize);
-            Array.Resize(ref dataSAC, arrSize);
-            Array.Resize(ref dataFAR, arrSize);
-            Array.Resize(ref dataFAA, arrSize);
-            Array.Resize(ref dataFAC, arrSize);
+
+             //this just makes the arrays full sized again before loading the data
+            Array.Resize(ref Dubdates, resizeSize);
+            Array.Resize(ref dataX, resizeSize);
+            Array.Resize(ref dataEUR, resizeSize);
+            Array.Resize(ref dataEUA, resizeSize);
+            Array.Resize(ref dataEUC, resizeSize);
+            Array.Resize(ref dataJAR, resizeSize);
+            Array.Resize(ref dataJAA, resizeSize);
+            Array.Resize(ref dataJAC, resizeSize);
+            Array.Resize(ref dataNAR, resizeSize);
+            Array.Resize(ref dataNAA, resizeSize);
+            Array.Resize(ref dataNAC, resizeSize);
+            Array.Resize(ref dataOCR, resizeSize);
+            Array.Resize(ref dataOCA, resizeSize);
+            Array.Resize(ref dataOCC, resizeSize);
+            Array.Resize(ref dataAFR, resizeSize);
+            Array.Resize(ref dataAFA, resizeSize);
+            Array.Resize(ref dataAFC, resizeSize);
+            Array.Resize(ref dataSAR, resizeSize);
+            Array.Resize(ref dataSAA, resizeSize);
+            Array.Resize(ref dataSAC, resizeSize);
+            Array.Resize(ref dataFAR, resizeSize);
+            Array.Resize(ref dataFAA, resizeSize);
+            Array.Resize(ref dataFAC, resizeSize);
 
         }
-
-
-
-
 
     }//end class
 }//end
