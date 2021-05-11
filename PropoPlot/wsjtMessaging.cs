@@ -61,12 +61,6 @@ namespace PropoPlot
         //3 = Latitude
         //4 = Longitude
         //5 = time
-       // public string[,] UdppointEU = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-       // public string[,] UdppointJA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-     //   public string[,] UdppointOC = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-     //   public string[,] UdppointNA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-     //   public string[,] UdppointSA = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
-     //   public string[,] UdppointAF = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
 
         int totalDecodes = 0; //a running tally of how many decodes we have done
 
@@ -113,9 +107,10 @@ namespace PropoPlot
            int counter = 0;
            counter +=  counter;///???
             
-            bool isEmpty = false;
+            //bool isEmpty = false;
+            //double averagedbm = 0;
+
             string cleandata = "";
-            double averagedbm = 0;
             double totaldbm = 0;
 
             double totaldbmJA = 0; //these are for the average for a single period  - add all of the dBms together
@@ -130,18 +125,18 @@ namespace PropoPlot
                 int counterAF = 0;
             double totaldbmOC = 0;
                 int counterOC = 0;
-           
             double totaldbmFA = 0;
-            double sumFAarray = 0;
-                double averageFAarray = 0;
                 int counterFA = 0;
+
+  //          double sumFAarray = 0;
+  //          double averageFAarray = 0;
 
             foreach (var item in udpStrings)
             {
                 RegexOptions options = RegexOptions.None;
-                Regex regex = new Regex("[ ]{2,}", options);
+                Regex regex = new Regex("[ ]{2,}", options); //gets rid of the multiple spaces
                 cleandata = regex.Replace(item, " ");
-                string[] wrdmsg = cleandata.Split(' ');
+                string[] wrdmsg = cleandata.Split(' '); //split on the single space
 
                 if (wrdmsg.Length == 11)   //this is normal  CQ VK6DW OF88
                 {
@@ -211,7 +206,7 @@ namespace PropoPlot
 
                     //if there is an issue with the string  - like we can get a callsign like WU7X if he calls CQDX WU7X DN17
                    // Debug.WriteLine($"Sending a GRID of  {ul.udpqso3}  to lat long conversion");
-                    string latitude = Maiden2latitude(ul.udpqso3);
+                        string latitude = Maiden2latitude(ul.udpqso3);
                         string longitude = Maiden2longitude(ul.udpqso3);
 
                         double dlatitude = double.Parse(latitude);
@@ -294,7 +289,7 @@ namespace PropoPlot
                     loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square
                     QSOsThiInterval = counter;
 
-                ul.udpqso4 = ""; //reset just this one, all of the others get overwritten each time
+                    ul.udpqso4 = ""; //reset just this one, all of the others get overwritten each time
 
                     totalDecodes += 1;
 
@@ -388,9 +383,9 @@ namespace PropoPlot
                 //now we save the last lot of data to our continent list
                 // the headers are set in MainWindow.xml.cs in their respective methods
 //do we need this anymore??????
-                continentList.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
+//              continentList.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
                 
-                continentAVGList.Add($"WTDavg,{cd.pTime},  {cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},   {cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},   {cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
+                continentAVGList.Add($"WTDavg,{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
 
                 
                 //it would be good to just remove the first 8000 chars and then keep it like that

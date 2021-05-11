@@ -31,6 +31,16 @@
 		20210505 Done
 	• Add a text box to Usr defined lat and long to crate a label for the user defined area
 		20210507 Done
+	• Completely rebuilt the multi plot graph with the latest version of scottplot and followed the 
+	  rules this time.  Working OK  On the Single Plot - keep the current zoom during refreshes
+		20210509
+	•
+	•
+	•
+	•
+	•
+	•
+	•
 
 
 
@@ -49,7 +59,6 @@
 	• A running average for the averages?
 	• Statistics like a line that is average +- 1 SD being plotted?  I want to see the trend!!!
 	• An option to auto save the file every X minutes would be nice
-	• On the Single Plot - keep the current zoom during refreshes
 	• Add cat control and a schedule for band changing
 	• When I reset the Avgs using the 0 Avgs button - I should also see the averages reset to startup conditions.
 	• Single plot-  When you turn off Decodes chk box, then change the Yaxis to -30 to +5

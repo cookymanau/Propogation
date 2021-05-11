@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-    Title="graphSinglePlot" Height="440" Width="900">
+    Title="graphSinglePlot" Height="255" Width="540">
 
     <Border Margin="5">
     <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -19,31 +19,31 @@
             
 
             <WpfPlot Name="graphSingle" Grid.Column="1" 
-                     MouseRightButtonDown="graphSingle_MouseRightButtonDown"  >
+                       >
                     <WpfPlot.Background>
                     <SolidColorBrush Color="Gray" Opacity=".25"/> 
                 </WpfPlot.Background>
             </WpfPlot>
         
             <StackPanel>
-                <TextBlock Text="Continent" Background="#bbb" FontWeight="Bold" Margin="2"/>
-                <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkEUGraphs_Click"/>
-                <CheckBox Name="chkJAGraphs" Content="JA" Margin="5,5" Grid.Column="0" IsChecked="true" Click="chkJAGraphs_Click"/>
-                <CheckBox Name="chkNAGraphs" Content="NA" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkNAGraphs_Click"/>
-                <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="false" Click="chkOCGraphs_Click"/>
-                <CheckBox Name="chkAFGraphs" Content="AF" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkAFGraphs_Click"/>
-                <CheckBox Name="chkSAGraphs" Content="SA" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkSAGraphs_Click"/>
-                <CheckBox Name="chkFAGraphs" Content="Usr" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkFAGraphs_Click"/>
+                <!--<TextBlock Text="Continent" Background="#bbb" FontWeight="Bold" Margin="2"/>
+                <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="false" />
+                <CheckBox Name="chkJAGraphs" Content="JA" Margin="5,5" Grid.Column="0" IsChecked="true" />
+                <CheckBox Name="chkNAGraphs" Content="NA" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="false" />
+                <CheckBox Name="chkAFGraphs" Content="AF" Margin="5,5" Grid.Column="0" IsChecked="false" />
+                <CheckBox Name="chkSAGraphs" Content="SA" Margin="5,5" Grid.Column="0" IsChecked="false" />
+                <CheckBox Name="chkFAGraphs" Content="Usr" Margin="5,5" Grid.Column="0" IsChecked="false"/>-->
                 <TextBlock Text=" Data" Background="#bbb" FontWeight="Bold" Margin="2"/>
-                <CheckBox Name="chkAvgPointsGraphs" Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="true" Click="chkAvgPointsGraphs_Click"/>
-                <CheckBox Name="chkRawPointsGraphs" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkRawPointsGraphs_Click"/>
-                <CheckBox Name="chkCountsGraphs" Content="Count" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkCountsGraphs_Click"/>
-                <CheckBox Name="chkLegendToggle" Content="Legend" Margin="5,5" Grid.Column="0" IsChecked="true" Click="chkLegendToggle_Click"/>
-                <CheckBox Name="chkKeepZoom" Content="KeepZoom" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkKeepZoom_Click" />
-                <CheckBox Name="chkLiveUpdate" Content="Live Data" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkAvg" Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="false" />
+                <CheckBox Name="chkRaw" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="true"/>
+                <!--<CheckBox Name="chkCountsGraphs" Content="Count" Margin="5,5" Grid.Column="0" IsChecked="false" />
+                <CheckBox Name="chkLegendToggle" Content="Legend" Margin="5,5" Grid.Column="0" IsChecked="true" />
+                <CheckBox Name="chkKeepZoom" Content="KeepZoom" Margin="5,5" Grid.Column="0" IsChecked="false" />-->
+                <CheckBox Name="chkLiveUpdate" Content="Auto Upd" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked_1"/>
 
-                <Button x:Name="graphSingleRedraw" Content="Refresh" Margin="2,2" Grid.Column="0" Click="graphSingleRedraw_Click" />
             </StackPanel>
+                <Button x:Name="graphSingleRedraw" Content="Refresh" Margin="2,2" VerticalAlignment="Bottom" Grid.Column="0" Click="graphSingleRedraw_Click"  />
  
         </Grid>
     </Border>

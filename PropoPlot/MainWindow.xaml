@@ -49,9 +49,9 @@
                 </MenuItem>
 
                 <MenuItem Header="_Graphs" >
-                    <MenuItem Header="_All Continents live data" Name="graphAll" Click="graphAll_Click"  />
-                    <MenuItem Header="_Single Graph live data" Name="graphSingle" Click="graphSingle_Click"  />
-                    <MenuItem Header="_Live Graph" Name="graphLive" Click="graphLive_Click"/>
+                    <MenuItem Header="_All Continents" Name="graphAll" Click="graphAll_Click"  />
+                    <MenuItem Header="_Time" Name="graphLive" Click="graphLive_Click"/>
+                    <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />
                     <Separator/>
                     <MenuItem Header="_CompareFiles Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
                 </MenuItem>

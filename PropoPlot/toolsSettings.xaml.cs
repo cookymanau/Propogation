@@ -59,6 +59,9 @@ namespace PropoPlot
             toolsFARawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FARawColor);
             toolsFACntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FACntColor);
 
+            toolsPanLeftPct.Text = Properties.Settings.Default.txtPan;
+
+
             AvgLineThickness.Value= int.Parse(Properties.Settings.Default.AvgLineThick);
             Avg2LineThickness.Value= int.Parse(Properties.Settings.Default.Avg2LineThick);
             RawLineThickness.Value = int.Parse(Properties.Settings.Default.RawLineThick);
@@ -165,7 +168,7 @@ namespace PropoPlot
             Properties.Settings.Default.GraphRawDotSize = GraphRawDotSize.Value.ToString();
             Properties.Settings.Default.GraphCntDotSize = GraphCntDotSize.Value.ToString();
 
-
+            Properties.Settings.Default.txtPan = toolsPanLeftPct.Text;
 
             Properties.Settings.Default.Save();
 

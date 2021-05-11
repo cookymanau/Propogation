@@ -15,6 +15,17 @@ using ScottPlot;
 using System.Drawing;
 
 
+ //***************************************
+     //ProgName:  RADAR Plot
+     //Date:  May 2021
+     //Author:Ian Cook
+     //Purose: This is the Radar Plot.  It IS missnamed!
+     //Comment:	I cant get this to obey yhe ScottPlot rules and
+     //have to keep calling the plot routine with clear plot every time.
+     //at this point it seems functional
+     //Updates:
+     //			
+     //************************************************
 
 namespace PropoPlot
 {
@@ -24,7 +35,7 @@ namespace PropoPlot
     public partial class graphSinglePlot : Window
     {
 
-        const int arrSize = 5000;
+        const int arrSize = 1;
         public bool liveRedraw { get; set; }
 
         List<string> _thlist;
@@ -66,13 +77,37 @@ namespace PropoPlot
         double[] dataFAR = new double[arrSize];
         double[] dataFAC = new double[arrSize];
 
-
+        double[,] values = new double[2, 7];
 
 
         string usrLabel = Properties.Settings.Default.UsrDefinedName + "Raw";
         string usrLabelAvg = Properties.Settings.Default.UsrDefinedName + "Avg";
         string usrLabelCnt = Properties.Settings.Default.UsrDefinedName + "Cnt";
 
+        int currentArrSize = 0;
+
+        ScottPlot.Plottable.SignalPlot sig1;
+        ScottPlot.Plottable.SignalPlot sig2;
+        ScottPlot.Plottable.SignalPlot sig3;
+
+        ScottPlot.Plottable.RadarPlot radar;
+
+
+
+        double JARi = -30;
+        double NARi = -30;
+        double SARi = -30;
+        double OCRi = -30;
+        double AFRi = -30;
+        double FARi = -30;
+        double EURi = -30;        
+        double JARa = -30;
+        double NARa = -30;
+        double SARa = -30;
+        double OCRa = -30;
+        double AFRa = -30;
+        double FARa = -30;
+        double EURa = -30;
 
 
         /// <summary>
@@ -84,491 +119,234 @@ namespace PropoPlot
             InitializeComponent();
 
            //add the user defined text to the label onb the check box
-            chkFAGraphs.Content = Properties.Settings.Default.UsrDefinedName;
+          //  chkFAGraphs.Content = Properties.Settings.Default.UsrDefinedName;
 
-
-       //    dataOCB = DataGen.RandomStockPrices(null, 30);
-            //add the context menu
+            //this is our list of decodes
+            _thlist = thlist;
             
 
             // make the graph
-            _thlist = thlist;
              PrepareArrays();
-            PlotTheLists();
+            PlotTheArrays();
         }
 
 
+        /// <summary>
+        /// Take the last entry in the list, parse it and fill arrays
+        /// </summary>
         public void PrepareArrays()
         {
-            string[] wrdmsg= { };
-
-            try
-            {
+            string[] wrdmsg = { };
 
             string time = "";
             int count = 0;
-            foreach (var item in _thlist)
+
+            var li = _thlist.LastOrDefault();
+
+            // double defaultValue = 0;
+
+            wrdmsg = li.Split(',');
+
+            dataX[count] = count; //the X values
+
+            DTdates[count] = DateTime.Parse(wrdmsg[1]);
+            Dubdates[count] = DTdates[count].ToOADate();
+
+            double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
+            double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
+            double.TryParse(wrdmsg[4], out dataEUC[count]); //EuropeAverage
+
+            double.TryParse(wrdmsg[5], out dataJAR[count]); //Japan
+            double.TryParse(wrdmsg[6], out dataJAA[count]); //JapanAvg
+            double.TryParse(wrdmsg[7], out dataJAC[count]); //JapanAvg
+
+            double.TryParse(wrdmsg[8], out dataNAR[count]);
+            double.TryParse(wrdmsg[9], out dataNAA[count]);
+            double.TryParse(wrdmsg[10], out dataNAC[count]);
+
+            double.TryParse(wrdmsg[11], out dataOCR[count]);
+            double.TryParse(wrdmsg[12], out dataOCA[count]);
+            double.TryParse(wrdmsg[13], out dataOCC[count]);
+
+            double.TryParse(wrdmsg[14], out dataAFR[count]);
+            double.TryParse(wrdmsg[15], out dataAFA[count]);
+            double.TryParse(wrdmsg[16], out dataAFC[count]);
+
+            double.TryParse(wrdmsg[17], out dataSAR[count]);
+            double.TryParse(wrdmsg[18], out dataSAA[count]);
+            double.TryParse(wrdmsg[19], out dataSAC[count]);
+
+            double.TryParse(wrdmsg[20], out dataFAR[count]);
+            double.TryParse(wrdmsg[21], out dataFAA[count]);
+            double.TryParse(wrdmsg[22], out dataFAC[count]);
+            //dataOC[count] = double.TryParse(wrdmsg[6],out 0);
+
+
+            JARi = dataJAR[0] + 29;
+            NARi = dataNAR[0] + 29;
+            SARi = dataSAR[0] + 29;
+            OCRi = dataOCR[0] + 29;
+            AFRi = dataAFR[0] + 29;
+            FARi = dataFAR[0] + 29;
+            EURi = dataEUR[0] + 29;
+
+            JARa = dataJAA[0] + 29;
+            NARa = dataNAA[0] + 29;
+            SARa = dataSAA[0] + 29;
+            OCRa = dataOCA[0] + 29;
+            AFRa = dataAFA[0] + 29;
+            FARa = dataFAA[0] + 29;
+            EURa = dataEUA[0] + 29;
+
+            if (chkAvg.IsChecked == true && chkRaw.IsChecked == true)
             {
-                // double defaultValue = 0;
+                values[0, 0] = JARi; //ja
+                values[0, 1] = NARi; //na
+                values[0, 2] = SARi; //sa
+                values[0, 3] = OCRi; //oc
+                values[0, 4] = AFRi; //af
+                values[0, 5] = FARi;//fa
+                values[0, 6] = EURi;//eu
 
-                 wrdmsg = item.Split(',');
-
-                dataX[count] = count; //the X values
-
-                DTdates[count] = DateTime.Parse(wrdmsg[1]);
-                Dubdates[count] = DTdates[count].ToOADate();
-
-                double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
-                double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
-                double.TryParse(wrdmsg[4], out dataEUC[count]); //EuropeAverage
-
-                double.TryParse(wrdmsg[5], out dataJAR[count]); //Japan
-                double.TryParse(wrdmsg[6], out dataJAA[count]); //JapanAvg
-                double.TryParse(wrdmsg[7], out dataJAC[count]); //JapanAvg
-
-                double.TryParse(wrdmsg[8], out dataNAR[count]);
-                double.TryParse(wrdmsg[9], out dataNAA[count]);
-                double.TryParse(wrdmsg[10], out dataNAC[count]);
-                
-                double.TryParse(wrdmsg[11], out dataOCR[count]);
-                double.TryParse(wrdmsg[12], out dataOCA[count]);
-                double.TryParse(wrdmsg[13], out dataOCC[count]);
-
-
-                 //   dataOCB[count] = $"OHLC:open={dataOCR[count]}";
-                
-                double.TryParse(wrdmsg[14], out dataAFR[count]);
-                double.TryParse(wrdmsg[15], out dataAFA[count]);
-                double.TryParse(wrdmsg[16], out dataAFC[count]);
-                
-                double.TryParse(wrdmsg[17], out dataSAR[count]);
-                double.TryParse(wrdmsg[18], out dataSAA[count]);
-                double.TryParse(wrdmsg[19], out dataSAC[count]);
-                
-                double.TryParse(wrdmsg[20], out dataFAR[count]);
-                double.TryParse(wrdmsg[21], out dataFAA[count]);
-                double.TryParse(wrdmsg[22], out dataFAC[count]);
-                //dataOC[count] = double.TryParse(wrdmsg[6],out 0);
-
-                count += 1;
-            }
-
-             // get rid of the 0's on the end
-            Array.Resize(ref Dubdates, count);
-
-            Array.Resize(ref dataX, count);
-            Array.Resize(ref dataEUR, count);
-            Array.Resize(ref dataEUA, count);
-            Array.Resize(ref dataEUC, count);
-
-            Array.Resize(ref dataJAR, count);
-            Array.Resize(ref dataJAA, count);
-            Array.Resize(ref dataJAC, count);
-
-            Array.Resize(ref dataNAR, count);
-            Array.Resize(ref dataNAA, count);
-            Array.Resize(ref dataNAC, count);
-
-            Array.Resize(ref dataOCR, count);
-            Array.Resize(ref dataOCA, count);
-            Array.Resize(ref dataOCC, count);
-
-            Array.Resize(ref dataAFR, count);
-            Array.Resize(ref dataAFA, count);
-            Array.Resize(ref dataAFC, count);
-            Array.Resize(ref dataSAR, count);
-            Array.Resize(ref dataSAA, count);
-            Array.Resize(ref dataSAC, count);
-            Array.Resize(ref dataFAR, count);
-            Array.Resize(ref dataFAA, count);
-            Array.Resize(ref dataFAC, count);
-
-
+                values[1, 0] = JARa; //ja
+                values[1, 1] = NARa; //na
+                values[1, 2] = SARa; //sa
+                values[1, 3] = OCRa; //oc
+                values[1, 4] = AFRa; //af
+                values[1, 5] = FARa;//fa
+                values[1, 6] = EURa;//eu
 
             }
-            catch (Exception ex)
+            else if (chkAvg.IsChecked == true && chkRaw.IsChecked == false)
             {
-                frmMessageDialog md = new frmMessageDialog();
-                md.messageBoxUpper.Text = $"Error in graphSinglePlot.PrepareArrays()  string is {wrdmsg}";
-                md.messageBoxLower.Text = $"{ex}";
-                md.Show();
+                values[0, 0] = 0; //ja
+                values[0, 1] = 0; //na
+                values[0, 2] = 0; //sa
+                values[0, 3] = 0; //oc
+                values[0, 4] = 0; //af
+                values[0, 5] = 0;//fa
+                values[0, 6] = 0;//eu
 
-
+                values[1, 0] = JARa; //ja
+                values[1, 1] = NARa; //na
+                values[1, 2] = SARa; //sa
+                values[1, 3] = OCRa; //oc
+                values[1, 4] = AFRa; //af
+                values[1, 5] = FARa;//fa
+                values[1, 6] = EURa;//eu
             }
 
+            else if (chkAvg.IsChecked == false && chkRaw.IsChecked == true)
+            {
+                values[0, 0] = JARi; //ja
+                values[0, 1] = NARi; //na
+                values[0, 2] = SARi; //sa
+                values[0, 3] = OCRi; //oc
+                values[0, 4] = AFRi; //af
+                values[0, 5] = FARi;//fa
+                values[0, 6] = EURi;//eu
+
+                values[1, 0] = 0; //ja
+                values[1, 1] = 0; //na
+                values[1, 2] = 0; //sa
+                values[1, 3] = 0; //oc
+                values[1, 4] = 0; //af
+                values[1, 5] = 0;//fa
+                values[1, 6] = 0;//eu
+
+            }
+            else if (chkAvg.IsChecked == false && chkRaw.IsChecked == false)
+            {
+                values[0, 0] = 0; //ja
+                values[0, 1] = 0; //na
+                values[0, 2] = 0; //sa
+                values[0, 3] = 0; //oc
+                values[0, 4] = 0; //af
+                values[0, 5] = 0;//fa
+                values[0, 6] = 0;//eu
+
+                values[1, 0] = 0; //ja
+                values[1, 1] = 0; //na
+                values[1, 2] = 0; //sa
+                values[1, 3] = 0; //oc
+                values[1, 4] = 0; //af
+                values[1, 5] = 0;//fa
+                values[1, 6] = 0;//eu
+            }
         }
-
-        public void PlotTheLists()
+        /// <summary>
+        /// Put the radar plot on screen
+        /// </summary>
+            public void PlotTheArrays()
         {
-            //get the tools options user selected things
-
-            int AvgLineThickness = int.Parse(Properties.Settings.Default.AvgLineThick);
-            int RawLineThickness = int.Parse(Properties.Settings.Default.RawLineThick);
-            int CntLineThickness = int.Parse(Properties.Settings.Default.CntLineThick);
-            int  LineAvgDotSize = int.Parse(Properties.Settings.Default.GraphAvgDotSize);
-            int  LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
-            int  LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
-
-
-                                   
-            graphSingle.Plot.PlotHLine(0, color: System.Drawing.Color.Black);
-            
-            if (chkEUGraphs.IsChecked == true)
-            {
-                if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
-                    //graphSingle.Plot.PlotScatter(Dubdates, dataEUA, label: "EUAvg", markerSize: 0, lineWidth: 3, lineStyle: LineStyle.Solid, color: System.Drawing.Color.DarkBlue);
-                if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
-                    //graphSingle.Plot.PlotScatter(Dubdates, dataEUC, label: "EUCnt", markerSize: 0, lineWidth: 2, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: LineRawDotSize, lineWidth:RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
-                    //graphSingle.Plot.PlotScatter(Dubdates, dataEUR, label: "EURaw", markerSize: 0, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
-            }
-
-            if (chkJAGraphs.IsChecked == true)
-            {
-                if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataJAA, label: "JAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
-                if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataJAC, label: "JACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataJAR, label: "JARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
-
-            }
-
-            if (chkNAGraphs.IsChecked == true)
-            {
-                if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataNAA, label: "NAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
-                if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataNAC, label: "NACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataNAR, label: "NARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
-
-            }
-
-            if (chkOCGraphs.IsChecked == true)
-            {
-                if (chkAvgPointsGraphs.IsChecked == true)
-                graphSingle.Plot.PlotScatter(Dubdates,dataOCA, label: "OCAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
-                if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates,dataOCC, label: "OCCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                     graphSingle.Plot.PlotScatter(Dubdates,dataOCR, label: "OCRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
-
- 
-            }
-
-            if (chkAFGraphs.IsChecked == true)
-            {
-                if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataAFA, label: "AFAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
-                if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
-
-            }
-
-            if (chkSAGraphs.IsChecked == true)
-            {
-                if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataSAA, label: "SAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
-                if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataSAC, label: "SACnt", markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataSAR, label: "SARaw", markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
-
-            }
 
 
 
-            if (chkFAGraphs.IsChecked == true)
-            {
-                if (chkAvgPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataFAA, label: usrLabelAvg, markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
-                if (chkCountsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataFAC, label: usrLabelCnt, markerSize: LineCntDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphSingle.Plot.PlotScatter(Dubdates, dataFAR, label: usrLabel, markerSize: LineRawDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
-            }
+            radar =  graphSingle.Plot.AddRadar(values,independentAxes:false);
 
-
-
-
-           // graphSingle.Plot.Legend(location: Alignment.LowerLeft);
-            graphSingle.Plot.YLabel("dBm");
-            graphSingle.Plot.XLabel("Time(Zulu)");
-            //graphSingle.Plot.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss"); //this is obsolete now
-            graphSingle.Plot.XAxis.DateTimeFormat(true);
-            graphSingle.Plot.XAxis.TickLabelFormat("HH:mm:ss", true);
-            
-          //  graphSingle.Plot.YAxis.Layout(null,   -30, 20);// setting the Y axis limits  the new way  the first is padding
-          
-           
-
-
-
+            radar.CategoryLabels = new string[] {"JA","NA","SA","OC","AF","Usr","EU" };
+            radar.ShowAxisValues = false;
+            radar.AxisType = RadarAxis.None;
 
         }//end
 
+
         /// <summary>
-        /// This is the  code behind for the button on the graph window
+        /// This is method behind the button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void graphSingleRedraw_Click(object sender, RoutedEventArgs e)
+        private void graphSingleRedraw_Click(object sender, RoutedEventArgs e)
         {
-
-            if (chkLiveUpdate.IsChecked == true)
-            {
-                graphSingleRedraw.Content = "Live";
-                // now start the timer to process the UDP stuff now that we have started it.
-                System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
-                dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
-                dispatcherTimer2.Interval = new TimeSpan(0, 0, 15);
-                dispatcherTimer2.Start();
-
-            }
-            else
-                graphSingleRedraw.Content = "Plot";
-             redrawThePlot();
+            updatePlot();
         }
 
+        /// <summary>
+        /// Does the actual work of the button
+        /// </summary>
+        private void updatePlot()
+        {
+            PrepareArrays();
+            graphSingle.Plot.Clear();
+            PlotTheArrays();
+            graphSingle.Render();
+
+        }
+
+
+        /// <summary>
+        /// This is the new thread that updates the plot every 15 seconds
+        /// </summary>
+        System.Windows.Threading.DispatcherTimer dispatcherTimer3 = new System.Windows.Threading.DispatcherTimer();
+        private void chkLiveUpdate_Checked(object sender, RoutedEventArgs e)
+        {
+            graphSingleRedraw.Content = "Live";
+            // now start the timer to process the UDP stuff now that we have started it.
+            dispatcherTimer3.Tick += new EventHandler(dispatcherTimer2_Tick);
+            dispatcherTimer3.Interval = new TimeSpan(0, 0, 15);
+            dispatcherTimer3.Start();
+        }
+
+        /// <summary>
+        /// the function that the new thread calls
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dispatcherTimer2_Tick(object sender, EventArgs e)
         {
-            //code for timer2 in here
-            redrawThePlot();  //every 15 seconds
-           
-        }
+            updatePlot();
 
-        public void redrawThePlot()
+        }
+        /// <summary>
+        /// When we untick the checkbox for live, we stop the timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+         private void chkLiveUpdate_Unchecked_1(object sender, RoutedEventArgs e)
         {
 
-
-            //got to set the arrays back to full size , rinse and repeat style
-           
-            // add the 0's on the end
-            Array.Resize(ref Dubdates, arrSize);
-            Array.Resize(ref dataX, arrSize);
-            Array.Resize(ref dataEUR, arrSize);
-            Array.Resize(ref dataEUA, arrSize);
-            Array.Resize(ref dataEUC, arrSize);
-            Array.Resize(ref dataJAR, arrSize);
-            Array.Resize(ref dataJAA, arrSize);
-            Array.Resize(ref dataJAC, arrSize);
-            Array.Resize(ref dataNAR, arrSize);
-            Array.Resize(ref dataNAA, arrSize);
-            Array.Resize(ref dataNAC, arrSize);
-            Array.Resize(ref dataOCR, arrSize);
-            Array.Resize(ref dataOCA, arrSize);
-            Array.Resize(ref dataOCC, arrSize);
-            Array.Resize(ref dataAFR, arrSize);
-            Array.Resize(ref dataAFA, arrSize);
-            Array.Resize(ref dataAFC, arrSize);
-            Array.Resize(ref dataSAR, arrSize);
-            Array.Resize(ref dataSAA, arrSize);
-            Array.Resize(ref dataSAC, arrSize);
-            Array.Resize(ref dataFAR, arrSize);
-            Array.Resize(ref dataFAA, arrSize);
-            Array.Resize(ref dataFAC, arrSize);
-
-            PrepareArrays();
-          //  graphSingle.Plot.Clear();
-            //PlotTheLists();
-
-            //this isnt working
-            if (chkKeepZoom.IsChecked == true) //ie we are ticked
-            {
-                
-                PlotTheLists();
-                
-                var axislimit = graphSingle.Plot.GetAxisLimits();
-                double currentRightEdge = graphSingle.Plot.GetAxisLimits().XMax;
-                double currentLeftEdge = graphSingle.Plot.GetAxisLimits().XMin;
-
-                float xmin = (float)axislimit.XMin;
-                float xmax = (float)axislimit.XMax;
-
-                //graphSingle.Plot.XAxis.Layout(50, xmin, xmax);
-
-                //graphSingle.Plot.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
-                graphSingle.Plot.SetAxisLimits(currentLeftEdge+0.0001,currentRightEdge+0.0001);
-                graphSingle.Plot.AxisPan(0.0001, 0);
-               // graphSingle.Render();
-            }
-            else
-            {
-                //redrawThePlot();
-                PlotTheLists();
-              //  graphSingle.Render();
-            }
-
-
+            graphSingleRedraw.Content = "Plot";
+            dispatcherTimer3.Stop();
         }
-
-        private void chkEUGraphs_Click(object sender, RoutedEventArgs e)
-        {
-         //   redrawThePlot();
-        }
-
-        private void chkJAGraphs_Click(object sender, RoutedEventArgs e)
-        {
-         //   redrawThePlot();
-        }
-
-        private void chkNAGraphs_Click(object sender, RoutedEventArgs e)
-        {
-         //   redrawThePlot();
-        }
-
-        private void chkOCGraphs_Click(object sender, RoutedEventArgs e)
-        {
-        //    redrawThePlot();
-        }
-
-        private void chkAFGraphs_Click(object sender, RoutedEventArgs e)
-        {
-         //   redrawThePlot();
-        }
-
-        private void chkSAGraphs_Click(object sender, RoutedEventArgs e)
-        {
-         //   redrawThePlot();
-        }
-
-        private void chkFAGraphs_Click(object sender, RoutedEventArgs e)
-        {
-        //    redrawThePlot();
-        }
-
-        private void chkAvgPointsGraphs_Click(object sender, RoutedEventArgs e)
-        {
-         //   redrawThePlot();
-        }
-
-        private void chkRawPointsGraphs_Click(object sender, RoutedEventArgs e)
-        {
-        //    redrawThePlot();
-        }
-
-        private void chkCountsGraphs_Click(object sender, RoutedEventArgs e)
-        {
-        //    redrawThePlot();
-        }
-
-        private void chkKeepZoom_Click(object sender, RoutedEventArgs e)
-        {
-            double yy = graphSingle.Width;
-            double ht = graphSingle.ActualHeight; //size of the actual box in pixels
-            double wd = graphSingle.ActualWidth;
-            (double x, double y) =graphSingle.GetMouseCoordinates();
-            double a1 = graphSingle.MaxWidth;
-            double a2 = graphSingle.MaxHeight;
-            //   graphSingle.Configure(enableScrollWheelZoom: false);
-            //  graphSingle.Configure(lockHorizontalAxis: true);
-            // graphSingle.Configure();
-
-            graphSingle.Plot.Clear();
-
-
-        }
-
-        private void graphSingle_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //this is nothing like the cook book recipe for context menu
-            // comes from https://github.com/ScottPlot/ScottPlot/issues/337
-            // and some other sleuthing
-
-            graphSingle.RightClicked -= graphSingle.DefaultRightClickEvent; //this removes the original context menu
-            
-
-            //these are the new menu Items
-            MenuItem zoomHereItem = new MenuItem() { Header = "Hold Zoom" };
-            zoomHereItem.Click += zoomHere;
-            MenuItem clearPlotMenuItem = new MenuItem() { Header = "Reset Plot" };
-            clearPlotMenuItem.Click += ClearPlot;
-
-            MenuItem LegendToggleMenuItem = new MenuItem() { Header = "Legend Toggle" };
-            LegendToggleMenuItem.Click += legendToggle;
-
-
-            //here we add the menu items to the context menu
-            ContextMenu rightClickMenu = new ContextMenu();  //instantiate the object
-            rightClickMenu.Items.Add(zoomHereItem);
-            rightClickMenu.Items.Add(clearPlotMenuItem);
-            rightClickMenu.Items.Add(LegendToggleMenuItem);
-
-            graphSingle.ContextMenu = rightClickMenu;
-            
-
-        }
-
-        //and here is where we do the work ****vvvvvvvvvv******
-  
-        private void zoomHere(object sender, RoutedEventArgs e)
-        {
-           
-            Double nnX;
-            
-            (double x, double y) = graphSingle.GetMouseCoordinates();
-            var axislimit = graphSingle.Plot.GetAxisLimits();
-
-            float xmin = (float)axislimit.XMin;
-            float xmax = (float)axislimit.XMax;
-
-            graphSingle.Plot.XAxis.Layout(null, xmin,xmax );
-            graphSingle.Plot.YAxis.Layout(null, (float)axislimit.YMin, (float)axislimit.YMax);
-
-//            var axislimit = graphSingle.Plot.GetAxisLimits();
-            graphSingle.Plot.SetAxisLimitsX(axislimit.XMax - 0.0001, axislimit.XMax);
-
-            //convert the x from a big number to a time
-            // DateTime dtX = DateTime.Parse(x);
-
-
-
-           //  graphSingle.Plot.Axis(x - 0.0001, x+0.0001, -30, 20);// setting the Y axis limits
-           // graphSingle.Plot.AxisBounds(x - .0001, x + .0001, -30, 20);
-
-       //     graphSingle.Render();
-
-        }
-
-        private void ClearPlot(object sender, RoutedEventArgs e)
-        {
-            graphSingle.Plot.Clear();
-            graphSingle.Plot.AxisAuto();
-            //???redrawThePlot();
-            //graphSingle.Render();
-            redrawThePlot();
-        }
-
-
-        private void legendToggle(object sender, RoutedEventArgs e)
-        {
-
-
-
-            if (chkLegendToggle.IsChecked == true)
-                graphSingle.Plot.Legend(location: Alignment.LowerLeft);
-            else
-                graphSingle.Plot.Legend(false);
-        }
-
-
-        private void chkLegendToggle_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (chkLegendToggle.IsChecked == true)
-                graphSingle.Plot.Legend(location: Alignment.LowerLeft);
-            else
-                graphSingle.Plot.Legend(false);
-        }
-
-        //The context menu items above here
-
-
     }
 }

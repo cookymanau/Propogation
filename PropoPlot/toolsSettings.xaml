@@ -104,6 +104,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                             
                         </Grid.RowDefinitions>
 
@@ -111,6 +112,8 @@
                         <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Grid.Row="0" Margin="4"/> 
                         <TextBlock  Text="Timer"  Grid.Column="0" Grid.Row="1" Margin="4"/>
                         <TextBox x:Name="toolsMainTimer" Text="15" Grid.Column="1" Grid.Row="1" Margin="4"/>
+                        <TextBlock  Text="panLeft %"  Grid.Column="0" Grid.Row="2" Margin="4"/>
+                        <TextBox x:Name="toolsPanLeftPct" Text="15" Grid.Column="1" Grid.Row="2" Margin="4"/>
                     </Grid>
                 </StackPanel>
             </GroupBox>

@@ -87,33 +87,26 @@ namespace PropoPlot
         int FAavgsCnt = 0;
         public void runningFAContinentalAverage(double pAv,ProgressBar barname, TextBlock contDbm, int counter,double[] arr)
         {
-          //  double totaldbmFA = 0;
             double sumFAarray = 0;
             double averageFAarray = 0;
             int avgSet = avgPeriods;
             int avgSetm1 = avgSet - 1;
-
             
-            // int counterFA = 0;
-
             FAdbmCount.Text = counter.ToString(); //this is the number of stations decoded
 
             arr[FAavgsCnt] = pAv;
 
             sumFAarray = arr.Aggregate((total, next) => total + next);
             averageFAarray = Math.Round(sumFAarray / avgSet, 1);
-           // rTotal.Text = sumFAarray.ToString(); //sums the array of whatever is in it..uses LINQ
 
             int countResults = arr.Count(x => x != 0);  //using linq again
             if (countResults > avgSetm1) //we have filled the array
             {
-               // rAverage.Text = averageFAarray.ToString();
-                FAdbm.Text = averageFAarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
+                 FAdbm.Text = averageFAarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
                 setBarColour(averageFAarray, barname, contDbm);  //this is the average
                 cdAvg.pFAdbm = FAdbm.Text;  //set the value into the averages class
                 cdAvg.pFAnumber = counter.ToString();
             }
-          //  arraycounterFa.Text = FAavgsCnt.ToString();  //show the current count value 0,1,2,3
 
             if (FAavgsCnt == avgSetm1)
             {
@@ -121,7 +114,6 @@ namespace PropoPlot
             }
 
             FAavgsCnt += 1;
-
             //thats the end lets store something
             if (pAv == -30)
             {
@@ -130,10 +122,9 @@ namespace PropoPlot
             else
             {
              cd.pFAdbm = pAv.ToString();
-            FAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             }
+            FAlast = pAv.ToString();  //store the last pAv so we can use it if there is no decode for that continent
             cd.pFAnumber = counter.ToString();
-
         }
 
 //****************************************************************************
@@ -146,7 +137,6 @@ namespace PropoPlot
             //int avgSet = int.Parse(tset.toolsAvgPrd.Text);
             int avgSetm1 = avgSet - 1;
 
-
             JAdbmCount.Text = counter.ToString(); //this is the number of stations decoded
             arr[JAavgsCnt] = pAv; //*********
 
@@ -156,8 +146,7 @@ namespace PropoPlot
             int countResults = arr.Count(x => x != 0);  //using linq again
             if (countResults > avgSetm1) //we have filled the array
             {
-               // rAverage.Text = averageOfarray.ToString();
-                JAdbm.Text = averageOfarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
+                 JAdbm.Text = averageOfarray.ToString();  //this is the current period average.  We should also see it down in the array represerntation
                 setBarColour(averageOfarray, barname, contDbm);  //this is the average
                 cdAvg.pJAdbm = JAdbm.Text;  //set the value into the averages class
                 cdAvg.pJAnumber = counter.ToString();
