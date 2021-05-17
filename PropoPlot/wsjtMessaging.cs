@@ -17,7 +17,7 @@ using System.Diagnostics;    //this is the debug class
 //Date: April 2021
 //Author: Ian Cook
 //Purose: To decode the UDP strings from WSJT-x
-//Comment:				
+//Comment: This is the first part of the program	
 //************************************************
 
 namespace PropoPlot
@@ -313,30 +313,30 @@ namespace PropoPlot
                 {
                     runningEUContinentalAverage(totaldbmEU / counterEU, EUprog, EUdbm, counterEU, EUavgs);
                 }
-                else if (totaldbmEU == 0 && counterEU == 0)
-                    runningEUContinentalAverage(-30, EUprog, EUdbm, 0, EUavgs);
-                else
-                    EUdbmCount.Text = "0";
+//                else if (totaldbmEU == 0 && counterEU == 0)
+//                    runningEUContinentalAverage(-30, EUprog, EUdbm, 0, EUavgs);
+ //               else
+ //                   EUdbmCount.Text = "0";
 
 
                 if (totaldbmFA / counterFA > -40)
                 {
                     runningFAContinentalAverage(totaldbmFA / counterFA, FAprog, FAdbm, counterFA, FAavgs);
                 }//end of if
-                else if(totaldbmFA == 0 && counterFA == 0)
-                    runningFAContinentalAverage(-30, FAprog, FAdbm, 0, FAavgs);
-                else 
-                    FAdbmCount.Text = "0";
+ //               else if(totaldbmFA == 0 && counterFA == 0)
+ //                   runningFAContinentalAverage(-30, FAprog, FAdbm, 0, FAavgs);
+  //              else 
+  //                  FAdbmCount.Text = "0";
 
 
                 if (totaldbmJA / counterJA > -40)
                 {
                     runningJAContinentalAverage(totaldbmJA / counterJA, JAprog, JAdbm, counterJA, JAavgs);
                 }//end of if
-                else if (totaldbmJA == 0 && counterJA == 0)
-                    runningJAContinentalAverage(-30, JAprog, JAdbm, 0, JAavgs);
-                else
-                    JAdbmCount.Text = "0";
+ //               else if (totaldbmJA == 0 && counterJA == 0)
+ //                   runningJAContinentalAverage(-30, JAprog, JAdbm, 0, JAavgs);
+  //              else
+ //                   JAdbmCount.Text = "0";
 
 
 
@@ -344,46 +344,48 @@ namespace PropoPlot
                 {
                     runningNAContinentalAverage(totaldbmNA / counterNA, NAprog, NAdbm, counterNA, NAavgs);
                 }//end of if
-                else if (totaldbmNA == 0 && counterNA == 0)
-                    runningNAContinentalAverage(-30, NAprog, NAdbm, 0, NAavgs);
-                else
-                    NAdbmCount.Text = "0";
+//                else if (totaldbmNA == 0 && counterNA == 0)
+//                    runningNAContinentalAverage(-30, NAprog, NAdbm, 0, NAavgs);
+//                else
+//                    NAdbmCount.Text = "0";
 
 
 
-                if (totaldbmOC / counterOC > -40)
+                if (totaldbmOC / counterOC > -40) //-------------------------------
                 {
                     runningOCContinentalAverage(totaldbmOC / counterOC, OCprog, OCdbm, counterOC, OCavgs);
                 }//end of if
-                else if (totaldbmOC == 0 && counterOC == 0)
-                    runningOCContinentalAverage(-30, OCprog, OCdbm, 0, OCavgs);
-                else
-                    OCdbmCount.Text = "0";
+                //else if (totaldbmOC == 0 && counterOC == 0)
+                //    runningOCContinentalAverage(-30, OCprog, OCdbm, 0, OCavgs);
+                //else
+                //    OCdbmCount.Text = "0";
 
 
-                if (totaldbmAF / counterAF > -40)
+                if (totaldbmAF / counterAF > -40) //---------------------------------
                 {
                     runningAFContinentalAverage(totaldbmAF / counterAF, AFprog, AFdbm, counterAF, AFavgs);
                 }//end of if
-                else if (totaldbmAF == 0 && counterAF == 0)
-                    runningAFContinentalAverage(-30, AFprog, AFdbm, 0, AFavgs);
-                else
-                    AFdbmCount.Text = "0";
+                //else if (totaldbmAF == 0 && counterAF == 0)
+                //    runningAFContinentalAverage(-30, AFprog, AFdbm, 0, AFavgs);
+                //else
+                //    AFdbmCount.Text = "0";
 
 
-                if (totaldbmSA / counterSA > -40)
+                if (totaldbmSA / counterSA > -40) //-----------------------------------
                 {
                     runningSAContinentalAverage(totaldbmSA / counterSA, SAprog, SAdbm, counterSA, SAavgs);
                 }//end 
-                else if (totaldbmSA == 0 && counterSA == 0)
-                    runningSAContinentalAverage(-30, SAprog, SAdbm, 0, SAavgs);
-                else
-                    SAdbmCount.Text = "0";
+                //else if (totaldbmSA == 0 && counterSA == 0)
+                //    runningSAContinentalAverage(-30, SAprog, SAdbm, 0, SAavgs);  //so here we are writing a -30
+                //else
+                //    SAdbmCount.Text = "0";
 
                 //now we save the last lot of data to our continent list
                 // the headers are set in MainWindow.xml.cs in their respective methods
-//do we need this anymore??????
-//              continentList.Add($"Kenwood 1,{cd.pTime},{cd.pEUdbm},{cd.pJAdbm},{cd.pNAdbm},{cd.pOCdbm},{cd.pAFdbm},{cd.pSAdbm},{cd.pFAdbm} ,{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber},{cd.pAFnumber},{cd.pSAnumber},{cd.pFAnumber}");
+
+  // at this point all of the arrays have these nasty -30 values in them and thay mostly signify that nobody was transmitting, not the level of reception
+  // these -30 badly affect the averages and further processing.  Instead of doing that everey where, lets gid rid of them now befor we put the data into the string.
+  // trouble is thats a bit hard.  The data only exist in the list at the moment
                 
                 continentAVGList.Add($"WTDavg,{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
 
@@ -429,6 +431,8 @@ namespace PropoPlot
             setTimerBarColour(laggingAvg); //this is our progress bar
  
         }
+
+
 
 
         private double sumarray()  //sum the lagging array 
@@ -536,6 +540,24 @@ namespace PropoPlot
         }
 
 
+        /// <summary>
+        /// Remove the -30's from the array.  Its crap data
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        //private double[] smoothArray(double[] arr)
+        //{
+
+
+        //    for (int i = 0; i < arr.Length - 1; i++)
+        //    {
+        //        double firstVal = arr[i];
+        //        double nextVal = arr[i + 1];
+        //        if (nextVal == -30)
+        //            arr[i + 1] = firstVal;
+        //    }
+        //    return arr;
+        //}
 
 
 

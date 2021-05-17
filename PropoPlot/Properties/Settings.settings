@@ -182,5 +182,8 @@
     <Setting Name="txtPan" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.11</Value>
     </Setting>
+    <Setting Name="goTryLine" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -13,18 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ScottPlot;
 using System.Drawing;
+using System.Windows.Media;
 using System.Threading.Tasks;
 using System.Diagnostics; //for the stopwatch
 using System.Windows.Threading;
 
- //***************************************
-     //ProgName:  This is the timer plot of propogation Allowing you to see how propogation changes over time
-     //Date:  MAy 2021, mostly working
-     //Author:Ian Cook
-     //Purose:See propogation change over time
-     //Comment:This works!		
-     //Updates:		
-     //************************************************
+//***************************************
+//ProgName:  This is the timer plot of propogation Allowing you to see how propogation changes over time
+//Date:  MAy 2021, mostly working
+//Author:Ian Cook
+//Purose:See propogation change over time
+//Comment:This works!		
+//Updates:		
+//************************************************
 
 
 
@@ -59,7 +60,7 @@ namespace PropoPlot
         double[] dataOCA = new double[arrSize];
         double[] dataOCR = new double[arrSize];
         double[] dataOCC = new double[arrSize];
-     
+
         double[] dataAFA = new double[arrSize];
         double[] dataAFR = new double[arrSize];
         double[] dataAFC = new double[arrSize];
@@ -76,7 +77,6 @@ namespace PropoPlot
         int currentArrSize = 0;
 
         ScottPlot.Plottable.ScatterPlot sigEUA;
-       // ScottPlot.Plottable.SignalPlot sigEUA;
         ScottPlot.Plottable.ScatterPlot sigEUR;
         ScottPlot.Plottable.ScatterPlot sigEUC;
         ScottPlot.Plottable.ScatterPlot sigJAA;
@@ -99,7 +99,12 @@ namespace PropoPlot
         ScottPlot.Plottable.ScatterPlot sigFAC;
 
         ScottPlot.Plottable.LegendItem legi;
-        
+        ScottPlot.Plottable.HLine sigHline;
+        ScottPlot.Plottable.VLine sigVline;
+        ScottPlot.Plottable.HLine tryHline;
+        ScottPlot.Plottable.HLine zeroHline;
+        ScottPlot.Plottable.HLine thirtyHline;
+
 
 
         /// <summary>
@@ -109,13 +114,15 @@ namespace PropoPlot
         public graphLivePlot(List<string> alist)
         {
             InitializeComponent();
-           // txtPan.Text = Properties.Settings.Default.txtPan;  //load the default
+            // txtPan.Text = Properties.Settings.Default.txtPan;  //load the default
 
             thlist = alist;  //this is where all of the data is
 
             setupContextMenu();
 
             chkFAGraphs.Content = Properties.Settings.Default.UsrDefinedName;
+
+
 
             PrepareArrays(); //this uses the sized arrays (done at declaration)
             PlotTheArrays(); //you only do this once-in the constructor
@@ -140,8 +147,8 @@ namespace PropoPlot
         {
             buttonClickMethod();
 
- 
-       }
+
+        }
 
         /// <summary>
         /// Step 1 - load the arrays with the latest data
@@ -195,14 +202,14 @@ namespace PropoPlot
             if (chkAvgPointsGraphs.IsChecked == true)
             {
                 if (chkEUGraphs.IsChecked == true)
-                   sigEUA.IsVisible = true;
+                    sigEUA.IsVisible = true;
                 else
-                   sigEUA.IsVisible = false;
+                    sigEUA.IsVisible = false;
 
                 if (chkJAGraphs.IsChecked == true)
-                   sigJAA.IsVisible = true;
+                    sigJAA.IsVisible = true;
                 else
-                   sigJAA.IsVisible = false;
+                    sigJAA.IsVisible = false;
 
                 if (chkNAGraphs.IsChecked == true)
                     sigNAA.IsVisible = true;
@@ -233,20 +240,14 @@ namespace PropoPlot
             //averages off then everything is off
             if (chkAvgPointsGraphs.IsChecked == false)
             {
-                    sigEUA.IsVisible = false;
-                    sigJAA.IsVisible = false;
-                    sigNAA.IsVisible = false;
-                    sigSAA.IsVisible = false;
-                    sigOCA.IsVisible = false;
-                    sigAFA.IsVisible = false;
-                    sigFAA.IsVisible = false;
+                sigEUA.IsVisible = false;
+                sigJAA.IsVisible = false;
+                sigNAA.IsVisible = false;
+                sigSAA.IsVisible = false;
+                sigOCA.IsVisible = false;
+                sigAFA.IsVisible = false;
+                sigFAA.IsVisible = false;
             }
-
-
-
-
-
-
 
             //raw on
             if (chkRawPointsGraphs.IsChecked == true)
@@ -290,19 +291,14 @@ namespace PropoPlot
             //raw off
             if (chkRawPointsGraphs.IsChecked == false)
             {
-                    sigEUR.IsVisible = false;
-                    sigJAR.IsVisible = false;
-                    sigNAR.IsVisible = false;
-                    sigSAR.IsVisible = false;
-                    sigOCR.IsVisible = false;
-                    sigAFR.IsVisible = false;
-                    sigFAR.IsVisible = false;
+                sigEUR.IsVisible = false;
+                sigJAR.IsVisible = false;
+                sigNAR.IsVisible = false;
+                sigSAR.IsVisible = false;
+                sigOCR.IsVisible = false;
+                sigAFR.IsVisible = false;
+                sigFAR.IsVisible = false;
             }
-
-
-
-
-
 
 
             //counts on
@@ -347,15 +343,18 @@ namespace PropoPlot
             //counts off
             if (chkCountPointsGraphs.IsChecked == false)
             {
-                    sigEUC.IsVisible = false;
-                    sigJAC.IsVisible = false;
-                    sigNAC.IsVisible = false;
-                    sigSAC.IsVisible = false;
-                    sigOCC.IsVisible = false;
-                    sigAFC.IsVisible = false;
-                    sigFAC.IsVisible = false;
+                sigEUC.IsVisible = false;
+                sigJAC.IsVisible = false;
+                sigNAC.IsVisible = false;
+                sigSAC.IsVisible = false;
+                sigOCC.IsVisible = false;
+                sigAFC.IsVisible = false;
+                sigFAC.IsVisible = false;
             }
-        }
+
+
+
+        }//end
 
 
 
@@ -366,8 +365,8 @@ namespace PropoPlot
 
             string time = "";
             int count = 0;
-          
-          //  sizeTheArrays(arrSize);
+
+            //  sizeTheArrays(arrSize);
             foreach (var item in thlist)
             {
                 // double defaultValue = 0;
@@ -406,14 +405,54 @@ namespace PropoPlot
                 double.TryParse(wrdmsg[20], out dataFAR[count]);
                 double.TryParse(wrdmsg[21], out dataFAA[count]);
                 double.TryParse(wrdmsg[22], out dataFAC[count]);
- 
+
                 count += 1;
             }
             currentArrSize = count;
+
+            //now get rid of the -30 jumps
+
+            dataEUR = smoothArray(dataEUR);
+            dataEUA = smoothArray(dataEUA);
+            dataJAR = smoothArray(dataJAR);
+            dataJAA = smoothArray(dataJAA);
+            dataNAR = smoothArray(dataNAR);
+            dataNAA = smoothArray(dataNAA);
+            dataSAR = smoothArray(dataSAR);
+            dataSAA = smoothArray(dataSAA);
+            dataFAR = smoothArray(dataFAR);
+            dataFAA = smoothArray(dataFAA);
+            dataAFR = smoothArray(dataAFR);
+            dataAFA = smoothArray(dataAFA);
+            
+
+
         }
 
+
+        /// <summary>
+        /// Remove the -30's from the array.  Its crap data
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        private double[] smoothArray(double[] arr)
+        {
+
+
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                double firstVal = arr[i];
+                double nextVal = arr[i + 1];
+                if (nextVal == -30)
+                    arr[i + 1] = firstVal;
+            }
+            return arr;
+        }
+
+
+
         public void PlotTheArrays()  //this is only ever called once - from the constructor
-                {
+        {
             //get the tools options user selected things
             int AvgLineThickness = int.Parse(Properties.Settings.Default.AvgLineThick);
             int RawLineThickness = int.Parse(Properties.Settings.Default.RawLineThick);
@@ -427,34 +466,69 @@ namespace PropoPlot
             sigEUC = graphLive.Plot.AddScatter(Dubdates, dataEUC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)), label: "EUcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
 
 
-            sigNAA = graphLive.Plot.AddScatter(Dubdates,dataNAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)), label:"NAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
-            sigNAR = graphLive.Plot.AddScatter(Dubdates,dataNAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)), label:"NAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
-            sigNAC = graphLive.Plot.AddScatter(Dubdates,dataNAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)), label:"NAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
+            sigNAA = graphLive.Plot.AddScatter(Dubdates, dataNAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)), label: "NAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
+            sigNAR = graphLive.Plot.AddScatter(Dubdates, dataNAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)), label: "NAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
+            sigNAC = graphLive.Plot.AddScatter(Dubdates, dataNAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)), label: "NAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
 
-            sigJAA = graphLive.Plot.AddScatter(Dubdates,dataJAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)), label:"JAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
-            sigJAR = graphLive.Plot.AddScatter(Dubdates,dataJAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)), label:"JAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
-            sigJAC = graphLive.Plot.AddScatter(Dubdates,dataJAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)), label:"JAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
-            
-            sigSAA = graphLive.Plot.AddScatter(Dubdates,dataSAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)), label:"SAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
-            sigSAR = graphLive.Plot.AddScatter(Dubdates,dataSAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)), label:"SAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
-            sigSAC = graphLive.Plot.AddScatter(Dubdates,dataSAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)), label:"SAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
-            
-            sigOCA = graphLive.Plot.AddScatter(Dubdates,dataOCA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)), label:"OCavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
-            sigOCR = graphLive.Plot.AddScatter(Dubdates,dataOCR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)), label:"OCraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
-            sigOCC = graphLive.Plot.AddScatter(Dubdates,dataOCC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)), label:"OCcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
-            
-            sigAFA = graphLive.Plot.AddScatter(Dubdates,dataAFA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)), label:"AFavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
-            sigAFR = graphLive.Plot.AddScatter(Dubdates,dataAFR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)), label:"AFraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
-            sigAFC = graphLive.Plot.AddScatter(Dubdates,dataAFC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)), label:"AFcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
-            
-            sigFAA = graphLive.Plot.AddScatter(Dubdates,dataFAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)), label:"FAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
-            sigFAR = graphLive.Plot.AddScatter(Dubdates,dataFAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)), label:"FAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
-            sigFAC = graphLive.Plot.AddScatter(Dubdates,dataFAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)), label:"FAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
-            
-            
+            sigJAA = graphLive.Plot.AddScatter(Dubdates, dataJAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)), label: "JAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
+            sigJAR = graphLive.Plot.AddScatter(Dubdates, dataJAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)), label: "JAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
+            sigJAC = graphLive.Plot.AddScatter(Dubdates, dataJAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)), label: "JAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
+
+            sigSAA = graphLive.Plot.AddScatter(Dubdates, dataSAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)), label: "SAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
+            sigSAR = graphLive.Plot.AddScatter(Dubdates, dataSAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)), label: "SAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
+            sigSAC = graphLive.Plot.AddScatter(Dubdates, dataSAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)), label: "SAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
+
+            sigOCA = graphLive.Plot.AddScatter(Dubdates, dataOCA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)), label: "OCavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
+            sigOCR = graphLive.Plot.AddScatter(Dubdates, dataOCR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)), label: "OCraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
+            sigOCC = graphLive.Plot.AddScatter(Dubdates, dataOCC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)), label: "OCcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
+
+            sigAFA = graphLive.Plot.AddScatter(Dubdates, dataAFA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)), label: "AFavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
+            sigAFR = graphLive.Plot.AddScatter(Dubdates, dataAFR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)), label: "AFraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
+            sigAFC = graphLive.Plot.AddScatter(Dubdates, dataAFC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)), label: "AFcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
+
+            sigFAA = graphLive.Plot.AddScatter(Dubdates, dataFAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)), label: "FAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
+            sigFAR = graphLive.Plot.AddScatter(Dubdates, dataFAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)), label: "FAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
+            sigFAC = graphLive.Plot.AddScatter(Dubdates, dataFAC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)), label: "FAcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
+
+
             graphLive.Plot.Legend(location: Alignment.LowerLeft);
-            graphLive.Plot.PlotHLine(0, color: System.Drawing.Color.Black);
-            graphLive.Plot.PlotHLine(-30, color: System.Drawing.Color.Black);
+           // graphLive.Plot.PlotHLine(0, color: System.Drawing.Color.Black,);
+           // graphLive.Plot.PlotHLine(-30, color: System.Drawing.Color.Black);
+
+            zeroHline = graphLive.Plot.AddHorizontalLine(0);
+            zeroHline.Color = System.Drawing.Color.Gray;
+            zeroHline.LineWidth = 2;
+            zeroHline.LineStyle = LineStyle.Dash;
+
+
+
+            thirtyHline = graphLive.Plot.AddHorizontalLine(-30);
+            thirtyHline.Color = System.Drawing.Color.Gray;
+            thirtyHline.LineWidth = 2;
+            thirtyHline.LineStyle = LineStyle.Dash;
+
+            //  graphLive.Plot.PlotHLine(int.Parse(Properties.Settings.Default.goTryLine), color: System.Drawing.Color.Gray);
+            tryHline = graphLive.Plot.AddHorizontalLine(double.Parse(Properties.Settings.Default.goTryLine));
+            tryHline.Color= System.Drawing.Color.Gray;
+            tryHline.DragEnabled = true;
+            tryHline.LineWidth = 2;
+            tryHline.LineStyle = LineStyle.DashDot;
+          
+
+             // graphLive.Plot.PlotVLine(x: Dubdates[currentArrSize-1], draggable: true);
+
+
+            sigVline = graphLive.Plot.AddVerticalLine(x: Dubdates[currentArrSize - 1]);
+            sigVline.DragEnabled = true;
+            sigVline.IsVisible = true;
+
+            sigHline = graphLive.Plot.AddHorizontalLine(y: 0);
+            sigHline.DragEnabled = true;
+            sigHline.IsVisible = true;
+
+
+            //graphLive.Plot.PlotHLine()
+
             graphLive.Plot.XAxis.DateTimeFormat(true);
             graphLive.Plot.XAxis.TickLabelFormat("HH:mm:ss", true);
             graphLive.Plot.YLabel("dBm");
@@ -464,23 +538,25 @@ namespace PropoPlot
         }
 
         //here we add the right clicker *vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        private void setupContextMenu() { //call this from the constructor - only once
+        private void setupContextMenu()
+        { //call this from the constructor - only once
 
             graphLive.RightClicked -= graphLive.DefaultRightClickEvent; //this removes the original context menu
+
             MenuItem shoAll = new MenuItem() { Header = "Show All" };
             shoAll.Click += ShowAllItem;
 
-            MenuItem clearPlotMenuItem = new MenuItem() { Header = "Test1" };
-            clearPlotMenuItem.Click += ClearPlot;
+            MenuItem valueAtCrossHair = new MenuItem() { Header = "Not Used" };
+            valueAtCrossHair.Click += valAtCrossHair;
 
-            MenuItem LegendToggleMenuItem = new MenuItem() { Header = "Test2" };
+            MenuItem LegendToggleMenuItem = new MenuItem() { Header = "Pan" };
             LegendToggleMenuItem.Click += legendToggle;
 
 
             //here we add the menu items to the context menu
             ContextMenu rightClickMenu = new ContextMenu();  //instantiate the object
             rightClickMenu.Items.Add(shoAll);
-            rightClickMenu.Items.Add(clearPlotMenuItem);
+            rightClickMenu.Items.Add(valueAtCrossHair);
             rightClickMenu.Items.Add(LegendToggleMenuItem);
 
             graphLive.ContextMenu = rightClickMenu;
@@ -505,19 +581,22 @@ namespace PropoPlot
 
         }
 
-       //using as a test bed
-        private void ClearPlot(object sender, RoutedEventArgs e)
+        //using as a test bed
+        private void valAtCrossHair(object sender, RoutedEventArgs e)
         {
-            double dublePan = double.Parse(Properties.Settings.Default.txtPan); //this is supposed to tell me how much to pan
-            graphLive.Plot.AxisPan(dublePan, 0);
-            graphLive.Render();
+
+            //(double x, double y) = graphLive.GetMouseCoordinates();
+
+            //sigVline.X = x;
+            //sigHline.Y = y;
+            //shoSomeData.Text = Math.Round(y, 2).ToString();
         }
 
         //this is Test2
         private void legendToggle(object sender, RoutedEventArgs e)
         {
             double dublePan = double.Parse(Properties.Settings.Default.txtPan);
-            var al =graphLive.Plot.GetAxisLimits(xAxisIndex:0);
+            var al = graphLive.Plot.GetAxisLimits(xAxisIndex: 0);
 
             //graphLive.Plot.SetAxisLimitsX(al.XMax - (al.XSpan/2), al.XMax + (al.XSpan/2));
             //pan left just a wee bit
@@ -530,13 +609,12 @@ namespace PropoPlot
             double panleft = xspan * dublePan;  //say xcentre * .1 = 10% of the current  xspan
             // so make the new window xmi + panleft and  xma + panleft (shifting the window)
 
-            graphLive.Plot.SetAxisLimitsX(al.XMin +panleft , al.XMax + panleft);
+            graphLive.Plot.SetAxisLimitsX(al.XMin + panleft, al.XMax + panleft);
 
             graphLive.Render();
-           
         }
-        //The context menu items above here ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+        //The context menu items above here ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         //this is the Timer for live data.  It starts in response to clicking the check box
         //declared outside of method so I can reference it in other methods as per below
@@ -552,13 +630,13 @@ namespace PropoPlot
 
         private void dispatcherTimer2_Tick(object sender, EventArgs e)
         {
-            if (chkShowAll.IsChecked == true)
+            if (radShowAll.IsChecked == true)
             {
-                graphLive.Plot.AxisAuto();
                 buttonClickMethod();
-                //graphLive.Render();
+                graphLive.Plot.AxisAuto();
+                graphLive.Render();
             }
-            else if (chkLiveUpdate.IsChecked == true && chkPanLeft.IsChecked == true)
+            else if (chkLiveUpdate.IsChecked == true && radPanLeft.IsChecked == true)
             {
                 double dublePan = double.Parse(Properties.Settings.Default.txtPan); //this is supposed to tell me how much to pan
                 var al = graphLive.Plot.GetAxisLimits(xAxisIndex: 0);
@@ -570,15 +648,13 @@ namespace PropoPlot
 
                 double panleft = xspan * dublePan;  //say xcentre * .1 = 10% of the current  xspan
 
-
                 graphLive.Plot.SetAxisLimitsX(al.XMin + panleft, al.XMax + panleft);
 
                 buttonClickMethod();
-               
-            }
-            else 
-                buttonClickMethod();
 
+            }
+            else
+                buttonClickMethod();
         }
 
         private void chkLiveUpdate_Unchecked(object sender, RoutedEventArgs e)
@@ -588,10 +664,37 @@ namespace PropoPlot
             dispatcherTimer2.Stop();
         }
 
-        //private void txtPan_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    Properties.Settings.Default.txtPan = txtPan.Text;
-        //    Properties.Settings.Default.Save();
-        //}
+        private void graphLive_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            (double x, double y) = graphLive.GetMouseCoordinates();
+
+            sigVline.X = x;
+            sigHline.Y = y;
+            shoSomeData.Text = Math.Round(y, 1).ToString();
+
+            if (y > -40 && y <= -15)
+            {
+                shoSomeData.Background = System.Windows.Media.Brushes.Yellow;
+                shoSomeData.Foreground = System.Windows.Media.Brushes.Black;
+            }
+            if (y > -15 && y <= -8)
+            {
+                shoSomeData.Background = System.Windows.Media.Brushes.Aqua;
+                shoSomeData.Foreground = System.Windows.Media.Brushes.Black;
+
+            }
+            if (y > -8 && y < 0)
+            {
+                shoSomeData.Background = System.Windows.Media.Brushes.Blue;
+                shoSomeData.Foreground = System.Windows.Media.Brushes.White;
+            }
+            if (y > 0.01)
+            {
+                shoSomeData.Background = System.Windows.Media.Brushes.Red;
+                shoSomeData.Foreground = System.Windows.Media.Brushes.Black;
+            }
+
+        }
+
     }//end class
 }//end

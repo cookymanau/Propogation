@@ -28,25 +28,25 @@ namespace PropoPlot
     {
         continentData cd = new continentData();  //this is our class holding all of the data we generate dBm PERIOD average, number of decodes
         continentData cdAvg = new continentData();  //this is our class holding all of the data we generate dBm WEIGHTED average, number of decodes
-     
+
         List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads. Its where write the decode period for 15 seconds
 
         List<string> continentList = new List<string>();  //we store the data into a new list record every period
         List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
 
-      // static List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
-        List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
+        // static List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
+        List<string> continentAVGList = new List<string>();  //we store the data into a new list record every period
 
         toolsContLatLongSetting tll = new toolsContLatLongSetting();  //this class here so we can see it every where we need it Holds the lat min, lat max longMin and longMax for the continents
 
-        static  toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
- 
+        static toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
+
         UdpDataload ul = new UdpDataload(); //make a global instatiation of our class. We store the current data load here Only ever one record
 
         int timercounter = 0;
         int cycleCounter = 0;
 
-        
+
 
 
         public MainWindow()
@@ -63,7 +63,7 @@ namespace PropoPlot
 
         }
 
- 
+
         private void plotmessage_TextChanged(object sender, TextChangedEventArgs e)
         {
             plotmessage.ScrollToEnd();
@@ -90,7 +90,7 @@ namespace PropoPlot
 
         private void btnGoogleEarth_Click(object sender, RoutedEventArgs e)
         {
-          // GetQsosFromList();
+            // GetQsosFromList();
         }
 
         /// <summary>
@@ -116,29 +116,29 @@ namespace PropoPlot
         }
 
 
-        
+
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
 
-         
+
             //anything we want to do in a timer, do it here
 
             timercounter += 2; //going up in 2 second increments.  It seemed less busy that way
             timerBar.Value = timercounter;  //up date the indicator - something IS happening
-           
+
             if (timercounter >= timerInterval) //every timerInterval seconds process the udp strings
             {
                 GetQsosFromList();  //get the qsos for this round of 15 seconds
-                
+
                 timercounter = 0; //reset this
                 cycleCounter += 1;  //keep counting how many times we go throuh this
                 displayTotalCycles.Text = cycleCounter.ToString();
-               // timerBar.Value = timercounter;
-               udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
-                                   //***  tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
+                // timerBar.Value = timercounter;
+                udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
+                                    //***  tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
 
-              //  gs.redrawThePlot();
+                //  gs.redrawThePlot();
 
             }
         }
@@ -180,9 +180,9 @@ namespace PropoPlot
 
 
             //     _atlas.Map.EndUpdate();
-           // DxAtlasMapClear();
+            // DxAtlasMapClear();
 
-            
+
 
         }
 
@@ -194,7 +194,7 @@ namespace PropoPlot
             {
 
                 btnClearMap.Content = "Clear Dots";
-               // DxAtlasMapClear();  //does not do anything
+                // DxAtlasMapClear();  //does not do anything
 
             }
             else  //does this when false
@@ -321,8 +321,8 @@ namespace PropoPlot
         {
             //kill threads some how
             //this the attempt to kill off the zombie process
-                Process[] processes = Process.GetProcessesByName("PropoPlot");
-                processes[0].Kill();
+            Process[] processes = Process.GetProcessesByName("PropoPlot");
+            processes[0].Kill();
 
 
             this.Close();
@@ -370,8 +370,8 @@ namespace PropoPlot
 
         private void btnGraphPlot_Click(object sender, RoutedEventArgs e)
         {
-         //   graphPlot gp = new graphPlot(continentAVGList);
-        //    gp.Show();
+            //   graphPlot gp = new graphPlot(continentAVGList);
+            //    gp.Show();
         }
 
         private void graphAll_Click(object sender, RoutedEventArgs e)
@@ -401,7 +401,7 @@ namespace PropoPlot
             graphSinglePlot gs = new graphSinglePlot(continentAVGList);
 
             //if (gs.chkLiveUpdate.IsChecked == true)
-             //   gs.liveRedraw = true;
+            //   gs.liveRedraw = true;
 
             gs.Show();
 
@@ -428,10 +428,10 @@ namespace PropoPlot
             udpStrings.Clear();
             continentAVGList.Clear();
             continentList.Clear();
-             frmMessageDialog md = new frmMessageDialog();
-             md.messageBoxUpper.Text = $"Cleared The Lists ";
-                md.messageBoxLower.Text = $"{e}";
-               md.Show();
+            frmMessageDialog md = new frmMessageDialog();
+            md.messageBoxUpper.Text = $"Cleared The Lists ";
+            md.messageBoxLower.Text = $"{e}";
+            md.Show();
         }
         /// <summary>
         /// another experimental thing 
@@ -440,7 +440,7 @@ namespace PropoPlot
         /// <param name="e"></param>
         private void btnResetAvgs_Click(object sender, RoutedEventArgs e)
         {
-           // continentAVGList.Clear();
+            // continentAVGList.Clear();
             Array.Clear(FAavgs, 0, 120);
             Array.Clear(EUavgs, 0, 120);
             Array.Clear(JAavgs, 0, 120);
@@ -450,9 +450,9 @@ namespace PropoPlot
             Array.Clear(AFavgs, 0, 120);
 
 
-         //   udpStrings.Clear();
-         //   continentAVGList.Clear();
-         //   continentList.Clear();
+            //   udpStrings.Clear();
+            //   continentAVGList.Clear();
+            //   continentList.Clear();
             frmMessageDialog md = new frmMessageDialog();
             md.messageBoxUpper.Text = $"Cleared The Lists ";
             md.messageBoxLower.Text = $"{e}";
@@ -466,7 +466,70 @@ namespace PropoPlot
             graphLivePlot gl = new graphLivePlot(continentAVGList);
             gl.Show();
         }
-    }
+
+        private void graphPop_Click(object sender, RoutedEventArgs e)
+        {
+            graphPopulation gp = new graphPopulation(continentAVGList);
+            gp.Show();
+
+        }
+
+        private void readAvgCont_Click(object sender, RoutedEventArgs e)
+        {
+            {
+                //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
+                //using System.IO; is for SttreamWriter
+                string now = DateTime.Now.ToString("h_mm tt");
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.FileName = $"Propo";  // Default file name
+                dlg.DefaultExt = ".csv"; // Default file extension
+                dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
+
+                 Cursor fred = this.Cursor; //sav e the current cursor
+                this.Cursor = Cursors.Wait;
+                int count = 0;
+                // Show save file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+                // Process save file dialog box results
+                if (result == true)
+                {
+
+                    // Open document
+                    string filename = dlg.FileName;
+                    saveFileName.Text = dlg.FileName;  //write the file name on the UI
+
+                    //// now send all to the filename
+                //continentAVGList.Add("RingAnt,Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
+                    using (StreamReader reader = new StreamReader(filename))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            if (count > 0) //miss the first row of the file - it has header info we dont want
+                            {
+                                continentAVGList.Add(line);
+                            }
+                                count += 1;
+                        }
+
+                    }//end using
+                }//end if result == true
+
+                //continentAVGList.RemoveAt(0);
+                //remove the first line of the list - it breaks things
+                this.Cursor = fred;
+            } //end of method
+
+
+
+        }
+
+        private void graphHeat_Click(object sender, RoutedEventArgs e)
+        {
+            graphHeat gh = new graphHeat();
+            gh.Show();
+        }
+    }//end of class
 
 }
 

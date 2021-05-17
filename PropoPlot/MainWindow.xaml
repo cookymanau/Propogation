@@ -27,9 +27,9 @@
                         <MenuItem.Icon>
                             <Image Source="/floppy.png" />
                         </MenuItem.Icon>
-
                     </MenuItem>
                     <!-- <MenuItem Header="_Save 15sec Data" Name="save15secCont" Click="save15secCont_Click" /> -->
+                    <MenuItem Header="_Read Data" Name="readAvgCont" Click="readAvgCont_Click"  />
                     <Separator/>
 
 
@@ -50,8 +50,10 @@
 
                 <MenuItem Header="_Graphs" >
                     <MenuItem Header="_All Continents" Name="graphAll" Click="graphAll_Click"  />
-                    <MenuItem Header="_Time" Name="graphLive" Click="graphLive_Click"/>
+                    <MenuItem Header="_History" Name="graphLive" Click="graphLive_Click"/>
                     <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />
+                    <MenuItem Header="_Population" Name="graphPop" Click="graphPop_Click"   />
+                    <MenuItem Header="_Heat" Name="graphHeat" Click="graphHeat_Click"  />
                     <Separator/>
                     <MenuItem Header="_CompareFiles Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
                 </MenuItem>

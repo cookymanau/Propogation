@@ -34,8 +34,11 @@
 	• Completely rebuilt the multi plot graph with the latest version of scottplot and followed the 
 	  rules this time.  Working OK  On the Single Plot - keep the current zoom during refreshes
 		20210509
-	•
-	•
+	•  Made the graphLivePlot Options radio buttons instead of check boxes
+		20210512
+	• Read a previously written file back into memory
+	   20200517
+	• 
 	•
 	•
 	•
@@ -63,9 +66,12 @@
 	• When I reset the Avgs using the 0 Avgs button - I should also see the averages reset to startup conditions.
 	• Single plot-  When you turn off Decodes chk box, then change the Yaxis to -30 to +5
 	• DX Atlas keeps grabbing the mouse.  Look for an alternative to plot things.  Simons World Map?
-	•
-	•
-	•
+	•Investigate getting Tx receptioon reports.  I want the recption reports from the other guy.  
+	  Maybe I can get the result from the RBN network, can get it from the PSK site maybe but its going to be 
+	  at least 5minutes old.
+	  I can get it fro the ALL.TXT 
+	• Add a Heatmap with a world map as the background to replace DX Atlas
+
 	•
 	•
 	•

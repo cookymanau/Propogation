@@ -28,10 +28,10 @@ namespace PropoPlot
             //so we have just opened the form...get the users last changes to the dialog boxes
             toolsAvgPrd.Text = Properties.Settings.Default.AvgPrd;
             toolsMainTimer.Text = Properties.Settings.Default.PeriodTimer;
+            goTryLine.Text = Properties.Settings.Default.goTryLine;
 
 
-
-           toolsEUAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString( Properties.Settings.Default.EUAvgColor);
+            toolsEUAvgColor.SelectedColor = (Color)ColorConverter.ConvertFromString( Properties.Settings.Default.EUAvgColor);
            toolsEURawColor.SelectedColor = (Color)ColorConverter.ConvertFromString( Properties.Settings.Default.EURawColor);
            toolsEUCntColor.SelectedColor = (Color)ColorConverter.ConvertFromString( Properties.Settings.Default.EUCntColor);
 
@@ -70,7 +70,7 @@ namespace PropoPlot
             GraphRawDotSize.Value = int.Parse(Properties.Settings.Default.GraphRawDotSize);
             GraphCntDotSize.Value = int.Parse(Properties.Settings.Default.GraphCntDotSize);
 
-
+            
         }
 
         private void toolSettingsClose_Click(object sender, RoutedEventArgs e)
@@ -169,6 +169,7 @@ namespace PropoPlot
             Properties.Settings.Default.GraphCntDotSize = GraphCntDotSize.Value.ToString();
 
             Properties.Settings.Default.txtPan = toolsPanLeftPct.Text;
+            Properties.Settings.Default.goTryLine = goTryLine.Text;
 
             Properties.Settings.Default.Save();
 

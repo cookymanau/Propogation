@@ -15,7 +15,7 @@
 
             <StackPanel>
                 <TextBlock Text="Continent" Background="#bbb" FontWeight="Bold" Margin="2"/>
-                <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="false" />
+                <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="true" />
                 <CheckBox Name="chkJAGraphs" Content="JA" Margin="5,5" Grid.Column="0" IsChecked="true" />
                 <CheckBox Name="chkNAGraphs" Content="NA" Margin="5,5" Grid.Column="0" IsChecked="false" />
                 <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="true"/>
@@ -30,15 +30,20 @@
                 <!--<CheckBox Name="chkLegendToggle" Content="Legend" Margin="5,5" Grid.Column="0" IsChecked="true" Click="chkLegendToggle_Click"/>
                 <CheckBox Name="chkKeepZoom" Content="KeepZoom" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkKeepZoom_Click" />-->
                 <CheckBox Name="chkLiveUpdate" Content="Live Data" Margin="5,5" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked"/>
-                <CheckBox Name="chkShowAll" Content="Show All" Margin="5,5" Grid.Column="0" IsChecked="false"/>
-                <CheckBox Name="chkPanLeft" Content="Pan Left" Margin="5,5" Grid.Column="0" IsChecked="false"/>
-                <!--<TextBox Name="txtPan" Text="0.11" Margin="5,5" Grid.Column="0" DataContextChanged="txtPan_DataContextChanged"/>-->
+                <!--<CheckBox Name="chkShowAll" Content="Show All" Margin="5,5" Grid.Column="0" IsChecked="false"/>
+                <CheckBox Name="chkPanLeft" Content="Pan Left" Margin="5,5" Grid.Column="0" IsChecked="false"/>-->
+                <RadioButton Name="radShowAll" Content="Show All" IsChecked="true" Margin="5,5"/>
+                <RadioButton Name="radPanLeft" Content="Pan Left"  Margin="5,5"/>
+                <!--<TextBox Name="shoSomeData" Text="XhairVal" Margin="5,5" Grid.Column="0" Width="30" HorizontalAlignment="Left"/>-->
                 <!--<Button x:Name="graphSingleRedraw" Content="Refresh" Margin="2,2" Grid.Column="0" Click="graphSingleRedraw_Click" />-->
+            <DockPanel>
+                    <TextBox Name="shoSomeData" Text="dBm" Width="35" Margin="5,5" ToolTip="This is the value of the cross hair generated when you right click on the plot."/>
+                <Label Content="dBm" Margin="0,5" />
+            </DockPanel>
             </StackPanel>
 
 
-
-            <WpfPlot Grid.Column="1" Name="graphLive" RightClicked="graphLive_RightClicked" />
+            <WpfPlot Grid.Column="1" Name="graphLive" RightClicked="graphLive_RightClicked" MouseRightButtonDown="graphLive_MouseRightButtonDown"  />
                 <Button x:Name="btnPlot" Content="Plot" Grid.Column="0" VerticalAlignment="Bottom" Click="btnPlot_Click" Margin="5"/>
 
         </Grid>

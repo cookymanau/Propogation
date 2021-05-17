@@ -40,7 +40,7 @@
                 <!--<CheckBox Name="chkCountsGraphs" Content="Count" Margin="5,5" Grid.Column="0" IsChecked="false" />
                 <CheckBox Name="chkLegendToggle" Content="Legend" Margin="5,5" Grid.Column="0" IsChecked="true" />
                 <CheckBox Name="chkKeepZoom" Content="KeepZoom" Margin="5,5" Grid.Column="0" IsChecked="false" />-->
-                <CheckBox Name="chkLiveUpdate" Content="Auto Upd" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked_1"/>
+                <CheckBox Name="chkLiveUpdate" Content="Live" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked_1"/>
 
             </StackPanel>
                 <Button x:Name="graphSingleRedraw" Content="Refresh" Margin="2,2" VerticalAlignment="Bottom" Grid.Column="0" Click="graphSingleRedraw_Click"  />

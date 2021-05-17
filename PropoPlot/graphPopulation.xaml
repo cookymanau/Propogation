@@ -1,0 +1,126 @@
+﻿<Window x:Class="PropoPlot.graphPopulation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropoPlot"
+        mc:Ignorable="d"
+        Title="graphPopulation" Height="400" Width="1000">
+    <Border Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="Statistics"  FontWeight="Bold" Margin="2,5"/>
+                 <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="EU" Width="20"  Margin="2,5" Grid.Column="0" Background="#bbb"/>
+                    <TextBlock Text="JA"  Width="20" Margin="2,5" Grid.Column="0" Background="#bbb" />
+                    <TextBlock Text="NA"  Width="20" Margin="2,5" Background="#bbb" />
+                    <TextBlock Text="OC"  Width="20" Margin="2,5" Background="#bbb"/>
+                    <TextBlock Text="AF"  Width="20" Margin="2,5" Background="#bbb"/>
+                    <TextBlock Text="SA"  Width="20" Margin="2,5" Background="#bbb"/>
+                    <TextBlock Text="FA"  Width="20" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUmean" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAmean" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAmean" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCmean" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFmean" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAmean" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAmean" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="Mean"  Width="40" Margin="2,5" Background="#bbb" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUmedian" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAmedian" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAmedian" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCmedian" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFmedian" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAmedian" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAmedian" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="Median"  Width="40" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUIQR" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAIQR" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAIQR" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCIQR" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFIQR" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAIQR" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAIQR" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="IQR"  Width="40" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUQ1" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAQ1" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAQ1" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCQ1" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFQ1" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAQ1" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAQ1" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="Q1"  Width="40" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUQ3" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAQ3" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAQ3" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCQ3" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFQ3" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAQ3" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAQ3" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="Q3"  Width="40" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUStDev" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAStDev" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAStDev" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCStDev" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFStDev" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAStDev" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAStDev" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="StDev"  Width="40" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUPlus2STD" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAPlus2STD" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAPlus2STD" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCPlus2STD" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFPlus2STD" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAPlus2STD" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAPlus2STD" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="Plus2STD"  Width="40" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="EUPlus3STD" Text="EUm"  Width="20" Margin="2,5" Grid.Column="0"/>
+                    <TextBlock Name="JAPlus3STD" Text="JAm"  Width="20" Margin="2,5" Grid.Column="0" />
+                    <TextBlock Name="NAPlus3STD" Text="NAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="OCPlus3STD" Text="OCm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="AFPlus3STD" Text="AFm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="SAPlus3STD" Text="SAm"  Width="20" Margin="2,5" />
+                    <TextBlock Name="FAPlus3STD" Text="FAm"  Width="20" Margin="2,5" />
+                    <TextBlock  Text="Plus3STD"  Width="40" Margin="2,5" Background="#bbb"/>
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+            <WpfPlot Grid.Column="1" Name="graphPop"  />
+            <StackPanel Orientation="Horizontal">
+            <CheckBox Name="chkLiveUpdate" Content="Live Data" VerticalAlignment="Bottom" Margin="5" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" />
+            <Button x:Name="btnPlot" Content="Plot" Grid.Column="0" VerticalAlignment="Bottom" Margin="5" Width="100" Click="btnPlot_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

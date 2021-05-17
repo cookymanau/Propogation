@@ -41,6 +41,11 @@
                     <CheckBox Name="chkItem2"  Content="I2" Margin="5,5"/>
                     <CheckBox Name="chkItem3" Content="I3" Margin="5,5" />
                     <CheckBox Name="chkItem4" Content="I4" Margin="5,5" />
+                    <DockPanel>
+                        <TextBox Name="goTryLine" Text="dBm" Width="35" Margin="5,5" ToolTip="A horizontal line to show worth trying for"/>
+                        <Label Content="Go Try Line" Margin="0,5" />
+                    </DockPanel>
+
                 </StackPanel>
             </GroupBox>
 
