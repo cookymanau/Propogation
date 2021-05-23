@@ -40,6 +40,7 @@ namespace PropoPlot
         public double[] AFavgs = new double[120];
 
 
+        public string prefix = "JTDX";
         public int avgsCounter = 0;
         double laggingAvg = 0;  //wtd avg
         int laggingCount = 0; //wtd avg
@@ -82,7 +83,7 @@ namespace PropoPlot
                             {
                         //sequence of statments here
                         string strmsg = msg.ToString();
-                                Debug.WriteLine(msg); //write to the immdiate window
+                        Debug.WriteLine(msg); //write to the immdiate window
                         udpStrings.Add(msg.ToString()); //collect the strings into a list
                     }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: false, port: UDPport);
 
@@ -138,163 +139,172 @@ namespace PropoPlot
                 cleandata = regex.Replace(item, " ");
                 string[] wrdmsg = cleandata.Split(' '); //split on the single space
 
-                if (wrdmsg.Length == 11)   //this is normal  CQ VK6DW OF88
-                {
-                    ul.udptime = wrdmsg[1];
-                    ul.udpdbm = wrdmsg[2];
-                    ul.udpdt = wrdmsg[3];
-                    ul.udphz = wrdmsg[4];
-                    ul.udpqso1 = wrdmsg[6];
-                    ul.udpqso2 = wrdmsg[7];
-                    ul.udpqso3 = wrdmsg[8];
-                    ul.udpqso4 = wrdmsg[9];//this is usually empty ""
 
-                    if (ul.udpqso4.Length > 1)  //this is for CQ NA VK6DW OF88
-                        ul.udpqso3 = ul.udpqso4; // puts the qso4 into qso3, could also just make ul.udpqso3="$$$$" and ignore this
+                    if (wrdmsg[0] == "Status")
+                        prefix = "WSJT-X";
 
-               // Debug.WriteLine($"route 1    3 = {ul.udpqso3} 4 = {ul.udpqso4}  String is {cleandata} ");
-                }
-                else if (wrdmsg.Length == 10)  //WQ6L YB6C NJ93  
-                {
-                    ul.udptime = wrdmsg[1];
-                    ul.udpdbm = wrdmsg[2];
-                    ul.udpdt = wrdmsg[3];
-                    ul.udphz = wrdmsg[4];
-                    ul.udpqso1 = wrdmsg[6];
-                    ul.udpqso2 = wrdmsg[7];
-                    ul.udpqso3 = wrdmsg[8];
-               // Debug.WriteLine($"route 2   3 = {ul.udpqso3} 4 = {ul.udpqso4} String is {cleandata} ");
-                }
-                else if (wrdmsg.Length < 10  || wrdmsg.Length > 11) //this is very bad  something like CQ MISSISSIPPI OR anything
-                {
-                    ul.udptime = wrdmsg[1];
-                    ul.udpdbm = wrdmsg[2];
-                    ul.udpdt = wrdmsg[3];
-                    ul.udphz = wrdmsg[4];
-                    ul.udpqso1 = wrdmsg[6];
-                    ul.udpqso2 = wrdmsg[7];
-                    ul.udpqso3 = "$$$$";  //anything strange ignore it  
-              //  Debug.WriteLine($"route 3    3 = {ul.udpqso3} 4 = {ul.udpqso4} String is {cleandata} ");
-                }
-            
-            //ul.udpqso4 = wrdmsg[9];//
+                        if (wrdmsg[0] == "Decode")  //wsjt-x puts ou lots of data lines without Decodes. We want to ig nore them
+                    {
 
-            cd.pTime = ul.udptime;  //add the time to the record
+                        
 
- 
-                    if (ul.udpqso3.Length == 4  //ie if there is a valid length of 4 chars this is the filter to get rid
-                        && (ul.udpqso3.Substring(0, 2) != "$$"  //of anything that is not a grid square.  There is only ever one instance
-                        && ul.udpqso3.Substring(0, 2) != "73"   //for the record we are processing from the list
-                        && ul.udpqso3.Substring(0, 2) != "RR"
-                        && ul.udpqso3.Substring(0, 2) != "R-"
-                        && ul.udpqso3.Substring(0, 2) != "R+"
-                        && ul.udpqso3.Substring(0, 2) != "-0"
-                        && ul.udpqso3.Substring(0, 2) != "-1"
-                        && ul.udpqso3.Substring(0, 2) != "-2"
-                        && ul.udpqso3.Substring(0, 2) != "+1"
-                        && ul.udpqso3.Substring(0, 2) != "+2"
-                        && ul.udpqso3.Substring(0, 4) != "LOTW"
-                        && ul.udpqso3.Substring(0, 4) != "eQSL"
-                        && ul.udpqso3.Substring(0, 4) != "SGNL" //as in Nice SIGNAL
-                     ))
-                    { //this fires for every string that has grid data
-
-                        //lets try putting data into our matrix udppoint  //using counter (which is the number of decoded qsos with a grid square
-                        Udppoint[counter, 0] = ul.udpqso2;
-                        Udppoint[counter, 1] = ul.udpdbm;
-                        Udppoint[counter, 2] = ul.udpqso3;
-
-                    //if there is an issue with the string  - like we can get a callsign like WU7X if he calls CQDX WU7X DN17
-                   // Debug.WriteLine($"Sending a GRID of  {ul.udpqso3}  to lat long conversion");
-                        string latitude = Maiden2latitude(ul.udpqso3);
-                        string longitude = Maiden2longitude(ul.udpqso3);
-
-                        double dlatitude = double.Parse(latitude);
-                        double dlongitude = double.Parse(longitude);
-
-
-                        Udppoint[counter, 3] = latitude;
-                        Udppoint[counter, 4] = longitude;
-                        Udppoint[counter, 5] = ul.udptime;
-
-                        // this subdivdes the dataload into areas on the globe and keeps a running tally of the dbms
-                        //JA
-                        if (dlatitude > double.Parse(tll.JALatMin.Text) && dlatitude < double.Parse(tll.JALatMax.Text) && dlongitude > double.Parse(tll.JALongMin.Text) && dlongitude < double.Parse(tll.JALongMax.Text)) 
-                        //if (dlatitude > 30 && dlatitude < 46  && dlongitude > 130 && dlongitude <  146) 
+                        if (wrdmsg.Length == 11)   //this is normal  CQ VK6DW OF88
                         {
-                            totaldbmJA += double.Parse(ul.udpdbm);  //this is the running tally of the dbms
-                            counterJA += 1;                         //this is the number of stations in the continent
+                            ul.udptime = wrdmsg[1];
+                            ul.udpdbm = wrdmsg[2];
+                            ul.udpdt = wrdmsg[3];
+                            ul.udphz = wrdmsg[4];
+                            ul.udpqso1 = wrdmsg[6];
+                            ul.udpqso2 = wrdmsg[7];
+                            ul.udpqso3 = wrdmsg[8];
+                            ul.udpqso4 = wrdmsg[9];//this is usually empty ""
+
+                            if (ul.udpqso4.Length > 1)  //this is for CQ NA VK6DW OF88
+                                ul.udpqso3 = ul.udpqso4; // puts the qso4 into qso3, could also just make ul.udpqso3="$$$$" and ignore this
+
+                            // Debug.WriteLine($"route 1    3 = {ul.udpqso3} 4 = {ul.udpqso4}  String is {cleandata} ");
+                        }
+                        else if (wrdmsg.Length == 10)  //WQ6L YB6C NJ93  
+                        {
+                            ul.udptime = wrdmsg[1];
+                            ul.udpdbm = wrdmsg[2];
+                            ul.udpdt = wrdmsg[3];
+                            ul.udphz = wrdmsg[4];
+                            ul.udpqso1 = wrdmsg[6];
+                            ul.udpqso2 = wrdmsg[7];
+                            ul.udpqso3 = wrdmsg[8];
+                            // Debug.WriteLine($"route 2   3 = {ul.udpqso3} 4 = {ul.udpqso4} String is {cleandata} ");
+                        }
+                        else if (wrdmsg.Length < 10 || wrdmsg.Length > 11) //this is very bad  something like CQ MISSISSIPPI OR anything
+                        {
+                            ul.udptime = wrdmsg[1];
+                            ul.udpdbm = wrdmsg[2];
+                            ul.udpdt = wrdmsg[3];
+                            ul.udphz = wrdmsg[4];
+                            ul.udpqso1 = wrdmsg[6];
+                            ul.udpqso2 = wrdmsg[7];
+                            ul.udpqso3 = "$$$$";  //anything strange ignore it  
+                                                  //  Debug.WriteLine($"route 3    3 = {ul.udpqso3} 4 = {ul.udpqso4} String is {cleandata} ");
                         }
 
-                        //Europe
-                        //if (dlatitude > 34 && dlatitude < 72  && dlongitude > -12 && dlongitude <  60) 
-                        if (dlatitude > double.Parse(tll.EULatMin.Text) && dlatitude < double.Parse(tll.EULatMax.Text) && dlongitude > double.Parse(tll.EULongMin.Text) && dlongitude < double.Parse(tll.EULongMax.Text)) 
-                        {
-                            totaldbmEU += double.Parse(ul.udpdbm);
-                            counterEU += 1;
+                        //ul.udpqso4 = wrdmsg[9];//
+
+                        cd.pTime = ul.udptime;  //add the time to the record
+
+
+                        if (ul.udpqso3.Length == 4  //ie if there is a valid length of 4 chars this is the filter to get rid
+                            && (ul.udpqso3.Substring(0, 2) != "$$"  //of anything that is not a grid square.  There is only ever one instance
+                            && ul.udpqso3.Substring(0, 2) != "73"   //for the record we are processing from the list
+                            && ul.udpqso3.Substring(0, 2) != "RR"
+                            && ul.udpqso3.Substring(0, 2) != "R-"
+                            && ul.udpqso3.Substring(0, 2) != "R+"
+                            && ul.udpqso3.Substring(0, 2) != "-0"
+                            && ul.udpqso3.Substring(0, 2) != "-1"
+                            && ul.udpqso3.Substring(0, 2) != "-2"
+                            && ul.udpqso3.Substring(0, 2) != "+1"
+                            && ul.udpqso3.Substring(0, 2) != "+2"
+                            && ul.udpqso3.Substring(0, 4) != "LOTW"
+                            && ul.udpqso3.Substring(0, 4) != "eQSL"
+                            && ul.udpqso3.Substring(0, 4) != "SGNL" //as in Nice SIGNAL
+                         ))
+                        { //this fires for every string that has grid data
+
+                            //lets try putting data into our matrix udppoint  //using counter (which is the number of decoded qsos with a grid square
+                            Udppoint[counter, 0] = ul.udpqso2;
+                            Udppoint[counter, 1] = ul.udpdbm;
+                            Udppoint[counter, 2] = ul.udpqso3;
+
+                            //if there is an issue with the string  - like we can get a callsign like WU7X if he calls CQDX WU7X DN17
+                            // Debug.WriteLine($"Sending a GRID of  {ul.udpqso3}  to lat long conversion");
+                            string latitude = Maiden2latitude(ul.udpqso3);
+                            string longitude = Maiden2longitude(ul.udpqso3);
+
+                            double dlatitude = double.Parse(latitude);
+                            double dlongitude = double.Parse(longitude);
+
+
+                            Udppoint[counter, 3] = latitude;
+                            Udppoint[counter, 4] = longitude;
+                            Udppoint[counter, 5] = ul.udptime;
+
+                            // this subdivdes the dataload into areas on the globe and keeps a running tally of the dbms
+                            //JA
+                            if (dlatitude > double.Parse(tll.JALatMin.Text) && dlatitude < double.Parse(tll.JALatMax.Text) && dlongitude > double.Parse(tll.JALongMin.Text) && dlongitude < double.Parse(tll.JALongMax.Text))
+                            //if (dlatitude > 30 && dlatitude < 46  && dlongitude > 130 && dlongitude <  146) 
+                            {
+                                totaldbmJA += double.Parse(ul.udpdbm);  //this is the running tally of the dbms
+                                counterJA += 1;                         //this is the number of stations in the continent
+                            }
+
+                            //Europe
+                            //if (dlatitude > 34 && dlatitude < 72  && dlongitude > -12 && dlongitude <  60) 
+                            if (dlatitude > double.Parse(tll.EULatMin.Text) && dlatitude < double.Parse(tll.EULatMax.Text) && dlongitude > double.Parse(tll.EULongMin.Text) && dlongitude < double.Parse(tll.EULongMax.Text))
+                            {
+                                totaldbmEU += double.Parse(ul.udpdbm);
+                                counterEU += 1;
+                            }
+
+                            //NA
+                            //if (dlatitude > 12 && dlatitude < 90 && dlongitude > -131 && dlongitude < -54)
+                            if (dlatitude > double.Parse(tll.NALatMin.Text) && dlatitude < double.Parse(tll.NALatMax.Text) && dlongitude > double.Parse(tll.NALongMin.Text) && dlongitude < double.Parse(tll.NALongMax.Text))
+                            {
+                                totaldbmNA += double.Parse(ul.udpdbm);
+                                counterNA += 1;
+                            }
+
+
+                            //OC
+                            //if (dlatitude > -54 && dlatitude < 28 && dlongitude > 112 && dlongitude < 126)
+                            if (dlatitude > double.Parse(tll.OCLatMin.Text) && dlatitude < double.Parse(tll.OCLatMax.Text) && dlongitude > double.Parse(tll.OCLongMin.Text) && dlongitude < double.Parse(tll.OCLongMax.Text))
+                            {
+                                totaldbmOC += double.Parse(ul.udpdbm);
+                                counterOC += 1;
+                            }
+
+
+                            //AF
+                            //if (dlatitude > -35 && dlatitude < 34 && dlongitude > -20 && dlongitude < 50)
+                            if (dlatitude > double.Parse(tll.AFLatMin.Text) && dlatitude < double.Parse(tll.AFLatMax.Text) && dlongitude > double.Parse(tll.AFLongMin.Text) && dlongitude < double.Parse(tll.AFLongMax.Text))
+                            {
+                                totaldbmAF += double.Parse(ul.udpdbm);
+                                counterAF += 1;
+                            }
+
+                            //SA
+                            //if (dlatitude > -60 && dlatitude < 12 && dlongitude > -90 && dlongitude < -32)
+                            if (dlatitude > double.Parse(tll.SALatMin.Text) && dlatitude < double.Parse(tll.SALatMax.Text) && dlongitude > double.Parse(tll.SALongMin.Text) && dlongitude < double.Parse(tll.SALongMax.Text))
+                            {
+                                totaldbmSA += double.Parse(ul.udpdbm);
+                                counterSA += 1;
+                            }
+                            //FA Far East China india indonesia phillppines Japan
+                            //                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
+                            if (dlatitude > double.Parse(tll.FALatMin.Text) && dlatitude < double.Parse(tll.FALatMax.Text) && dlongitude > double.Parse(tll.FALongMin.Text) && dlongitude < double.Parse(tll.FALongMax.Text))
+                            {
+                                totaldbmFA += double.Parse(ul.udpdbm);
+                                counterFA += 1;
+                            }
+
+
+
+                            plotmessage.Text += $"UTC:{ul.udptime} Grid:{ul.udpqso3} dBm:{ul.udpdbm} DX:{ul.udpqso2} Lat:{latitude} Long:{longitude} \r\n";   //this just a display of data
+                            counter++;  //this counter goes up by not 1
+
+                            if (ul.udpdbm != "" || ul.udpdbm != null)
+                            {
+                                totaldbm += double.Parse(ul.udpdbm);
+                            }
                         }
 
-                        //NA
-                        //if (dlatitude > 12 && dlatitude < 90 && dlongitude > -131 && dlongitude < -54)
-                        if (dlatitude > double.Parse(tll.NALatMin.Text) && dlatitude < double.Parse(tll.NALatMax.Text) && dlongitude > double.Parse(tll.NALongMin.Text) && dlongitude < double.Parse(tll.NALongMax.Text))
-                        {
-                            totaldbmNA += double.Parse(ul.udpdbm);
-                            counterNA += 1;
-                        }
+                        loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square
+                        QSOsThiInterval = counter;
 
+                        ul.udpqso4 = ""; //reset just this one, all of the others get overwritten each time
 
-                        //OC
-                        //if (dlatitude > -54 && dlatitude < 28 && dlongitude > 112 && dlongitude < 126)
-                        if (dlatitude > double.Parse(tll.OCLatMin.Text) && dlatitude < double.Parse(tll.OCLatMax.Text) && dlongitude > double.Parse(tll.OCLongMin.Text) && dlongitude < double.Parse(tll.OCLongMax.Text))
-                        {
-                            totaldbmOC += double.Parse(ul.udpdbm);
-                            counterOC += 1;
-                        }
+                        totalDecodes += 1;
 
-
-                        //AF
-                        //if (dlatitude > -35 && dlatitude < 34 && dlongitude > -20 && dlongitude < 50)
-                        if (dlatitude > double.Parse(tll.AFLatMin.Text) && dlatitude < double.Parse(tll.AFLatMax.Text) && dlongitude > double.Parse(tll.AFLongMin.Text) && dlongitude < double.Parse(tll.AFLongMax.Text))
-                        {
-                            totaldbmAF += double.Parse(ul.udpdbm);
-                            counterAF += 1;
-                        }
-
-                        //SA
-                        //if (dlatitude > -60 && dlatitude < 12 && dlongitude > -90 && dlongitude < -32)
-                        if (dlatitude > double.Parse(tll.SALatMin.Text) && dlatitude < double.Parse(tll.SALatMax.Text) && dlongitude > double.Parse(tll.SALongMin.Text) && dlongitude < double.Parse(tll.SALongMax.Text))
-                        {
-                            totaldbmSA += double.Parse(ul.udpdbm);
-                            counterSA += 1;
-                        }
-                        //FA Far East China india indonesia phillppines Japan
-//                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
-                        if (dlatitude > double.Parse(tll.FALatMin.Text) && dlatitude < double.Parse(tll.FALatMax.Text) && dlongitude > double.Parse(tll.FALongMin.Text) && dlongitude < double.Parse(tll.FALongMax.Text))
-                        {
-                            totaldbmFA += double.Parse(ul.udpdbm);
-                            counterFA += 1;
-                        }
-
-
-
-                        plotmessage.Text += $"UTC:{ul.udptime} Grid:{ul.udpqso3} dBm:{ul.udpdbm} DX:{ul.udpqso2} Long:{longitude} Lat:{latitude} \r\n";   //this just a display of data
-                        counter++;  //this counter goes up by not 1
- 
-                        if (ul.udpdbm != "" || ul.udpdbm != null)
-                        {
-                            totaldbm += double.Parse(ul.udpdbm);
-                        }
-                    }
-
-                    loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square
-                    QSOsThiInterval = counter;
-
-                    ul.udpqso4 = ""; //reset just this one, all of the others get overwritten each time
-
-                    totalDecodes += 1;
-
-                    displayTotalDecodes.Text = totalDecodes.ToString();
-
+                        displayTotalDecodes.Text = totalDecodes.ToString();
+                    } // end of if wrdmsg[0]="Decode"
             }//end of foreach loop
            
                         plotmessage.Text += "--------------------------------- -----------------------------\n";
@@ -387,7 +397,8 @@ namespace PropoPlot
   // these -30 badly affect the averages and further processing.  Instead of doing that everey where, lets gid rid of them now befor we put the data into the string.
   // trouble is thats a bit hard.  The data only exist in the list at the moment
                 
-                continentAVGList.Add($"WTDavg,{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
+                //continentAVGList.Add($"WTDavg,{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
+                continentAVGList.Add($"{prefix},{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
 
                 
                 //it would be good to just remove the first 8000 chars and then keep it like that
@@ -416,10 +427,10 @@ namespace PropoPlot
             catch (Exception ex)
             {
                
-             //   frmMessageDialog md = new frmMessageDialog();
-            //    md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
-            //    md.messageBoxLower.Text = $"{ex}";
-            //   md.Show();
+                frmMessageDialog md = new frmMessageDialog();
+                md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
+                md.messageBoxLower.Text = $"{ex}";
+               md.Show();
             }
 
             //now some code to plot to dxAtlas

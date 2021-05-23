@@ -48,12 +48,14 @@
                     <MenuItem Header="_Continent Lat Long" Name="toolsContLatLongSettings" Click="toolsContLatLongSettings_Click"/>
                 </MenuItem>
 
-                <MenuItem Header="_Graphs" >
+                <MenuItem Header="_Graphs" IsEnabled="False" Name="GraphsMainMenu">
                     <MenuItem Header="_All Continents" Name="graphAll" Click="graphAll_Click"  />
                     <MenuItem Header="_History" Name="graphLive" Click="graphLive_Click"/>
                     <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />
                     <MenuItem Header="_Population" Name="graphPop" Click="graphPop_Click"   />
                     <MenuItem Header="_Heat" Name="graphHeat" Click="graphHeat_Click"  />
+                    <MenuItem Header="_Faros" Name="graphFaros" Click="graphFaros_Click"   />
+                    <MenuItem Header="_F" Name="plotFaros" Click="plotFaros_Click"  />
                     <Separator/>
                     <MenuItem Header="_CompareFiles Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
                 </MenuItem>
@@ -96,13 +98,14 @@
                     <TextBlock Text="Mapping"  Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." />
                 </Border>
                 <Button x:Name="btnDXAtlas" Click="btnDXatlas_Click"  Content="DX Atlas" Grid.Column="0" Margin="5,5" ToolTip="Start and Stop plotting to DX Atlas."/>
-                <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" ToolTip="Clear the dots or not, this is a toggle."/>
-                <Button x:Name="btnClearMapOfArtifacts" Content="Make Bare Map" Grid.Column="0" Margin="5,5" Click="btnClearMapOfArtifacts_Click" ToolTip="Clear the map."/>
-                <Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>
+                <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" ToolTip="Clear the dots or not each cycle. This is a toggle."/>
+                <Button x:Name="btnClearMapOfArtifacts" Content="Clear Map" Grid.Column="0" Margin="5,5" Click="btnClearMapOfArtifacts_Click" ToolTip="Clear the map back to the time you started keeping the dots."/>
+                <!--<Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>-->
 
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnResetList"   Content="  Reset  " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Removes old data.  Starts again."/>
-                    <Button x:Name="btnResetAvgs"   Content=" Zero AVGs  " Grid.Column="0" Margin="5,5" Click="btnResetAvgs_Click" />
+                    <Button x:Name="btnResetList"   Content=" Reset " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Clears the arrays and lists and starts again."/>
+                    <!--<Button x:Name="btnResetAvgs"   Content="0 AVG" Grid.Column="0" Margin="5,5" Click="btnResetAvgs_Click" />
+                    <Button x:Name="btntst"   Content="Tst" Grid.Column="0" Margin="5,5" Click="btntst_Click"  />-->
 
                 </StackPanel>
 
@@ -113,7 +116,7 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="85" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -128,15 +131,15 @@
                     <!-- these are the text boxes where we can put averages etc-->
                     <TextBlock Text="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="5" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square."/>
                     <TextBlock Text="Value" Name="avgdbm" Grid.Column="1" Grid.Row="0" Margin="5" ToolTip="The average of all decodes over a 6 decode period."/>
-                    <TextBlock Text="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="5"/>
-                    <TextBlock Text="Value" x:Name="runningAvgDbm" Grid.Column="1" Grid.Row="1" Margin="5"/>
-                    <TextBlock Text="GS4's"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5" ToolTip="The number of decodes in the last period"/>
-                    <TextBlock Text="Value" x:Name="loopCnt"  Grid.Column="1" Grid.Row="2" Margin="5"/>
-                    <TextBlock Text="Decodes" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5,5,5,0" ToolTip="How many decodes we have done. " Height="16" VerticalAlignment="Top"/>
-                    <TextBlock Text="Value" Name="displayTotalDecodes"  Grid.Column="1" Grid.Row="3" Margin="5"/>
+                    <TextBlock Text="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="5" ToolTip="The average of all decodes over a 75 second period"/>
+                    <TextBlock Text="0" x:Name="runningAvgDbm" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                    <TextBlock Text="Last Decodes"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5" ToolTip="The number of decodes with a 4 character maidenhead grid square in the last 15 second period for FT8"/>
+                    <TextBlock Text="0" x:Name="loopCnt"  Grid.Column="1" Grid.Row="2" Margin="5"/>
+                    <TextBlock Text="Total Decodes" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5,5,5,0" ToolTip="How many decodes in total that we have done. " Height="16" VerticalAlignment="Top"/>
+                    <TextBlock Text="0" Name="displayTotalDecodes"  Grid.Column="1" Grid.Row="3" Margin="5" Height="16" VerticalAlignment="Center"/>
 
-                    <TextBlock Text="Cycles" Background="#bbb"  Grid.Column="0" Grid.Row="4" Margin="5,5,5,0" ToolTip="How many cycles or periods we have done. " Height="16" VerticalAlignment="Top"/>
-                    <TextBlock Text="Cycles" Name="displayTotalCycles"  Grid.Column="1" Grid.Row="4" Margin="5"/>
+                    <TextBlock Text="Cycles" Background="#bbb"  Grid.Column="0" Grid.Row="4" Margin="5" ToolTip="The total number of FT8 cycles we have done. " Height="16" VerticalAlignment="Top"/>
+                    <TextBlock Text="0" Name="displayTotalCycles"  Grid.Column="1" Grid.Row="4" Margin="5"/>
 
 
                 </Grid>
@@ -174,15 +177,15 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="20" />
                         <RowDefinition Height="20" />
-                        
+
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Eu" Grid.Column="0" Grid.Row="0"/>
-                    <TextBlock Text="Ja" Grid.Column="1" Grid.Row="0"/>
-                    <TextBlock Text="Na" Grid.Column="2" Grid.Row="0"/>
-                    <TextBlock Text="Oc" Grid.Column="3" Grid.Row="0"/>
-                    <TextBlock Text="Af" Grid.Column="4" Grid.Row="0"/>
-                    <TextBlock Text="Sa" Grid.Column="5" Grid.Row="0"/>
+                    <TextBlock Text="EU" Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Text="JA" Grid.Column="1" Grid.Row="0"/>
+                    <TextBlock Text="NA" Grid.Column="2" Grid.Row="0"/>
+                    <TextBlock Text="OC" Grid.Column="3" Grid.Row="0"/>
+                    <TextBlock Text="AF" Grid.Column="4" Grid.Row="0"/>
+                    <TextBlock Text="SA" Grid.Column="5" Grid.Row="0"/>
                     <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0" Name="usrDefinedLabel"/>
 
                     <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
@@ -191,7 +194,7 @@
                     <TextBlock Name="OCdbmCount" Text="OCcnt" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
                     <TextBlock Name="AFdbmCount" Text="AFcnt" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
                     <TextBlock Name="SAdbmCount" Text="SAcnt" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
-                    <TextBlock Name="FAdbmCount" Text="FAcnt" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="FAdbmCount" Text="USRcnt" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
 
                     <ProgressBar Grid.Column="0" Grid.Row="2" Name="EUprog"/>
                     <ProgressBar Grid.Column="1" Grid.Row="2" Name="JAprog"/>
@@ -207,7 +210,7 @@
                     <TextBlock Name="OCdbm" Text="OC" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
                     <TextBlock Name="AFdbm" Text="AF" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
                     <TextBlock Name="SAdbm" Text="SA" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="FAdbm" Text="FA" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="FAdbm" Text="USR" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
 
 
                     <!--The Colour Ramp and spare space to the right of the ramp-->

@@ -1,0 +1,121 @@
+﻿<Window x:Class="PropoPlot.plotOfFaros"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropoPlot"
+        mc:Ignorable="d"
+        Title="plotOfFaros" Height="250" Width="1500">
+    <Border Margin="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--<CheckBox Name="chkAvg" Grid.Row="0" Grid.Column="1"   Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="false" />
+            <CheckBox Name="chkRaw" Grid.Row="1"Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="true"/>
+            <CheckBox Name="chkLiveUpdate" Grid.Row="3"Content="Live" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked"/>
+                <TextBlock Text=" Data"  Grid.Row="9"  Background="#bbb" FontWeight="Bold" Margin="2"/>-->
+            <TextBlock Text="EU" Grid.Row="0" Grid.Column="1"/>
+            <TextBlock Text="JA" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="NA" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Text="SA" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Text="OC" Grid.Row="4" Grid.Column="1"/>
+            <TextBlock Text="AF" Grid.Row="5" Grid.Column="1"/>
+            <TextBlock Text="FA" Grid.Row="6" Grid.Column="1"/>
+            <!--<DataGrid x:Name="EUf" DataGrid.Row="0" DataGrid.Column="2"/>
+            <DataGrid x:Name="JAf" Grid.Row="1" Grid.Column="2"/>
+            <DataGrid x:Name="NAf" Grid.Row="2" Grid.Column="2"/>
+            <DataGrid x:Name="SAf" Grid.Row="3" Grid.Column="2"/>
+            <DataGrid x:Name="OCf" Grid.Row="4" Grid.Column="2"/>
+            <DataGrid x:Name="AFf" Grid.Row="5" Grid.Column="2"/>
+            <DataGrid x:Name="FAf" Grid.Row="6" Grid.Column="2"/>-->
+            
+            
+            <Button x:Name="graphMapRedraw"  Grid.Row="6"  Content="Refresh" Margin="2,2" VerticalAlignment="Bottom" Grid.Column="0" />
+ 
+            <DataGrid x:Name="dgEU" Grid.Column="2" Grid.Row="0" AutoGenerateColumns="True" FontSize="6" HeadersVisibility="None" CanUserAddRows="False" BorderThickness="5" AllowDrop="False" GridLinesVisibility="Vertical">
+                <DataGrid.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                        <MatrixTransform Matrix="-1,0,0,1,0,0"/>
+                    </TransformGroup>
+                </DataGrid.LayoutTransform>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}"
+                BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle>
+                    <Style  TargetType="DataGridCell">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+            <DataGrid x:Name="dgJA" Grid.Column="2" Grid.Row="1" AutoGenerateColumns="True"  FontSize="6" HeadersVisibility="None" CanUserAddRows="False" BorderThickness="5" AllowDrop="False" GridLinesVisibility="Vertical">
+                <DataGrid.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                        <MatrixTransform Matrix="-1,0,0,1,0,0"/>
+                    </TransformGroup>
+                </DataGrid.LayoutTransform>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}"
+                BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle>
+                    <Style  TargetType="DataGridCell">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+
+            
+            
+            
+            
+        </Grid>
+    </Border>
+</Window>

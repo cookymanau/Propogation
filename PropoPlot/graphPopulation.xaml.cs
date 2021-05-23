@@ -156,6 +156,20 @@ private void arrayToFullSize()
             }
             currentArrSize = count;
 
+            dataEUR = smoothArray(dataEUR);
+            //dataEUA = smoothArray(dataEUA);
+            dataJAR = smoothArray(dataJAR);
+            //dataJAA = smoothArray(dataJAA);
+            dataNAR = smoothArray(dataNAR);
+            //dataNAA = smoothArray(dataNAA);
+            dataSAR = smoothArray(dataSAR);
+            //dataSAA = smoothArray(dataSAA);
+            dataFAR = smoothArray(dataFAR);
+            //dataFAA = smoothArray(dataFAA);
+            dataAFR = smoothArray(dataAFR);
+            //dataAFA = smoothArray(dataAFA);
+            dataOCR = smoothArray(dataOCR);
+
 
         }
 
@@ -172,13 +186,13 @@ private void arrayToFullSize()
             Array.Resize(ref dataAFR, currentArrSize);
             Array.Resize(ref dataFAR, currentArrSize);
 
-            dataNAR = smoothArray(dataNAR);
-            dataOCR = smoothArray(dataOCR);
-            dataJAR = smoothArray(dataJAR);
-            dataEUR = smoothArray(dataEUR);
-            dataSAR = smoothArray(dataSAR);
-            dataAFR = smoothArray(dataAFR);
-            dataFAR = smoothArray(dataFAR);
+            //dataNAR = smoothArray(dataNAR);
+            //dataOCR = smoothArray(dataOCR);
+            //dataJAR = smoothArray(dataJAR);
+            //dataEUR = smoothArray(dataEUR);
+            //dataSAR = smoothArray(dataSAR);
+            //dataAFR = smoothArray(dataAFR);
+            //dataFAR = smoothArray(dataFAR);
 
             var OCRpop = new ScottPlot.Statistics.Population(dataOCR);
             //var OCRpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataOCR) }, "OC");
@@ -297,17 +311,33 @@ private void arrayToFullSize()
         /// </summary>
         /// <param name="arr"></param>
         /// <returns></returns>
-        private double[] smoothArray(double[] arr) {
-        
+        //private double[] smoothArray(double[] arr) {
 
-            for (int i=0;i < arr.Length-1; i++)
+
+        //    for (int i=0;i < arr.Length-1; i++)
+        //    {
+        //        double firstVal = arr[i];
+        //        double nextVal = arr[i+1];
+        //        if (nextVal == -30)
+        //            arr[i + 1] = firstVal;
+        //    }
+        //        return arr;
+        //}
+        private double[] smoothArray(double[] arr)
+        {
+
+
+            for (int i = 0; i < arr.Length - 2; i++)
             {
-                double firstVal = arr[i];
-                double nextVal = arr[i+1];
-                if (nextVal == -30)
+                double firstVal = arr[i];  //get a reading
+                double nextVal = arr[i + 1];  //get the next reading
+                double nextVal1 = arr[i + 2]; //get the one after
+                if (nextVal == -30 && nextVal1 == -30)  //two in a row probably means we have real -30 data, niot just one person on the band sending CQ
+                    arr[i + 1] = -30;  //do nothing
+                else if (nextVal == -30 && nextVal1 != -30)
                     arr[i + 1] = firstVal;
             }
-                return arr;
+            return arr;
         }
 
 

@@ -273,6 +273,25 @@ namespace PropoPlot
                 values[1, 5] = 0;//fa
                 values[1, 6] = 0;//eu
             }
+
+            //dont know if we want this in this plot
+            dataEUR = smoothArray(dataEUR);
+            //dataEUA = smoothArray(dataEUA);
+            dataJAR = smoothArray(dataJAR);
+            //dataJAA = smoothArray(dataJAA);
+            dataNAR = smoothArray(dataNAR);
+            //dataNAA = smoothArray(dataNAA);
+            dataSAR = smoothArray(dataSAR);
+            //dataSAA = smoothArray(dataSAA);
+            dataFAR = smoothArray(dataFAR);
+            //dataFAA = smoothArray(dataFAA);
+            dataAFR = smoothArray(dataAFR);
+            //dataAFA = smoothArray(dataAFA);
+            dataOCR = smoothArray(dataOCR);
+
+
+
+
         }
         /// <summary>
         /// Put the radar plot on screen
@@ -312,6 +331,32 @@ namespace PropoPlot
             graphSingle.Render();
 
         }
+
+
+
+        private double[] smoothArray(double[] arr)
+        {
+
+
+            for (int i = 0; i < arr.Length - 2; i++)
+            {
+                double firstVal = arr[i];  //get a reading
+                double nextVal = arr[i + 1];  //get the next reading
+                double nextVal1 = arr[i + 2]; //get the one after
+                if (nextVal == -30 && nextVal1 == -30)  //two in a row probably means we have real -30 data, niot just one person on the band sending CQ
+                    arr[i + 1] = -30;  //do nothing
+                else if (nextVal == -30 && nextVal1 != -30)
+                    arr[i + 1] = firstVal;
+            }
+            return arr;
+        }
+
+
+
+
+
+
+
 
 
         /// <summary>

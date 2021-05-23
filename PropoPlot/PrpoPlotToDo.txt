@@ -38,8 +38,9 @@
 		20210512
 	• Read a previously written file back into memory
 	   20200517
-	• 
-	•
+	• Put a two cycle lockout on graph menu item to stop trying to access the plots before there is enough data
+	   20210523
+	• Removed the Earth buttion for the time being, changed som e of the text on controls
 	•
 	•
 	•
@@ -72,6 +73,7 @@
 	  I can get it fro the ALL.TXT 
 	• Add a Heatmap with a world map as the background to replace DX Atlas
 
-	•
-	•
+	•i want to average the data over 15 minute intervals (4 per hour) and show a 24 bars in a stacked bargraph
+	with the data sutably coloured
+	•Hilight any decodes from the Usr continent
 	•

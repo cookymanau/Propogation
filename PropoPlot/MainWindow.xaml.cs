@@ -19,6 +19,8 @@ using Microsoft.Win32;
 using System.IO;
 
 
+
+
 namespace PropoPlot
 {
     /// <summary>
@@ -135,6 +137,10 @@ namespace PropoPlot
                 cycleCounter += 1;  //keep counting how many times we go throuh this
                 displayTotalCycles.Text = cycleCounter.ToString();
                 // timerBar.Value = timercounter;
+                if (cycleCounter > 2)
+                    GraphsMainMenu.IsEnabled = true;
+
+
                 udpStrings.Clear(); //clear the previous work - otherwise its a memory suck
                                     //***  tblaggingCount.Text = laggingCount.ToString(); // and show something on the UI
 
@@ -283,9 +289,9 @@ namespace PropoPlot
         {
             //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
             //using System.IO; is for SttreamWriter
-            string now = DateTime.Now.ToString("h_mm tt");
+            string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = $"Propo_{now}_Band_Ant";  // Default file name
+            dlg.FileName = $"Propo_{now}_{prefix}_Band_Ant";  // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -302,7 +308,7 @@ namespace PropoPlot
                 // now send all to the filename
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    writer.WriteLine("RingAnt,Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
+                    writer.WriteLine($"{prefix},Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
 
                     foreach (string item in continentAVGList)
                     {
@@ -428,6 +434,7 @@ namespace PropoPlot
             udpStrings.Clear();
             continentAVGList.Clear();
             continentList.Clear();
+            displayTotalDecodes.Text = "0";
             frmMessageDialog md = new frmMessageDialog();
             md.messageBoxUpper.Text = $"Cleared The Lists ";
             md.messageBoxLower.Text = $"{e}";
@@ -470,12 +477,17 @@ namespace PropoPlot
         private void graphPop_Click(object sender, RoutedEventArgs e)
         {
             graphPopulation gp = new graphPopulation(continentAVGList);
+            //gp.Cursor = Cursors.Wait;
             gp.Show();
 
         }
 
         private void readAvgCont_Click(object sender, RoutedEventArgs e)
         {
+                 Cursor fred = this.Cursor; //sav e the current cursor
+                //this.Cursor = Cursors.Wait;
+                
+
             {
                 //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
                 //using System.IO; is for SttreamWriter
@@ -485,8 +497,6 @@ namespace PropoPlot
                 dlg.DefaultExt = ".csv"; // Default file extension
                 dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
-                 Cursor fred = this.Cursor; //sav e the current cursor
-                this.Cursor = Cursors.Wait;
                 int count = 0;
                 // Show save file dialog box
                 Nullable<bool> result = dlg.ShowDialog();
@@ -517,7 +527,9 @@ namespace PropoPlot
 
                 //continentAVGList.RemoveAt(0);
                 //remove the first line of the list - it breaks things
+                displayTotalDecodes.Text = (int.Parse(displayTotalDecodes.Text) + count).ToString();
                 this.Cursor = fred;
+                GraphsMainMenu.IsEnabled = true; 
             } //end of method
 
 
@@ -528,6 +540,28 @@ namespace PropoPlot
         {
             graphHeat gh = new graphHeat();
             gh.Show();
+        }
+
+ 
+
+        private void graphFaros_Click(object sender, RoutedEventArgs e)
+        {
+
+            // this is where take our list and divide it into 15 minute or 30 minute or 60 minute blocks and average the data
+            // we have the data in a list, pull it out into arrays, average it and then show it.
+
+
+            graphFaros gf = new graphFaros(continentAVGList);
+            gf.Show();
+
+
+        }
+
+        private void plotFaros_Click(object sender, RoutedEventArgs e)
+        {
+            plotOfFaros pf = new plotOfFaros();
+            pf.Show();
+            
         }
     }//end of class
 

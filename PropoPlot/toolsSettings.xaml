@@ -9,7 +9,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         
         mc:Ignorable="d"
-        Title="toolsSettings" Height="660" Width="600">
+        Title="toolsSettings" Height="660" Width="650">
         <Border BorderThickness="10">
     <Grid>
             <Grid.RowDefinitions>
@@ -27,22 +27,22 @@
             </Grid.ColumnDefinitions>
 
 
-            <GroupBox x:Name="DXATLASGroup" Header="DX Atlas" Grid.Column="0" Grid.Row="0">
+            <!--<GroupBox x:Name="DXATLASGroup" Header="DX Atlas" Grid.Column="0" Grid.Row="0">
                 <StackPanel>
                     <CheckBox Name="chkLabels" Content="Labels Visible" Margin="5,5" />
                     <CheckBox Name="chkLines"  Content="Lines Visible" Margin="5,5"/>
                     <CheckBox Name="chkHome" Content="Home Visible" Margin="5,5" />
                 </StackPanel>
-            </GroupBox>
+            </GroupBox>-->
 
             <GroupBox x:Name="InterfaceGroup" Header="Interface" Grid.Column="0" Grid.Row="1">
                 <StackPanel>
-                    <CheckBox Name="chkToolTips" Content="ToolTips" Margin="5,5" />
+                    <!--<CheckBox Name="chkToolTips" Content="ToolTips" Margin="5,5" />
                     <CheckBox Name="chkItem2"  Content="I2" Margin="5,5"/>
                     <CheckBox Name="chkItem3" Content="I3" Margin="5,5" />
-                    <CheckBox Name="chkItem4" Content="I4" Margin="5,5" />
+                    <CheckBox Name="chkItem4" Content="I4" Margin="5,5" />-->
                     <DockPanel>
-                        <TextBox Name="goTryLine" Text="dBm" Width="35" Margin="5,5" ToolTip="A horizontal line to show worth trying for"/>
+                        <TextBox Name="goTryLine" Text="dBm" Width="35" Margin="5,5" ToolTip="A horizontal line  you can place anywhere to show worth trying for"/>
                         <Label Content="Go Try Line" Margin="0,5" />
                     </DockPanel>
 

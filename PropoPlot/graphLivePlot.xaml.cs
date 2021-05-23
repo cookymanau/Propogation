@@ -40,6 +40,7 @@ namespace PropoPlot
         const int arrSize = 5000;
 
         double[] dataX = new double[arrSize];
+        double[] dataXspline = new double[arrSize];
         DateTime[] DTdates = new DateTime[arrSize];
         double[] Dubdates = new double[arrSize];
 
@@ -120,6 +121,7 @@ namespace PropoPlot
 
             setupContextMenu();
 
+            //get back save defaults
             chkFAGraphs.Content = Properties.Settings.Default.UsrDefinedName;
 
 
@@ -374,6 +376,7 @@ namespace PropoPlot
                 wrdmsg = item.Split(',');
 
                 dataX[count] = count; //the X values
+                dataXspline[count] = count;
 
                 DTdates[count] = DateTime.Parse(wrdmsg[1]);
                 Dubdates[count] = DTdates[count].ToOADate();
@@ -413,21 +416,25 @@ namespace PropoPlot
             //now get rid of the -30 jumps
 
             dataEUR = smoothArray(dataEUR);
-            dataEUA = smoothArray(dataEUA);
+            //dataEUA = smoothArray(dataEUA);
             dataJAR = smoothArray(dataJAR);
-            dataJAA = smoothArray(dataJAA);
+            //dataJAA = smoothArray(dataJAA);
             dataNAR = smoothArray(dataNAR);
-            dataNAA = smoothArray(dataNAA);
+            //dataNAA = smoothArray(dataNAA);
             dataSAR = smoothArray(dataSAR);
-            dataSAA = smoothArray(dataSAA);
+            //dataSAA = smoothArray(dataSAA);
             dataFAR = smoothArray(dataFAR);
-            dataFAA = smoothArray(dataFAA);
+            //dataFAA = smoothArray(dataFAA);
             dataAFR = smoothArray(dataAFR);
-            dataAFA = smoothArray(dataAFA);
+            //dataAFA = smoothArray(dataAFA);
+            dataOCR = smoothArray(dataOCR);
             
 
 
         }
+
+
+
 
 
         /// <summary>
@@ -439,11 +446,14 @@ namespace PropoPlot
         {
 
 
-            for (int i = 0; i < arr.Length - 1; i++)
+            for (int i = 0; i < arr.Length - 2; i++)
             {
-                double firstVal = arr[i];
-                double nextVal = arr[i + 1];
-                if (nextVal == -30)
+                double firstVal = arr[i];  //get a reading
+                double nextVal = arr[i + 1];  //get the next reading
+                double nextVal1 = arr[i + 2]; //get the one after
+                if (nextVal == -30 && nextVal1 == -30)  //two in a row probably means we have real -30 data, niot just one person on the band sending CQ
+                    arr[i + 1] = -30;  //do nothing
+                else if (nextVal == -30 && nextVal1 != -30)
                     arr[i + 1] = firstVal;
             }
             return arr;
@@ -461,10 +471,18 @@ namespace PropoPlot
             int LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
             int LineCntDotSize = int.Parse(Properties.Settings.Default.GraphCntDotSize);
 
+            //  var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(Dubdates, dataEUA, resolution: 5);  // this is REALLLLY slow...minutes
+            //   var model = new ScottPlot.Statistics.LinearRegressionLine(Dubdates, dataEUA);
+
+            
+
+
+
             sigEUA = graphLive.Plot.AddScatter(Dubdates, dataEUA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)), label: "EUavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
             sigEUR = graphLive.Plot.AddScatter(Dubdates, dataEUR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)), label: "EUraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
             sigEUC = graphLive.Plot.AddScatter(Dubdates, dataEUC, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)), label: "EUcnt", lineWidth: CntLineThickness, markerSize: LineCntDotSize);
-
+          //  graphLive.Plot.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)), markerSize: 3, label: "Natural Spline");
+          // graphLive.Plot.PlotLine(model.slope, model.offset, (44334.61,44334.63));
 
             sigNAA = graphLive.Plot.AddScatter(Dubdates, dataNAA, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)), label: "NAavg", lineWidth: AvgLineThickness, markerSize: LineAvgDotSize);
             sigNAR = graphLive.Plot.AddScatter(Dubdates, dataNAR, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)), label: "NAraw", lineWidth: RawLineThickness, markerSize: LineRawDotSize);
