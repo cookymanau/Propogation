@@ -109,6 +109,7 @@ namespace PropoPlot
             wsjtmessages();
 
             btnUDPStart.Content = "Running";
+            GraphsMainMenu.IsEnabled = false;
 
             // now start the timer to process the UDP stuff now that we have started it.
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -137,6 +138,7 @@ namespace PropoPlot
                 cycleCounter += 1;  //keep counting how many times we go throuh this
                 displayTotalCycles.Text = cycleCounter.ToString();
                 // timerBar.Value = timercounter;
+   
                 if (cycleCounter > 2)
                     GraphsMainMenu.IsEnabled = true;
 

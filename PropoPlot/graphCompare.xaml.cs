@@ -481,7 +481,7 @@ namespace PropoPlot
             //    ScottPlot.PlottableSignal sigFaAvg;
            // ScottPlot.PlottableSignal sigFaCnt;
 
-            graphCompare2Files.plt.PlotHLine(0, color: System.Drawing.Color.Black);
+           
 
             if (chkEUGraphs.IsChecked == true)
             {
@@ -659,10 +659,14 @@ namespace PropoPlot
             graphCompare2Files.plt.Legend(location: Alignment.LowerLeft);
             graphCompare2Files.plt.YLabel("dBm");
             graphCompare2Files.plt.XLabel("RecordNumber");
-            // graphCompare2Files.plt.XLabel("Time(Zulu)");
-            //   graphCompare2Files.plt.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss");
+                // graphCompare2Files.plt.XLabel("Time(Zulu)");
+                //   graphCompare2Files.plt.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss");
 
-            graphCompare2Files.Render();
+                graphCompare2Files.plt.PlotHLine(0, color: System.Drawing.Color.Black, draggable:true, lineStyle: LineStyle.DashDotDot);
+                graphCompare2Files.plt.PlotHLine(0, color: System.Drawing.Color.Red,draggable:true, lineStyle: LineStyle.DashDot);
+
+
+                graphCompare2Files.Render();
             }
             catch (Exception ex)
             {

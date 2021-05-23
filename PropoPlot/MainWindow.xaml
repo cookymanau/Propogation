@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-       Title="WSJT Propogation Version Beta 1.2" Height="520" Width="540"  Name="window">
+       Title="FT8 Propagation Version Beta 1.3" Height="520" Width="540"  Name="window">
     <Border Margin="10,0,10,10">
 
         <Grid>
@@ -48,7 +48,7 @@
                     <MenuItem Header="_Continent Lat Long" Name="toolsContLatLongSettings" Click="toolsContLatLongSettings_Click"/>
                 </MenuItem>
 
-                <MenuItem Header="_Graphs" IsEnabled="False" Name="GraphsMainMenu">
+                <MenuItem Header="_Graphs" IsEnabled="True" Name="GraphsMainMenu">
                     <MenuItem Header="_All Continents" Name="graphAll" Click="graphAll_Click"  />
                     <MenuItem Header="_History" Name="graphLive" Click="graphLive_Click"/>
                     <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />

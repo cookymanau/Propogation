@@ -427,10 +427,10 @@ namespace PropoPlot
             catch (Exception ex)
             {
                
-                frmMessageDialog md = new frmMessageDialog();
-                md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
-                md.messageBoxLower.Text = $"{ex}";
-               md.Show();
+               // frmMessageDialog md = new frmMessageDialog();
+               // md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
+               // md.messageBoxLower.Text = $"{ex}";
+               //md.Show();
             }
 
             //now some code to plot to dxAtlas
