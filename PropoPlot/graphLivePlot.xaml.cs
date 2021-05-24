@@ -20,6 +20,7 @@ using System.Windows.Threading;
 
 //***************************************
 //ProgName:  This is the timer plot of propogation Allowing you to see how propogation changes over time
+//              This is the HISTORY Plot
 //Date:  MAy 2021, mostly working
 //Author:Ian Cook
 //Purose:See propogation change over time

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="graphFaros" Height="450" Width="800">
+        Title="graphFaros" Height="450" Width="1000">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>

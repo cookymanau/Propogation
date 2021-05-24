@@ -957,30 +957,66 @@ namespace PropoPlot
         private void PlotArrays()
         {
 
-            double[] EU2 = new double[farosEUday15.Length];
-            for (int i = 0; i < farosEUday15.Length; i++)
-                EU2[i] = farosJAday15[i] + farosEUday15[i];
-
-            double[] EU3 = new double[farosNAday15.Length];
-            for (int i = 0; i < farosNAday15.Length; i++)
-                EU3[i] = EU2[i] + farosNAday15[i];
+            //gonna try grouped bars for this
 
 
+            double[] eu5 = new double[5];
+            double[] ja5 = new double[5];
+            double[] oc5 = new double[5];
+
+            for (int i = 0; i < 5; i++)
+                eu5[i] = farosEUday15[i + 45];
+
+            for (int i = 0; i < 5; i++)
+                ja5[i] = farosJAday15[i + 45];
+
+            for (int i = 0; i < 5; i++)
+                oc5[i] = farosOCday15[i + 45];
+
+
+            int groupCount = 5;
+            string[] groupnames =  {"g1","g2","g3","g4","g5" };
+            string[] seriesNames = { "Series 1", "Series 2", "Series 3" };
+            double[][] valuesBySeries = { eu5, ja5, oc5 };
+
+            var pl1 = graphFarosPlot.Plot.AddBarGroups(groupnames, seriesNames,valuesBySeries,null);
+           // var EUbars = graphFarosPlot.Plot.AddBar(farosEUday15);
+           //var OCbars = graphFarosPlot.Plot.AddBar(farosOCday15);
+
+            //double[] EU2 = new double[farosEUday15.Length];
+            //for (int i = 0; i < farosEUday15.Length; i++)
+            //    EU2[i] = farosJAday15[i] + farosEUday15[i];
+
+            //double[] EU3 = new double[farosNAday15.Length];
+            //for (int i = 0; i < farosNAday15.Length; i++)
+            //    EU3[i] = EU2[i] + farosNAday15[i];
 
 
 
-        var barOC =    graphFarosPlot.Plot.AddBar(EU3);
-        var barJA =    graphFarosPlot.Plot.AddBar(EU2);
-         var barEU =   graphFarosPlot.Plot.AddBar(farosEUday15);
 
-          //  barOC.FillColor = System.Drawing.Color.Red;  //ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor);
-            barEU.FillColor = System.Drawing.Color.Blue;
-            barEU.BorderColor = System.Drawing.Color.Blue;
-            barEU.FillColorHatch = System.Drawing.Color.Blue;
-            barJA.FillColor = System.Drawing.Color.Green;
-            barJA.BorderColor = System.Drawing.Color.Green;
-            barOC.BorderColor = System.Drawing.Color.Cyan;
 
+            //       var barOC =    graphFarosPlot.Plot.AddBar(EU3);
+            //var barJA =    graphFarosPlot.Plot.AddBar(EU2);
+            //var barEU =   graphFarosPlot.Plot.AddBar(farosEUday15);
+
+
+            // //  barOC.FillColor = System.Drawing.Color.Red;  //ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor);
+            //   barEU.FillColor = System.Drawing.Color.Blue;
+            //   barEU.BorderColor = System.Drawing.Color.Blue;
+            //   barEU.FillColorHatch = System.Drawing.Color.Blue;
+            //   barEU.Label = "EU";
+
+            //   barJA.FillColor = System.Drawing.Color.Green;
+            //   barJA.BorderColor = System.Drawing.Color.Green;
+            //   barJA.Label = "JA";
+
+            //   //barOC.BorderColor = System.Drawing.Color.Cyan;
+            //   //barOC.Label = "OC";
+
+
+            graphFarosPlot.Plot.Legend();
+
+            graphFarosPlot.Render();
             //graphFarosPlot.Plot.PlotBar(xs, farosEUday15);
             //graphFarosPlot.Plot.PlotBar(xs, farosJAday15);
             //graphFarosPlot.Plot.PlotBar(xs, farosOCday15);

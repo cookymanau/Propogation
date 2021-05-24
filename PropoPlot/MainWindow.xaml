@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-       Title="FT8 Propagation Version Beta 1.3" Height="520" Width="540"  Name="window">
+       Title="FT8 Propagation Version Beta 1.3" Height="520" Width="680"  Name="window">
     <Border Margin="10,0,10,10">
 
         <Grid>
@@ -31,7 +31,9 @@
                     <!-- <MenuItem Header="_Save 15sec Data" Name="save15secCont" Click="save15secCont_Click" /> -->
                     <MenuItem Header="_Read Data" Name="readAvgCont" Click="readAvgCont_Click"  />
                     <Separator/>
-
+                    
+                    <MenuItem Header="_Compare Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
+                    <Separator/>
 
                     <MenuItem Header="_Exit" Name="ExitPropoPlot" Click="ExitPropoPlot_Click" >
                         <MenuItem.Icon>
@@ -56,8 +58,7 @@
                     <MenuItem Header="_Heat" Name="graphHeat" Click="graphHeat_Click"  />
                     <MenuItem Header="_Faros" Name="graphFaros" Click="graphFaros_Click"   />
                     <MenuItem Header="_F" Name="plotFaros" Click="plotFaros_Click"  />
-                    <Separator/>
-                    <MenuItem Header="_CompareFiles Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
+
                 </MenuItem>
 
                 <MenuItem Header="_Help" >
@@ -148,11 +149,20 @@
             <StackPanel Grid.Column="1" Grid.Row="1">
 
                 <Border BorderThickness="1" BorderBrush="Black" >
-                    <TextBlock Text="UDP Decodes with valid GS4" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                    <TextBlock Text="UDP Decodes with valid Maidenhead Grid Square" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="Black text are decodes within continent boundary. Purple are decodes outside of any continent. Red are decodes within the User Defined continent."/>
                 </Border>
-                <TextBox Name="plotmessage"  Grid.Column="1"  Height="200" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>
+
+                
+                <!--<TextBox x:Name="plotmessage"  Height="200" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>-->
+                <ScrollViewer  VerticalScrollBarVisibility="Auto" Height="200" Name="qsoScroller"   ScrollChanged="qsoScroller_ScrollChanged">
+                <TextBlock x:Name="plotmessage"   FontSize="11" ScrollViewer.CanContentScroll="True" TextWrapping="WrapWithOverflow"   />
+                </ScrollViewer>
+                
+                
+                
+                
                 <Border BorderThickness="1" BorderBrush="Black"  >
-                    <TextBlock Text="dBm Averages by continent and period decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
+                    <TextBlock Text="dBm Averages by continent and cycle decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
 
                 <!--tHESE ARE  THE Averages by Continent -->

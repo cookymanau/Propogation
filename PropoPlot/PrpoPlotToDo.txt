@@ -76,4 +76,13 @@
 	•i want to average the data over 15 minute intervals (4 per hour) and show a 24 bars in a stacked bargraph
 	with the data sutably coloured
 	•Hilight any decodes from the Usr continent
+	•Hilighted decodes by colour.  Colours need to be usere definaeble?
+	•Whe you change a continent, lat and long, it needs to update the variables straight away.  At the moment
+	I have to stop and start the program
+	• Be able to exclude a continent from the Radar Plot - VK6BMW
+	• Write an interface / suggest an interface to Simons World Map
+	• Be able to hilight a row with a certain call sign....like V* or VK* or VK6DW and the row would turn Bright Green or somesuch
+	•  Select continents by gridsquare, not by lat and long.  So an array of OF88 BD36 etc to define what we want, but this would need and
+	interface like a map covered in grid squares that you highlight to produuce the array  string[] SA = new string[]{"AB12","AB13" etc}
+	•
 	•

@@ -57,7 +57,7 @@ namespace PropoPlot
             //continentAVGList.Add("");  // initialising the list with something
 
             usrDefinedLabel.Text = Properties.Settings.Default.UsrDefinedName;
-
+            GraphsMainMenu.IsEnabled = false;
         }
 
         private void ButtonUDPport_click(object sender, RoutedEventArgs e)
@@ -68,7 +68,7 @@ namespace PropoPlot
 
         private void plotmessage_TextChanged(object sender, TextChangedEventArgs e)
         {
-            plotmessage.ScrollToEnd();
+           // plotmessage.ScrollToEnd();
         }
 
         private void btnDXatlas_Click(object sender, RoutedEventArgs e)
@@ -564,6 +564,41 @@ namespace PropoPlot
             plotOfFaros pf = new plotOfFaros();
             pf.Show();
             
+        }
+
+
+
+
+        //You can use ScrollChangedEventArgs.ExtentHeightChange to know if a ScrollChanged is due to a change in the
+        //content or to a user action...When the content is unchanged, the ScrollBar position sets or unsets the
+        //auto-scroll mode. When the content has changed you can apply auto-scrolling.
+        //https://stackoverflow.com/questions/2984803/how-to-automatically-scroll-scrollviewer-only-if-the-user-did-not-change-scrol
+
+        private Boolean AutoScroll = true;
+        private void qsoScroller_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            // qsoScroller.ScrollToEnd();
+            // User scroll event : set or unset auto-scroll mode
+            if (e.ExtentHeightChange == 0)
+            {   // Content unchanged : user scroll event
+                if (qsoScroller.VerticalOffset == qsoScroller.ScrollableHeight)
+                {   // Scroll bar is in bottom
+                    // Set auto-scroll mode
+                    AutoScroll = true;
+                }
+                else
+                {   // Scroll bar isn't in bottom
+                    // Unset auto-scroll mode
+                    AutoScroll = false;
+                }
+            }
+
+            // Content scroll event : auto-scroll eventually
+            if (AutoScroll && e.ExtentHeightChange != 0)
+            {   // Content changed and auto-scroll mode set
+                // Autoscroll
+                qsoScroller.ScrollToVerticalOffset(qsoScroller.ExtentHeight);
+            }
         }
     }//end of class
 

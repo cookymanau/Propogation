@@ -9,7 +9,9 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Diagnostics;    //this is the debug class
-
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 
 //***************************************
@@ -22,14 +24,14 @@ using System.Diagnostics;    //this is the debug class
 
 namespace PropoPlot
 {
-    public partial  class  MainWindow
+    public partial class MainWindow
     {
-        public double[] avgs = new double[120] ;  //declare an array of elements that we use for the lagging signal strength
+        public double[] avgs = new double[120];  //declare an array of elements that we use for the lagging signal strength
 
         // int EUavgsCnt = 0;
         //4 per minute
         //8 is able to hold 2 minutes worth
-        
+
 
         public double[] FAavgs = new double[120];
         public double[] JAavgs = new double[120];
@@ -48,14 +50,14 @@ namespace PropoPlot
         int laggingWindow = 5; //wtd avg
         int timerInterval = int.Parse(Properties.Settings.Default.PeriodTimer); //14;  //this is how often we should process the data (its seconds)
         bool laggingRound = false;
-        
+
         public bool plotToDxAtlas = false;
         public int QSOsThiInterval = 0;
 
         //public bool wsjtClientAbort = false;
 
 
-        public string[,] Udppoint = new string[100,6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+        public string[,] Udppoint = new string[100, 6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
         //0 = callsign
         //1 = dBm
         //2 = maidenhead
@@ -75,22 +77,22 @@ namespace PropoPlot
         //private async Task wsjtmessages()  //should this be returning a Task cause void is bad?
         private void wsjtmessages()  //should this be returning a Task cause void is bad?
         {
-            
-                int UDPport = int.Parse(UDPportEntry.Text);
 
-                //input parameters
-                  var client = new WsjtxClient((msg, from) =>
-                            {
-                        //sequence of statments here
-                        string strmsg = msg.ToString();
-                        Debug.WriteLine(msg); //write to the immdiate window
-                        udpStrings.Add(msg.ToString()); //collect the strings into a list
-                    }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: false, port: UDPport);
+            int UDPport = int.Parse(UDPportEntry.Text);
+
+            //input parameters
+            var client = new WsjtxClient((msg, from) =>
+                      {
+                                //sequence of statments here
+                                string strmsg = msg.ToString();
+                          Debug.WriteLine(msg); //write to the immdiate window
+                                udpStrings.Add(msg.ToString()); //collect the strings into a list
+                            }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: false, port: UDPport);
 
 
         }//end
 
-        
+
 
 
         /// <summary>
@@ -104,49 +106,55 @@ namespace PropoPlot
             try
             {
 
-                
-           int counter = 0;
-           counter +=  counter;///???
-            
-            //bool isEmpty = false;
-            //double averagedbm = 0;
+                int aFA = 0;  // used to track a FA coordinate
+                int aSA = 0;
+                int aNA = 0;
+                int aOC = 0;
+                int aAF = 0;
+                int aEU = 0;
+                int aJA = 0;
+                int counter = 0;
+                counter += counter;///???
 
-            string cleandata = "";
-            double totaldbm = 0;
+                //bool isEmpty = false;
+                //double averagedbm = 0;
 
-            double totaldbmJA = 0; //these are for the average for a single period  - add all of the dBms together
+                string cleandata = "";
+                double totaldbm = 0;
+
+                double totaldbmJA = 0; //these are for the average for a single period  - add all of the dBms together
                 int counterJA = 0; // then divide by the number of reports
-            double totaldbmEU = 0;
+                double totaldbmEU = 0;
                 int counterEU = 0;
-            double totaldbmNA = 0;
+                double totaldbmNA = 0;
                 int counterNA = 0;
-            double totaldbmSA = 0;
+                double totaldbmSA = 0;
                 int counterSA = 0;
-            double totaldbmAF = 0;
+                double totaldbmAF = 0;
                 int counterAF = 0;
-            double totaldbmOC = 0;
+                double totaldbmOC = 0;
                 int counterOC = 0;
-            double totaldbmFA = 0;
+                double totaldbmFA = 0;
                 int counterFA = 0;
 
-  //          double sumFAarray = 0;
-  //          double averageFAarray = 0;
+                //          double sumFAarray = 0;
+                //          double averageFAarray = 0;
 
-            foreach (var item in udpStrings)
-            {
-                RegexOptions options = RegexOptions.None;
-                Regex regex = new Regex("[ ]{2,}", options); //gets rid of the multiple spaces
-                cleandata = regex.Replace(item, " ");
-                string[] wrdmsg = cleandata.Split(' '); //split on the single space
+                foreach (var item in udpStrings)
+                {
+                    RegexOptions options = RegexOptions.None;
+                    Regex regex = new Regex("[ ]{2,}", options); //gets rid of the multiple spaces
+                    cleandata = regex.Replace(item, " ");
+                    string[] wrdmsg = cleandata.Split(' '); //split on the single space
 
 
                     if (wrdmsg[0] == "Status")
                         prefix = "WSJT-X";
 
-                        if (wrdmsg[0] == "Decode")  //wsjt-x puts ou lots of data lines without Decodes. We want to ig nore them
+                    if (wrdmsg[0] == "Decode")  //wsjt-x puts ou lots of data lines without Decodes. We want to ig nore them
                     {
 
-                        
+
 
                         if (wrdmsg.Length == 11)   //this is normal  CQ VK6DW OF88
                         {
@@ -234,6 +242,7 @@ namespace PropoPlot
                             {
                                 totaldbmJA += double.Parse(ul.udpdbm);  //this is the running tally of the dbms
                                 counterJA += 1;                         //this is the number of stations in the continent
+                                aJA = 1;
                             }
 
                             //Europe
@@ -242,6 +251,7 @@ namespace PropoPlot
                             {
                                 totaldbmEU += double.Parse(ul.udpdbm);
                                 counterEU += 1;
+                                aEU = 1;
                             }
 
                             //NA
@@ -250,6 +260,7 @@ namespace PropoPlot
                             {
                                 totaldbmNA += double.Parse(ul.udpdbm);
                                 counterNA += 1;
+                                aNA = 1;
                             }
 
 
@@ -259,6 +270,7 @@ namespace PropoPlot
                             {
                                 totaldbmOC += double.Parse(ul.udpdbm);
                                 counterOC += 1;
+                                aOC = 1;
                             }
 
 
@@ -268,6 +280,7 @@ namespace PropoPlot
                             {
                                 totaldbmAF += double.Parse(ul.udpdbm);
                                 counterAF += 1;
+                                aAF = 1;
                             }
 
                             //SA
@@ -276,6 +289,7 @@ namespace PropoPlot
                             {
                                 totaldbmSA += double.Parse(ul.udpdbm);
                                 counterSA += 1;
+                                aSA = 1;
                             }
                             //FA Far East China india indonesia phillppines Japan
                             //                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
@@ -283,11 +297,69 @@ namespace PropoPlot
                             {
                                 totaldbmFA += double.Parse(ul.udpdbm);
                                 counterFA += 1;
+                                aFA = 1;
                             }
 
+                            // end of the classification by continent
+                            //a question - what happens to all of the spots not within these continents?  Like Antarctica fer instance?  these shouldall be else if's ?????
+                            //write the message *******************************************************
+                            //20210524 Changed this from a textbox to a texblock, so I can heve individual ines of colour formatting
+                            string message = "";
+                            message = $"UTC:{ul.udptime}\tGrid:{ul.udpqso3}\tdBm:{ul.udpdbm}\tDX:{ul.udpqso2}\tLat:{latitude}\tLong:{longitude} \r\n";   //this just a display of data
 
 
-                            plotmessage.Text += $"UTC:{ul.udptime} Grid:{ul.udpqso3} dBm:{ul.udpdbm} DX:{ul.udpqso2} Lat:{latitude} Long:{longitude} \r\n";   //this just a display of data
+                            if (aFA == 1)
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Red;
+                                run.FontWeight = FontWeights.ExtraBold;
+                                run.FontSize = 10;
+                                plotmessage.Inlines.Add(run);
+                                aFA = 0;
+                            }
+                            else if (aJA == 1)
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Black;
+                                plotmessage.Inlines.Add(run);
+                                aJA = 0;
+
+                            }
+                            else if (aSA == 1)
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Black;
+                                plotmessage.Inlines.Add(run);
+                                aSA = 0;
+                            }
+                            else if (aNA == 1)
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Black;
+                                plotmessage.Inlines.Add(run);
+                                aNA = 0;
+                            }
+                            else if (aEU == 1)
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Black;
+                                plotmessage.Inlines.Add(run);
+                                aEU = 0;
+                            }
+                            else if (aOC == 1)
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Black;
+                                plotmessage.Inlines.Add(run);
+                                aOC = 0;
+                            }
+                            else
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.DarkViolet;
+                                plotmessage.Inlines.Add(run);
+                            }
+
                             counter++;  //this counter goes up by not 1
 
                             if (ul.udpdbm != "" || ul.udpdbm != null)
@@ -305,9 +377,10 @@ namespace PropoPlot
 
                         displayTotalDecodes.Text = totalDecodes.ToString();
                     } // end of if wrdmsg[0]="Decode"
-            }//end of foreach loop
-           
-                        plotmessage.Text += "--------------------------------- -----------------------------\n";
+                }//end of foreach loop
+                             plotmessage.Inlines.Add ("----------------------------------------------------- -------------------------------------------------\n");
+
+             
 
                 // we count all of the good grids only - ie where there is at least one grid
                 if (counter > 0)
@@ -323,30 +396,30 @@ namespace PropoPlot
                 {
                     runningEUContinentalAverage(totaldbmEU / counterEU, EUprog, EUdbm, counterEU, EUavgs);
                 }
-//                else if (totaldbmEU == 0 && counterEU == 0)
-//                    runningEUContinentalAverage(-30, EUprog, EUdbm, 0, EUavgs);
- //               else
- //                   EUdbmCount.Text = "0";
+                //                else if (totaldbmEU == 0 && counterEU == 0)
+                //                    runningEUContinentalAverage(-30, EUprog, EUdbm, 0, EUavgs);
+                //               else
+                //                   EUdbmCount.Text = "0";
 
 
                 if (totaldbmFA / counterFA > -40)
                 {
                     runningFAContinentalAverage(totaldbmFA / counterFA, FAprog, FAdbm, counterFA, FAavgs);
                 }//end of if
- //               else if(totaldbmFA == 0 && counterFA == 0)
- //                   runningFAContinentalAverage(-30, FAprog, FAdbm, 0, FAavgs);
-  //              else 
-  //                  FAdbmCount.Text = "0";
+                 //               else if(totaldbmFA == 0 && counterFA == 0)
+                 //                   runningFAContinentalAverage(-30, FAprog, FAdbm, 0, FAavgs);
+                 //              else 
+                 //                  FAdbmCount.Text = "0";
 
 
                 if (totaldbmJA / counterJA > -40)
                 {
                     runningJAContinentalAverage(totaldbmJA / counterJA, JAprog, JAdbm, counterJA, JAavgs);
                 }//end of if
- //               else if (totaldbmJA == 0 && counterJA == 0)
- //                   runningJAContinentalAverage(-30, JAprog, JAdbm, 0, JAavgs);
-  //              else
- //                   JAdbmCount.Text = "0";
+                 //               else if (totaldbmJA == 0 && counterJA == 0)
+                 //                   runningJAContinentalAverage(-30, JAprog, JAdbm, 0, JAavgs);
+                 //              else
+                 //                   JAdbmCount.Text = "0";
 
 
 
@@ -354,10 +427,10 @@ namespace PropoPlot
                 {
                     runningNAContinentalAverage(totaldbmNA / counterNA, NAprog, NAdbm, counterNA, NAavgs);
                 }//end of if
-//                else if (totaldbmNA == 0 && counterNA == 0)
-//                    runningNAContinentalAverage(-30, NAprog, NAdbm, 0, NAavgs);
-//                else
-//                    NAdbmCount.Text = "0";
+                 //                else if (totaldbmNA == 0 && counterNA == 0)
+                 //                    runningNAContinentalAverage(-30, NAprog, NAdbm, 0, NAavgs);
+                 //                else
+                 //                    NAdbmCount.Text = "0";
 
 
 
@@ -385,62 +458,62 @@ namespace PropoPlot
                 {
                     runningSAContinentalAverage(totaldbmSA / counterSA, SAprog, SAdbm, counterSA, SAavgs);
                 }//end 
-                //else if (totaldbmSA == 0 && counterSA == 0)
-                //    runningSAContinentalAverage(-30, SAprog, SAdbm, 0, SAavgs);  //so here we are writing a -30
-                //else
-                //    SAdbmCount.Text = "0";
+                 //else if (totaldbmSA == 0 && counterSA == 0)
+                 //    runningSAContinentalAverage(-30, SAprog, SAdbm, 0, SAavgs);  //so here we are writing a -30
+                 //else
+                 //    SAdbmCount.Text = "0";
 
                 //now we save the last lot of data to our continent list
                 // the headers are set in MainWindow.xml.cs in their respective methods
 
-  // at this point all of the arrays have these nasty -30 values in them and thay mostly signify that nobody was transmitting, not the level of reception
-  // these -30 badly affect the averages and further processing.  Instead of doing that everey where, lets gid rid of them now befor we put the data into the string.
-  // trouble is thats a bit hard.  The data only exist in the list at the moment
-                
+                // at this point all of the arrays have these nasty -30 values in them and thay mostly signify that nobody was transmitting, not the level of reception
+                // these -30 badly affect the averages and further processing.  Instead of doing that everey where, lets gid rid of them now befor we put the data into the string.
+                // trouble is thats a bit hard.  The data only exist in the list at the moment
+
                 //continentAVGList.Add($"WTDavg,{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
                 continentAVGList.Add($"{prefix},{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
 
-                
+
                 //it would be good to just remove the first 8000 chars and then keep it like that
                 //this is just to keep the string length in reasonable size, otherwise we use a lot of memory.
-                if (plotmessage.Text.Length > 9000) 
-               {
-                    string pm = plotmessage.Text.Substring(plotmessage.Text.Length - 2000,2000);
-                    plotmessage.Text = "Truncated.." + pm;
-                }
+                // if (plotmessage.Text.Length > 9000) 
+                //{
+                //     string pm = plotmessage.Text.Substring(plotmessage.Text.Length - 2000,2000);
+                //     plotmessage.Text = "Truncated.." + pm;
+                // }
 
                 //now lets workout the weightd average - its a lagging indicator of signal strength
-                if (laggingCount > laggingWindow  || laggingRound == true) //lagging window is set elsewhere
+                if (laggingCount > laggingWindow || laggingRound == true) //lagging window is set elsewhere
                 {
                     laggingRound = true;
                     laggingTotal = sumarray();  //thats sum array
-                    laggingAvg = laggingTotal / laggingWindow +1 ;
-                    runningAvgDbm.Text= Math.Round(laggingAvg,1).ToString();  //show the current weighted average
+                    laggingAvg = laggingTotal / laggingWindow + 1;
+                    runningAvgDbm.Text = Math.Round(laggingAvg, 1).ToString();  //show the current weighted average
 
-                    if (laggingCount > laggingWindow )  
+                    if (laggingCount > laggingWindow)
                     {
                         laggingCount = 0; //go to set this back to 0 so we use the same array slots
                     }
                 }
-          
-              }//try
+
+            }//try
             catch (Exception ex)
             {
-               
-               // frmMessageDialog md = new frmMessageDialog();
-               // md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
-               // md.messageBoxLower.Text = $"{ex}";
-               //md.Show();
+
+                // frmMessageDialog md = new frmMessageDialog();
+                // md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
+                // md.messageBoxLower.Text = $"{ex}";
+                //md.Show();
             }
 
             //now some code to plot to dxAtlas
             //
-            
+
             if (plotToDxAtlas == true)
-               DXAtlasplotPoints();
-            
+                DXAtlasplotPoints();
+
             setTimerBarColour(laggingAvg); //this is our progress bar
- 
+
         }
 
 
@@ -448,9 +521,9 @@ namespace PropoPlot
 
         private double sumarray()  //sum the lagging array 
         {
-            double total=0;
+            double total = 0;
 
-            for (int i=0;i<8;i++)  //DANGER if the array size is changed, this must be too
+            for (int i = 0; i < 8; i++)  //DANGER if the array size is changed, this must be too
             {
                 total += avgs[i];
             }
@@ -458,9 +531,9 @@ namespace PropoPlot
         }
 
 
-  
 
-  
+
+
 
         private string Maiden2latitude(string grid)  //this is from loginfo, translated from VB
         {
@@ -472,11 +545,11 @@ namespace PropoPlot
             //for latitude we want 1, 3 and 5
 
 
-            string latst1="", latst2="", latst3 = "";
+            string latst1 = "", latst2 = "", latst3 = "";
             char latchr1;
-            
-            double lat1=0, lat2=0, lat3=0;
-            int latint1 = 0 , latint2=0 , latint3=0;
+
+            double lat1 = 0, lat2 = 0, lat3 = 0;
+            int latint1 = 0, latint2 = 0, latint3 = 0;
             double latdub3 = 0.0;
             if (grid == null)
                 grid = "JJ00";
@@ -487,18 +560,18 @@ namespace PropoPlot
             char[] charArray = grid.ToCharArray();   //grid.Substring(1, 1);
             latint1 = (charArray[1] - 65) * 10;
 
-            latst2 =    grid.Substring(3,1);
+            latst2 = grid.Substring(3, 1);
             latint2 = int.Parse(latst2);
 
             double a1 = charArray[5] - 97;
             double a2 = a1 / 24;
-            double a3 = a2 +1;
+            double a3 = a2 + 1;
             double a4 = a3 / 48;
             double a5 = a4 - 90;
             latdub3 = a5; //((charArray[5] - 97) / 24) + 1 / 48 - 90;
             double Latitude = latint1 + latint2 + latdub3;
 
-            return Math.Round(Latitude,4).ToString();//latint1 + latint2 + latint3;
+            return Math.Round(Latitude, 4).ToString();//latint1 + latint2 + latint3;
         } //end
 
 
@@ -535,7 +608,7 @@ namespace PropoPlot
             char[] charArray = grid.ToCharArray();   //grid.Substring(1, 1);
             latint1 = (charArray[0] - 65) * 20;
 
-            latst2 = grid.Substring(2, 1) ;
+            latst2 = grid.Substring(2, 1);
             latint2 = int.Parse(latst2) * 2;
 
             double a1 = charArray[4] - 97;
@@ -543,10 +616,10 @@ namespace PropoPlot
             double a3 = a2 + 1;
             double a4 = a3 / 24;
             double a5 = a4 - 180;
-            latdub3 = a5; 
+            latdub3 = a5;
             double Longitude = latint1 + latint2 + latdub3;
 
-            return Math.Round(Longitude,4).ToString();
+            return Math.Round(Longitude, 4).ToString();
 
         }
 

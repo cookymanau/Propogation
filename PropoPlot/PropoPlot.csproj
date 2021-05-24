@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ScrollViewerExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="exitIcon.png" />
     <None Remove="floppy.png" />
   </ItemGroup>

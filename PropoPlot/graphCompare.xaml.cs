@@ -648,7 +648,7 @@ namespace PropoPlot
 
                 if (chkSpline.IsChecked == true)
                 {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataFAA, resolution: 20);
+                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataFAA, resolution:20);
                     var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataFAA2, resolution: 20);
                     graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: "USR1Spline", markerSize: 1);
                     graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: "USR2Spline", markerSize: 1);

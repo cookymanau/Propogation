@@ -13,6 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ScottPlot;
 
+ //***************************************
+     //ProgName:  This is the view all continents graph
+     //Date: April 2021
+     //Author:
+     //Purose: See all of the continents at once
+     //Comment: Tis is the first actual plot - still usefull	
+     //************************************************
+
+
+
+
 namespace PropoPlot
 {
     /// <summary>
