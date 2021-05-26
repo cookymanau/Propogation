@@ -26,6 +26,32 @@
                 
             </Grid.ColumnDefinitions>
 
+            <GroupBox x:Name="InterfaceGroup" Header="Interface" Grid.Column="0" Grid.Row="0">
+                <StackPanel>
+                    <DockPanel>
+                        <TextBox Name="yourCall"  Width="85" Margin="5,5"  Text="VK6DW" ToolTip="Your Call Sign.  If it is decoded it will be coloured."/>
+                        <Label Content="DE" Margin="0,5" />
+                    </DockPanel>               
+                    <DockPanel>
+                        <TextBox Name="theirCall"  Width="85" Margin="5,5"  Text="VK6BMW" ToolTip="The Call Sign you are looking out for. You can enter a single letter to a full call sign." TextChanged="theirCall_TextChanged"/>
+                        <Label Content="DX" Margin="0,5" />
+                    </DockPanel>
+  
+                    <DockPanel>
+                        <CheckBox Name="chkHiLiteDX" Content="          HiLight DX" IsEnabled="true" Margin="5,5" />
+                    </DockPanel>
+                    
+                    <DockPanel>
+                        <TextBox Name="truncateValue" Width="65"  Margin="5,5" Text="70000" ToolTip="The QSO scroller must truncate itself periodically.  This can be set here.  On a busy band, 70,000 charachters is about 10 minutes worth." />
+                        <Label Content="QSO Box" Margin="0,5" />
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBox Name="goTryLine" Text="dBm" Width="35" Margin="5,5" ToolTip="A horizontal line you can place anywhere."/>
+                        <Label Content="dBm Marker Line" Margin="0,5" />
+                    </DockPanel>
+
+                </StackPanel>
+            </GroupBox>
 
             <!--<GroupBox x:Name="DXATLASGroup" Header="DX Atlas" Grid.Column="0" Grid.Row="0">
                 <StackPanel>
@@ -35,19 +61,6 @@
                 </StackPanel>
             </GroupBox>-->
 
-            <GroupBox x:Name="InterfaceGroup" Header="Interface" Grid.Column="0" Grid.Row="1">
-                <StackPanel>
-                    <!--<CheckBox Name="chkToolTips" Content="ToolTips" Margin="5,5" />
-                    <CheckBox Name="chkItem2"  Content="I2" Margin="5,5"/>
-                    <CheckBox Name="chkItem3" Content="I3" Margin="5,5" />
-                    <CheckBox Name="chkItem4" Content="I4" Margin="5,5" />-->
-                    <DockPanel>
-                        <TextBox Name="goTryLine" Text="dBm" Width="35" Margin="5,5" ToolTip="A horizontal line  you can place anywhere to show worth trying for"/>
-                        <Label Content="Go Try Line" Margin="0,5" />
-                    </DockPanel>
-
-                </StackPanel>
-            </GroupBox>
 
             <GroupBox x:Name="GraphGroup" Header="Graph Settings" Grid.Column="2" Grid.Row="0">
 
@@ -113,11 +126,11 @@
                             
                         </Grid.RowDefinitions>
 
-                        <TextBlock  Text="No. Periods"  Grid.Column="0" Grid.Row="0" Margin="4"/>
+                        <TextBlock  Text="No. Periods"  Grid.Column="0" Grid.Row="0" Margin="4" ToolTip="The number of cycles that are averaged 6 - 10 cycles are good"/>
                         <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Grid.Row="0" Margin="4"/> 
-                        <TextBlock  Text="Timer"  Grid.Column="0" Grid.Row="1" Margin="4"/>
+                        <TextBlock  Text="Timer"  Grid.Column="0" Grid.Row="1" Margin="4" ToolTip="This is how often the PropoPlot updates. Leave it at 15 for FT8 "/>
                         <TextBox x:Name="toolsMainTimer" Text="15" Grid.Column="1" Grid.Row="1" Margin="4"/>
-                        <TextBlock  Text="panLeft %"  Grid.Column="0" Grid.Row="2" Margin="4"/>
+                        <TextBlock  Text="panLeft %"  Grid.Column="0" Grid.Row="2" Margin="4" ToolTip="How far the History graph pans each update 0.03 is a starting point for fine tuning."/>
                         <TextBox x:Name="toolsPanLeftPct" Text="15" Grid.Column="1" Grid.Row="2" Margin="4"/>
                     </Grid>
                 </StackPanel>

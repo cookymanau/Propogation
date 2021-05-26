@@ -50,6 +50,8 @@ namespace PropoPlot
         int laggingWindow = 5; //wtd avg
         int timerInterval = int.Parse(Properties.Settings.Default.PeriodTimer); //14;  //this is how often we should process the data (its seconds)
         bool laggingRound = false;
+        int aDXAcount = 0;
+        string OldCallSign = "";
 
         public bool plotToDxAtlas = false;
         public int QSOsThiInterval = 0;
@@ -85,7 +87,7 @@ namespace PropoPlot
                       {
                                 //sequence of statments here
                                 string strmsg = msg.ToString();
-                          Debug.WriteLine(msg); //write to the immdiate window
+                         // Debug.WriteLine(msg); //write to the immdiate window
                                 udpStrings.Add(msg.ToString()); //collect the strings into a list
                             }, IPAddress.Parse("239.255.0.1"), multicast: true, debug: false, port: UDPport);
 
@@ -113,6 +115,8 @@ namespace PropoPlot
                 int aAF = 0;
                 int aEU = 0;
                 int aJA = 0;
+                int aDXA = 0; //for the callsign we are chasing
+                int aDEA = 0;  // for my callsign  VK6DW
                 int counter = 0;
                 counter += counter;///???
 
@@ -235,6 +239,12 @@ namespace PropoPlot
                             Udppoint[counter, 4] = longitude;
                             Udppoint[counter, 5] = ul.udptime;
 
+                            //for a test of this filtering and should not exist
+                            // in a prod varsion
+                            //dlatitude = -37.9688;
+                            //dlongitude = 140.0833;
+
+
                             // this subdivdes the dataload into areas on the globe and keeps a running tally of the dbms
                             //JA
                             if (dlatitude > double.Parse(tll.JALatMin.Text) && dlatitude < double.Parse(tll.JALatMax.Text) && dlongitude > double.Parse(tll.JALongMin.Text) && dlongitude < double.Parse(tll.JALongMax.Text))
@@ -300,15 +310,53 @@ namespace PropoPlot
                                 aFA = 1;
                             }
 
+                            string cs = Properties.Settings.Default.theirCall;
+                            
+                            if ( (ul.udpqso2.Contains(cs) || ul.udpqso3.Contains(cs)) && cs != "")
+                        {
+                                aDXAcount += 1;
+                                aDXA = 1;
+                                dxCallSign.Text = ul.udpqso2;
+                                dxLastHeardTime.Text = ul.udptime;
+                                dxdbm.Text = ul.udpdbm;
+                                dxCount.Text = aDXAcount.ToString();
+
+                          //      if (OldCallSign != Properties.Settings.Default.theirCall)
+                           //         aDXAcount = 0;
+
+                           //     OldCallSign = cs;
+
+                           }
+
+
                             // end of the classification by continent
                             //a question - what happens to all of the spots not within these continents?  Like Antarctica fer instance?  these shouldall be else if's ?????
                             //write the message *******************************************************
                             //20210524 Changed this from a textbox to a texblock, so I can heve individual ines of colour formatting
                             string message = "";
-                            message = $"UTC:{ul.udptime}\tGrid:{ul.udpqso3}\tdBm:{ul.udpdbm}\tDX:{ul.udpqso2}\tLat:{latitude}\tLong:{longitude} \r\n";   //this just a display of data
+                            //String.Format("{0,-15} {1,-15} {2,-15} --> {3,-15} {4,-15} {5,-15} ");
+                            //using string interpolation to format the string as well
+                         
+                            if (aDXA == 1)
+                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX:++{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} \r\n";   //this just a display of data
+                            else
+                               message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} \r\n";   //this just a display of data
+                            //message = $"UTC:{ul.udptime}\tGrid:{ul.udpqso3}\tdBm:{ul.udpdbm}\tDX:{ul.udpqso2}\tLat:{latitude}\tLong:{longitude} \r\n";   //this just a display of data
 
 
-                            if (aFA == 1)
+                            // this only about making the QSO box look nice.  No stats collected here
+                            if (aDXA == 1)  // this is our special continent
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Green;
+                                run.FontWeight = FontWeights.ExtraBold;
+                                run.FontSize = 10;
+                                plotmessage.Inlines.Add(run);
+                                aDXA = 0;
+                                //over write the message
+                            }
+
+                          else  if (aFA == 1)  // this is our special continent
                             {
                                 System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
                                 run.Foreground = System.Windows.Media.Brushes.Red;
@@ -316,6 +364,15 @@ namespace PropoPlot
                                 run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aFA = 0;
+                            } 
+                           else if (aAF == 1)
+                            {
+                                System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
+                                run.Foreground = System.Windows.Media.Brushes.Black;
+                                //run.FontWeight = FontWeights.ExtraBold;
+                                //run.FontSize = 10;
+                                plotmessage.Inlines.Add(run);
+                                aAF = 0;
                             }
                             else if (aJA == 1)
                             {
@@ -396,72 +453,38 @@ namespace PropoPlot
                 {
                     runningEUContinentalAverage(totaldbmEU / counterEU, EUprog, EUdbm, counterEU, EUavgs);
                 }
-                //                else if (totaldbmEU == 0 && counterEU == 0)
-                //                    runningEUContinentalAverage(-30, EUprog, EUdbm, 0, EUavgs);
-                //               else
-                //                   EUdbmCount.Text = "0";
-
-
+ 
                 if (totaldbmFA / counterFA > -40)
                 {
                     runningFAContinentalAverage(totaldbmFA / counterFA, FAprog, FAdbm, counterFA, FAavgs);
                 }//end of if
-                 //               else if(totaldbmFA == 0 && counterFA == 0)
-                 //                   runningFAContinentalAverage(-30, FAprog, FAdbm, 0, FAavgs);
-                 //              else 
-                 //                  FAdbmCount.Text = "0";
-
+ 
 
                 if (totaldbmJA / counterJA > -40)
                 {
                     runningJAContinentalAverage(totaldbmJA / counterJA, JAprog, JAdbm, counterJA, JAavgs);
                 }//end of if
-                 //               else if (totaldbmJA == 0 && counterJA == 0)
-                 //                   runningJAContinentalAverage(-30, JAprog, JAdbm, 0, JAavgs);
-                 //              else
-                 //                   JAdbmCount.Text = "0";
-
-
 
                 if (totaldbmNA / counterNA > -40)
                 {
                     runningNAContinentalAverage(totaldbmNA / counterNA, NAprog, NAdbm, counterNA, NAavgs);
                 }//end of if
-                 //                else if (totaldbmNA == 0 && counterNA == 0)
-                 //                    runningNAContinentalAverage(-30, NAprog, NAdbm, 0, NAavgs);
-                 //                else
-                 //                    NAdbmCount.Text = "0";
-
-
 
                 if (totaldbmOC / counterOC > -40) //-------------------------------
                 {
                     runningOCContinentalAverage(totaldbmOC / counterOC, OCprog, OCdbm, counterOC, OCavgs);
                 }//end of if
-                //else if (totaldbmOC == 0 && counterOC == 0)
-                //    runningOCContinentalAverage(-30, OCprog, OCdbm, 0, OCavgs);
-                //else
-                //    OCdbmCount.Text = "0";
-
 
                 if (totaldbmAF / counterAF > -40) //---------------------------------
                 {
                     runningAFContinentalAverage(totaldbmAF / counterAF, AFprog, AFdbm, counterAF, AFavgs);
                 }//end of if
-                //else if (totaldbmAF == 0 && counterAF == 0)
-                //    runningAFContinentalAverage(-30, AFprog, AFdbm, 0, AFavgs);
-                //else
-                //    AFdbmCount.Text = "0";
-
 
                 if (totaldbmSA / counterSA > -40) //-----------------------------------
                 {
                     runningSAContinentalAverage(totaldbmSA / counterSA, SAprog, SAdbm, counterSA, SAavgs);
                 }//end 
-                 //else if (totaldbmSA == 0 && counterSA == 0)
-                 //    runningSAContinentalAverage(-30, SAprog, SAdbm, 0, SAavgs);  //so here we are writing a -30
-                 //else
-                 //    SAdbmCount.Text = "0";
+
 
                 //now we save the last lot of data to our continent list
                 // the headers are set in MainWindow.xml.cs in their respective methods
@@ -474,13 +497,44 @@ namespace PropoPlot
                 continentAVGList.Add($"{prefix},{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
 
 
-                //it would be good to just remove the first 8000 chars and then keep it like that
+
+                //it would be good to just remove the first 8000 chars and then keep it like that ******************************************
                 //this is just to keep the string length in reasonable size, otherwise we use a lot of memory.
-                // if (plotmessage.Text.Length > 9000) 
-                //{
-                //     string pm = plotmessage.Text.Substring(plotmessage.Text.Length - 2000,2000);
-                //     plotmessage.Text = "Truncated.." + pm;
-                // }
+
+                int tl = int.Parse(Properties.Settings.Default.truncateValue);
+                
+                int tl2 = tl * 2;
+                int end = plotmessage.Text.Length;
+                // int start = end / 2;  // half of it
+                int start = Convert.ToInt32(tl * 0.7) ;
+                
+                int at=0;
+                int tCount=0;
+                //  if (plotmessage.Text.Length > tl2) //about 10 minutes worth on a busy band
+
+                Debug.WriteLine($"tl={tl}  start = {start} at = {at}  CurrentLength={end}");
+
+                if (plotmessage.Text.Length > tl) //about 10 minutes worth on a busy band
+                {
+
+                    at = plotmessage.Text.IndexOf("----", start);
+                Debug.WriteLine($"INSIDE tl={tl}  start = {start} at = {at}  CurrentLength={end}");
+
+                    //while ((start <= end) && (at > -1))
+                    //{
+                    //    Debug.WriteLine(at);
+                    //    tCount = end - start;
+                    //at = plotmessage.Text.IndexOf("----",start,tCount); // find the first one of these (cant use - cause you end up grabbing the negative value -
+                    //    if (at == -1) break;
+                    //    start = at + 1;
+                    //}
+
+
+                    string pm = plotmessage.Text.Substring(at); //grab from ---- to the end of the text and toss the rest
+                    
+                   // string pm = plotmessage.Text.Substring(plotmessage.Text.Length - tl,tl);
+                   plotmessage.Text = pm;
+                 }
 
                 //now lets workout the weightd average - its a lagging indicator of signal strength
                 if (laggingCount > laggingWindow || laggingRound == true) //lagging window is set elsewhere
@@ -514,7 +568,7 @@ namespace PropoPlot
 
             setTimerBarColour(laggingAvg); //this is our progress bar
 
-        }
+        }//end
 
 
 

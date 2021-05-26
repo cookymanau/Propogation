@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-       Title="FT8 Propagation Version Beta 1.3" Height="520" Width="680"  Name="window">
+       Title="FT8 Propagation Version Beta 1.3" Height="540" Width="720"  Name="window">
     <Border Margin="10,0,10,10">
 
         <Grid>
@@ -94,7 +94,7 @@
 
                 <Button x:Name="btnUDPStart"  Click="btnUDPStart_Click"  Content="Start Capture" Grid.Column="0" Margin="5,5"  />
                 <ProgressBar x:Name="timerBar" Grid.Column="0" Grid.ColumnSpan="1" Minimum="0" Maximum="14" Height="10" Margin="5,5" Foreground="#FFEBFBEE"/>
-                <Border BorderThickness="1" BorderBrush="Black" >
+                <Border BorderThickness="1" BorderBrush="Black"  Margin="5" >
                     <!--These are the buttons to plot the data DX Atlas etc-->
                     <TextBlock Text="Mapping"  Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." />
                 </Border>
@@ -111,8 +111,8 @@
                 </StackPanel>
 
 
-                <Border BorderThickness="1" BorderBrush="Black" >
-                    <TextBlock Text="Statistics" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                <Border BorderThickness="1" BorderBrush="Black" Margin="5" >
+                    <TextBlock Text="Statistics" Background="#bbb" FontWeight="Bold" Margin="0,0,0,0"/>
                 </Border>
 
                 <Grid>
@@ -154,7 +154,7 @@
 
                 
                 <!--<TextBox x:Name="plotmessage"  Height="200" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>-->
-                <ScrollViewer  VerticalScrollBarVisibility="Auto" Height="200" Name="qsoScroller"   ScrollChanged="qsoScroller_ScrollChanged">
+                <ScrollViewer  VerticalScrollBarVisibility="Auto" Height="240" Name="qsoScroller"   ScrollChanged="qsoScroller_ScrollChanged">
                 <TextBlock x:Name="plotmessage"   FontSize="11" ScrollViewer.CanContentScroll="True" TextWrapping="WrapWithOverflow"   />
                 </ScrollViewer>
                 
@@ -162,7 +162,7 @@
                 
                 
                 <Border BorderThickness="1" BorderBrush="Black"  >
-                    <TextBlock Text="dBm Averages by continent and cycle decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
+                    <TextBlock Text="dBm Averages by Continent and Cycle Decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
 
                 <!--tHESE ARE  THE Averages by Continent -->
@@ -190,13 +190,13 @@
 
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="EU" Grid.Column="0" Grid.Row="0"/>
-                    <TextBlock Text="JA" Grid.Column="1" Grid.Row="0"/>
-                    <TextBlock Text="NA" Grid.Column="2" Grid.Row="0"/>
-                    <TextBlock Text="OC" Grid.Column="3" Grid.Row="0"/>
-                    <TextBlock Text="AF" Grid.Column="4" Grid.Row="0"/>
-                    <TextBlock Text="SA" Grid.Column="5" Grid.Row="0"/>
-                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0" Name="usrDefinedLabel"/>
+                    <TextBlock Text="EU" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="JA" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="NA" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="OC" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="AF" Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="SA" Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0" Name="usrDefinedLabel"  HorizontalAlignment="Center"/>
 
                     <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
                     <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
@@ -214,13 +214,13 @@
                     <ProgressBar Grid.Column="5" Grid.Row="2" Name="SAprog"/>
                     <ProgressBar Grid.Column="6" Grid.Row="2" Name="FAprog"/>
 
-                    <TextBlock Name="EUdbm" Text="EU" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1" Padding="20,0,0,0"/>
-                    <TextBlock Name="JAdbm" Text="JA" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="NAdbm" Text="NA" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="OCdbm" Text="OC" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="AFdbm" Text="AF" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="SAdbm" Text="SA" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="FAdbm" Text="USR" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Right" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="EUdbm" Text="EU" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1" Padding="20,0,0,0"/>
+                    <TextBlock Name="JAdbm" Text="JA" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="NAdbm" Text="NA" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="OCdbm" Text="OC" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="AFdbm" Text="AF" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="SAdbm" Text="SA" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="FAdbm" Text="USR" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
 
 
                     <!--The Colour Ramp and spare space to the right of the ramp-->
@@ -233,6 +233,16 @@
                     <TextBlock Text="         GT 0dBm " Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="Red" Margin="1"/>
                     <TextBlock Text="FileSave:" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
                     <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="6"  Margin="1" Name="saveFileName"/>
+
+
+                    <TextBlock Text="DX Heard:" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+ 
+                    <TextBlock Text="" Name="dxCallSign" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxLastHeardTime" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxdbm" Grid.Column="5" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxCount" Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    
+
                     <!--<TextBlock Text="cf F1:" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
                     <TextBlock Text="First Compare File" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="6"  Margin="1" x:Name="cfFileOne"/>
                     <TextBlock Text="cf F2:" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>

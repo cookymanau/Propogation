@@ -40,8 +40,8 @@
 	   20200517
 	• Put a two cycle lockout on graph menu item to stop trying to access the plots before there is enough data
 	   20210523
-	• Removed the Earth buttion for the time being, changed som e of the text on controls
-	•
+	• Removed the Earth buttin for the time being, changed some of the text on controls  20210523
+	• Reworked the QSO scroller to have colour and a decent scroll bar.  20210525
 	•
 	•
 	•

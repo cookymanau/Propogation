@@ -754,5 +754,53 @@ namespace PropoPlot.Properties {
                 this["goTryLine"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string yourCall {
+            get {
+                return ((string)(this["yourCall"]));
+            }
+            set {
+                this["yourCall"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string theirCall {
+            get {
+                return ((string)(this["theirCall"]));
+            }
+            set {
+                this["theirCall"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool chkHiLiteDX {
+            get {
+                return ((bool)(this["chkHiLiteDX"]));
+            }
+            set {
+                this["chkHiLiteDX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("70000")]
+        public string truncateValue {
+            get {
+                return ((string)(this["truncateValue"]));
+            }
+            set {
+                this["truncateValue"] = value;
+            }
+        }
     }
 }

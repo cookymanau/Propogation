@@ -33,8 +33,8 @@ namespace PropoPlot
 
         List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads. Its where write the decode period for 15 seconds
 
-        List<string> continentList = new List<string>();  //we store the data into a new list record every period
-        List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
+      //  List<string> continentList = new List<string>();  //we store the data into a new list record every period
+      //  List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
 
         // static List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
         List<string> continentAVGList = new List<string>();  //we store the data into a new list record every period
@@ -249,43 +249,43 @@ namespace PropoPlot
         }//end function
 
 
-        private void save15secCont_Click(object sender, RoutedEventArgs e)
-        {
-            //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
-            //using System.IO; is for SttreamWriter
-            string now = DateTime.Now.ToString("h:mm:ss tt");
+        //private void save15secCont_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
+        //    //using System.IO; is for SttreamWriter
+        //    string now = DateTime.Now.ToString("h:mm:ss tt");
 
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = $"Propo_{now}_"; // Default file name
-            dlg.DefaultExt = ".csv"; // Default file extension
-            dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
+        //    Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+        //    dlg.FileName = $"Propo_{now}_"; // Default file name
+        //    dlg.DefaultExt = ".csv"; // Default file extension
+        //    dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
-            // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
+        //    // Show save file dialog box
+        //    Nullable<bool> result = dlg.ShowDialog();
 
-            // Process save file dialog box results
-            if (result == true)
-            {
-                // Save document
-                string filename = dlg.FileName;
+        //    // Process save file dialog box results
+        //    if (result == true)
+        //    {
+        //        // Save document
+        //        string filename = dlg.FileName;
 
-                // now send all to the filename
-                using (StreamWriter writer = new StreamWriter(filename))
-                {
-                    writer.WriteLine("RingAnt,Zulu,EUdbm,JAdbm,NAdbm,OCdbm,AFdbm,SAdbm,FAdbm,EUcnt,JAcnt,NAcnt,OCcnt,AFcnt,SAcnt,FAcnt"); //this is the csv file header
+        //        // now send all to the filename
+        //        using (StreamWriter writer = new StreamWriter(filename))
+        //        {
+        //            writer.WriteLine("RingAnt,Zulu,EUdbm,JAdbm,NAdbm,OCdbm,AFdbm,SAdbm,FAdbm,EUcnt,JAcnt,NAcnt,OCcnt,AFcnt,SAcnt,FAcnt"); //this is the csv file header
 
-                    foreach (string item in continentList)
-                    {
-                        //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
-                        writer.WriteLine(item);
-                    }//end foreach - writing the list
-                }//und using
-
-
-            }//end if result == true
+        //            foreach (string item in continentAVGList)
+        //            {
+        //                //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
+        //                writer.WriteLine(item);
+        //            }//end foreach - writing the list
+        //        }//und using
 
 
-        }
+        //    }//end if result == true
+
+
+ //       }
 
         private void saveAvgCont_Click(object sender, RoutedEventArgs e)
         {
@@ -310,7 +310,7 @@ namespace PropoPlot
                 // now send all to the filename
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    writer.WriteLine($"{prefix},Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
+                    writer.WriteLine($"{prefix},UTC,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
 
                     foreach (string item in continentAVGList)
                     {
@@ -435,7 +435,7 @@ namespace PropoPlot
         {
             udpStrings.Clear();
             continentAVGList.Clear();
-            continentList.Clear();
+            //continentList.Clear();
             displayTotalDecodes.Text = "0";
             frmMessageDialog md = new frmMessageDialog();
             md.messageBoxUpper.Text = $"Cleared The Lists ";

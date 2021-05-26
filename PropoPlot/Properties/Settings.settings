@@ -185,5 +185,17 @@
     <Setting Name="goTryLine" Type="System.String" Scope="User">
       <Value Profile="(Default)">-10</Value>
     </Setting>
+    <Setting Name="yourCall" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="theirCall" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="chkHiLiteDX" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="truncateValue" Type="System.String" Scope="User">
+      <Value Profile="(Default)">70000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
