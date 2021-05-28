@@ -372,6 +372,7 @@ namespace PropoPlot
                                 //over write the message
                             }
 
+
                           else  if (aFA == 1)  // this is our special continent
                             {
                                 System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
