@@ -78,7 +78,7 @@
             <TextBox x:Name="FALongMin" Grid.Row="7" Grid.Column="3" Margin="10" Text="60.000" />
             <TextBox x:Name="FALongMax" Grid.Row="7" Grid.Column="4" Margin="10" Text="144.000" />
             <!--<TextBlock Text="Notes:" Grid.Row="8" Grid.Column="0" Margin="10" Grid.ColumnSpan="1"/>-->
-            <TextBox x:Name="UsrDefinedName" Grid.Row="8" Grid.Column="0" Margin="5" Text="Usr" />
+            <TextBox x:Name="UsrDefinedName" Grid.Row="8" Grid.Column="0" Margin="5" Text="Usr" TextChanged="UsrDefinedName_TextChanged" />
             <TextBlock Text="Note:  West of 0 -ve. East of 0 long +ve: North of 0 is +ve, south -ve."  Grid.Row="8" Grid.Column="1" Margin="10" Grid.ColumnSpan="5"/>
             <Button x:Name="toolContLatLongExit" Grid.Row="9" Grid.ColumnSpan="10" Content="Close" Click="toolContLatLongExit_Click"  />
 

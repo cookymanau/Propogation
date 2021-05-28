@@ -41,6 +41,7 @@ namespace PropoPlot
         public double[] SAavgs = new double[120];
         public double[] AFavgs = new double[120];
 
+        List<string> messages = new List<string>(); // all of the messages.  
 
         public string prefix = "JTDX";
         public int avgsCounter = 0;
@@ -117,6 +118,8 @@ namespace PropoPlot
                 int aJA = 0;
                 int aDXA = 0; //for the callsign we are chasing
                 int aDEA = 0;  // for my callsign  VK6DW
+
+                string continent = "";
                 int counter = 0;
                 counter += counter;///???
 
@@ -253,6 +256,7 @@ namespace PropoPlot
                                 totaldbmJA += double.Parse(ul.udpdbm);  //this is the running tally of the dbms
                                 counterJA += 1;                         //this is the number of stations in the continent
                                 aJA = 1;
+                                continent = "JA";
                             }
 
                             //Europe
@@ -262,6 +266,7 @@ namespace PropoPlot
                                 totaldbmEU += double.Parse(ul.udpdbm);
                                 counterEU += 1;
                                 aEU = 1;
+                                continent = "EU";
                             }
 
                             //NA
@@ -271,6 +276,7 @@ namespace PropoPlot
                                 totaldbmNA += double.Parse(ul.udpdbm);
                                 counterNA += 1;
                                 aNA = 1;
+                                continent = "NA";
                             }
 
 
@@ -281,6 +287,7 @@ namespace PropoPlot
                                 totaldbmOC += double.Parse(ul.udpdbm);
                                 counterOC += 1;
                                 aOC = 1;
+                                continent = "OC";
                             }
 
 
@@ -291,6 +298,7 @@ namespace PropoPlot
                                 totaldbmAF += double.Parse(ul.udpdbm);
                                 counterAF += 1;
                                 aAF = 1;
+                                continent = "AF";
                             }
 
                             //SA
@@ -300,6 +308,7 @@ namespace PropoPlot
                                 totaldbmSA += double.Parse(ul.udpdbm);
                                 counterSA += 1;
                                 aSA = 1;
+                                continent = "SA";
                             }
                             //FA Far East China india indonesia phillppines Japan
                             //                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
@@ -308,6 +317,7 @@ namespace PropoPlot
                                 totaldbmFA += double.Parse(ul.udpdbm);
                                 counterFA += 1;
                                 aFA = 1;
+                                continent = "FA";
                             }
 
                             string cs = Properties.Settings.Default.theirCall;
@@ -338,11 +348,16 @@ namespace PropoPlot
                             //using string interpolation to format the string as well
                          
                             if (aDXA == 1)
-                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX:++{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} \r\n";   //this just a display of data
+                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX:++{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3}\r\n";   //this just a display of data
                             else
-                               message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} \r\n";   //this just a display of data
+                               message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3} \r\n";   //this just a display of data
                             //message = $"UTC:{ul.udptime}\tGrid:{ul.udpqso3}\tdBm:{ul.udpdbm}\tDX:{ul.udpqso2}\tLat:{latitude}\tLong:{longitude} \r\n";   //this just a display of data
 
+                            string messForList = "";
+                                 //this just a display of data
+
+
+                           
 
                             // this only about making the QSO box look nice.  No stats collected here
                             if (aDXA == 1)  // this is our special continent
@@ -353,6 +368,7 @@ namespace PropoPlot
                                 run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aDXA = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:DX";
                                 //over write the message
                             }
 
@@ -364,6 +380,7 @@ namespace PropoPlot
                                 run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aFA = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:FA";
                             } 
                            else if (aAF == 1)
                             {
@@ -373,6 +390,7 @@ namespace PropoPlot
                                 //run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aAF = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:AF";
                             }
                             else if (aJA == 1)
                             {
@@ -380,6 +398,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aJA = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:JA";
 
                             }
                             else if (aSA == 1)
@@ -388,6 +407,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aSA = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:SA";
                             }
                             else if (aNA == 1)
                             {
@@ -395,6 +415,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aNA = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:NA";
                             }
                             else if (aEU == 1)
                             {
@@ -402,6 +423,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aEU = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:EU";
                             }
                             else if (aOC == 1)
                             {
@@ -409,12 +431,14 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aOC = 0;
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:OC";
                             }
                             else
                             {
                                 System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
                                 run.Foreground = System.Windows.Media.Brushes.DarkViolet;
                                 plotmessage.Inlines.Add(run);
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:None";
                             }
 
                             counter++;  //this counter goes up by not 1
@@ -423,6 +447,9 @@ namespace PropoPlot
                             {
                                 totaldbm += double.Parse(ul.udpdbm);
                             }
+
+
+                            messages.Add(messForList);    // so lets start making a list of the messages
                         }
 
                         loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square
@@ -509,31 +536,21 @@ namespace PropoPlot
                 int start = Convert.ToInt32(tl * 0.7) ;
                 
                 int at=0;
-                int tCount=0;
+              //  int tCount=0;
                 //  if (plotmessage.Text.Length > tl2) //about 10 minutes worth on a busy band
 
-                Debug.WriteLine($"tl={tl}  start = {start} at = {at}  CurrentLength={end}");
+               // Debug.WriteLine($"tl={tl}  start = {start} at = {at}  CurrentLength={end}");
 
                 if (plotmessage.Text.Length > tl) //about 10 minutes worth on a busy band
                 {
 
                     at = plotmessage.Text.IndexOf("----", start);
-                Debug.WriteLine($"INSIDE tl={tl}  start = {start} at = {at}  CurrentLength={end}");
+              //  Debug.WriteLine($"INSIDE tl={tl}  start = {start} at = {at}  CurrentLength={end}");
 
-                    //while ((start <= end) && (at > -1))
-                    //{
-                    //    Debug.WriteLine(at);
-                    //    tCount = end - start;
-                    //at = plotmessage.Text.IndexOf("----",start,tCount); // find the first one of these (cant use - cause you end up grabbing the negative value -
-                    //    if (at == -1) break;
-                    //    start = at + 1;
-                    //}
+                     string pm = plotmessage.Text.Substring(at); //grab from ---- to the end of the text and toss the rest
 
-
-                    string pm = plotmessage.Text.Substring(at); //grab from ---- to the end of the text and toss the rest
-                    
-                   // string pm = plotmessage.Text.Substring(plotmessage.Text.Length - tl,tl);
-                   plotmessage.Text = pm;
+                    colourQSO(messages);
+                    //plotmessage.Text = pm;  //write all back to the display
                  }
 
                 //now lets workout the weightd average - its a lagging indicator of signal strength

@@ -5,7 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-       Title="FT8 Propagation Version Beta 1.3" Height="540" Width="720"  Name="window">
+       Title="FT8 Propagation Version Beta 1.3" Height="540" Width="765"  Name="window">
+
+
+    <!--<Window.Resources>
+        <Style TargetType="{x:Type Control}" x:Key="baseStyle">
+            <Setter Property="FontSize" Value="5" />
+        </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource baseStyle}"></Style>
+        --><!--<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource baseStyle}"></Style>-->
+         <!--ComboBox, RadioButton, CheckBox, etc...--><!-- 
+    </Window.Resources>-->
+
+
     <Border Margin="10,0,10,10">
 
         <Grid>
@@ -23,15 +38,23 @@
             <Menu Grid.ColumnSpan="3">
 
                 <MenuItem Header="_File" >
-                    <MenuItem Header="_Save Data" Name="saveAvgCont" Click="saveAvgCont_Click" >
+                    <MenuItem Header="_Save dBm Data" Name="saveAvgCont" Click="saveAvgCont_Click" >
                         <MenuItem.Icon>
                             <Image Source="/floppy.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <!-- <MenuItem Header="_Save 15sec Data" Name="save15secCont" Click="save15secCont_Click" /> -->
-                    <MenuItem Header="_Read Data" Name="readAvgCont" Click="readAvgCont_Click"  />
+                    <MenuItem Header="_Read dBm Data" Name="readAvgCont" Click="readAvgCont_Click"  />
                     <Separator/>
-                    
+
+                    <MenuItem Header="_Save QSO Data" Name="saveQSOCont" Click="saveQSOCont_Click" >
+                        <MenuItem.Icon>
+                            <Image Source="/floppy.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Read QSO Data" Name="readQSOCont" Click="readQSOCont_Click"   />
+
+                    <Separator/>
                     <MenuItem Header="_Compare Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
                     <Separator/>
 
@@ -149,18 +172,18 @@
             <StackPanel Grid.Column="1" Grid.Row="1">
 
                 <Border BorderThickness="1" BorderBrush="Black" >
-                    <TextBlock Text="UDP Decodes with valid Maidenhead Grid Square" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="Black text are decodes within continent boundary. Purple are decodes outside of any continent. Red are decodes within the User Defined continent."/>
+                    <TextBlock Text="UDP Decodes with valid Maidenhead Grid Square" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="Black text are decodes within continent boundary. Purple are decodes outside of any continent. Red are decodes within the User Defined continent. Green are your DE filter."/>
                 </Border>
 
-                
+
                 <!--<TextBox x:Name="plotmessage"  Height="200" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>-->
                 <ScrollViewer  VerticalScrollBarVisibility="Auto" Height="240" Name="qsoScroller"   ScrollChanged="qsoScroller_ScrollChanged">
-                <TextBlock x:Name="plotmessage"   FontSize="11" ScrollViewer.CanContentScroll="True" TextWrapping="WrapWithOverflow"   />
+                    <TextBlock x:Name="plotmessage"   FontSize="11" ScrollViewer.CanContentScroll="True" TextWrapping="WrapWithOverflow"   />
                 </ScrollViewer>
-                
-                
-                
-                
+
+
+
+
                 <Border BorderThickness="1" BorderBrush="Black"  >
                     <TextBlock Text="dBm Averages by Continent and Cycle Decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
                 </Border>
@@ -196,7 +219,7 @@
                     <TextBlock Text="OC" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center"/>
                     <TextBlock Text="AF" Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center"/>
                     <TextBlock Text="SA" Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0" Name="usrDefinedLabel"  HorizontalAlignment="Center"/>
+                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0" Name="usrDefinedLabel"  HorizontalAlignment="Center" Height="20" VerticalAlignment="Top"/>
 
                     <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
                     <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
@@ -236,12 +259,12 @@
 
 
                     <TextBlock Text="DX Heard:" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
- 
+
                     <TextBlock Text="" Name="dxCallSign" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
                     <TextBlock Text="" Name="dxLastHeardTime" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
                     <TextBlock Text="" Name="dxdbm" Grid.Column="5" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
                     <TextBlock Text="" Name="dxCount" Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    
+
 
                     <!--<TextBlock Text="cf F1:" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
                     <TextBlock Text="First Compare File" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="6"  Margin="1" x:Name="cfFileOne"/>

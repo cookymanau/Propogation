@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PropoPlot
 {
@@ -26,27 +27,78 @@ namespace PropoPlot
         }
 
 
-        public void colourQSO(string latitude, string longitude, string xDXA)
+        public void colourQSO(List<string> message )
         {
-            string message;
-            message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} \r\n";   //this just a display of data
+
+            string cont = "";
+
+            foreach (var item in message)
+            {
+
+                cont = item.Substring(item.Length - 5, 2);
 
 
+                if (cont == "DX")  // this is our special continent
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Green;
+                    run.FontWeight = FontWeights.ExtraBold;
+                    run.FontSize = 10;
+                    plotmessage.Inlines.Add(run);
+                }
 
-
-            //if (aDXA == 1)  // this is our special continent
-            //{
-            //    System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
-            //    run.Foreground = System.Windows.Media.Brushes.Green;
-            //    run.FontWeight = FontWeights.ExtraBold;
-            //    run.FontSize = 10;
-            //    plotmessage.Inlines.Add(run);
-            //    aDXA = 0;
-            //    //over write the message
-            //    message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX:{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} \r\n";   //this just a display of data
-            //}
-
-
+                else if ( cont == "FA" )  // this is our special continent
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Red;
+                    run.FontWeight = FontWeights.ExtraBold;
+                    run.FontSize = 10;
+                    plotmessage.Inlines.Add(run);
+                }
+                else if (cont == "AF" )
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Black;
+                    plotmessage.Inlines.Add(run);
+                }
+                else if (cont == "JA" )
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Black;
+                    plotmessage.Inlines.Add(run);
+                }
+                else if (cont == "SA" )
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Black;
+                    plotmessage.Inlines.Add(run);
+                }
+                else if (cont == "NA" )
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Black;
+                    plotmessage.Inlines.Add(run);
+                }
+                else if (cont == "EU")
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Black;
+                    plotmessage.Inlines.Add(run);
+                }
+                else if (cont == "OC")
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.Black;
+                    plotmessage.Inlines.Add(run);
+                }
+                else
+                {
+                    System.Windows.Documents.Run run = new System.Windows.Documents.Run(item);
+                    run.Foreground = System.Windows.Media.Brushes.DarkViolet;
+                    plotmessage.Inlines.Add(run);
+                }
+            }//end of foreach
+           // plotmessage.Text =  ;  //write all back to the display
         }
 
 

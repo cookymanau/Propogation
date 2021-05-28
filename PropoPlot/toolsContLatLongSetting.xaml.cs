@@ -104,5 +104,16 @@ namespace PropoPlot
             Properties.Settings.Default.Save();
             this.Close();
         }
+
+        private void UsrDefinedName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+                       
+            
+
+            
+
+
+        }//end
     }
 }
