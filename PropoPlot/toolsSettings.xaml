@@ -37,18 +37,26 @@
                         <Label Content="DX" Margin="0,5" />
                     </DockPanel>
   
-                    <DockPanel>
+                    <!--<DockPanel>
                         <CheckBox Name="chkHiLiteDX" Content="          HiLight DX" IsEnabled="true" Margin="5,5" />
-                    </DockPanel>
+                    </DockPanel>-->
                     
                     <DockPanel>
-                        <TextBox Name="truncateValue" Width="65"  Margin="5,5" Text="70000" ToolTip="The QSO scroller must truncate itself periodically.  This can be set here.  On a busy band, 70,000 charachters is about 10 minutes worth." />
+                        <TextBox Name="truncateValue" Width="65"  Margin="5,5" Text="90000" ToolTip="The QSO scroller must truncate itself periodically.  This can be set here.  On a busy band, 70,000 charachters is about 10 minutes worth." />
                         <Label Content="QSO Box" Margin="0,5" />
                     </DockPanel>
                     <DockPanel>
                         <TextBox Name="goTryLine" Text="dBm" Width="35" Margin="5,5" ToolTip="A horizontal line you can place anywhere."/>
                         <Label Content="dBm Marker Line" Margin="0,5" />
                     </DockPanel>
+
+                    <DockPanel>
+                        <TextBox Name="myFontSize"  Width="45" Margin="5,5"  Text="12" ToolTip="A number 10 to 20. You must exit and restart to see the change. " TextChanged="myFontSize_TextChanged"/>
+                        <Label Content="FontSize" Margin="0,5" />
+                    </DockPanel>
+
+
+
 
                 </StackPanel>
             </GroupBox>

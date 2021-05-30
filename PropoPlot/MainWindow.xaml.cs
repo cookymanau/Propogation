@@ -29,15 +29,15 @@ namespace PropoPlot
     public partial class MainWindow : Window
     {
 
-      
+
 
         continentData cd = new continentData();  //this is our class holding all of the data we generate dBm PERIOD average, number of decodes
         continentData cdAvg = new continentData();  //this is our class holding all of the data we generate dBm WEIGHTED average, number of decodes
 
         List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads. Its where write the decode period for 15 seconds
 
-      //  List<string> continentList = new List<string>();  //we store the data into a new list record every period
-      //  List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
+        //  List<string> continentList = new List<string>();  //we store the data into a new list record every period
+        //  List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
 
         // static List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
         List<string> continentAVGList = new List<string>();  //we store the data into a new list record every period
@@ -52,7 +52,7 @@ namespace PropoPlot
         int cycleCounter = 0;
 
 
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,6 +62,9 @@ namespace PropoPlot
 
             usrDefinedLabel.Text = Properties.Settings.Default.UsrDefinedName;
             GraphsMainMenu.IsEnabled = false;
+
+            window.FontSize = double.Parse(Properties.Settings.Default.myFontSize);
+
         }
 
         private void ButtonUDPport_click(object sender, RoutedEventArgs e)
@@ -72,7 +75,7 @@ namespace PropoPlot
 
         private void plotmessage_TextChanged(object sender, TextChangedEventArgs e)
         {
-           // plotmessage.ScrollToEnd();
+            // plotmessage.ScrollToEnd();
         }
 
         private void btnDXatlas_Click(object sender, RoutedEventArgs e)
@@ -142,7 +145,7 @@ namespace PropoPlot
                 cycleCounter += 1;  //keep counting how many times we go throuh this
                 displayTotalCycles.Text = cycleCounter.ToString();
                 // timerBar.Value = timercounter;
-   
+
                 if (cycleCounter > 2)
                     GraphsMainMenu.IsEnabled = true;
 
@@ -441,9 +444,9 @@ namespace PropoPlot
 
         private void readAvgCont_Click(object sender, RoutedEventArgs e)
         {
-                 Cursor fred = this.Cursor; //sav e the current cursor
-                //this.Cursor = Cursors.Wait;
-                
+            Cursor fred = this.Cursor; //sav e the current cursor
+                                       //this.Cursor = Cursors.Wait;
+
 
             {
                 //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
@@ -466,7 +469,7 @@ namespace PropoPlot
                     saveFileName.Text = dlg.FileName;  //write the file name on the UI
 
                     //// now send all to the filename
-                //continentAVGList.Add("RingAnt,Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
+                    //continentAVGList.Add("RingAnt,Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
                     using (StreamReader reader = new StreamReader(filename))
                     {
                         string line;
@@ -476,19 +479,19 @@ namespace PropoPlot
                             {
                                 continentAVGList.Add(line);
                             }
-                                count += 1;
+                            count += 1;
                         }
 
                     }//end using
                 }//end if result == true
 
-                colourQSO(continentAVGList);
+               // colourQSO(continentAVGList);
 
                 //continentAVGList.RemoveAt(0);
                 //remove the first line of the list - it breaks things
                 displayTotalDecodes.Text = (int.Parse(displayTotalDecodes.Text) + count).ToString();
                 this.Cursor = fred;
-                GraphsMainMenu.IsEnabled = true; 
+                GraphsMainMenu.IsEnabled = true;
             } //end of method
 
 
@@ -501,7 +504,7 @@ namespace PropoPlot
             gh.Show();
         }
 
- 
+
 
         private void graphFaros_Click(object sender, RoutedEventArgs e)
         {
@@ -520,7 +523,7 @@ namespace PropoPlot
         {
             plotOfFaros pf = new plotOfFaros();
             pf.Show();
-            
+
         }
 
 
@@ -591,7 +594,7 @@ namespace PropoPlot
                 }//und using
 
             }
-            }
+        }
 
         private void readQSOCont_Click(object sender, RoutedEventArgs e)
         {
@@ -637,14 +640,43 @@ namespace PropoPlot
                 //continentAVGList.RemoveAt(0);
                 //remove the first line of the list - it breaks things
                 displayTotalDecodes.Text = (int.Parse(displayTotalDecodes.Text) + count).ToString();
-
                 GraphsMainMenu.IsEnabled = true;
+
+                //window.FontSize = 8.0;
+            }
+        }
+
+        private void window_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+     //       if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
+            //{
+            //    if (e.Delta > 0)
+            //        ++window.FontSize;
+            //    if (e.Delta < 0 && window.FontSize > 1)
+            //        --window.FontSize;
+            //}
+
+
+
+        }
+
+        private void txtZoomer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                ++window.FontSize;
+              //  window.Width += 10;
+              //  window.Height += 10;
+   
+                if (e.Delta < 0 && window.FontSize > 1)
+            {
+                --window.FontSize;
+                // window.Width -= 10;
+                //window.Height -= 10;
             }
 
-
-
-
             }
+        }
     }//end of class
 
 }

@@ -261,7 +261,7 @@ namespace PropoPlot
 
                             //Europe
                             //if (dlatitude > 34 && dlatitude < 72  && dlongitude > -12 && dlongitude <  60) 
-                            if (dlatitude > double.Parse(tll.EULatMin.Text) && dlatitude < double.Parse(tll.EULatMax.Text) && dlongitude > double.Parse(tll.EULongMin.Text) && dlongitude < double.Parse(tll.EULongMax.Text))
+                            else if (dlatitude > double.Parse(tll.EULatMin.Text) && dlatitude < double.Parse(tll.EULatMax.Text) && dlongitude > double.Parse(tll.EULongMin.Text) && dlongitude < double.Parse(tll.EULongMax.Text))
                             {
                                 totaldbmEU += double.Parse(ul.udpdbm);
                                 counterEU += 1;
@@ -271,7 +271,7 @@ namespace PropoPlot
 
                             //NA
                             //if (dlatitude > 12 && dlatitude < 90 && dlongitude > -131 && dlongitude < -54)
-                            if (dlatitude > double.Parse(tll.NALatMin.Text) && dlatitude < double.Parse(tll.NALatMax.Text) && dlongitude > double.Parse(tll.NALongMin.Text) && dlongitude < double.Parse(tll.NALongMax.Text))
+                            else if (dlatitude > double.Parse(tll.NALatMin.Text) && dlatitude < double.Parse(tll.NALatMax.Text) && dlongitude > double.Parse(tll.NALongMin.Text) && dlongitude < double.Parse(tll.NALongMax.Text))
                             {
                                 totaldbmNA += double.Parse(ul.udpdbm);
                                 counterNA += 1;
@@ -282,7 +282,7 @@ namespace PropoPlot
 
                             //OC
                             //if (dlatitude > -54 && dlatitude < 28 && dlongitude > 112 && dlongitude < 126)
-                            if (dlatitude > double.Parse(tll.OCLatMin.Text) && dlatitude < double.Parse(tll.OCLatMax.Text) && dlongitude > double.Parse(tll.OCLongMin.Text) && dlongitude < double.Parse(tll.OCLongMax.Text))
+                            else if (dlatitude > double.Parse(tll.OCLatMin.Text) && dlatitude < double.Parse(tll.OCLatMax.Text) && dlongitude > double.Parse(tll.OCLongMin.Text) && dlongitude < double.Parse(tll.OCLongMax.Text))
                             {
                                 totaldbmOC += double.Parse(ul.udpdbm);
                                 counterOC += 1;
@@ -293,7 +293,7 @@ namespace PropoPlot
 
                             //AF
                             //if (dlatitude > -35 && dlatitude < 34 && dlongitude > -20 && dlongitude < 50)
-                            if (dlatitude > double.Parse(tll.AFLatMin.Text) && dlatitude < double.Parse(tll.AFLatMax.Text) && dlongitude > double.Parse(tll.AFLongMin.Text) && dlongitude < double.Parse(tll.AFLongMax.Text))
+                            else if (dlatitude > double.Parse(tll.AFLatMin.Text) && dlatitude < double.Parse(tll.AFLatMax.Text) && dlongitude > double.Parse(tll.AFLongMin.Text) && dlongitude < double.Parse(tll.AFLongMax.Text))
                             {
                                 totaldbmAF += double.Parse(ul.udpdbm);
                                 counterAF += 1;
@@ -303,7 +303,7 @@ namespace PropoPlot
 
                             //SA
                             //if (dlatitude > -60 && dlatitude < 12 && dlongitude > -90 && dlongitude < -32)
-                            if (dlatitude > double.Parse(tll.SALatMin.Text) && dlatitude < double.Parse(tll.SALatMax.Text) && dlongitude > double.Parse(tll.SALongMin.Text) && dlongitude < double.Parse(tll.SALongMax.Text))
+                            else if (dlatitude > double.Parse(tll.SALatMin.Text) && dlatitude < double.Parse(tll.SALatMax.Text) && dlongitude > double.Parse(tll.SALongMin.Text) && dlongitude < double.Parse(tll.SALongMax.Text))
                             {
                                 totaldbmSA += double.Parse(ul.udpdbm);
                                 counterSA += 1;
@@ -312,16 +312,24 @@ namespace PropoPlot
                             }
                             //FA Far East China india indonesia phillppines Japan
                             //                        if (dlatitude > -9 && dlatitude < 90 && dlongitude > 60 && dlongitude < 144)
-                            if (dlatitude > double.Parse(tll.FALatMin.Text) && dlatitude < double.Parse(tll.FALatMax.Text) && dlongitude > double.Parse(tll.FALongMin.Text) && dlongitude < double.Parse(tll.FALongMax.Text))
+                            else if (dlatitude > double.Parse(tll.FALatMin.Text) && dlatitude < double.Parse(tll.FALatMax.Text) && dlongitude > double.Parse(tll.FALongMin.Text) && dlongitude < double.Parse(tll.FALongMax.Text))
                             {
                                 totaldbmFA += double.Parse(ul.udpdbm);
                                 counterFA += 1;
                                 aFA = 1;
-                                continent = "FA";
+                                continent = Properties.Settings.Default.UsrDefinedName;
                             }
+                            else
+                            {
+                                continent = "None";
+
+                            }
+
 
                             string cs = Properties.Settings.Default.theirCall;
                             
+                           
+                            //this is for the DX call set up in tools\options.  ITs a substring search
                             if ( (ul.udpqso2.Contains(cs) || ul.udpqso3.Contains(cs)) && cs != "")
                         {
                                 aDXAcount += 1;
@@ -331,10 +339,6 @@ namespace PropoPlot
                                 dxdbm.Text = ul.udpdbm;
                                 dxCount.Text = aDXAcount.ToString();
 
-                          //      if (OldCallSign != Properties.Settings.Default.theirCall)
-                           //         aDXAcount = 0;
-
-                           //     OldCallSign = cs;
 
                            }
 
@@ -348,9 +352,9 @@ namespace PropoPlot
                             //using string interpolation to format the string as well
                          
                             if (aDXA == 1)
-                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX:++{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3}\r\n";   //this just a display of data
+                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,+8}\tDX:+{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3}\r\n";   //this just a display of data
                             else
-                               message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3} \r\n";   //this just a display of data
+                               message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,+8}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3} \r\n";   //this just a display of data
                             //message = $"UTC:{ul.udptime}\tGrid:{ul.udpqso3}\tdBm:{ul.udpdbm}\tDX:{ul.udpqso2}\tLat:{latitude}\tLong:{longitude} \r\n";   //this just a display of data
 
                             string messForList = "";
@@ -364,8 +368,8 @@ namespace PropoPlot
                             {
                                 System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
                                 run.Foreground = System.Windows.Media.Brushes.Green;
-                                run.FontWeight = FontWeights.ExtraBold;
-                                run.FontSize = 10;
+                                //run.FontWeight = FontWeights.ExtraBold;
+                                //run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aDXA = 0;
                                 messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:DX";
@@ -377,11 +381,11 @@ namespace PropoPlot
                             {
                                 System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
                                 run.Foreground = System.Windows.Media.Brushes.Red;
-                                run.FontWeight = FontWeights.ExtraBold;
-                                run.FontSize = 10;
+                                //run.FontWeight = FontWeights.ExtraBold;
+                               // run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aFA = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:FA";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:{Properties.Settings.Default.UsrDefinedName}";
                             } 
                            else if (aAF == 1)
                             {
@@ -550,8 +554,8 @@ namespace PropoPlot
 
                      string pm = plotmessage.Text.Substring(at); //grab from ---- to the end of the text and toss the rest
 
-                    colourQSO(messages);
-                    //plotmessage.Text = pm;  //write all back to the display
+                    //colourQSO(messages);
+                    plotmessage.Text = pm;  //write all back to the display
                  }
 
                 //now lets workout the weightd average - its a lagging indicator of signal strength

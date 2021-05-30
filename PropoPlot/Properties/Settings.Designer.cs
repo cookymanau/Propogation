@@ -802,5 +802,17 @@ namespace PropoPlot.Properties {
                 this["truncateValue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public string myFontSize {
+            get {
+                return ((string)(this["myFontSize"]));
+            }
+            set {
+                this["myFontSize"] = value;
+            }
+        }
     }
 }

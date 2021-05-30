@@ -197,5 +197,8 @@
     <Setting Name="truncateValue" Type="System.String" Scope="User">
       <Value Profile="(Default)">70000</Value>
     </Setting>
+    <Setting Name="myFontSize" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

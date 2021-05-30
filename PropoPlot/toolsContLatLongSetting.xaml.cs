@@ -108,11 +108,6 @@ namespace PropoPlot
         private void UsrDefinedName_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-                       
-            
-
-            
-
 
         }//end
     }

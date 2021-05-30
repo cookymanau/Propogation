@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:PropoPlot"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <!--<Style TargetType="{x:Type Control}" x:Key="GlobalFontSize">
+            <Setter Property="FontSize" Value="28"/>
+        </Style>-->
+
     </Application.Resources>
 </Application>

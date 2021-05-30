@@ -4,21 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
+         
+         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        
         mc:Ignorable="d"
-       Title="FT8 Propagation Version Beta 1.3" Height="540" Width="765"  Name="window">
+       FontSize="11"
+       Title="FT8 Propagation Version Beta 1.3" Height="560" Width="795"  Name="window" PreviewMouseWheel="window_PreviewMouseWheel">
+
+    <Window.Resources>
+        <sys:Double x:Key="fontSize">18</sys:Double>
+        <Style TargetType="{x:Type Window}" >
+            <Setter Property="FontSize" Value="{DynamicResource fontSize}"/>
+        </Style>
+
+
+    </Window.Resources>
 
 
     <!--<Window.Resources>
-        <Style TargetType="{x:Type Control}" x:Key="baseStyle">
-            <Setter Property="FontSize" Value="5" />
-        </Style>
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource baseStyle}"></Style>
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}"></Style>
-        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource baseStyle}"></Style>
-        <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource baseStyle}"></Style>
-        --><!--<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource baseStyle}"></Style>-->
-         <!--ComboBox, RadioButton, CheckBox, etc...--><!-- 
-    </Window.Resources>-->
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontSize" Value="10" />
+        </Style>-->
+    <!--<Style TargetType="{x:Type Button}" BasedOn="{StaticResource baseStyle}"></Style>-->
+    <!--<Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}"></Style>-->
+    <!--<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource baseStyle}"></Style>-->
+    <!--<Style TargetType="{x:Type ListView}" BasedOn="{StaticResource baseStyle}"></Style>-->
+
+    <!--</Window.Resources>-->
 
 
     <Border Margin="10,0,10,10">
@@ -26,7 +38,7 @@
         <Grid>
             <!--Main Grid is two columns, on fixed on the left-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="135"/>
                 <!-- fixed this to a reasonable size-->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -52,7 +64,7 @@
                             <Image Source="/floppy.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="_Read QSO Data" Name="readQSOCont" Click="readQSOCont_Click"   />
+                    <!--<MenuItem Header="_Read QSO Data" Name="readQSOCont" Click="readQSOCont_Click"   />-->
 
                     <Separator/>
                     <MenuItem Header="_Compare Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
@@ -128,8 +140,8 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnResetList"   Content=" Reset " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Clears the arrays and lists and starts again."/>
-                    <!--<Button x:Name="btnResetAvgs"   Content="0 AVG" Grid.Column="0" Margin="5,5" Click="btnResetAvgs_Click" />
-                    <Button x:Name="btntst"   Content="Tst" Grid.Column="0" Margin="5,5" Click="btntst_Click"  />-->
+                    <TextBlock x:Name="txtZoomer"   Text="Zoom Here"  Grid.Column="0" Margin="5"  PreviewMouseWheel="txtZoomer_PreviewMouseWheel" />
+
 
                 </StackPanel>
 
@@ -140,7 +152,9 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="73"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -153,33 +167,27 @@
                     </Grid.RowDefinitions>
 
                     <!-- these are the text boxes where we can put averages etc-->
-                    <TextBlock Text="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="5" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square."/>
-                    <TextBlock Text="Value" Name="avgdbm" Grid.Column="1" Grid.Row="0" Margin="5" ToolTip="The average of all decodes over a 6 decode period."/>
-                    <TextBlock Text="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="5" ToolTip="The average of all decodes over a 75 second period"/>
-                    <TextBlock Text="0" x:Name="runningAvgDbm" Grid.Column="1" Grid.Row="1" Margin="5"/>
-                    <TextBlock Text="Last Decodes"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5" ToolTip="The number of decodes with a 4 character maidenhead grid square in the last 15 second period for FT8"/>
-                    <TextBlock Text="0" x:Name="loopCnt"  Grid.Column="1" Grid.Row="2" Margin="5"/>
-                    <TextBlock Text="Total Decodes" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5,5,5,0" ToolTip="How many decodes in total that we have done. " Height="16" VerticalAlignment="Top"/>
-                    <TextBlock Text="0" Name="displayTotalDecodes"  Grid.Column="1" Grid.Row="3" Margin="5" Height="16" VerticalAlignment="Center"/>
+                    <Label Content="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square." Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" Name="avgdbm" Grid.Column="3" Grid.Row="0" Margin="5,5,5,5" ToolTip="The average of all decodes over a 6 decode period."/>
 
-                    <TextBlock Text="Cycles" Background="#bbb"  Grid.Column="0" Grid.Row="4" Margin="5" ToolTip="The total number of FT8 cycles we have done. " Height="16" VerticalAlignment="Top"/>
-                    <TextBlock Text="0" Name="displayTotalCycles"  Grid.Column="1" Grid.Row="4" Margin="5"/>
+                    <Label Content="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square." Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" x:Name="runningAvgDbm" Grid.Column="3" Grid.Row="1" Margin="2,2,2,2"/>
+
+                    <Label Content="Last Decodes"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" ToolTip="The number of decodes with a 4 character maidenhead grid square in the last 15 second period for FT8" Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" x:Name="loopCnt"  Grid.Column="3" Grid.Row="2" Margin="2,2,2,2"/>
+
+                    <Label Content="Total Decodes" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="2,0,2,0" ToolTip="How many decodes in total that we have done. " VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" Name="displayTotalDecodes"  Grid.Column="3" Grid.Row="3" Margin="2,0,2,0" Height="16" VerticalAlignment="Center"/>
+
+                    <Label Content="Cycles" Background="#bbb"  Grid.Column="0" Grid.Row="4" Margin="2,0,2,0" ToolTip="The total number of FT8 cycles we have done." VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" Name="displayTotalCycles"  Grid.Column="3" Grid.Row="4" Margin="2,2,2,2"/>
 
 
                 </Grid>
             </StackPanel>
+
             <!--Right hand column with the decodes window-->
             <StackPanel Grid.Column="1" Grid.Row="1">
-
-                <Border BorderThickness="1" BorderBrush="Black" >
-                    <TextBlock Text="UDP Decodes with valid Maidenhead Grid Square" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="Black text are decodes within continent boundary. Purple are decodes outside of any continent. Red are decodes within the User Defined continent. Green are your DE filter."/>
-                </Border>
-
-
-                <!--<TextBox x:Name="plotmessage"  Height="200" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>-->
-                <ScrollViewer  VerticalScrollBarVisibility="Auto" Height="240" Name="qsoScroller"   ScrollChanged="qsoScroller_ScrollChanged">
-                    <TextBlock x:Name="plotmessage"   FontSize="11" ScrollViewer.CanContentScroll="True" TextWrapping="WrapWithOverflow"   />
-                </ScrollViewer>
 
 
 
@@ -283,6 +291,17 @@
                     <TextBlock Text="rAverage" Name="rAverage"   Grid.Column="6" Grid.Row="5"/> -->
 
                 </Grid>
+                <Border BorderThickness="1" BorderBrush="Black" >
+                    <TextBlock Text="UDP Decodes with valid Maidenhead Grid Square" Grid.Column="1" Grid.Row="1" Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="Black text are decodes within continent boundary. Purple are decodes outside of any continent. Red are decodes within the User Defined continent. Green are your DE filter."/>
+                </Border>
+                <!--<TextBox x:Name="plotmessage"  Height="200" VerticalScrollBarVisibility="Visible" TextChanged="plotmessage_TextChanged" FontSize="11"/>-->
+                <ScrollViewer  VerticalScrollBarVisibility="Visible" MaxHeight="250"  Grid.Column="1" Name="qsoScroller"   ScrollChanged="qsoScroller_ScrollChanged">
+                    <!--<ScrollViewer  VerticalScrollBarVisibility="Auto"  Name="qsoScroller"   ScrollChanged="qsoScroller_ScrollChanged">-->
+                    <TextBlock x:Name="plotmessage"   ScrollViewer.CanContentScroll="True" TextWrapping="WrapWithOverflow"   />
+                </ScrollViewer>
+
+
+
             </StackPanel>
             <!--The End-->
 

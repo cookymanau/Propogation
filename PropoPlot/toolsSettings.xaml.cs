@@ -73,9 +73,11 @@ namespace PropoPlot
             yourCall.Text = Properties.Settings.Default.yourCall;
             theirCall.Text = Properties.Settings.Default.theirCall;
             truncateValue.Text = Properties.Settings.Default.truncateValue;
+            myFontSize.Text = Properties.Settings.Default.myFontSize;
+
 
             //  chkHiLiteDX.IsEnabled = Properties.Settings.Default.chkHiLiteDX ;
-            chkHiLiteDX.IsChecked  =  Properties.Settings.Default.chkHiLiteDX ;
+          //  chkHiLiteDX.IsChecked  =  Properties.Settings.Default.chkHiLiteDX ;
 
 
 
@@ -90,6 +92,15 @@ namespace PropoPlot
 
         private void toolSettingsApply_Click(object sender, RoutedEventArgs e)
         {
+
+            MainWindow mw = new MainWindow();
+            
+            //   Style = (Style)FindResource(typeof(Window));
+
+            mw.window.FontSize = double.Parse(myFontSize.Text);
+            mw.FontSize = double.Parse(myFontSize.Text);
+
+
             saveAllSettings();
         }
 
@@ -139,8 +150,9 @@ namespace PropoPlot
             Properties.Settings.Default.yourCall = yourCall.Text;
             Properties.Settings.Default.theirCall = theirCall.Text;
             Properties.Settings.Default.truncateValue = truncateValue.Text;
+            Properties.Settings.Default.myFontSize = myFontSize.Text;
 
-            Properties.Settings.Default.chkHiLiteDX = (chkHiLiteDX.IsChecked==true);
+         //   Properties.Settings.Default.chkHiLiteDX = (chkHiLiteDX.IsChecked==true);
             Properties.Settings.Default.Save();
             
             //clean up th UI
@@ -158,5 +170,22 @@ namespace PropoPlot
 
 
         }
+
+        private void myFontSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // App.Current.Resources["FontSizeVal"] = 10.0;
+
+            //Application.Current.MainWindow.FontSize = double.Parse(myFontSize.Text);
+
+           // MainWindow mw = new MainWindow();
+           //mw.FontSize = double.Parse(myFontSize.Text);
+
+
+        }
+
+
+
+
+
     }
 }
