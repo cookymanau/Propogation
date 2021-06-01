@@ -261,7 +261,7 @@ namespace PropoPlot
             //using System.IO; is for SttreamWriter
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = $"Propo_{now}_{prefix}_Band_Ant";  // Default file name
+            dlg.FileName = $"propdBm_{now}_{prefix}_Band_Ant";  // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -567,7 +567,7 @@ namespace PropoPlot
             //using System.IO; is for SttreamWriter
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = $"PropoQSO_{now}_{prefix}_Band_Ant";  // Default file name
+            dlg.FileName = $"propQSO_{now}_{prefix}_Band_Ant";  // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -646,36 +646,44 @@ namespace PropoPlot
             }
         }
 
-        private void window_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-     //       if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
-            //{
-            //    if (e.Delta > 0)
-            //        ++window.FontSize;
-            //    if (e.Delta < 0 && window.FontSize > 1)
-            //        --window.FontSize;
-            //}
+        ////private void window_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        ////{
+        ////    //       if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
+        ////    {
+        ////        if (e.Delta > 0)
+        ////            ++window.FontSize;
+        ////        if (e.Delta < 0 && window.FontSize > 1)
+        ////            --window.FontSize;
+        ////    }
 
 
 
-        }
+        //}
 
-        private void txtZoomer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        //private void txtZoomer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        //{
+        //    if (e.Delta > 0)
+        //    {
+        //        ++window.FontSize;
+        //      //  window.Width += 10;
+        //      //  window.Height += 10;
+   
+        //        if (e.Delta < 0 && window.FontSize > 1)
+        //    {
+        //        --window.FontSize;
+        //        // window.Width -= 10;
+        //        //window.Height -= 10;
+        //    }
+
+        //    }
+        //}
+
+        private void TextBlock_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-            {
                 ++window.FontSize;
-              //  window.Width += 10;
-              //  window.Height += 10;
-   
-                if (e.Delta < 0 && window.FontSize > 1)
-            {
+            if (e.Delta < 0 && window.FontSize > 1)
                 --window.FontSize;
-                // window.Width -= 10;
-                //window.Height -= 10;
-            }
-
-            }
         }
     }//end of class
 

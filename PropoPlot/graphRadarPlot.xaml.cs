@@ -23,6 +23,9 @@ using System.Drawing;
      //Comment:	I cant get this to obey yhe ScottPlot rules and
      //have to keep calling the plot routine with clear plot every time.
      //at this point it seems functional
+
+// We are plotting the array values
+
      //Updates:
      //			
      //************************************************
@@ -36,6 +39,10 @@ namespace PropoPlot
     {
 
         const int arrSize = 1;
+
+        const int fact1 = -30; //was -30
+        const int fact2 = +30; //was +29  // we add this to a negative number to make it +ve.  EG got -30, we want to display as 0...so add +30 to the dBm
+
         public bool liveRedraw { get; set; }
 
         List<string> _thlist;
@@ -44,38 +51,38 @@ namespace PropoPlot
         DateTime[] DTdates = new DateTime[arrSize];
         double [] Dubdates = new double[arrSize];
 
-        double[] dataEUA = new double[arrSize]; //Average
-        double[] dataEUR = new double[arrSize]; //Raw
-        double[] dataEUC = new double[arrSize]; //Count
+        double[] dataEUA = new double[arrSize] {-30}; //Average
+        double[] dataEUR = new double[arrSize] { -30 }; //Raw
+        double[] dataEUC = new double[arrSize] { -30 }; //Count
 
 
-        double[] dataJAA = new double[arrSize];
-        double[] dataJAR = new double[arrSize];
-        double[] dataJAC = new double[arrSize];
+        double[] dataJAA = new double[arrSize] { -30 };
+        double[] dataJAR = new double[arrSize] { -30 };
+        double[] dataJAC = new double[arrSize] { -30 };
 
 
-        double[] dataNAA = new double[arrSize];
-        double[] dataNAR = new double[arrSize];
-        double[] dataNAC = new double[arrSize];
+        double[] dataNAA = new double[arrSize] { -30 };
+        double[] dataNAR = new double[arrSize] { -30 };
+        double[] dataNAC = new double[arrSize] { -30 };
 
-        double[] dataOCA = new double[arrSize];
-        double[] dataOCR = new double[arrSize];
-        double[] dataOCC = new double[arrSize];
+        double[] dataOCA = new double[arrSize] { -30 };
+        double[] dataOCR = new double[arrSize] { -30 };
+        double[] dataOCC = new double[arrSize] { -30 };
         // double[] dataOCB = new double[arrSize];  //bollinger bands
         OHLC[] dataOCB = new OHLC[arrSize];
        
 
-        double[] dataAFA = new double[arrSize];
-        double[] dataAFR = new double[arrSize];
-        double[] dataAFC = new double[arrSize];
+        double[] dataAFA = new double[arrSize] { -30 };
+        double[] dataAFR = new double[arrSize] { -30 };
+        double[] dataAFC = new double[arrSize] { -30 };
 
-        double[] dataSAA = new double[arrSize];
-        double[] dataSAR = new double[arrSize];
-        double[] dataSAC = new double[arrSize];
+        double[] dataSAA = new double[arrSize] { -30 };
+        double[] dataSAR = new double[arrSize] { -30 };
+        double[] dataSAC = new double[arrSize] { -30 };
 
-        double[] dataFAA = new double[arrSize];
-        double[] dataFAR = new double[arrSize];
-        double[] dataFAC = new double[arrSize];
+        double[] dataFAA = new double[arrSize] { -30 };
+        double[] dataFAR = new double[arrSize] { -30 };
+        double[] dataFAC = new double[arrSize] { -30 };
 
         double[,] values = new double[2, 7];
 
@@ -94,20 +101,20 @@ namespace PropoPlot
 
 
 
-        double JARi = -30;
-        double NARi = -30;
-        double SARi = -30;
-        double OCRi = -30;
-        double AFRi = -30;
-        double FARi = -30;
-        double EURi = -30;        
-        double JARa = -30;
-        double NARa = -30;
-        double SARa = -30;
-        double OCRa = -30;
-        double AFRa = -30;
-        double FARa = -30;
-        double EURa = -30;
+        double JARi = fact1;
+        double NARi = fact1;
+        double SARi = fact1;
+        double OCRi = fact1;
+        double AFRi = fact1;
+        double FARi = fact1;
+        double EURi = fact1;        
+        double JARa = fact1;
+        double NARa = fact1;
+        double SARa = fact1;
+        double OCRa = fact1;
+        double AFRa = fact1;
+        double FARa = fact1;
+        double EURa = fact1;
 
 
         /// <summary>
@@ -151,52 +158,143 @@ namespace PropoPlot
 
             DTdates[count] = DateTime.Parse(wrdmsg[1]);
             Dubdates[count] = DTdates[count].ToOADate();
+//--
+            if (wrdmsg[2] != "")
+                double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
+            else
+                dataEUR[count] = -30;
 
-            double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
-            double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
-            double.TryParse(wrdmsg[4], out dataEUC[count]); //EuropeAverage
+            if (wrdmsg[3] != "")
+                double.TryParse(wrdmsg[3], out dataEUA[count]); //Europe
+            else
+                dataEUA[count] = -30;
 
-            double.TryParse(wrdmsg[5], out dataJAR[count]); //Japan
-            double.TryParse(wrdmsg[6], out dataJAA[count]); //JapanAvg
-            double.TryParse(wrdmsg[7], out dataJAC[count]); //JapanAvg
+            if (wrdmsg[4] != "")
+                double.TryParse(wrdmsg[4], out dataEUC[count]); //EuropeAverage
+            else
+                dataEUC[count] = 0;
+//------------------------------------------------------------
 
-            double.TryParse(wrdmsg[8], out dataNAR[count]);
-            double.TryParse(wrdmsg[9], out dataNAA[count]);
-            double.TryParse(wrdmsg[10], out dataNAC[count]);
+            if (wrdmsg[5] != "")
+                double.TryParse(wrdmsg[5], out dataJAR[count]); //EuropeAverage
+            else
+                dataJAR[count] = -30;
 
-            double.TryParse(wrdmsg[11], out dataOCR[count]);
-            double.TryParse(wrdmsg[12], out dataOCA[count]);
-            double.TryParse(wrdmsg[13], out dataOCC[count]);
+            if (wrdmsg[6] != "")
+                double.TryParse(wrdmsg[6], out dataJAA[count]); //EuropeAverage
+            else
+                dataJAA[count] = -30;
 
-            double.TryParse(wrdmsg[14], out dataAFR[count]);
-            double.TryParse(wrdmsg[15], out dataAFA[count]);
-            double.TryParse(wrdmsg[16], out dataAFC[count]);
+            if (wrdmsg[7] != "")
+                double.TryParse(wrdmsg[7], out dataJAC[count]); //EuropeAverage
+            else
+                dataJAC[count] = 0;
 
-            double.TryParse(wrdmsg[17], out dataSAR[count]);
-            double.TryParse(wrdmsg[18], out dataSAA[count]);
-            double.TryParse(wrdmsg[19], out dataSAC[count]);
+            //--
 
-            double.TryParse(wrdmsg[20], out dataFAR[count]);
-            double.TryParse(wrdmsg[21], out dataFAA[count]);
-            double.TryParse(wrdmsg[22], out dataFAC[count]);
+            if (wrdmsg[8] != "")
+                double.TryParse(wrdmsg[8], out dataNAR[count]); //EuropeAverage
+            else
+                dataNAR[count] = -30;
+
+            if (wrdmsg[9] != "")
+                double.TryParse(wrdmsg[9], out dataNAA[count]); //EuropeAverage
+            else
+                dataNAA[count] = -30;
+
+            if (wrdmsg[10] != "")
+                double.TryParse(wrdmsg[10], out dataNAC[count]); //EuropeAverage
+            else
+                dataNAC[count] = 0;
+
+            //
+            if (wrdmsg[11] != "")
+                double.TryParse(wrdmsg[11], out dataOCR[count]); //EuropeAverage
+            else
+                dataOCR[count] = -30;
+
+            if (wrdmsg[12] != "")
+                double.TryParse(wrdmsg[12], out dataOCA[count]); //EuropeAverage
+            else
+                dataOCA[count] = -30;
+
+            if (wrdmsg[13] != "")
+                double.TryParse(wrdmsg[13], out dataOCC[count]); //EuropeAverage
+            else
+                dataOCC[count] = 0;
+
+            
+
+ 
+            if (wrdmsg[14] !=  "")
+                double.TryParse(wrdmsg[14], out dataAFR[count]);
+            else
+                dataAFR[count] = -30;
+
+            if (wrdmsg[15] != "")
+                double.TryParse(wrdmsg[15], out dataAFA[count]);
+            else
+                dataAFA[count] = -30;
+
+            if (wrdmsg[16] != "")
+                double.TryParse(wrdmsg[16], out dataAFC[count]);
+            else
+                dataAFC[count] = 0;
+
+
+
+//--
+            if (wrdmsg[17] != "")
+                double.TryParse(wrdmsg[17], out dataSAR[count]);
+            else
+                dataSAR[count] = -30;
+
+            if (wrdmsg[18] != "")
+                double.TryParse(wrdmsg[18], out dataSAA[count]);
+            else
+                dataSAA[count] = -30;
+
+            if (wrdmsg[19] != "")
+                double.TryParse(wrdmsg[19], out dataSAC[count]);
+            else
+                dataSAC[count] = 0;
+  //-------------------------------------------------------
+            if (wrdmsg[20] != "")
+                double.TryParse(wrdmsg[20], out dataFAR[count]);
+            else
+                dataFAR[count] = -30;
+
+            if (wrdmsg[21] != "")
+                double.TryParse(wrdmsg[21], out dataFAA[count]);
+            else
+                dataFAA[count] = -30;
+
+            if (wrdmsg[22] != "")
+                double.TryParse(wrdmsg[22], out dataFAC[count]);
+            else
+                dataFAC[count] = 0;
+
+            //double.TryParse(wrdmsg[20], out dataFAR[count]);
+            //double.TryParse(wrdmsg[21], out dataFAA[count]);
+            //double.TryParse(wrdmsg[22], out dataFAC[count]);
             //dataOC[count] = double.TryParse(wrdmsg[6],out 0);
 
 
-            JARi = dataJAR[0] + 29;
-            NARi = dataNAR[0] + 29;
-            SARi = dataSAR[0] + 29;
-            OCRi = dataOCR[0] + 29;
-            AFRi = dataAFR[0] + 29;
-            FARi = dataFAR[0] + 29;
-            EURi = dataEUR[0] + 29;
+            JARi = dataJAR[0] + fact2;  //take the reading and add +30 to it to display it on the radar plot
+            NARi = dataNAR[0] + fact2;
+            SARi = dataSAR[0] + fact2;
+            OCRi = dataOCR[0] + fact2;
+            AFRi = dataAFR[0] + fact2;
+            FARi = dataFAR[0] + fact2;
+            EURi = dataEUR[0] + fact2;
 
-            JARa = dataJAA[0] + 29;
-            NARa = dataNAA[0] + 29;
-            SARa = dataSAA[0] + 29;
-            OCRa = dataOCA[0] + 29;
-            AFRa = dataAFA[0] + 29;
-            FARa = dataFAA[0] + 29;
-            EURa = dataEUA[0] + 29;
+            JARa = dataJAA[0] + fact2;
+            NARa = dataNAA[0] + fact2;
+            SARa = dataSAA[0] + fact2;
+            OCRa = dataOCA[0] + fact2;
+            AFRa = dataAFA[0] + fact2;
+            FARa = dataFAA[0] + fact2;
+            EURa = dataEUA[0] + fact2;
 
             if (chkAvg.IsChecked == true && chkRaw.IsChecked == true)
             {
@@ -274,20 +372,20 @@ namespace PropoPlot
                 values[1, 6] = 0;//eu
             }
 
-            //dont know if we want this in this plot
-            dataEUR = smoothArray(dataEUR);
-            //dataEUA = smoothArray(dataEUA);
-            dataJAR = smoothArray(dataJAR);
-            //dataJAA = smoothArray(dataJAA);
-            dataNAR = smoothArray(dataNAR);
-            //dataNAA = smoothArray(dataNAA);
-            dataSAR = smoothArray(dataSAR);
-            //dataSAA = smoothArray(dataSAA);
-            dataFAR = smoothArray(dataFAR);
-            //dataFAA = smoothArray(dataFAA);
-            dataAFR = smoothArray(dataAFR);
-            //dataAFA = smoothArray(dataAFA);
-            dataOCR = smoothArray(dataOCR);
+            ////dont know if we want this in this plot
+            //dataEUR = smoothArray(dataEUR);
+            ////dataEUA = smoothArray(dataEUA);
+            //dataJAR = smoothArray(dataJAR);
+            ////dataJAA = smoothArray(dataJAA);
+            //dataNAR = smoothArray(dataNAR);
+            ////dataNAA = smoothArray(dataNAA);
+            //dataSAR = smoothArray(dataSAR);
+            ////dataSAA = smoothArray(dataSAA);
+            //dataFAR = smoothArray(dataFAR);
+            ////dataFAA = smoothArray(dataFAA);
+            //dataAFR = smoothArray(dataAFR);
+            ////dataAFA = smoothArray(dataAFA);
+            //dataOCR = smoothArray(dataOCR);
 
 
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-    Title="graphSinglePlot" Height="255" Width="540">
+    Title="graphRadarPlot" Height="255" Width="540">
 
     <Border Margin="5">
     <Grid>

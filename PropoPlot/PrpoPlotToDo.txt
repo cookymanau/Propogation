@@ -42,8 +42,8 @@
 	   20210523
 	• Removed the Earth buttin for the time being, changed some of the text on controls  20210523
 	• Reworked the QSO scroller to have colour and a decent scroll bar.  20210525
-	•
-	•
+	• added Zoom to the main interface 20210601
+	• Reworked the labelling on the Comparer Graph so you KNOW which line is which
 	•
 
 

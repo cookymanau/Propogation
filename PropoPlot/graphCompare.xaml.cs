@@ -28,63 +28,72 @@ namespace PropoPlot
         List<string> listFile1 = new List<string>();
         List<string> listFile2 = new List<string>();
 
-        double[] dataXf1 = new double[6000];
-        double[] dataXf2 = new double[6000];
-        DateTime[] DTdates = new DateTime[6000];
-        double[] Dubdates = new double[6000];
+        const int arrSize = 5000;
 
-        double[] dataEUA = new double[6000]; //Average
-        double[] dataEUR = new double[6000]; //Raw
-        double[] dataEUC = new double[6000]; //Count
-        double[] dataEUA2 = new double[6000]; //Average
-        double[] dataEUR2 = new double[6000]; //Raw
-        double[] dataEUC2 = new double[6000]; //Count
+        double[] dataXf1 = new double[arrSize];
+        double[] dataXf2 = new double[arrSize];
 
-        double[] dataJAA = new double[6000];
-        double[] dataJAR = new double[6000];
-        double[] dataJAC = new double[6000];
-        double[] dataJAA2 = new double[6000];
-        double[] dataJAR2 = new double[6000];
-        double[] dataJAC2 = new double[6000];
+        DateTime[] DTdates = new DateTime[arrSize];
+        double[] Dubdates = new double[arrSize];
 
-        double[] dataNAA = new double[6000];
-        double[] dataNAR = new double[6000];
-        double[] dataNAC = new double[6000];
-        double[] dataNAA2 = new double[6000];
-        double[] dataNAR2 = new double[6000];
-        double[] dataNAC2 = new double[6000];
-
-        double[] dataOCA = new double[6000];
-        double[] dataOCR = new double[6000];
-        double[] dataOCC = new double[6000];
-        double[] dataOCA2 = new double[6000];
-        double[] dataOCR2 = new double[6000];
-        double[] dataOCC2 = new double[6000];
-
-        double[] dataAFA = new double[6000];
-        double[] dataAFR = new double[6000];
-        double[] dataAFC = new double[6000];
-        double[] dataAFA2 = new double[6000];
-        double[] dataAFR2 = new double[6000];
-        double[] dataAFC2 = new double[6000];
+        DateTime[] DTdates2 = new DateTime[arrSize];
+        double[] Dubdates2 = new double[arrSize];
 
 
 
-        double[] dataSAA = new double[6000];
-        double[] dataSAR = new double[6000];
-        double[] dataSAC = new double[6000];
-        double[] dataSAA2 = new double[6000];
-        double[] dataSAR2 = new double[6000];
-        double[] dataSAC2 = new double[6000];
+
+        double[] dataEUA = new double[arrSize]; //Average
+        double[] dataEUR = new double[arrSize]; //Raw
+        double[] dataEUC = new double[arrSize]; //Count
+        double[] dataEUA2 = new double[arrSize]; //Average
+        double[] dataEUR2 = new double[arrSize]; //Raw
+        double[] dataEUC2 = new double[arrSize]; //Count
+
+        double[] dataJAA = new double[arrSize];
+        double[] dataJAR = new double[arrSize];
+        double[] dataJAC = new double[arrSize];
+        double[] dataJAA2 = new double[arrSize];
+        double[] dataJAR2 = new double[arrSize];
+        double[] dataJAC2 = new double[arrSize];
+
+        double[] dataNAA = new double[arrSize];
+        double[] dataNAR = new double[arrSize];
+        double[] dataNAC = new double[arrSize];
+        double[] dataNAA2 = new double[arrSize];
+        double[] dataNAR2 = new double[arrSize];
+        double[] dataNAC2 = new double[arrSize];
+
+        double[] dataOCA = new double[arrSize];
+        double[] dataOCR = new double[arrSize];
+        double[] dataOCC = new double[arrSize];
+        double[] dataOCA2 = new double[arrSize];
+        double[] dataOCR2 = new double[arrSize];
+        double[] dataOCC2 = new double[arrSize];
+
+        double[] dataAFA = new double[arrSize];
+        double[] dataAFR = new double[arrSize];
+        double[] dataAFC = new double[arrSize];
+        double[] dataAFA2 = new double[arrSize];
+        double[] dataAFR2 = new double[arrSize];
+        double[] dataAFC2 = new double[arrSize];
 
 
 
-        double[] dataFAA = new double[6000];
-        double[] dataFAR = new double[6000];
-        double[] dataFAC = new double[6000];
-        double[] dataFAA2 = new double[6000];
-        double[] dataFAR2 = new double[6000];
-        double[] dataFAC2 = new double[6000];
+        double[] dataSAA = new double[arrSize];
+        double[] dataSAR = new double[arrSize];
+        double[] dataSAC = new double[arrSize];
+        double[] dataSAA2 = new double[arrSize];
+        double[] dataSAR2 = new double[arrSize];
+        double[] dataSAC2 = new double[arrSize];
+
+
+
+        double[] dataFAA = new double[arrSize];
+        double[] dataFAR = new double[arrSize];
+        double[] dataFAC = new double[arrSize];
+        double[] dataFAA2 = new double[arrSize];
+        double[] dataFAR2 = new double[arrSize];
+        double[] dataFAC2 = new double[arrSize];
 
 
 
@@ -176,10 +185,13 @@ namespace PropoPlot
 
 
                 //got to set the arrays back to full size , rinse and repeat style
-                int count = 6000;
+                int count = arrSize;
                 // get rid of the 0's on the end
                 Array.Resize(ref dataXf1, count);
                 Array.Resize(ref dataXf2, count);
+                Array.Resize(ref Dubdates, count);
+                Array.Resize(ref Dubdates2, count);
+
 
                 Array.Resize(ref dataEUR, count);
                 Array.Resize(ref dataEUA, count);
@@ -268,62 +280,67 @@ namespace PropoPlot
 
         public void PrepareArraysFile1()
         {
-            try
-            {
+            //try
+            //{
 
 
             string time = "";
 
             int count = 0;
-            foreach (var item in listFile1)
+            foreach (var item in listFile1.Skip(0))
             {
-                // double defaultValue = 0;
-
-                string[] wrdmsg = item.Split(',');
-
-                dataXf1[count] = count; //the X values time
-                //DTdates[count] = DateTime.Parse(wrdmsg[1]);
-
-                //DateTime.TryParse(wrdmsg[1], out DTdates[count]);
-
-               // Dubdates[count] = DTdates[count].ToOADate();
+                if (count > 0)
+                {
 
 
-                double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
-                double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
-                double.TryParse(wrdmsg[4], out dataEUC[count]); //EuropeAverage
+                    string[] wrdmsg = item.Split(',');
 
-                double.TryParse(wrdmsg[5], out dataJAR[count]); //Japan
-                double.TryParse(wrdmsg[6], out dataJAA[count]); //JapanAvg
-                double.TryParse(wrdmsg[7], out dataJAC[count]); //JapanAvg
+                    dataXf1[count] = count; //the X values time
 
-                double.TryParse(wrdmsg[8], out dataNAR[count]);
-                double.TryParse(wrdmsg[9], out dataNAA[count]);
-                double.TryParse(wrdmsg[10], out dataNAC[count]);
+                    DTdates[count] = DateTime.Parse(wrdmsg[1]);
+                    DateTime.TryParse(wrdmsg[1], out DTdates[count]);
+                    Dubdates[count] = DTdates[count].ToOADate();
 
-                double.TryParse(wrdmsg[11], out dataOCR[count]);
-                double.TryParse(wrdmsg[12], out dataOCA[count]);
-                double.TryParse(wrdmsg[13], out dataOCC[count]);
 
-                double.TryParse(wrdmsg[14], out dataAFR[count]);
-                double.TryParse(wrdmsg[15], out dataAFA[count]);
-                double.TryParse(wrdmsg[16], out dataAFC[count]);
 
-                double.TryParse(wrdmsg[17], out dataSAR[count]);
-                double.TryParse(wrdmsg[18], out dataSAA[count]);
-                double.TryParse(wrdmsg[19], out dataSAC[count]);
 
-                double.TryParse(wrdmsg[20], out dataFAR[count]);
-                double.TryParse(wrdmsg[21], out dataFAA[count]);
-                double.TryParse(wrdmsg[22], out dataFAC[count]);
-                //dataOC[count] = double.TryParse(wrdmsg[6],out 0);
+                    double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
+                    double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
+                    double.TryParse(wrdmsg[4], out dataEUC[count]); //EuropeAverage
 
-                count += 1;
+                    double.TryParse(wrdmsg[5], out dataJAR[count]); //Japan
+                    double.TryParse(wrdmsg[6], out dataJAA[count]); //JapanAvg
+                    double.TryParse(wrdmsg[7], out dataJAC[count]); //JapanAvg
+
+                    double.TryParse(wrdmsg[8], out dataNAR[count]);
+                    double.TryParse(wrdmsg[9], out dataNAA[count]);
+                    double.TryParse(wrdmsg[10], out dataNAC[count]);
+
+                    double.TryParse(wrdmsg[11], out dataOCR[count]);
+                    double.TryParse(wrdmsg[12], out dataOCA[count]);
+                    double.TryParse(wrdmsg[13], out dataOCC[count]);
+
+                    double.TryParse(wrdmsg[14], out dataAFR[count]);
+                    double.TryParse(wrdmsg[15], out dataAFA[count]);
+                    double.TryParse(wrdmsg[16], out dataAFC[count]);
+
+                    double.TryParse(wrdmsg[17], out dataSAR[count]);
+                    double.TryParse(wrdmsg[18], out dataSAA[count]);
+                    double.TryParse(wrdmsg[19], out dataSAC[count]);
+
+                    double.TryParse(wrdmsg[20], out dataFAR[count]);
+                    double.TryParse(wrdmsg[21], out dataFAA[count]);
+                    double.TryParse(wrdmsg[22], out dataFAC[count]);
+                    //dataOC[count] = double.TryParse(wrdmsg[6],out 0);
+
+                }
+                    count += 1;
             }
 
             // get rid of the 0's on the end
             Array.Resize(ref dataXf1, count);
             Array.Resize(ref Dubdates, count);
+            Dubdates[0] = Dubdates[1];  //because the first record will ALWAYS be 0
 
             Array.Resize(ref dataEUR, count);
             Array.Resize(ref dataEUA, count);
@@ -350,16 +367,16 @@ namespace PropoPlot
             Array.Resize(ref dataFAR, count);
             Array.Resize(ref dataFAA, count);
             Array.Resize(ref dataFAC, count);
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-            frmMessageDialog md = new frmMessageDialog();
-            md.messageBoxUpper.Text = $"Error PrepareArraysFiles1() ";
-            md.messageBoxLower.Text = $"{ex}";
-            md.Show();
+            //frmMessageDialog md = new frmMessageDialog();
+            //md.messageBoxUpper.Text = $"Error PrepareArraysFiles1() ";
+            //md.messageBoxLower.Text = $"{ex}";
+            //md.Show();
                 
-            }
+            //}
 
 
 
@@ -368,59 +385,66 @@ namespace PropoPlot
         public void PrepareArraysFile2()
         {
 
-            try
-            {
+            //try
+            //{
 
 
             string time = "";
 
             int count = 0;
-            foreach (var item in listFile2)
+            foreach (var item in listFile2.Skip(0))
             {
                 // double defaultValue = 0;
 
-                string[] wrdmsg = item.Split(',');
+                if (count > 0)
+                {
 
-                dataXf2[count] = count; //the X values
-                //DTdates[count] = DateTime.Parse(wrdmsg[1]);
-               // DateTime.TryParse(wrdmsg[1], out DTdates[count]);
-               // Dubdates[count] = DTdates[count].ToOADate();
+                    string[] wrdmsg = item.Split(',');
+
+                    dataXf2[count] = count; //the X values
+                    DTdates2[count] = DateTime.Parse(wrdmsg[1]);
+                    DateTime.TryParse(wrdmsg[1], out DTdates2[count]);
+                    Dubdates2[count] = DTdates2[count].ToOADate();
 
 
-                double.TryParse(wrdmsg[2], out dataEUR2[count]); //Europe
-                double.TryParse(wrdmsg[3], out dataEUA2[count]); //EuropeAverage
-                double.TryParse(wrdmsg[4], out dataEUC2[count]); //EuropeAverage
+                    double.TryParse(wrdmsg[2], out dataEUR2[count]); //Europe
+                    double.TryParse(wrdmsg[3], out dataEUA2[count]); //EuropeAverage
+                    double.TryParse(wrdmsg[4], out dataEUC2[count]); //EuropeAverage
 
-                double.TryParse(wrdmsg[5], out dataJAR2[count]); //Japan
-                double.TryParse(wrdmsg[6], out dataJAA2[count]); //JapanAvg
-                double.TryParse(wrdmsg[7], out dataJAC2[count]); //JapanAvg
+                    double.TryParse(wrdmsg[5], out dataJAR2[count]); //Japan
+                    double.TryParse(wrdmsg[6], out dataJAA2[count]); //JapanAvg
+                    double.TryParse(wrdmsg[7], out dataJAC2[count]); //JapanAvg
 
-                double.TryParse(wrdmsg[8], out dataNAR2[count]);
-                double.TryParse(wrdmsg[9], out dataNAA2[count]);
-                double.TryParse(wrdmsg[10], out dataNAC2[count]);
+                    double.TryParse(wrdmsg[8], out dataNAR2[count]);
+                    double.TryParse(wrdmsg[9], out dataNAA2[count]);
+                    double.TryParse(wrdmsg[10], out dataNAC2[count]);
 
-                double.TryParse(wrdmsg[11], out dataOCR2[count]);
-                double.TryParse(wrdmsg[12], out dataOCA2[count]);
-                double.TryParse(wrdmsg[13], out dataOCC2[count]);
+                    double.TryParse(wrdmsg[11], out dataOCR2[count]);
+                    double.TryParse(wrdmsg[12], out dataOCA2[count]);
+                    double.TryParse(wrdmsg[13], out dataOCC2[count]);
 
-                double.TryParse(wrdmsg[14], out dataAFR2[count]);
-                double.TryParse(wrdmsg[15], out dataAFA2[count]);
-                double.TryParse(wrdmsg[16], out dataAFC2[count]);
+                    double.TryParse(wrdmsg[14], out dataAFR2[count]);
+                    double.TryParse(wrdmsg[15], out dataAFA2[count]);
+                    double.TryParse(wrdmsg[16], out dataAFC2[count]);
 
-                double.TryParse(wrdmsg[17], out dataSAR2[count]);
-                double.TryParse(wrdmsg[18], out dataSAA2[count]);
-                double.TryParse(wrdmsg[19], out dataSAC2[count]);
+                    double.TryParse(wrdmsg[17], out dataSAR2[count]);
+                    double.TryParse(wrdmsg[18], out dataSAA2[count]);
+                    double.TryParse(wrdmsg[19], out dataSAC2[count]);
 
-                double.TryParse(wrdmsg[20], out dataFAR2[count]);
-                double.TryParse(wrdmsg[21], out dataFAA2[count]);
-                double.TryParse(wrdmsg[22], out dataFAC2[count]);
-                //dataOC[count] = double.TryParse(wrdmsg[6],out 0);
+                    double.TryParse(wrdmsg[20], out dataFAR2[count]);
+                    double.TryParse(wrdmsg[21], out dataFAA2[count]);
+                    double.TryParse(wrdmsg[22], out dataFAC2[count]);
+                    //dataOC[count] = double.TryParse(wrdmsg[6],out 0);
 
-                count += 1;
+                }
+                    count += 1;
             }
 
             // get rid of the 0's on the end
-            Array.Resize(ref Dubdates, count);
+            Array.Resize(ref Dubdates2, count);
+
+            Dubdates2[0] = Dubdates2[1];  //because the first record will ALWAYS be 0
+
             Array.Resize(ref dataXf2, count);
 
             Array.Resize(ref dataEUR2, count);
@@ -449,22 +473,22 @@ namespace PropoPlot
             Array.Resize(ref dataFAA2, count);
             Array.Resize(ref dataFAC2, count);
 
-            }
-            catch (Exception ex)
-            {
-                frmMessageDialog md = new frmMessageDialog();
-                md.messageBoxUpper.Text = $"Error PrepareArraysFiles2() ";
-                md.messageBoxLower.Text = $"{ex}";
-                md.Show();
+            //}
+            //catch (Exception ex)
+            //{
+            //    frmMessageDialog md = new frmMessageDialog();
+            //    md.messageBoxUpper.Text = $"Error PrepareArraysFiles2() ";
+            //    md.messageBoxLower.Text = $"{ex}";
+            //    md.Show();
 
 
-            }
+            //}
 
         }
 
 
 
-
+        ScottPlot.Plottable.ScatterPlot sigEUA;
 
         public void PlotTheLists()
         {
@@ -487,180 +511,182 @@ namespace PropoPlot
             {
                 if (chkAvgsGraphs.IsChecked == true)
                 {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
-                    //graphCompare2Files.plt.PlotScatter(dataXf1, dataEUA, label: "EUAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: System.Drawing.Color.Blue);
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataEUA2, label: "EUAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
+                    graphCompare2Files.Plot.AddScatter(Dubdates, dataEUA, label: $"EUAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
+                    graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUA2, label: $"EUAvg {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
                 }
-                if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUC, label: "EUCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataEUR, label: "EURaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
-                if (chkSpline.IsChecked == true)
-                {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataEUA, resolution: 20);
-                    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataEUA2, resolution: 20);
-                    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Blue, label: "EU1Spline",markerSize:0);
-                    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkBlue, label: "EU2Spline",markerSize:0);
-                    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
-                    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                    if (chkCountsGraphs.IsChecked == true)
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataEUC, label: $"EUCnt", markerSize: LineRawDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUC2, label: $"EUCnt2", markerSize: LineRawDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
+                    }
+                    if (chkRawPointsGraphs.IsChecked == true)
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataEUR, label: "EURaw", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUR2, label: "EURaw2", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
+
+                    }
+                   // if (chkSpline.IsChecked == true)
+                    //{
+                    //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataEUA, resolution: 20);
+                    //    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataEUA2, resolution: 20);
+                    //    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Blue, label: $"EU1Spline {cfFileName1.Text}",markerSize:0);
+                    //    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkBlue, label: $"EU2Spline {cfFileName2.Text}",markerSize:0);
+                    //    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
+                    //    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                    //}
                 }
-
-
-            }
 
             if (chkJAGraphs.IsChecked == true)
             {
                 if (chkAvgsGraphs.IsChecked == true)
                 {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataJAA, label: $"JAAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
+                         graphCompare2Files.Plot.AddScatter(Dubdates2, dataJAA2, label: $"JAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
 
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataJAA, label: "JAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataJAA2, label: "JAAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
                 }
-                if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataJAC, label: "JACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataJAR, label: "JARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
-                if (chkSpline.IsChecked == true)
-                {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataJAA, resolution: 20);
-                    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataJAA2, resolution: 20);
-                    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Maroon, label: "JA1Spline", markerSize: 0);
-                    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: "JA2Spline", markerSize: 0);
-                    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
-                    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
-                }
+                    if (chkCountsGraphs.IsChecked == true) {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataJAC, label: "JACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
+                    }
+                    if (chkRawPointsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataJAR, label: "JARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
+//                    if (chkSpline.IsChecked == true)
+                //{
+                //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataJAA, resolution: 20);
+                //    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataJAA2, resolution: 20);
+                //    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Maroon, label: $"JA1Spline {cfFileName1.Text}", markerSize: 0);
+                //    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: $"JA2Spline {cfFileName2.Text}", markerSize: 0);
+                //    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
+                //    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                //}
 
 
-            }
-
-            if (chkNAGraphs.IsChecked == true)
-            {
-                if (chkAvgsGraphs.IsChecked == true)
-                {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAA, label: "NAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataNAA2, label: "NAAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
-                }
-                if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAC, label: "NACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataNAR, label: "NARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
-  
-                    if (chkSpline.IsChecked == true)
-                {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataNAA, resolution: 20);
-                    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataNAA2, resolution: 20);
-                    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: "NA1Spline", markerSize: 0);
-                    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: "NA2Spline", markerSize: 0);
-                    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
-                    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
                 }
 
-
-
-            }
-
-            if (chkOCGraphs.IsChecked == true)
-            {
-                if (chkAvgsGraphs.IsChecked == true)
+                if (chkNAGraphs.IsChecked == true)
                 {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataOCA, label: "OCAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataOCA2, label: "OCAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
-                }
-                if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataOCC, label: "OCCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataOCR, label: "OCRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
-                if (chkSpline.IsChecked == true)
-                {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataOCA, resolution: 20);
-                    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataOCA2, resolution: 20);
-                    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: "OC1Spline", markerSize: 0);
-                    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: "OC2Spline", markerSize: 0);
-                    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
-                    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                    if (chkAvgsGraphs.IsChecked == true)
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataNAA, label: $"NAAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataNAA2, label: $"NAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
+                    }
+                    if (chkCountsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataNAC, label: "NACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
+                    if (chkRawPointsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataNAR, label: "NARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
+
+                    //    if (chkSpline.IsChecked == true)
+                    //    {
+                    //        var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataNAA, resolution: 20);
+                    //        var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataNAA2, resolution: 20);
+                    //        graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: $"NA1Spline {cfFileName1.Text}", markerSize: 0);
+                    //        graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: $"NA2Spline {cfFileName2.Text}", markerSize: 0);
+                    //        //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
+                    //        //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                    //    }
                 }
 
-
-            }
-
-            if (chkAFGraphs.IsChecked == true)
-            {
-                if (chkAvgsGraphs.IsChecked == true)
+                if (chkOCGraphs.IsChecked == true)
                 {
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataAFA, label: "AFAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataAFA2, label: "AFAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
-                }  
-                if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataAFC, label: "AFCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataAFR, label: "AFRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
-                if (chkSpline.IsChecked == true)
+                    if (chkAvgsGraphs.IsChecked == true)
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataOCA, label: $"OCAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataOCA2, label: $"OCAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
+                    }
+                    if (chkCountsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataOCC, label: "OCCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
+                    if (chkRawPointsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataOCR, label: "OCRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
+                    //if (chkSpline.IsChecked == true)
+                    //{
+                    //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataOCA, resolution: 20);
+                    //    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataOCA2, resolution: 20);
+                    //    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: $"OC1Spline {cfFileName1.Text}", markerSize: 0);
+                    //    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: $"OC2Spline {cfFileName2.Text}", markerSize: 0);
+                    //    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
+                    //    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                    //}
+                }
+
+                if (chkAFGraphs.IsChecked == true)
                 {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataAFA, resolution: 20);
-                    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataAFA2, resolution: 20);
-                    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: "AF1Spline", markerSize: 0);
-                    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: "AF2Spline", markerSize: 0);
-                    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
-                    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                    if (chkAvgsGraphs.IsChecked == true)
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataAFA, label: $"AFAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataAFA2, label: $"AFAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
+                    }
+                    if (chkCountsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
+                    if (chkRawPointsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
+                 //   if (chkSpline.IsChecked == true)
+                //    {
+                //        var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataAFA, resolution: 20);
+                //        var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataAFA2, resolution: 20);
+                //        graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: $"AF1Spline {cfFileName1.Text}", markerSize: 0);
+                //        graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: $"AF2Spline {cfFileName2.Text}", markerSize: 0);
+                //        //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
+                //        //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                //    }
+                }
+
+                if (chkSAGraphs.IsChecked == true)
+                {
+                    if (chkAvgsGraphs.IsChecked == true)
+                    {
+
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataSAA, label: $"SAAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataSAA2, label: $"SAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
+                    }
+                    if (chkCountsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataSAC, label: "SACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
+                    if (chkRawPointsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataSAR, label: "SARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
+                    //if (chkSpline.IsChecked == true)
+                    //{
+                    //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataSAA, resolution: 20);
+                    //    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataSAA2, resolution: 20);
+                    //    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: $"SA1Spline {cfFileName1.Text}", markerSize: 0);
+                    //    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: $"SA2Spline {cfFileName2.Text}", markerSize: 0);
+                    //    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
+                    //    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
+                    //}
+                }
+
+                if (chkFAGraphs.IsChecked == true)
+                {
+                    if (chkAvgsGraphs.IsChecked == true)
+                    {
+
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataFAA, label: $"{usrLabelAvg}:{cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataFAA2, label: $"{usrLabelAvg2}: {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
+                    }
+                    if (chkCountsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataFAC, label: usrLabelCnt, markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
+                    if (chkRawPointsGraphs.IsChecked == true)
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataFAR, label: usrLabel, markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
+
+                    //if (chkSpline.IsChecked == true)
+                    //{
+                    //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataFAA, resolution: 20);
+                    //    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataFAA2, resolution: 20);
+                    //    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: $"USR1Spline {cfFileName1.Text}", markerSize: 1);
+                    //    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: $"USR2Spline {cfFileName2.Text}", markerSize: 1);
+                    //}
                 }
 
 
-            }
-
-            if (chkSAGraphs.IsChecked == true)
-            {
-                if (chkAvgsGraphs.IsChecked == true)
-                {
-
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataSAA, label: "SAAvg", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataSAA2, label: "SAAvg2", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
-                }
-                if (chkCountsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataSAC, label: "SACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataSAR, label: "SARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
-                if (chkSpline.IsChecked == true)
-                {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataSAA, resolution: 20);
-                    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataSAA2, resolution: 20);
-                    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: "SA1Spline", markerSize: 0);
-                    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: "SA2Spline", markerSize: 0);
-                    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
-                    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
-                }
+                 graphCompare2Files.Plot.Legend(location: Alignment.LowerLeft);
+                 graphCompare2Files.Plot.YLabel("dBm");
+                 graphCompare2Files.Plot.XLabel("Time(Zulu)");
+               
+                graphCompare2Files.Plot.XAxis.DateTimeFormat(true);
+                graphCompare2Files.Plot.XAxis.TickLabelFormat("HH:mm:ss", true);
+                
 
 
 
-            }
 
-            if (chkFAGraphs.IsChecked == true)
-            {
-                if (chkAvgsGraphs.IsChecked == true)
-                {
-
-                    graphCompare2Files.plt.PlotScatter(dataXf1, dataFAA, label: usrLabelAvg, markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
-                    graphCompare2Files.plt.PlotScatter(dataXf2, dataFAA2, label: usrLabelAvg2, markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
-                }
-                if (chkCountsGraphs.IsChecked == true)
-                  graphCompare2Files.plt.PlotScatter(dataXf1,dataFAC, label: usrLabelCnt, markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
-                if (chkRawPointsGraphs.IsChecked == true)
-                    graphCompare2Files.plt.PlotScatter(dataXf1,dataFAR, label: usrLabel, markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
-
-                if (chkSpline.IsChecked == true)
-                {
-                    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataFAA, resolution:20);
-                    var nsi2 = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf2, dataFAA2, resolution: 20);
-                    graphCompare2Files.plt.PlotScatter(nsi.interpolatedXs, nsi.interpolatedYs, System.Drawing.Color.Magenta, label: "USR1Spline", markerSize: 1);
-                    graphCompare2Files.plt.PlotScatter(nsi2.interpolatedXs, nsi2.interpolatedYs, System.Drawing.Color.DarkMagenta, label: "USR2Spline", markerSize: 1);
-                }
-            }
-
-
-            graphCompare2Files.plt.Legend(location: Alignment.LowerLeft);
-            graphCompare2Files.plt.YLabel("dBm");
-            graphCompare2Files.plt.XLabel("RecordNumber");
                 // graphCompare2Files.plt.XLabel("Time(Zulu)");
-                //   graphCompare2Files.plt.Ticks(dateTimeX: true, dateTimeFormatStringX: "HH:mm:ss");
 
                 graphCompare2Files.plt.PlotHLine(0, color: System.Drawing.Color.Black, draggable:true, lineStyle: LineStyle.DashDotDot);
                 graphCompare2Files.plt.PlotHLine(0, color: System.Drawing.Color.Red,draggable:true, lineStyle: LineStyle.DashDot);

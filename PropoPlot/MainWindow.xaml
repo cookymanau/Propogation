@@ -9,7 +9,7 @@
         
         mc:Ignorable="d"
        FontSize="11"
-       Title="FT8 Propagation Version Beta 1.3" Height="560" Width="795"  Name="window" PreviewMouseWheel="window_PreviewMouseWheel">
+       Title="FT8 Propagation Version Beta 1.3" Height="560" Width="850"  Name="window" >
 
     <Window.Resources>
         <sys:Double x:Key="fontSize">18</sys:Double>
@@ -108,7 +108,7 @@
             <!--            <TextBlock Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Text="Version Alpha 2" Background="#ddd" /> -->
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <Border BorderThickness="1" BorderBrush="Black" >
-                    <TextBlock Text="Start Up" Background="#bbb" FontWeight="Bold" Margin="1"/>
+                    <TextBlock Text="Start Up / Zoom" Background="#bbb" FontWeight="Bold" Margin="1" PreviewMouseWheel="TextBlock_PreviewMouseWheel" ToolTip="Put your mouse in here and use the mouse wheel to zoom in and out."/>
                 </Border>
                 <!--This is the  UDP Port selector-->
                 <Grid>
@@ -140,7 +140,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnResetList"   Content=" Reset " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Clears the arrays and lists and starts again."/>
-                    <TextBlock x:Name="txtZoomer"   Text="Zoom Here"  Grid.Column="0" Margin="5"  PreviewMouseWheel="txtZoomer_PreviewMouseWheel" />
+                    <!--<TextBlock x:Name="txtZoomer"   Text="Zoom Here"  Grid.Column="0" Margin="5"  PreviewMouseWheel="txtZoomer_PreviewMouseWheel" />-->
 
 
                 </StackPanel>
@@ -167,20 +167,20 @@
                     </Grid.RowDefinitions>
 
                     <!-- these are the text boxes where we can put averages etc-->
-                    <Label Content="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square." Grid.ColumnSpan="3"/>
+                    <Label Content="15 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square." Grid.ColumnSpan="3"/>
                     <TextBlock Text="0" Name="avgdbm" Grid.Column="3" Grid.Row="0" Margin="5,5,5,5" ToolTip="The average of all decodes over a 6 decode period."/>
 
-                    <Label Content="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square." Grid.ColumnSpan="3"/>
-                    <TextBlock Text="0" x:Name="runningAvgDbm" Grid.Column="3" Grid.Row="1" Margin="2,2,2,2"/>
+                    <Label Content="75 sec Avg" Background="#bbb"  Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" ToolTip="This is the average of the dBM signal report for the decoding period for QSO's with a grid square." Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" x:Name="runningAvgDbm" Grid.Column="3" Grid.Row="1" Margin="5,5,5,5"/>
 
-                    <Label Content="Last Decodes"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" ToolTip="The number of decodes with a 4 character maidenhead grid square in the last 15 second period for FT8" Grid.ColumnSpan="3"/>
-                    <TextBlock Text="0" x:Name="loopCnt"  Grid.Column="3" Grid.Row="2" Margin="2,2,2,2"/>
+                    <Label Content="Last Decodes"  Background="#bbb"  Grid.Column="0" Grid.Row="2" Margin="5,5,5,5" ToolTip="The number of decodes with a 4 character maidenhead grid square in the last 15 second period for FT8" Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" x:Name="loopCnt"  Grid.Column="3" Grid.Row="2" Margin="5,5,5,5"/>
 
-                    <Label Content="Total Decodes" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="2,0,2,0" ToolTip="How many decodes in total that we have done. " VerticalAlignment="Center" Grid.ColumnSpan="3"/>
-                    <TextBlock Text="0" Name="displayTotalDecodes"  Grid.Column="3" Grid.Row="3" Margin="2,0,2,0" Height="16" VerticalAlignment="Center"/>
+                    <Label Content="Total Decodes" Background="#bbb"  Grid.Column="0" Grid.Row="3" Margin="5,5,5,5" ToolTip="How many decodes in total that we have done. " VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" Name="displayTotalDecodes"  Grid.Column="3" Grid.Row="3" Margin="5,5,5,5" VerticalAlignment="Center"/>
 
-                    <Label Content="Cycles" Background="#bbb"  Grid.Column="0" Grid.Row="4" Margin="2,0,2,0" ToolTip="The total number of FT8 cycles we have done." VerticalAlignment="Center" Grid.ColumnSpan="3"/>
-                    <TextBlock Text="0" Name="displayTotalCycles"  Grid.Column="3" Grid.Row="4" Margin="2,2,2,2"/>
+                    <Label Content="Cycles" Background="#bbb"  Grid.Column="0" Grid.Row="4" Margin="5,5,5,5" ToolTip="The total number of FT8 cycles we have done." VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+                    <TextBlock Text="0" Name="displayTotalCycles"  Grid.Column="3" Grid.Row="4" Margin="5,5,5,5"/>
 
 
                 </Grid>

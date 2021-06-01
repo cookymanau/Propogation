@@ -39,7 +39,7 @@
                 <CheckBox Name="chkEUGraphs" Content="Eu" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkEUGraphs_Click"/>
                 <CheckBox Name="chkJAGraphs" Content="JA" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkJAGraphs_Click"/>
                 <CheckBox Name="chkNAGraphs" Content="NA" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkNAGraphs_Click"/>
-                <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="true" Click="chkOCGraphs_Click"/>
+                <CheckBox Name="chkOCGraphs" Content="OC" Margin="5,5" Grid.Column="0"  IsChecked="false" Click="chkOCGraphs_Click"/>
                 <CheckBox Name="chkAFGraphs" Content="AF" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkAFGraphs_Click"/>
                 <CheckBox Name="chkSAGraphs" Content="SA" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkSAGraphs_Click"/>
                 <CheckBox Name="chkFAGraphs" Content="Usr" Margin="5,5" Grid.Column="0" IsChecked="false" Click="chkFAGraphs_Click"/>
