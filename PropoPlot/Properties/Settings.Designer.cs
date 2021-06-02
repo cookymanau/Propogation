@@ -814,5 +814,53 @@ namespace PropoPlot.Properties {
                 this["myFontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string Raw2LineThick {
+            get {
+                return ((string)(this["Raw2LineThick"]));
+            }
+            set {
+                this["Raw2LineThick"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string Avg2Clr {
+            get {
+                return ((string)(this["Avg2Clr"]));
+            }
+            set {
+                this["Avg2Clr"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string Raw2Clr {
+            get {
+                return ((string)(this["Raw2Clr"]));
+            }
+            set {
+                this["Raw2Clr"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string Cnt2Clr {
+            get {
+                return ((string)(this["Cnt2Clr"]));
+            }
+            set {
+                this["Cnt2Clr"] = value;
+            }
+        }
     }
 }

@@ -194,7 +194,6 @@ namespace PropoPlot
                     double.TryParse(wrdmsg[2], out tpEU15[tpCount]); //Europe
                     double.TryParse(wrdmsg[5], out tpJA15[tpCount]); //Europe
                     double.TryParse(wrdmsg[11], out tpOC15[tpCount]); //Europe
-
                     double.TryParse(wrdmsg[8], out tpNA15[tpCount]); //Europe                    tpCount += 1;
                 }
                 if (timeData > t00_3 && timeData < t00_4) // 15minute interval

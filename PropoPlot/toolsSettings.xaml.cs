@@ -59,12 +59,19 @@ namespace PropoPlot
             toolsFARawColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FARawColor);
             toolsFACntColor.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.FACntColor);
 
+            toolsAvg2Color.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.Avg2Clr);
+            toolsCnt2Color.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.Cnt2Clr);
+            toolsRaw2Color.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.Raw2Clr);
+
+
+            
             toolsPanLeftPct.Text = Properties.Settings.Default.txtPan;
 
 
             AvgLineThickness.Value= int.Parse(Properties.Settings.Default.AvgLineThick);
             Avg2LineThickness.Value= int.Parse(Properties.Settings.Default.Avg2LineThick);
             RawLineThickness.Value = int.Parse(Properties.Settings.Default.RawLineThick);
+            Raw2LineThickness.Value = int.Parse(Properties.Settings.Default.Raw2LineThick);
             CntLineThickness.Value = int.Parse(Properties.Settings.Default.CntLineThick);
             GraphAvgDotSize.Value = int.Parse(Properties.Settings.Default.GraphAvgDotSize);
             GraphRawDotSize.Value = int.Parse(Properties.Settings.Default.GraphRawDotSize);
@@ -151,6 +158,12 @@ namespace PropoPlot
             Properties.Settings.Default.theirCall = theirCall.Text;
             Properties.Settings.Default.truncateValue = truncateValue.Text;
             Properties.Settings.Default.myFontSize = myFontSize.Text;
+            Properties.Settings.Default.Raw2LineThick = Raw2LineThickness.Text;
+
+            Properties.Settings.Default.Avg2Clr = toolsAvg2Color.SelectedColor.ToString();
+            Properties.Settings.Default.Cnt2Clr = toolsCnt2Color.SelectedColor.ToString();
+            Properties.Settings.Default.Raw2Clr = toolsRaw2Color.SelectedColor.ToString();
+
 
          //   Properties.Settings.Default.chkHiLiteDX = (chkHiLiteDX.IsChecked==true);
             Properties.Settings.Default.Save();

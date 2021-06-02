@@ -5,12 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="plotOfFaros" Height="250" Width="1500">
+        Title="plotOfFaros" Height="260" Width="700">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/> <!-- 0 hour -->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -21,101 +45,231 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Continent/dBm" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="EU" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="JA" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="NA" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="SA" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="OC" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="6" Content="AF" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="7" Content="Usr" HorizontalContentAlignment="Center"/>
+            
+            
+            
+            
+            <Label Name="Zulu00" Grid.Column="2" Grid.Row="0" Content="0" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu01" Grid.Column="3" Grid.Row="0" Content="1" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu02" Grid.Column="4" Grid.Row="0" Content="2" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu03" Grid.Column="5" Grid.Row="0" Content="3" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu04" Grid.Column="6" Grid.Row="0" Content="4" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu05" Grid.Column="7" Grid.Row="0" Content="5" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu06" Grid.Column="8" Grid.Row="0" Content="6" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu07" Grid.Column="9" Grid.Row="0" Content="7" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu08" Grid.Column="10" Grid.Row="0" Content="8" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu09" Grid.Column="11" Grid.Row="0" Content="9" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu10" Grid.Column="12" Grid.Row="0" Content="10" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu11" Grid.Column="13" Grid.Row="0" Content="11" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu12" Grid.Column="14" Grid.Row="0" Content="12" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu13" Grid.Column="15" Grid.Row="0" Content="13" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu14" Grid.Column="16" Grid.Row="0" Content="14" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu15" Grid.Column="17" Grid.Row="0" Content="15" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu16" Grid.Column="18" Grid.Row="0" Content="16" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu17" Grid.Column="19" Grid.Row="0" Content="17" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu18" Grid.Column="20" Grid.Row="0" Content="18" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu19" Grid.Column="21" Grid.Row="0" Content="19" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu20" Grid.Column="22" Grid.Row="0" Content="20" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu21" Grid.Column="23" Grid.Row="0" Content="21" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu22" Grid.Column="24" Grid.Row="0" Content="22" HorizontalContentAlignment="Center"/>
+            <Label Name="Zulu23" Grid.Column="25" Grid.Row="0" Content="23" HorizontalContentAlignment="Center"/>
+            <!--<Label Name="Zulu24" Grid.Column="26" Grid.Row="0" Content="24" HorizontalContentAlignment="Center"/>-->
 
-            <!--<CheckBox Name="chkAvg" Grid.Row="0" Grid.Column="1"   Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="false" />
-            <CheckBox Name="chkRaw" Grid.Row="1"Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="true"/>
-            <CheckBox Name="chkLiveUpdate" Grid.Row="3"Content="Live" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked"/>
-                <TextBlock Text=" Data"  Grid.Row="9"  Background="#bbb" FontWeight="Bold" Margin="2"/>-->
-            <TextBlock Text="EU" Grid.Row="0" Grid.Column="1"/>
-            <TextBlock Text="JA" Grid.Row="1" Grid.Column="1"/>
-            <TextBlock Text="NA" Grid.Row="2" Grid.Column="1"/>
-            <TextBlock Text="SA" Grid.Row="3" Grid.Column="1"/>
-            <TextBlock Text="OC" Grid.Row="4" Grid.Column="1"/>
-            <TextBlock Text="AF" Grid.Row="5" Grid.Column="1"/>
-            <TextBlock Text="FA" Grid.Row="6" Grid.Column="1"/>
-            <!--<DataGrid x:Name="EUf" DataGrid.Row="0" DataGrid.Column="2"/>
-            <DataGrid x:Name="JAf" Grid.Row="1" Grid.Column="2"/>
-            <DataGrid x:Name="NAf" Grid.Row="2" Grid.Column="2"/>
-            <DataGrid x:Name="SAf" Grid.Row="3" Grid.Column="2"/>
-            <DataGrid x:Name="OCf" Grid.Row="4" Grid.Column="2"/>
-            <DataGrid x:Name="AFf" Grid.Row="5" Grid.Column="2"/>
-            <DataGrid x:Name="FAf" Grid.Row="6" Grid.Column="2"/>-->
-            
-            
-            <Button x:Name="graphMapRedraw"  Grid.Row="6"  Content="Refresh" Margin="2,2" VerticalAlignment="Bottom" Grid.Column="0" />
- 
-            <DataGrid x:Name="dgEU" Grid.Column="2" Grid.Row="0" AutoGenerateColumns="True" FontSize="6" HeadersVisibility="None" CanUserAddRows="False" BorderThickness="5" AllowDrop="False" GridLinesVisibility="Vertical">
-                <DataGrid.LayoutTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="90"/>
-                        <MatrixTransform Matrix="-1,0,0,1,0,0"/>
-                    </TransformGroup>
-                </DataGrid.LayoutTransform>
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}"
-                BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                        <Setter Property="LayoutTransform">
-                            <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="-90"/>
-                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                </TransformGroup>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.CellStyle>
-                    <Style  TargetType="DataGridCell">
-                        <Setter Property="LayoutTransform">
-                            <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="-90"/>
-                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                </TransformGroup>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.CellStyle>
-            </DataGrid>
-            <DataGrid x:Name="dgJA" Grid.Column="2" Grid.Row="1" AutoGenerateColumns="True"  FontSize="6" HeadersVisibility="None" CanUserAddRows="False" BorderThickness="5" AllowDrop="False" GridLinesVisibility="Vertical">
-                <DataGrid.LayoutTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="90"/>
-                        <MatrixTransform Matrix="-1,0,0,1,0,0"/>
-                    </TransformGroup>
-                </DataGrid.LayoutTransform>
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}"
-                BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                        <Setter Property="LayoutTransform">
-                            <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="-90"/>
-                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                </TransformGroup>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.CellStyle>
-                    <Style  TargetType="DataGridCell">
-                        <Setter Property="LayoutTransform">
-                            <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="-90"/>
-                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                </TransformGroup>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.CellStyle>
-            </DataGrid>
+            <Rectangle Name="EU00" Grid.Column="2" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU01" Grid.Column="3" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU02" Grid.Column="4" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU03" Grid.Column="5" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU04" Grid.Column="6" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU05" Grid.Column="7" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU06" Grid.Column="8" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU07" Grid.Column="9" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU08" Grid.Column="10" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU09" Grid.Column="11" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU10" Grid.Column="12" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU11" Grid.Column="13" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU12" Grid.Column="14" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU13" Grid.Column="15" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU14" Grid.Column="16" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU15" Grid.Column="17" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU16" Grid.Column="18" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU17" Grid.Column="19" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU18" Grid.Column="20" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU19" Grid.Column="21" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU20" Grid.Column="22" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="EU21" Grid.Column="23" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU22" Grid.Column="24" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="EU23" Grid.Column="25" Grid.Row="1"   Stroke="Black" Fill="LightGray" />
+            <!--<Rectangle Name="EU24" Grid.Column="26" Grid.Row="1"   Stroke="Black" Fill="LightGray"/>-->
 
-            
-            
-            
-            
+            <Rectangle Name="JA00" Grid.Column="2" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA01" Grid.Column="3" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA02" Grid.Column="4" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA03" Grid.Column="5" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA04" Grid.Column="6" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA05" Grid.Column="7" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA06" Grid.Column="8" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA07" Grid.Column="9" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA08" Grid.Column="10" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA09" Grid.Column="11" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA10" Grid.Column="12" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA11" Grid.Column="13" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA12" Grid.Column="14" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA13" Grid.Column="15" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA14" Grid.Column="16" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA15" Grid.Column="17" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA16" Grid.Column="18" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA17" Grid.Column="19" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA18" Grid.Column="20" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA19" Grid.Column="21" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA20" Grid.Column="22" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="JA21" Grid.Column="23" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA22" Grid.Column="24" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="JA23" Grid.Column="25" Grid.Row="2"   Stroke="Black" Fill="LightGray" />
+            <!--<Rectangle Name="JA24" Grid.Column="26" Grid.Row="2"   Stroke="Black" Fill="LightGray"/>-->
+
+            <Rectangle Name="NA00" Grid.Column="2" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA01" Grid.Column="3" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA02" Grid.Column="4" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA03" Grid.Column="5" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA04" Grid.Column="6" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA05" Grid.Column="7" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA06" Grid.Column="8" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA07" Grid.Column="9" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA08" Grid.Column="10" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA09" Grid.Column="11" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA10" Grid.Column="12" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA11" Grid.Column="13" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA12" Grid.Column="14" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA13" Grid.Column="15" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA14" Grid.Column="16" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA15" Grid.Column="17" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA16" Grid.Column="18" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA17" Grid.Column="19" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA18" Grid.Column="20" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA19" Grid.Column="21" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA20" Grid.Column="22" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="NA21" Grid.Column="23" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA22" Grid.Column="24" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="NA23" Grid.Column="25" Grid.Row="3"   Stroke="Black" Fill="LightGray" />
+            <!--<Rectangle Name="NA24" Grid.Column="26" Grid.Row="3"   Stroke="Black" Fill="LightGray"/>-->
+
+            <Rectangle Name="SA00" Grid.Column="2"  Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA01" Grid.Column="3"  Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA02" Grid.Column="4"  Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA03" Grid.Column="5"  Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA04" Grid.Column="6"  Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA05" Grid.Column="7"  Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA06" Grid.Column="8"  Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA07" Grid.Column="9"  Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA08" Grid.Column="10" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA09" Grid.Column="11" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA10" Grid.Column="12" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA11" Grid.Column="13" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA12" Grid.Column="14" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA13" Grid.Column="15" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA14" Grid.Column="16" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA15" Grid.Column="17" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA16" Grid.Column="18" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA17" Grid.Column="19" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA18" Grid.Column="20" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA19" Grid.Column="21" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA20" Grid.Column="22" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="SA21" Grid.Column="23" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA22" Grid.Column="24" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="SA23" Grid.Column="25" Grid.Row="4"   Stroke="Black" Fill="LightGray" />
+            <!--<Rectangle Name="SA24" Grid.Column="26" Grid.Row="4"   Stroke="Black" Fill="LightGray"/>-->
+
+            <Rectangle Name="OC00" Grid.Column="2"  Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC01" Grid.Column="3"  Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC02" Grid.Column="4"  Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC03" Grid.Column="5"  Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC04" Grid.Column="6"  Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC05" Grid.Column="7"  Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC06" Grid.Column="8"  Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC07" Grid.Column="9"  Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC08" Grid.Column="10" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC09" Grid.Column="11" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC10" Grid.Column="12" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC11" Grid.Column="13" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC12" Grid.Column="14" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC13" Grid.Column="15" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC14" Grid.Column="16" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC15" Grid.Column="17" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC16" Grid.Column="18" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC17" Grid.Column="19" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC18" Grid.Column="20" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC19" Grid.Column="21" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC20" Grid.Column="22" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="OC21" Grid.Column="23" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC22" Grid.Column="24" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="OC23" Grid.Column="25" Grid.Row="5"   Stroke="Black" Fill="LightGray" />
+            <!--<Rectangle Name="OC24" Grid.Column="26" Grid.Row="5"   Stroke="Black" Fill="LightGray"/>-->
+
+            <Rectangle Name="AF00" Grid.Column="2"  Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF01" Grid.Column="3"  Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF02" Grid.Column="4"  Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF03" Grid.Column="5"  Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF04" Grid.Column="6"  Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF05" Grid.Column="7"  Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF06" Grid.Column="8"  Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF07" Grid.Column="9"  Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF08" Grid.Column="10" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF09" Grid.Column="11" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF10" Grid.Column="12" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF11" Grid.Column="13" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF12" Grid.Column="14" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF13" Grid.Column="15" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF14" Grid.Column="16" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF15" Grid.Column="17" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF16" Grid.Column="18" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF17" Grid.Column="19" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF18" Grid.Column="20" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF19" Grid.Column="21" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF20" Grid.Column="22" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="AF21" Grid.Column="23" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF22" Grid.Column="24" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="AF23" Grid.Column="25" Grid.Row="6"   Stroke="Black" Fill="LightGray" />
+            <!--<Rectangle Name="AF24" Grid.Column="26" Grid.Row="6"   Stroke="Black" Fill="LightGray"/>-->
+
+            <Rectangle Name="FA00" Grid.Column="2"  Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA01" Grid.Column="3"  Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA02" Grid.Column="4"  Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA03" Grid.Column="5"  Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA04" Grid.Column="6"  Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA05" Grid.Column="7"  Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA06" Grid.Column="8"  Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA07" Grid.Column="9"  Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA08" Grid.Column="10" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA09" Grid.Column="11" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA10" Grid.Column="12" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA11" Grid.Column="13" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA12" Grid.Column="14" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA13" Grid.Column="15" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA14" Grid.Column="16" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA15" Grid.Column="17" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA16" Grid.Column="18" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA17" Grid.Column="19" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA18" Grid.Column="20" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA19" Grid.Column="21" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA20" Grid.Column="22" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <Rectangle Name="FA21" Grid.Column="23" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA22" Grid.Column="24" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>
+            <Rectangle Name="FA23" Grid.Column="25" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
+            <!--<Rectangle Name="FA24" Grid.Column="26" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>-->
+
+            <Button Name="btnPlot" Content="Plot" Grid.Column="0" Grid.Row="8" Click="btnPlot_Click" Margin="2"/>
+            <TextBlock Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="26" Text="Propagation over 24 hours, each square represents one hour. Colours as per colour ramp. "/>
         </Grid>
     </Border>
 </Window>

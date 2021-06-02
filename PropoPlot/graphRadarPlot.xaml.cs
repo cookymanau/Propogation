@@ -176,50 +176,50 @@ namespace PropoPlot
 //------------------------------------------------------------
 
             if (wrdmsg[5] != "")
-                double.TryParse(wrdmsg[5], out dataJAR[count]); //EuropeAverage
+                double.TryParse(wrdmsg[5], out dataJAR[count]); //Japan Raw
             else
                 dataJAR[count] = -30;
 
             if (wrdmsg[6] != "")
-                double.TryParse(wrdmsg[6], out dataJAA[count]); //EuropeAverage
+                double.TryParse(wrdmsg[6], out dataJAA[count]); //Japan Avg
             else
                 dataJAA[count] = -30;
 
             if (wrdmsg[7] != "")
-                double.TryParse(wrdmsg[7], out dataJAC[count]); //EuropeAverage
+                double.TryParse(wrdmsg[7], out dataJAC[count]); 
             else
                 dataJAC[count] = 0;
 
-            //--
+            //-------------------------------------
 
             if (wrdmsg[8] != "")
-                double.TryParse(wrdmsg[8], out dataNAR[count]); //EuropeAverage
+                double.TryParse(wrdmsg[8], out dataNAR[count]); //North America
             else
                 dataNAR[count] = -30;
 
             if (wrdmsg[9] != "")
-                double.TryParse(wrdmsg[9], out dataNAA[count]); //EuropeAverage
+                double.TryParse(wrdmsg[9], out dataNAA[count]); 
             else
                 dataNAA[count] = -30;
 
             if (wrdmsg[10] != "")
-                double.TryParse(wrdmsg[10], out dataNAC[count]); //EuropeAverage
+                double.TryParse(wrdmsg[10], out dataNAC[count]); 
             else
                 dataNAC[count] = 0;
 
-            //
+            //------------------------------------------
             if (wrdmsg[11] != "")
-                double.TryParse(wrdmsg[11], out dataOCR[count]); //EuropeAverage
+                double.TryParse(wrdmsg[11], out dataOCR[count]); //Oceania
             else
                 dataOCR[count] = -30;
 
             if (wrdmsg[12] != "")
-                double.TryParse(wrdmsg[12], out dataOCA[count]); //EuropeAverage
+                double.TryParse(wrdmsg[12], out dataOCA[count]); 
             else
                 dataOCA[count] = -30;
 
             if (wrdmsg[13] != "")
-                double.TryParse(wrdmsg[13], out dataOCC[count]); //EuropeAverage
+                double.TryParse(wrdmsg[13], out dataOCC[count]); 
             else
                 dataOCC[count] = 0;
 
@@ -227,7 +227,7 @@ namespace PropoPlot
 
  
             if (wrdmsg[14] !=  "")
-                double.TryParse(wrdmsg[14], out dataAFR[count]);
+                double.TryParse(wrdmsg[14], out dataAFR[count]); //africa
             else
                 dataAFR[count] = -30;
 
@@ -243,9 +243,9 @@ namespace PropoPlot
 
 
 
-//--
+//------------------------------------
             if (wrdmsg[17] != "")
-                double.TryParse(wrdmsg[17], out dataSAR[count]);
+                double.TryParse(wrdmsg[17], out dataSAR[count]);  //south america
             else
                 dataSAR[count] = -30;
 
@@ -260,7 +260,7 @@ namespace PropoPlot
                 dataSAC[count] = 0;
   //-------------------------------------------------------
             if (wrdmsg[20] != "")
-                double.TryParse(wrdmsg[20], out dataFAR[count]);
+                double.TryParse(wrdmsg[20], out dataFAR[count]);  //user
             else
                 dataFAR[count] = -30;
 
@@ -399,11 +399,12 @@ namespace PropoPlot
 
 
 
-            radar =  graphSingle.Plot.AddRadar(values,independentAxes:false);
+            radar =  graphSingle.Plot.AddRadar(values,independentAxes:false );
 
             radar.CategoryLabels = new string[] {"JA","NA","SA","OC","AF","Usr","EU" };
             radar.ShowAxisValues = false;
             radar.AxisType = RadarAxis.None;
+            
 
         }//end
 

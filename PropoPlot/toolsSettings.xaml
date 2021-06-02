@@ -85,6 +85,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        
                         
                         
                     </Grid.RowDefinitions>
@@ -94,23 +96,63 @@
                     <xctk:IntegerUpDown Name="AvgLineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="3" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="0"/>
                     <xctk:IntegerUpDown Name="Avg2LineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="3" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="1"/>
                     <xctk:IntegerUpDown Name="RawLineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="3" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="2"/>
-                    <xctk:IntegerUpDown Name="CntLineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="3" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="3"/>
-                    <xctk:IntegerUpDown Name="GraphAvgDotSize" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="1" Increment="1" Minimum="0" Maximum="15"  Grid.Column="0" Grid.Row="4"/>
-                    <xctk:IntegerUpDown Name="GraphRawDotSize" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="1" Increment="1" Minimum="0" Maximum="15"  Grid.Column="0" Grid.Row="5"/>
-                    <xctk:IntegerUpDown Name="GraphCntDotSize" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="1" Increment="1" Minimum="0" Maximum="15"  Grid.Column="0" Grid.Row="6"/>
+                    <xctk:IntegerUpDown Name="Raw2LineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="1" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="3"/>
+                    <xctk:IntegerUpDown Name="CntLineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="3" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="4"/>
+                    <xctk:IntegerUpDown Name="GraphAvgDotSize" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="1" Increment="1" Minimum="0" Maximum="15"  Grid.Column="0" Grid.Row="5"/>
+                    <xctk:IntegerUpDown Name="GraphRawDotSize" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="1" Increment="1" Minimum="0" Maximum="15"  Grid.Column="0" Grid.Row="6"/>
+                    <xctk:IntegerUpDown Name="GraphCntDotSize" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="1" Increment="1" Minimum="0" Maximum="15"  Grid.Column="0" Grid.Row="7"/>
                         <TextBlock  Text="Avg Line Size" Grid.Column="1" Grid.Row="0" Margin="2"/>
                         <TextBlock  Text="Avg 2 Line Size" Grid.Column="1" Grid.Row="1" Margin="2"/>
                         <TextBlock  Text="Raw Line Size" Grid.Column="1" Grid.Row="2" Margin="2"/>
-                        <TextBlock  Text="Cnt Line Size" Grid.Column="1" Grid.Row="3" Margin="2"/>
-                        <TextBlock  Text="Avg Dot Size" Grid.Column="1" Grid.Row="4" Margin="2"/>
-                        <TextBlock  Text="Raw Dot Size" Grid.Column="1" Grid.Row="5" Margin="2"/>
-                        <TextBlock  Text="Cnt Dot Size" Grid.Column="1" Grid.Row="6" Margin="2"/>
-                        
-                        <!--<xctk:IntegerUpDown Name="CntLineThickness" Text="1" Width="15"  Grid.Column="2"  Grid.Row="4"/>-->
-                <!--</StackPanel>-->
-                  </Grid>
+                        <TextBlock  Text="Raw 2 Line Size" Grid.Column="1" Grid.Row="3" Margin="2"/>
+                        <TextBlock  Text="Cnt Line Size" Grid.Column="1" Grid.Row="4" Margin="2"/>
+                        <TextBlock  Text="Avg Dot Size" Grid.Column="1" Grid.Row="5" Margin="2"/>
+                        <TextBlock  Text="Raw Dot Size" Grid.Column="1" Grid.Row="6" Margin="2"/>
+                        <TextBlock  Text="Cnt Dot Size" Grid.Column="1" Grid.Row="7" Margin="2"/>
 
+                  </Grid>
             </GroupBox>
+
+
+
+            <GroupBox x:Name="Group2s" Header="Graph 2 Settings" Grid.Column="2" Grid.Row="1">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock Text="Avg2Clr"  Grid.Column="0" Grid.Row="0" Margin="2"/>
+                    <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="0" Name="toolsAvg2Color" Margin="2"/>
+                    <TextBlock Text="Raw2Clr"  Grid.Column="0" Grid.Row="1" Margin="2"/>
+                    <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="1" Name="toolsRaw2Color" Margin="2"/>
+                    <TextBlock Text="Cnt2Clr"  Grid.Column="0" Grid.Row="2" Margin="2"/>
+                    <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="2" Name="toolsCnt2Color" Margin="2"/>
+
+
+                </Grid>
+            </GroupBox>
+
+            <!--<StackPanel>-->
+
+
+
+
+                    <!--<xctk:IntegerUpDown Name="CntLineThickness" Text="1" Width="15"  Grid.Column="2"  Grid.Row="4"/>-->
+                <!--</StackPanel>-->
 
 
             <!--<GroupBox x:Name="AverageFileGroup" Header="Average Files" Grid.Column="1" Grid.Row="2">

@@ -146,7 +146,7 @@ namespace PropoPlot
                 displayTotalCycles.Text = cycleCounter.ToString();
                 // timerBar.Value = timercounter;
 
-                if (cycleCounter > 2)
+                if (cycleCounter > 1)
                     GraphsMainMenu.IsEnabled = true;
 
 
@@ -500,7 +500,7 @@ namespace PropoPlot
 
         private void graphHeat_Click(object sender, RoutedEventArgs e)
         {
-            graphHeat gh = new graphHeat();
+            graphHeat gh = new graphHeat(udpStrings);
             gh.Show();
         }
 
@@ -521,7 +521,7 @@ namespace PropoPlot
 
         private void plotFaros_Click(object sender, RoutedEventArgs e)
         {
-            plotOfFaros pf = new plotOfFaros();
+            plotOfFaros pf = new plotOfFaros(continentAVGList);
             pf.Show();
 
         }
@@ -646,37 +646,7 @@ namespace PropoPlot
             }
         }
 
-        ////private void window_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        ////{
-        ////    //       if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
-        ////    {
-        ////        if (e.Delta > 0)
-        ////            ++window.FontSize;
-        ////        if (e.Delta < 0 && window.FontSize > 1)
-        ////            --window.FontSize;
-        ////    }
 
-
-
-        //}
-
-        //private void txtZoomer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        //{
-        //    if (e.Delta > 0)
-        //    {
-        //        ++window.FontSize;
-        //      //  window.Width += 10;
-        //      //  window.Height += 10;
-   
-        //        if (e.Delta < 0 && window.FontSize > 1)
-        //    {
-        //        --window.FontSize;
-        //        // window.Width -= 10;
-        //        //window.Height -= 10;
-        //    }
-
-        //    }
-        //}
 
         private void TextBlock_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

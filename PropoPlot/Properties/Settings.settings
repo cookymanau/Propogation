@@ -200,5 +200,17 @@
     <Setting Name="myFontSize" Type="System.String" Scope="User">
       <Value Profile="(Default)">12</Value>
     </Setting>
+    <Setting Name="Raw2LineThick" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Avg2Clr" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="Raw2Clr" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
+    <Setting Name="Cnt2Clr" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF008B8B</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

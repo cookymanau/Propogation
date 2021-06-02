@@ -19,10 +19,29 @@ namespace PropoPlot
     /// </summary>
     public partial class graphHeat : Window
     {
-        public graphHeat()
+
+
+        List<string> thlist;
+        public graphHeat(List<string> alist)
         {
             InitializeComponent();
+            thlist = alist;  //this is where all of the data is
+
+           // string lat = 
+
+
+
         }
+
+
+
+
+
+
+
+
+
+
 
         private void chkLiveUpdate_Checked(object sender, RoutedEventArgs e)
         {

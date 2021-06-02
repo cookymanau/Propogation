@@ -497,6 +497,7 @@ namespace PropoPlot
                 int AvgLineThickness = int.Parse(Properties.Settings.Default.AvgLineThick);
                 int Avg2LineThickness = int.Parse(Properties.Settings.Default.Avg2LineThick);
                 int RawLineThickness = int.Parse(Properties.Settings.Default.RawLineThick);
+                int Raw2LineThickness = int.Parse(Properties.Settings.Default.Raw2LineThick);
                 int CntLineThickness = int.Parse(Properties.Settings.Default.CntLineThick);
                 int LineAvgDotSize = int.Parse(Properties.Settings.Default.GraphAvgDotSize);
                 int LineRawDotSize = int.Parse(Properties.Settings.Default.GraphRawDotSize);
@@ -512,17 +513,17 @@ namespace PropoPlot
                 if (chkAvgsGraphs.IsChecked == true)
                 {
                     graphCompare2Files.Plot.AddScatter(Dubdates, dataEUA, label: $"EUAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
-                    graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUA2, label: $"EUAvg {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUAvgColor)));
+                    graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUA2, label: $"EUAvg {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Avg2Clr)));
                 }
                     if (chkCountsGraphs.IsChecked == true)
                     {
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataEUC, label: $"EUCnt", markerSize: LineRawDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
-                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUC2, label: $"EUCnt2", markerSize: LineRawDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataEUC, label: $"EUCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EUCntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUC2, label: $"EUCnt2", markerSize: LineRawDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Cnt2Clr)));
                     }
                     if (chkRawPointsGraphs.IsChecked == true)
                     {
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataEUR, label: "EURaw", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
-                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUR2, label: "EURaw2", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataEUR, label: "EURaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.EURawColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataEUR2, label: "EURaw2", markerSize: LineAvgDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Raw2Clr)));
 
                     }
                    // if (chkSpline.IsChecked == true)
@@ -536,19 +537,22 @@ namespace PropoPlot
                     //}
                 }
 
-            if (chkJAGraphs.IsChecked == true)
-            {
-                if (chkAvgsGraphs.IsChecked == true)
+                if (chkJAGraphs.IsChecked == true)
                 {
+                    if (chkAvgsGraphs.IsChecked == true)
+                    {
                         graphCompare2Files.Plot.AddScatter(Dubdates, dataJAA, label: $"JAAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
-                         graphCompare2Files.Plot.AddScatter(Dubdates2, dataJAA2, label: $"JAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JAAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataJAA2, label: $"JAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Avg2Clr)));
 
-                }
-                    if (chkCountsGraphs.IsChecked == true) {
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataJAC, label: "JACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
                     }
-                    if (chkRawPointsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataJAR, label: "JARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
+                    if (chkCountsGraphs.IsChecked == true) {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataJAC, label: $"JACnt {cfFileName1.Text}", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JACntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataJAC2, label: $"JACnt2 {cfFileName1.Text}", markerSize: LineRawDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Cnt2Clr)));
+                    }
+                    if (chkRawPointsGraphs.IsChecked == true) { 
+                    graphCompare2Files.Plot.AddScatter(Dubdates, dataJAR, label: $"JARaw {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.JARawColor)));
+                    graphCompare2Files.Plot.AddScatter(Dubdates2, dataJAR2, label: $"JARaw2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Raw2Clr)));
+                }
 //                    if (chkSpline.IsChecked == true)
                 //{
                 //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataJAA, resolution: 20);
@@ -558,8 +562,6 @@ namespace PropoPlot
                 //    //   var psi = new ScottPlot.Statistics.Interpolation.PeriodicSpline(dataXf1, dataFAA, resolution: 20);
                 //    //   var esi = new ScottPlot.Statistics.Interpolation.EndSlopeSpline(dataXf1, dataFAA, resolution: 20);
                 //}
-
-
                 }
 
                 if (chkNAGraphs.IsChecked == true)
@@ -567,13 +569,18 @@ namespace PropoPlot
                     if (chkAvgsGraphs.IsChecked == true)
                     {
                         graphCompare2Files.Plot.AddScatter(Dubdates, dataNAA, label: $"NAAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
-                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataNAA2, label: $"NAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NAAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataNAA2, label: $"NAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Avg2Clr)));
                     }
-                    if (chkCountsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataNAC, label: "NACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
-                    if (chkRawPointsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataNAR, label: "NARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
-
+                if (chkCountsGraphs.IsChecked == true)
+                {
+                    graphCompare2Files.Plot.AddScatter(Dubdates, dataNAC, label: $"NACnt {cfFileName1.Text}", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NACntColor)));
+                    graphCompare2Files.Plot.AddScatter(Dubdates2, dataNAC2, label: $"NACnt2 {cfFileName2.Text}", markerSize: LineRawDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Cnt2Clr)));
+                }
+                if (chkRawPointsGraphs.IsChecked == true)
+                {
+                    graphCompare2Files.Plot.AddScatter(Dubdates, dataNAR, label: $"NARaw {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.NARawColor)));
+                    graphCompare2Files.Plot.AddScatter(Dubdates2, dataNAR2, label: $"NARaw2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Raw2Clr)));
+                }
                     //    if (chkSpline.IsChecked == true)
                     //    {
                     //        var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataNAA, resolution: 20);
@@ -590,12 +597,18 @@ namespace PropoPlot
                     if (chkAvgsGraphs.IsChecked == true)
                     {
                         graphCompare2Files.Plot.AddScatter(Dubdates, dataOCA, label: $"OCAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
-                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataOCA2, label: $"OCAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataOCA2, label: $"OCAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Avg2Clr)));
                     }
                     if (chkCountsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataOCC, label: "OCCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataOCC, label: $"OCCnt {cfFileName1.Text}", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCCntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataOCC2, label: $"OCCnt {cfFileName2.Text}", markerSize: LineRawDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Cnt2Clr)));
+                    }
                     if (chkRawPointsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataOCR, label: "OCRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataOCR, label: $"OCRaw {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.OCRawColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataOCR2, label: $"OCRaw2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Raw2Clr)));
+                    }
                     //if (chkSpline.IsChecked == true)
                     //{
                     //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataOCA, resolution: 20);
@@ -612,12 +625,17 @@ namespace PropoPlot
                     if (chkAvgsGraphs.IsChecked == true)
                     {
                         graphCompare2Files.Plot.AddScatter(Dubdates, dataAFA, label: $"AFAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
-                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataAFA2, label: $"AFAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataAFA2, label: $"AFAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Avg2Clr)));
                     }
                     if (chkCountsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataAFC, label: "AFCnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
-                    if (chkRawPointsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataAFR, label: "AFRaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataAFC, label: $"AFCnt {cfFileName1.Text}", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFCntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataAFC2, label: $"AFCnt2 {cfFileName2.Text}", markerSize: LineRawDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Cnt2Clr)));
+                    }
+                    if (chkRawPointsGraphs.IsChecked == true) { 
+                    graphCompare2Files.Plot.AddScatter(Dubdates, dataAFR, label: $"AFRaw {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.AFRawColor)));
+                    graphCompare2Files.Plot.AddScatter(Dubdates2, dataAFR2, label: $"AFRaw2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Raw2Clr)));
+                }
                  //   if (chkSpline.IsChecked == true)
                 //    {
                 //        var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataAFA, resolution: 20);
@@ -635,12 +653,18 @@ namespace PropoPlot
                     {
 
                         graphCompare2Files.Plot.AddScatter(Dubdates, dataSAA, label: $"SAAvg {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
-                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataSAA2, label: $"SAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SAAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataSAA2, label: $"SAAvg2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Avg2Clr)));
                     }
                     if (chkCountsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataSAC, label: "SACnt", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataSAC, label: $"SACnt {cfFileName1.Text}", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SACntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataSAC2, label: $"SACnt2 {cfFileName2.Text}", markerSize: LineRawDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Cnt2Clr)));
+                    }
                     if (chkRawPointsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataSAR, label: "SARaw", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataSAR, label: $"SARaw {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.SARawColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataSAR2, label: $"SARaw2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Raw2Clr)));
+                    }
                     //if (chkSpline.IsChecked == true)
                     //{
                     //    var nsi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataXf1, dataSAA, resolution: 20);
@@ -658,12 +682,18 @@ namespace PropoPlot
                     {
 
                         graphCompare2Files.Plot.AddScatter(Dubdates, dataFAA, label: $"{usrLabelAvg}:{cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: AvgLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
-                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataFAA2, label: $"{usrLabelAvg2}: {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FAAvgColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataFAA2, label: $"{usrLabelAvg2}: {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Avg2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Avg2Clr)));
                     }
                     if (chkCountsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataFAC, label: usrLabelCnt, markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataFAC, label: $"{usrLabelCnt} {cfFileName1.Text}", markerSize: LineRawDotSize, lineWidth: CntLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FACntColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataFAC2, label: $"{usrLabel}2 {cfFileName2.Text}", markerSize: LineRawDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Cnt2Clr)));
+                    }
                     if (chkRawPointsGraphs.IsChecked == true)
-                        graphCompare2Files.Plot.AddScatter(Dubdates, dataFAR, label: usrLabel, markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
+                    {
+                        graphCompare2Files.Plot.AddScatter(Dubdates, dataFAR, label: $"{usrLabel} {cfFileName1.Text}", markerSize: LineAvgDotSize, lineWidth: RawLineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.FARawColor)));
+                        graphCompare2Files.Plot.AddScatter(Dubdates2, dataFAR2, label: $"{usrLabel}2 {cfFileName2.Text}", markerSize: LineAvgDotSize, lineWidth: Raw2LineThickness, lineStyle: LineStyle.Solid, color: (ColorTranslator.FromHtml(Properties.Settings.Default.Raw2Clr)));
+                    }
 
                     //if (chkSpline.IsChecked == true)
                     //{
