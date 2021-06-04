@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="plotOfFaros" Height="260" Width="700">
+        Title="dBmPerHour" Height="290" Width="660" FontSize="11">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -38,6 +38,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -268,8 +269,11 @@
             <Rectangle Name="FA23" Grid.Column="25" Grid.Row="7"   Stroke="Black" Fill="LightGray" />
             <!--<Rectangle Name="FA24" Grid.Column="26" Grid.Row="7"   Stroke="Black" Fill="LightGray"/>-->
 
-            <Button Name="btnPlot" Content="Plot" Grid.Column="0" Grid.Row="8" Click="btnPlot_Click" Margin="2"/>
+            <CheckBox Name="chkLiveUpdate" Content="Live" Margin="5,5" Grid.Column="0" Grid.Row="8" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked"/>
+            <Button Name="btnPlot" Content="Plot" Grid.Column="0" Grid.Row="9" Click="btnPlot_Click" Margin="2"/>
             <TextBlock Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="26" Text="Propagation over 24 hours, each square represents one hour. Colours as per colour ramp. "/>
+            <TextBlock Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="26" Text="Comment:"/>
+            <TextBox Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="26" />
         </Grid>
     </Border>
 </Window>

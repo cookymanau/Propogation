@@ -42,6 +42,7 @@ namespace PropoPlot
         public double[] AFavgs = new double[120];
 
         List<string> messages = new List<string>(); // all of the messages.  
+        List<string> heats = new List<string>(); //just for the heat map
 
         public string prefix = "JTDX";
         public int avgsCounter = 0;
@@ -352,13 +353,14 @@ namespace PropoPlot
                             //using string interpolation to format the string as well
                          
                             if (aDXA == 1)
-                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,+8}\tDX:+{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3}\r\n";   //this just a display of data
+                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,+8}\tDX:+{ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont: {continent,-3}\r\n";   //this just a display of data
                             else
-                               message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,+8}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\t Cont: {continent,-3} \r\n";   //this just a display of data
+                               message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,+8}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont: {continent,-3} \r\n";   //this just a display of data
                             //message = $"UTC:{ul.udptime}\tGrid:{ul.udpqso3}\tdBm:{ul.udpdbm}\tDX:{ul.udpqso2}\tLat:{latitude}\tLong:{longitude} \r\n";   //this just a display of data
 
-                            string messForList = "";
-                                 //this just a display of data
+                            string messForList = "";  //for what we save as a formatted list
+                            string heatsForList = "";
+                            heatsForList = $"{ul.udptime},{ul.udpdbm},{latitude,-10},{longitude,-10}";
 
 
                            
@@ -372,7 +374,8 @@ namespace PropoPlot
                                 //run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aDXA = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:DX";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:DX";
+
                                 //over write the message
                             }
 
@@ -385,7 +388,7 @@ namespace PropoPlot
                                // run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aFA = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:{Properties.Settings.Default.UsrDefinedName}";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:{Properties.Settings.Default.UsrDefinedName}";
                             } 
                            else if (aAF == 1)
                             {
@@ -395,7 +398,7 @@ namespace PropoPlot
                                 //run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
                                 aAF = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:AF";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:AF";
                             }
                             else if (aJA == 1)
                             {
@@ -403,7 +406,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aJA = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:JA";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:JA";
 
                             }
                             else if (aSA == 1)
@@ -412,7 +415,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aSA = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:SA";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:SA";
                             }
                             else if (aNA == 1)
                             {
@@ -420,7 +423,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aNA = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:NA";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:NA";
                             }
                             else if (aEU == 1)
                             {
@@ -428,7 +431,7 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aEU = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:EU";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:EU";
                             }
                             else if (aOC == 1)
                             {
@@ -436,14 +439,14 @@ namespace PropoPlot
                                 run.Foreground = System.Windows.Media.Brushes.Black;
                                 plotmessage.Inlines.Add(run);
                                 aOC = 0;
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:OC";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:OC";
                             }
                             else
                             {
                                 System.Windows.Documents.Run run = new System.Windows.Documents.Run(message);
                                 run.Foreground = System.Windows.Media.Brushes.DarkViolet;
                                 plotmessage.Inlines.Add(run);
-                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10} Cont:None";
+                                messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:None";
                             }
 
                             counter++;  //this counter goes up by not 1
@@ -455,6 +458,7 @@ namespace PropoPlot
 
 
                             messages.Add(messForList);    // so lets start making a list of the messages
+                            heats.Add(heatsForList);
                         }
 
                         loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square

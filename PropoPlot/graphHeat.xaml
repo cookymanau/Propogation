@@ -13,7 +13,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <WpfPlot Name="graphMap" Grid.Column="1" 
+            <WpfPlot Name="graphHeatmap" Grid.Column="1" 
                        >
                 <WpfPlot.Background>
                     <SolidColorBrush Color="Gray" Opacity=".25"/>
@@ -22,12 +22,12 @@
 
             <StackPanel>
               <TextBlock Text=" Data" Background="#bbb" FontWeight="Bold" Margin="2"/>
-                <CheckBox Name="chkAvg" Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="false" />
-                <CheckBox Name="chkRaw" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="true"/>
+                <!--<CheckBox Name="chkAvg" Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="false" />-->
+                <!--<CheckBox Name="chkRaw" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="true"/>-->
                 <CheckBox Name="chkLiveUpdate" Content="Live" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked"/>
 
             </StackPanel>
-            <Button x:Name="graphMapRedraw" Content="Refresh" Margin="2,2" VerticalAlignment="Bottom" Grid.Column="0" />
+            <Button x:Name="graphMapRedraw" Content="Refresh" Margin="2,2" VerticalAlignment="Bottom" Grid.Column="0" Click="graphMapRedraw_Click" />
 
         </Grid>
     </Border>

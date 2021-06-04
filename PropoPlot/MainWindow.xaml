@@ -64,7 +64,7 @@
                             <Image Source="/floppy.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <!--<MenuItem Header="_Read QSO Data" Name="readQSOCont" Click="readQSOCont_Click"   />-->
+                    <MenuItem Header="_Read QSO Data" Name="readQSOCont" Click="readQSOCont_Click"   />
 
                     <Separator/>
                     <MenuItem Header="_Compare Saved data" Name="graphCompare" Click="graphCompare_Click"   Icon=""/>
@@ -90,9 +90,9 @@
                     <MenuItem Header="_History" Name="graphLive" Click="graphLive_Click"/>
                     <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />
                     <MenuItem Header="_Population" Name="graphPop" Click="graphPop_Click"   />
+                    <MenuItem Header="_dBm by Hour" Name="plotFaros" Click="plotFaros_Click"  />
                     <MenuItem Header="_Heat" Name="graphHeat" Click="graphHeat_Click"  />
                     <!--<MenuItem Header="_Faros" Name="graphFaros" Click="graphFaros_Click"   />-->
-                    <MenuItem Header="_Faros" Name="plotFaros" Click="plotFaros_Click"  />
 
                 </MenuItem>
 
@@ -258,12 +258,13 @@
                     <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="7" >
                         <TextBlock Text="Colour Ramp" Background="#bbb" FontWeight="Bold"  Grid.Row="3"   Margin="1"/>
                     </Border>
-                    <TextBlock Text="          LT -15 dBm" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="Yellow" Margin="1"/>
-                    <TextBlock Text="     -8dBm to -15dBm " Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="Aqua" Margin="1"/>
-                    <TextBlock Text="      0dBm to -8dBm " Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="Blue" Foreground="White" Margin="1"/>
-                    <TextBlock Text="         GT 0dBm " Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="Red" Margin="1"/>
-                    <TextBlock Text="FileSave:" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="6"  Margin="1" Name="saveFileName"/>
+                    <TextBlock Text="          LT -20 dBm" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="LightGreen" Margin="1"/>
+                    <TextBlock Text="    -15dBm to -20dBm" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="Yellow" Margin="1"/>
+                    <TextBlock Text="     -8dBm to -15dBm " Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="Aqua" Margin="1"/>
+                    <TextBlock Text="      0dBm to -8dBm " Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="Blue" Foreground="White" Margin="1"/>
+                    <TextBlock Text="         GT 0dBm " Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="Red" Margin="1"/>
+                    <TextBlock Text="FileSave:" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="6"  Margin="1" Name="saveFileName"/>
 
 
                     <TextBlock Text="DX Heard:" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>

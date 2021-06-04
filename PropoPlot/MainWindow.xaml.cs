@@ -273,6 +273,7 @@ namespace PropoPlot
             {
                 // Save document
                 string filename = dlg.FileName;
+                
                 saveFileName.Text = dlg.FileName;  //write the file name on the UI
 
                 // now send all to the filename
@@ -478,6 +479,7 @@ namespace PropoPlot
                             if (count > 0) //miss the first row of the file - it has header info we dont want
                             {
                                 continentAVGList.Add(line);
+                                
                             }
                             count += 1;
                         }
@@ -500,7 +502,8 @@ namespace PropoPlot
 
         private void graphHeat_Click(object sender, RoutedEventArgs e)
         {
-            graphHeat gh = new graphHeat(udpStrings);
+            graphHeat gh = new graphHeat(heats);
+            //graphHeat gh = new graphHeat(udpStrings);
             gh.Show();
         }
 
@@ -518,7 +521,11 @@ namespace PropoPlot
 
 
         }
-
+        /// <summary>
+        /// Renamed this window 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void plotFaros_Click(object sender, RoutedEventArgs e)
         {
             plotOfFaros pf = new plotOfFaros(continentAVGList);
@@ -628,6 +635,7 @@ namespace PropoPlot
                             if (count > 0) //miss the first row of the file - it has header info we dont want
                             {
                                 messages.Add($"{line}\r\n");
+                                reconstructHeats(line);
                             }
                             count += 1;
                         }
@@ -645,6 +653,42 @@ namespace PropoPlot
                 //window.FontSize = 8.0;
             }
         }
+
+
+        private void reconstructHeats(string line)
+        {
+
+            // get the data we want out of line and put into the list heats
+            string[] wrdmsg = { };
+            string[] timea = { };
+            string[] lata = { };
+            string[] lona = { };
+            string[] dBma = { };
+
+            string dBm = "";
+            string lat = "";
+            string lon = "";
+            string utc = "";
+
+
+            wrdmsg = line.Split('\t');
+
+            timea = wrdmsg[0].Split(' ');
+            utc = timea[1];
+                
+            dBma = wrdmsg[2].Split(':');
+            dBm = dBma[1];
+
+            lata = wrdmsg[4].Split(':');
+            lat = lata[1];
+
+            lona = wrdmsg[5].Split(':');
+            lon = lona[1];
+
+            heats.Add($"{utc},{dBm},{lat},{lon}");
+
+        }
+
 
 
 
