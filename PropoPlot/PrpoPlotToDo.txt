@@ -86,3 +86,10 @@
 	interface like a map covered in grid squares that you highlight to produuce the array  string[] SA = new string[]{"AB12","AB13" etc}
 	•
 	•
+
+
+
+	             frmMessageDialog md = new frmMessageDialog();
+                 md.messageBoxUpper.Text = $"Error in PrepareArrays of plotdBmPerHour TimeData ";
+                 md.messageBoxLower.Text = $"{ex}";
+                 md.Show();

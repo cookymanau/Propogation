@@ -51,6 +51,8 @@ namespace PropoPlot
         int timercounter = 0;
         int cycleCounter = 0;
 
+        string avgFilename = "";
+        string qsoFilename = "";
 
 
         public MainWindow()
@@ -58,7 +60,9 @@ namespace PropoPlot
             InitializeComponent();
             //continentAVGList.Add("");  // initialising the list with something
 
-
+            string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
+            avgFilename = $"propDBM_{now}_{prefix}_Band_Ant";  // Default file name
+            qsoFilename = $"propQSO_{now}_{prefix}_Band_Ant";  // Default file name
 
             usrDefinedLabel.Text = Properties.Settings.Default.UsrDefinedName;
             GraphsMainMenu.IsEnabled = false;
@@ -261,7 +265,7 @@ namespace PropoPlot
             //using System.IO; is for SttreamWriter
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = $"propdBm_{now}_{prefix}_Band_Ant";  // Default file name
+            dlg.FileName = avgFilename; //$"propdBm_{now}_{prefix}_Band_Ant";  // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -275,6 +279,7 @@ namespace PropoPlot
                 string filename = dlg.FileName;
                 
                 saveFileName.Text = dlg.FileName;  //write the file name on the UI
+                avgFilename = dlg.FileName; // saving it for ron
 
                 // now send all to the filename
                 using (StreamWriter writer = new StreamWriter(filename))
@@ -291,7 +296,7 @@ namespace PropoPlot
 
             }//end if result == true
 
-
+            avgFilename = dlg.FileName;  //write it back to the variable just in case we changed it
         }
 
         private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
@@ -574,7 +579,7 @@ namespace PropoPlot
             //using System.IO; is for SttreamWriter
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = $"propQSO_{now}_{prefix}_Band_Ant";  // Default file name
+            dlg.FileName = qsoFilename; //$"propQSO_{now}_{prefix}_Band_Ant";  // Default file name
             dlg.DefaultExt = ".csv"; // Default file extension
             dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
 
@@ -601,6 +606,7 @@ namespace PropoPlot
                 }//und using
 
             }
+            qsoFilename = dlg.FileName;
         }
 
         private void readQSOCont_Click(object sender, RoutedEventArgs e)

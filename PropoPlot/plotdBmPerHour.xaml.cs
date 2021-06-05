@@ -56,6 +56,8 @@ namespace PropoPlot
 
         private void prepareArrays()
         {
+            try
+            {
 
             string[] wrdmsg = { };
             int count = 0;
@@ -169,6 +171,15 @@ namespace PropoPlot
                 //AFcnt = 0;
                 //FAcnt = 0;
             }//end foreach
+            }
+            catch (Exception ex)
+            {
+                 frmMessageDialog md = new frmMessageDialog();
+                 md.messageBoxUpper.Text = $"Error in PrepareArrays of plotdBmPerHour TimeData ";
+                 md.messageBoxLower.Text = $"{ex}";
+                 md.Show();
+
+            }
         }//end function
 
 

@@ -24,7 +24,10 @@ namespace PropoPlot
     {
 
 
-        const int arrSize = 50000;
+        int divisor = 6;
+        int numberOfPoints = 10;
+
+        const int arrSize = 100000;
 
         double[] Xs = new double[arrSize];
         double[] Ys = new double[arrSize];
@@ -39,66 +42,149 @@ namespace PropoPlot
           
             thlist = alist;  //this is where all of the data is  =>>  time, dBm, Lat, Long
             PrepareArrays();
-            plotPoints();
+            // plotPoints();
+          //  plotHeatMAp();
 
        }
 
 
         private void PrepareArrays()
         {
+            try
+            {
 
             string[] wrdmsg = { };
-
-            string time = "";
-           
-
             //  sizeTheArrays(arrSize);
             foreach (var item in thlist)
             {
-                // double defaultValue = 0;
-
                 wrdmsg = item.Split(',');
                 Xs[count] = double.Parse(wrdmsg[2]);  //Latitude
                 Ys[count] = double.Parse(wrdmsg[3]);  //Latitude
-                Zs[count] = ((double.Parse(wrdmsg[1])) + 30.0)/4; //dbM
-
+                Zs[count] = ((double.Parse(wrdmsg[1])) + 30.0); //dbM the + 30 makes the negative number a positive.
                 count += 1;
             }
 
 
+            plotPoints();
+          // plotHeatMAp();
+            }
+            catch (Exception ex)
+            {
+                frmMessageDialog md = new frmMessageDialog();
+                md.messageBoxUpper.Text = $"Error in PrepareArrays of graphHeat ";
+                md.messageBoxLower.Text = $"{ex}";
+                md.Show();
+            }
 
-            } //end of function
+        } //end of function
 
 
         private void plotPoints()
         {
 
-            Random rand = new(0);
-
-            var myBubblePlot = graphHeatmap.Plot.AddBubblePlot();
-
-            double randomValue = rand.NextDouble();
-            double bubbleSize = randomValue * 1 + 1;
+            Bitmap wmap = new Bitmap(@".\Map.png");
+            var worldmap = graphHeatmap.Plot.AddImage(wmap,-180,90);
+            var hmap     = graphHeatmap.Plot.AddBubblePlot();
 
             // resize the arrays for plotting - get rid of all of the 0's
-            double[] pXs = new double[count];
-            double[] pYs = new double[count];
-            double[] pZs = new double[count];
+            //make the number of points plotted adjustable so you are plotting a variable
+            //history of points.  So lets copy the count to count - 100 points to get a 100 points on the map
+            // count is all of the points. we can have another compbo for these numbers
 
-            Array.Copy(Xs, pXs, count);
-            Array.Copy(Ys, pYs, count);
-            Array.Copy(Zs, pZs, count);
+            //lets start with 100 points instead of count
+            
+          //  int numberOfPoints = 0;
 
-            // System.Windows.Media.Color bubbleColor = Drawing.Colormap.Jet.GetColor(randomValue, .5);
+            if (count < 100)
+            {
+                numberOfPoints = count;
 
+            }
+            else
+                numberOfPoints = 100;
+            
+
+
+
+
+
+            double[] pXs = new double[numberOfPoints];
+            double[] pYs = new double[numberOfPoints];
+            double[] pZs = new double[numberOfPoints];
+
+
+            if (count > numberOfPoints * 2)
+            {
+
+                Array.Copy(Xs, count - numberOfPoints, pXs, 0, numberOfPoints);
+                Array.Copy(Ys, count - numberOfPoints, pYs, 0, numberOfPoints);
+                Array.Copy(Zs, count - numberOfPoints, pZs, 0, numberOfPoints);
+            }
+            else
+            { // this is the start up position
+                Array.Copy(Xs, pXs, count);
+                Array.Copy(Ys, pYs, count);
+                Array.Copy(Zs, pZs, count);
+            }
+            float dGreen = 10 ;
+            float dYellow = 15;
+            float dAcqua = 22 ;
+            float dBlue = 30 ;
+
+            
 
             for (int i = 0; i < pXs.Length; i++)
             {
-                myBubblePlot.Add(x: pYs[i], y: pXs[i], radius: pZs[i], fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
-
+                
+                if(pZs[i] < dGreen)
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.LightGreen, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
+               
+                else if (pZs[i] >= dGreen  && pZs[i] < dYellow)
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Yellow, edgeWidth: 1, edgeColor: System.Drawing.Color.DarkGreen);
+                
+                else if (pZs[i] >= dYellow  && pZs[i] < dAcqua)
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Cyan, edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
+                
+                else if (pZs[i] >= dAcqua  && pZs[i] < dBlue)
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Blue, edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
+                
+                else if (pZs[i] > dBlue)  //dont want to plot 0's
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
             }
 
+            
+
+
+        
+        }//end
+
+
+        private void plotHeatMAp()
+        {
+
+            // resize the arrays for plotting - get rid of all of the 0's
+            int[] pXs = new int[count];
+            int[] pYs = new int[count];
+            double[,] data2D = new double[count,2];
+
+            for(int i = 0; i < count; i++)
+            {
+                pXs[i] = (int)Xs[i];
+                pYs[i] = (int)Ys[i];
+
+                data2D[i, 0] = Xs[i];
+                data2D[i, 1] = Ys[i];
+            }
+
+            //  var hm = graphHeatmap.Plot.AddHeatmap(data2D, lockScales: false);
+            double[,] intensities = ScottPlot.Tools.XYToIntensities(mode: ScottPlot.IntensityMode.Density,  xs: pXs, ys: pYs, width: 100, height: 100, sampleWidth: 4);
+
+            var hm = graphHeatmap.Plot.AddHeatmap(intensities);
+            var cb = graphHeatmap.Plot.AddColorbar(hm);
+            
+            
         }
+
 
 
 
@@ -109,7 +195,7 @@ namespace PropoPlot
             graphMapRedraw.Content = "Live";
             // now start the timer to process the UDP stuff now that we have started it.
             dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
-            dispatcherTimer2.Interval = new TimeSpan(0, 5, 0);
+            dispatcherTimer2.Interval = new TimeSpan(0, 1, 0);
             dispatcherTimer2.Start();
         }
 
@@ -118,7 +204,7 @@ namespace PropoPlot
         {
 
             PrepareArrays();
-            plotPoints();
+          //  plotPoints();
         }
 
         private void chkLiveUpdate_Unchecked(object sender, RoutedEventArgs e)
@@ -129,7 +215,117 @@ namespace PropoPlot
         private void graphMapRedraw_Click(object sender, RoutedEventArgs e)
         {
             PrepareArrays();
-            plotPoints();
+            //plotPoints();
         }
+
+        private void cmboSize_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("wee");
+            data.Add("small");
+            data.Add("medium");
+            data.Add("big");
+            data.Add("huge");
+            data.Add("enormous");
+
+            var combo = sender as ComboBox;
+            combo.ItemsSource = data;
+            combo.SelectedIndex = 2;
+        }
+
+        private void cmboSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var cmboSize = sender as ComboBox;
+            string size = cmboSize.SelectedItem as string;
+            //  MessageBox.Show(name);
+            //UDPportEntry.Text = name;
+
+            switch (size)
+            {
+                case "wee":
+                    divisor = 10;
+                    break;
+                case "small":
+                    divisor = 8;
+                    break;
+                case "medium":
+                    divisor = 6;
+                    break;
+                case "huge":
+                    divisor = 4;
+                    break;
+                case "enormous":
+                    divisor = 2;
+                    break;
+                        
+            }
+
+            graphHeatmap.Plot.Clear();
+            graphHeatmap.Plot.Render();
+
+            PrepareArrays();
+
+
+
+
+        } //end
+
+        private void cmboNumPoints_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("50");
+            data.Add("100");
+            data.Add("500");
+            data.Add("1000");
+            data.Add("5000");
+            data.Add("All");
+
+            var combo = sender as ComboBox;
+            combo.ItemsSource = data;
+            combo.SelectedIndex = 2;
+
+        }
+
+        private void cmboNumPoints_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var cmboNpoints = sender as ComboBox;
+            string Npoints = cmboNpoints.SelectedItem as string;
+            //  MessageBox.Show(name);
+            //UDPportEntry.Text = name;
+
+            switch (Npoints)
+            {
+                case "50":
+                   numberOfPoints  = 10;
+                    break;
+                case "100":
+                    numberOfPoints = 100;
+                    break;
+                case "500":
+                    numberOfPoints = 500;
+                    break;
+                case "1000":
+                    numberOfPoints = 1000;
+                    break;
+                case "5000":
+                    numberOfPoints = 5000;
+                    break;
+                case "All":
+                    numberOfPoints = arrSize;
+                    break;
+
+
+            }
+
+
+            graphHeatmap.Plot.Clear();
+            graphHeatmap.Plot.Render();
+
+            PrepareArrays();
+
+        }//end
+
+
+
     }
 }

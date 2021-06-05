@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="graphHeat" Height="450" Width="800">
+        Title="graphHeat" Height="508" Width="1180">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -24,6 +24,9 @@
               <TextBlock Text=" Data" Background="#bbb" FontWeight="Bold" Margin="2"/>
                 <!--<CheckBox Name="chkAvg" Content="Avg Data" Margin="5,5" Grid.Column="0" IsChecked="false" />-->
                 <!--<CheckBox Name="chkRaw" Content="Raw Data" Margin="5,5" Grid.Column="0" IsChecked="true"/>-->
+
+                <ComboBox Name="cmboSize" Text="Dot Size" Loaded="cmboSize_Loaded" SelectionChanged="cmboSize_SelectionChanged"/>
+                <ComboBox Name="cmboNumPoints" Loaded="cmboNumPoints_Loaded" SelectionChanged="cmboNumPoints_SelectionChanged" />
                 <CheckBox Name="chkLiveUpdate" Content="Live" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked"/>
 
             </StackPanel>
