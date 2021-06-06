@@ -27,7 +27,7 @@ namespace PropoPlot
         int divisor = 6;
         int numberOfPoints = 10;
 
-        const int arrSize = 100000;
+        const int arrSize = 1000;
 
         double[] Xs = new double[arrSize];
         double[] Ys = new double[arrSize];
@@ -62,6 +62,14 @@ namespace PropoPlot
                 Ys[count] = double.Parse(wrdmsg[3]);  //Latitude
                 Zs[count] = ((double.Parse(wrdmsg[1])) + 30.0); //dbM the + 30 makes the negative number a positive.
                 count += 1;
+
+                if(count >= arrSize)
+                {
+                    count = 0;
+                    Array.Clear(Xs,0,arrSize);
+                    Array.Clear(Ys,0,arrSize);
+                    Array.Clear(Zs,0,arrSize);
+                }
             }
 
 
@@ -95,13 +103,13 @@ namespace PropoPlot
             
           //  int numberOfPoints = 0;
 
-            if (count < 100)
+            if (count < numberOfPoints)
             {
                 numberOfPoints = count;
 
             }
-            else
-                numberOfPoints = 100;
+//            else
+//                numberOfPoints = 100;
             
 
 
