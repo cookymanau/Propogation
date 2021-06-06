@@ -269,21 +269,24 @@ namespace PropoPlot
 
         private void colourit(double avg, Rectangle grid)
         {
+            var bc = new BrushConverter();
+
+
             if (avg < -20)
-                grid.Fill = System.Windows.Media.Brushes.LightGreen;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                grid.Fill = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1); //System.Windows.Media.Brushes.LightGreen;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
             else if (avg >= -20 && avg < -15)
-                grid.Fill = System.Windows.Media.Brushes.Yellow;
+                grid.Fill = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2); // System.Windows.Media.Brushes.Yellow;
             else if (avg >= -15 && avg < -8)
-                grid.Fill = System.Windows.Media.Brushes.Aqua;
+                grid.Fill = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);//System.Windows.Media.Brushes.Aqua;
             else if (avg >= -8 && avg < 0)
-                grid.Fill = System.Windows.Media.Brushes.Blue;
+                grid.Fill = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);  //System.Windows.Media.Brushes.Blue;
 
 
             else if (avg == 0 )
                 grid.Fill = System.Windows.Media.Brushes.Black;  //special case for 0
 
             else if (avg > 0 )
-                grid.Fill = System.Windows.Media.Brushes.Red;
+                grid.Fill = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5); //System.Windows.Media.Brushes.Red;
             else
                 grid.Fill = System.Windows.Media.Brushes.LightGray;
 

@@ -82,10 +82,18 @@ namespace PropoPlot
             truncateValue.Text = Properties.Settings.Default.truncateValue;
             myFontSize.Text = Properties.Settings.Default.myFontSize;
 
+            //these are colour ramp colours
+            crDBM1.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.crDBM1);
+            crDBM2.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.crDBM2);
+            crDBM3.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.crDBM3);
+            crDBM4.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.crDBM4);
+            crDBM5.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.crDBM5);
 
-            //  chkHiLiteDX.IsEnabled = Properties.Settings.Default.chkHiLiteDX ;
-          //  chkHiLiteDX.IsChecked  =  Properties.Settings.Default.chkHiLiteDX ;
-
+            //these are the cut off values
+          dBm1Value.Value = int.Parse(Properties.Settings.Default.dBm1Value); 
+          dBm2Value.Value = int.Parse(Properties.Settings.Default.dBm2Value); 
+          dBm3Value.Value = int.Parse(Properties.Settings.Default.dBm3Value); 
+          dBm4Value.Value = int.Parse(Properties.Settings.Default.dBm4Value); 
 
 
         }
@@ -106,9 +114,21 @@ namespace PropoPlot
 
             mw.window.FontSize = double.Parse(myFontSize.Text);
             mw.FontSize = double.Parse(myFontSize.Text);
-
-
             saveAllSettings();
+
+
+            var bc = new BrushConverter();
+            
+            mw.dBmCut1.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1);
+            mw.dBmCut2.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2);
+            mw.dBmCut3.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);
+            mw.dBmCut4.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);
+            mw.dBmCut5.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5);
+            mw.dBmCut1.UpdateLayout();
+            mw.dBmCut2.UpdateLayout();
+            mw.dBmCut3.InvalidateVisual();
+            mw.dBmCut4.InvalidateVisual();
+            mw.dBmCut5.InvalidateVisual();
         }
 
          private void saveAllSettings()
@@ -164,8 +184,21 @@ namespace PropoPlot
             Properties.Settings.Default.Cnt2Clr = toolsCnt2Color.SelectedColor.ToString();
             Properties.Settings.Default.Raw2Clr = toolsRaw2Color.SelectedColor.ToString();
 
+            //these are colour ramp colours
+            Properties.Settings.Default.crDBM1 = crDBM1.SelectedColor.Value.ToString();
+            Properties.Settings.Default.crDBM2 = crDBM2.SelectedColor.Value.ToString();
+            Properties.Settings.Default.crDBM3 = crDBM3.SelectedColor.Value.ToString();
+            Properties.Settings.Default.crDBM4 = crDBM4.SelectedColor.Value.ToString();
+            Properties.Settings.Default.crDBM5 = crDBM5.SelectedColor.Value.ToString();
 
-         //   Properties.Settings.Default.chkHiLiteDX = (chkHiLiteDX.IsChecked==true);
+            //these are the cut off values
+            Properties.Settings.Default.dBm1Value = dBm1Value.Value.ToString();
+            Properties.Settings.Default.dBm2Value = dBm2Value.Value.ToString();
+            Properties.Settings.Default.dBm3Value = dBm3Value.Value.ToString();
+            Properties.Settings.Default.dBm4Value = dBm4Value.Value.ToString();
+
+
+            //   Properties.Settings.Default.chkHiLiteDX = (chkHiLiteDX.IsChecked==true);
             Properties.Settings.Default.Save();
             
             //clean up th UI

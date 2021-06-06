@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-
+using System.Windows.Media;
 
 /// <summary>
 /// Helper class
@@ -47,34 +47,35 @@ namespace PropoPlot
 
         private void setBarColour(double value,ProgressBar barname,TextBlock contDbm)
         {
-            
+            var bc = new BrushConverter();
+
             if (value == -100)
                 barname.Background = System.Windows.Media.Brushes.White;
 
             else if (value < -15)
             {
-                barname.Background = System.Windows.Media.Brushes.Yellow;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1);    //System.Windows.Media.Brushes.Yellow;
                 contDbm.Foreground = System.Windows.Media.Brushes.Black;
             }
             else if (value < -8)
             {
-                barname.Background = System.Windows.Media.Brushes.Aqua;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2);  //System.Windows.Media.Brushes.Aqua;
                 contDbm.Foreground = System.Windows.Media.Brushes.Black;
             }
 
             else if (value < 0)
             {
-                barname.Background = System.Windows.Media.Brushes.Blue;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);//System.Windows.Media.Brushes.Blue;
                 contDbm.Foreground = System.Windows.Media.Brushes.White;
             }
             else if (value == 0)
             {
-                barname.Background = System.Windows.Media.Brushes.LightGray;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);//System.Windows.Media.Brushes.LightGray;
                 contDbm.Foreground = System.Windows.Media.Brushes.Black;
             }
             else if (value > 0)
             {
-                barname.Background = System.Windows.Media.Brushes.Red;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5); //System.Windows.Media.Brushes.Red;
                 contDbm.Foreground = System.Windows.Media.Brushes.Black;
             }
         }

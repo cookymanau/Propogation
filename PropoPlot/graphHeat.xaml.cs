@@ -87,12 +87,17 @@ namespace PropoPlot
         } //end of function
 
 
+
+
+
         private void plotPoints()
         {
 
             Bitmap wmap = new Bitmap(@".\Map.png");
             var worldmap = graphHeatmap.Plot.AddImage(wmap,-180,90);
             var hmap     = graphHeatmap.Plot.AddBubblePlot();
+            var bc = new BrushConverter();
+
 
             // resize the arrays for plotting - get rid of all of the 0's
             //make the number of points plotted adjustable so you are plotting a variable
@@ -100,8 +105,8 @@ namespace PropoPlot
             // count is all of the points. we can have another compbo for these numbers
 
             //lets start with 100 points instead of count
-            
-          //  int numberOfPoints = 0;
+
+            //  int numberOfPoints = 0;
 
             if (count < numberOfPoints)
             {
@@ -145,19 +150,20 @@ namespace PropoPlot
             {
                 
                 if(pZs[i] < dGreen)
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.LightGreen, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
+ //               hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.LightGreen, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM1)), edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
                
                 else if (pZs[i] >= dGreen  && pZs[i] < dYellow)
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Yellow, edgeWidth: 1, edgeColor: System.Drawing.Color.DarkGreen);
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM2)), edgeWidth: 1, edgeColor: System.Drawing.Color.DarkGreen);
                 
                 else if (pZs[i] >= dYellow  && pZs[i] < dAcqua)
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Cyan, edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM3)), edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
                 
                 else if (pZs[i] >= dAcqua  && pZs[i] < dBlue)
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Blue, edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM4)), edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
                 
                 else if (pZs[i] > dBlue)  //dont want to plot 0's
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
+                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM5)), edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
             }
 
             

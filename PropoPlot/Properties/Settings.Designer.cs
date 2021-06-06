@@ -862,5 +862,113 @@ namespace PropoPlot.Properties {
                 this["Cnt2Clr"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("##FF10D100")]
+        public string crDBM1 {
+            get {
+                return ((string)(this["crDBM1"]));
+            }
+            set {
+                this["crDBM1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string crDBM2 {
+            get {
+                return ((string)(this["crDBM2"]));
+            }
+            set {
+                this["crDBM2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string crDBM3 {
+            get {
+                return ((string)(this["crDBM3"]));
+            }
+            set {
+                this["crDBM3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008B8B")]
+        public string crDBM4 {
+            get {
+                return ((string)(this["crDBM4"]));
+            }
+            set {
+                this["crDBM4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("##FFF21717")]
+        public string crDBM5 {
+            get {
+                return ((string)(this["crDBM5"]));
+            }
+            set {
+                this["crDBM5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-20")]
+        public string dBm1Value {
+            get {
+                return ((string)(this["dBm1Value"]));
+            }
+            set {
+                this["dBm1Value"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-15")]
+        public string dBm2Value {
+            get {
+                return ((string)(this["dBm2Value"]));
+            }
+            set {
+                this["dBm2Value"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-8")]
+        public string dBm3Value {
+            get {
+                return ((string)(this["dBm3Value"]));
+            }
+            set {
+                this["dBm3Value"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string dBm4Value {
+            get {
+                return ((string)(this["dBm4Value"]));
+            }
+            set {
+                this["dBm4Value"] = value;
+            }
+        }
     }
 }

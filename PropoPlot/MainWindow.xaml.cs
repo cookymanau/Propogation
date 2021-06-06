@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 using M0LTE.WsjtxUdpLib.Client;
 using Microsoft.Win32;
 using System.IO;
-
-
-
+using System.Drawing;
 
 namespace PropoPlot
 {
@@ -54,6 +52,11 @@ namespace PropoPlot
         string avgFilename = "";
         string qsoFilename = "";
 
+        //int dBm1Cut = int.Parse(Properties.Settings.Default.dBm1Value);
+        //int dBm2Cut = int.Parse(Properties.Settings.Default.dBm2Value);
+        //int dBm3Cut = int.Parse(Properties.Settings.Default.dBm3Value);
+        //int dBm4Cut = int.Parse(Properties.Settings.Default.dBm4Value);
+
 
         public MainWindow()
         {
@@ -63,6 +66,16 @@ namespace PropoPlot
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             avgFilename = $"propDBM_{now}_{prefix}_Band_Ant";  // Default file name
             qsoFilename = $"propQSO_{now}_{prefix}_Band_Ant";  // Default file name
+
+            var bc = new BrushConverter();
+
+            dBmCut1.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1); 
+            dBmCut2.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2); 
+            dBmCut3.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3); 
+            dBmCut4.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4); 
+            dBmCut5.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5); 
+
+
 
             usrDefinedLabel.Text = Properties.Settings.Default.UsrDefinedName;
             GraphsMainMenu.IsEnabled = false;
@@ -82,24 +95,24 @@ namespace PropoPlot
             // plotmessage.ScrollToEnd();
         }
 
-        private void btnDXatlas_Click(object sender, RoutedEventArgs e)
-        {
+        //private void btnDXatlas_Click(object sender, RoutedEventArgs e)
+        //{
 
-            _connectAndConfigureAtlas();  // we only want to do this once, so doing it here
+        //    _connectAndConfigureAtlas();  // we only want to do this once, so doing it here
 
-            plotToDxAtlas = !plotToDxAtlas;
-            if (plotToDxAtlas == true)
-            {
-                btnDXAtlas.Content = "DX Atlas Plotting";
-                //btnDXAtlas.Background = "#eee";
-                DXAtlasplotPoints();  //THIS stuff is found in the PlotDXAtlas stuff
-            }
-            else
-            {
-                //btnDXAtlas.Background = "";
-                btnDXAtlas.Content = "DX Atlas";
-            }
-        }
+        //    plotToDxAtlas = !plotToDxAtlas;
+        //    if (plotToDxAtlas == true)
+        //    {
+        //        btnDXAtlas.Content = "DX Atlas Plotting";
+        //        //btnDXAtlas.Background = "#eee";
+        //        DXAtlasplotPoints();  //THIS stuff is found in the PlotDXAtlas stuff
+        //    }
+        //    else
+        //    {
+        //        //btnDXAtlas.Background = "";
+        //        btnDXAtlas.Content = "DX Atlas";
+        //    }
+        //}
 
         private void btnGoogleEarth_Click(object sender, RoutedEventArgs e)
         {
@@ -205,22 +218,22 @@ namespace PropoPlot
 
         }
 
-        private void btnClearMap_Click(object sender, RoutedEventArgs e)
-        {
-            clearDXAtlasEachTime = !clearDXAtlasEachTime;
+        //private void btnClearMap_Click(object sender, RoutedEventArgs e)
+        //{
+        //    clearDXAtlasEachTime = !clearDXAtlasEachTime;
 
-            if (clearDXAtlasEachTime == true)
-            {
+        //    if (clearDXAtlasEachTime == true)
+        //    {
 
-                btnClearMap.Content = "Clear Dots";
-                // DxAtlasMapClear();  //does not do anything
+        //        btnClearMap.Content = "Clear Dots";
+        //        // DxAtlasMapClear();  //does not do anything
 
-            }
-            else  //does this when false
-            {
-                btnClearMap.Content = "Keep Dots";
-            }
-        }
+        //    }
+        //    else  //does this when false
+        //    {
+        //        btnClearMap.Content = "Keep Dots";
+        //    }
+        //}
 
         private void btnClearMapOfArtifacts_Click(object sender, RoutedEventArgs e)
         {
@@ -591,7 +604,7 @@ namespace PropoPlot
             {
                 // Save document
                 string filename = dlg.FileName;
-                saveFileName.Text = dlg.FileName;  //write the file name on the UI
+                saveQSOFileName.Text = dlg.FileName;  //write the file name on the UI
 
                 // now send all to the filename
                 using (StreamWriter writer = new StreamWriter(filename))

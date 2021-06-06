@@ -54,23 +54,11 @@
                         <TextBox Name="myFontSize"  Width="45" Margin="5,5"  Text="12" ToolTip="A number 10 to 20. You must exit and restart to see the change. " TextChanged="myFontSize_TextChanged"/>
                         <Label Content="FontSize" Margin="0,5" />
                     </DockPanel>
-
-
-
-
                 </StackPanel>
             </GroupBox>
 
-            <!--<GroupBox x:Name="DXATLASGroup" Header="DX Atlas" Grid.Column="0" Grid.Row="0">
-                <StackPanel>
-                    <CheckBox Name="chkLabels" Content="Labels Visible" Margin="5,5" />
-                    <CheckBox Name="chkLines"  Content="Lines Visible" Margin="5,5"/>
-                    <CheckBox Name="chkHome" Content="Home Visible" Margin="5,5" />
-                </StackPanel>
-            </GroupBox>-->
 
-
-            <GroupBox x:Name="GraphGroup" Header="Graph Settings" Grid.Column="2" Grid.Row="0">
+            <GroupBox x:Name="GraphGroup" Header="Line Settings" Grid.Column="2" Grid.Row="0">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -86,12 +74,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        
-                        
-                        
                     </Grid.RowDefinitions>
-                <!--<StackPanel>-->
-                        
 
                     <xctk:IntegerUpDown Name="AvgLineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="3" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="0"/>
                     <xctk:IntegerUpDown Name="Avg2LineThickness" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="3" Increment="1" Minimum="1" Maximum="15"  Grid.Column="0" Grid.Row="1"/>
@@ -109,13 +92,12 @@
                         <TextBlock  Text="Avg Dot Size" Grid.Column="1" Grid.Row="5" Margin="2"/>
                         <TextBlock  Text="Raw Dot Size" Grid.Column="1" Grid.Row="6" Margin="2"/>
                         <TextBlock  Text="Cnt Dot Size" Grid.Column="1" Grid.Row="7" Margin="2"/>
-
                   </Grid>
             </GroupBox>
 
 
 
-            <GroupBox x:Name="Group2s" Header="Graph 2 Settings" Grid.Column="2" Grid.Row="1">
+            <GroupBox x:Name="Group2s" Header="Comparison Plot" Grid.Column="2" Grid.Row="1">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -131,37 +113,17 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-
                     </Grid.RowDefinitions>
-
-
                     <TextBlock Text="Avg2Clr"  Grid.Column="0" Grid.Row="0" Margin="2"/>
                     <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="0" Name="toolsAvg2Color" Margin="2"/>
                     <TextBlock Text="Raw2Clr"  Grid.Column="0" Grid.Row="1" Margin="2"/>
                     <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="1" Name="toolsRaw2Color" Margin="2"/>
                     <TextBlock Text="Cnt2Clr"  Grid.Column="0" Grid.Row="2" Margin="2"/>
                     <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="2" Name="toolsCnt2Color" Margin="2"/>
-
-
                 </Grid>
             </GroupBox>
 
-            <!--<StackPanel>-->
-
-
-
-
-                    <!--<xctk:IntegerUpDown Name="CntLineThickness" Text="1" Width="15"  Grid.Column="2"  Grid.Row="4"/>-->
-                <!--</StackPanel>-->
-
-
-            <!--<GroupBox x:Name="AverageFileGroup" Header="Average Files" Grid.Column="1" Grid.Row="2">
-                <StackPanel>
-                    <RadioButton GroupName="avg" Name="avgType1" IsChecked="True">Type 1</RadioButton>
-                    <RadioButton GroupName="avg" Name="avgType2">Type 2</RadioButton>
-                </StackPanel>
-            </GroupBox>-->
- 
+        
          <GroupBox x:Name="AverageSettingsGroup" Header="Average Settings" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1">
                 <StackPanel >
                     <Grid>
@@ -173,7 +135,6 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
-                            
                         </Grid.RowDefinitions>
 
                         <TextBlock  Text="No. Periods"  Grid.Column="0" Grid.Row="0" Margin="4" ToolTip="The number of cycles that are averaged 6 - 10 cycles are good"/>
@@ -186,6 +147,103 @@
                 </StackPanel>
             </GroupBox>
 
+            <!-- dBm cutoff Ramp Settings-->
+
+            <GroupBox x:Name="ColourRampGroup" Header="dBm Value Ramp" Grid.Column="3" Grid.Row="0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+  
+                    </Grid.RowDefinitions>
+
+                    <TextBlock  Text="dBm1 Min" Grid.Column="0" Grid.Row="0" Margin="2"/>
+                    <xctk:IntegerUpDown Name="dBm1Value" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="-20" Increment="1" Minimum="-30" Maximum="10"   Grid.Row="0" Grid.Column="1"/>
+                  
+                    <TextBlock  Text="dBm2 " Grid.Column="0" Grid.Row="1" Margin="2"/>
+                    <xctk:IntegerUpDown Name="dBm2Value" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="-15" Increment="1" Minimum="-30" Maximum="10"   Grid.Row="1" Grid.Column="1"/>
+
+                    <TextBlock  Text="dBm3" Grid.Column="0" Grid.Row="2" Margin="2"/>
+                    <xctk:IntegerUpDown Name="dBm3Value" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="-8" Increment="1" Minimum="-30" Maximum="10"   Grid.Row="2" Grid.Column="1"/>
+
+                    <TextBlock  Text="dBm4 Max"  Grid.Column="0" Grid.Row="3" Margin="2"/>
+                    <xctk:IntegerUpDown Name="dBm4Value" AllowSpin="True" AllowTextInput="True" Margin="2"  FormatString="N0" Value="0" Increment="1" Minimum="-30" Maximum="10"   Grid.Row="3" Grid.Column="1"/>
+
+
+ 
+                </Grid>
+            </GroupBox>
+
+
+
+            <!-- Colour Ramp Settings-->
+
+            <GroupBox x:Name="dBmRampGroup" Header="dBm Colour Ramp" Grid.Column="3" Grid.Row="1" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="dBm1 Min "  Grid.Column="0" Grid.Row="0" Margin="2"/>
+                    <wpfTool:ColorPicker    Grid.Column="1"        Grid.Row="0" Name="crDBM1" Margin="2" SelectedColor="LightGreen"/>
+
+                    <TextBlock Text="dBm2"  Grid.Column="0" Grid.Row="1" Margin="2"/>
+                    <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="1" Name="crDBM2" Margin="2" SelectedColor="Yellow"/>
+
+                    <TextBlock Text="dBm3"  Grid.Column="0" Grid.Row="2" Margin="2"/>
+                    <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="2" Name="crDBM3" Margin="2" SelectedColor="Cyan"/>
+
+                    <TextBlock Text="dBm4"  Grid.Column="0" Grid.Row="3" Margin="2"/>
+                    <wpfTool:ColorPicker    Grid.Column="1" Grid.Row="3" Name="crDBM4" Margin="2" SelectedColor="Blue"/>
+
+                    <TextBlock Text="dBm5 Max"  Grid.Column="0" Grid.Row="4" Margin="2"/>
+                    <wpfTool:ColorPicker        Grid.Column="1" Grid.Row="4" Name="crDBM5" Margin="2" SelectedColor="Red"/>
+                </Grid>
+            </GroupBox>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- These are the line colours for the History Plot-->
             <GroupBox x:Name="LineColourGroup" Header="Line Colors " Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="3">
                 <StackPanel >
                     <Grid>

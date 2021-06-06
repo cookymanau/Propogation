@@ -9,7 +9,7 @@
         
         mc:Ignorable="d"
        FontSize="11"
-       Title="FT8 Propagation Version Beta 1.4 - by VK6DW" Height="560" Width="830"  Name="window" >
+       Title="FT8 Propagation Version 0.1.5 - by VK6DW" Height="560" Width="830"  Name="window" >
 
     <Window.Resources>
         <sys:Double x:Key="fontSize">18</sys:Double>
@@ -129,14 +129,15 @@
 
                 <Button x:Name="btnUDPStart"  Click="btnUDPStart_Click"  Content="Start Capture" Grid.Column="0" Margin="5,5"  />
                 <ProgressBar x:Name="timerBar" Grid.Column="0" Grid.ColumnSpan="1" Minimum="0" Maximum="14" Height="10" Margin="5,5" Foreground="#FFEBFBEE"/>
-                <Border BorderThickness="1" BorderBrush="Black"  Margin="5" >
-                    <!--These are the buttons to plot the data DX Atlas etc-->
+ 
+                <!--<Border BorderThickness="1" BorderBrush="Black"  Margin="5" >
+                    --><!--These are the buttons to plot the data DX Atlas etc--><!--
                     <TextBlock Text="Mapping"  Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." />
                 </Border>
                 <Button x:Name="btnDXAtlas" Click="btnDXatlas_Click"  Content="DX Atlas" Grid.Column="0" Margin="5,5" ToolTip="Start and Stop plotting to DX Atlas."/>
                 <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" ToolTip="Clear the dots or not each cycle. This is a toggle."/>
                 <Button x:Name="btnClearMapOfArtifacts" Content="Clear Map" Grid.Column="0" Margin="5,5" Click="btnClearMapOfArtifacts_Click" ToolTip="Clear the map back to the time you started keeping the dots."/>
-                <!--<Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>-->
+                --><!--<Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>-->
 
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnResetList"   Content=" Reset " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Clears the arrays and lists and starts again."/>
@@ -216,8 +217,10 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="20" />
                         <RowDefinition Height="20" />
-                        <RowDefinition Height="20" />
-                        <RowDefinition Height="20" />
+                       
+                       
+                       
+                       
 
                     </Grid.RowDefinitions>
 
@@ -258,21 +261,22 @@
                     <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="7" >
                         <TextBlock Text="Colour Ramp" Background="#bbb" FontWeight="Bold"  Grid.Row="3"   Margin="1"/>
                     </Border>
-                    <TextBlock Text="          LT -20 dBm" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="LightGreen" Margin="1"/>
-                    <TextBlock Text="    -15dBm to -20dBm" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="Yellow" Margin="1"/>
-                    <TextBlock Text="     -8dBm to -15dBm " Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="Aqua" Margin="1"/>
-                    <TextBlock Text="      0dBm to -8dBm " Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="Blue" Foreground="White" Margin="1"/>
-                    <TextBlock Text="         GT 0dBm " Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="Red" Margin="1"/>
-                    <TextBlock Text="FileSave:" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="6"  Margin="1" Name="saveFileName"/>
+                    <TextBlock Name="dBmCut1" Text="LT -20 dBm" TextAlignment="Center" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="1" Background="LightGreen" Margin="1"/>
+                    <TextBlock Name="dBmCut2" Text="-15dBm to -20dBm" TextAlignment="Center"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Background="Yellow" Margin="1"/>
+                    <TextBlock Name="dBmCut3" Text="-8dBm to -15dBm"  TextAlignment="Center" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1" Background="Aqua" Margin="1"/>
+                    <TextBlock Name="dBmCut4" Text="0dBm to -8dBm" TextAlignment="Center" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="1" Background="Blue" Foreground="White" Margin="1"/>
+                    <TextBlock Name="dBmCut5" Text="GT 0dBm" TextAlignment="Center" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="1" Background="Red" Margin="1,0,1,2"/>
+                    <TextBlock Text="FileSave DbM:" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="6"  Margin="1" Name="saveFileName"/>
+                    <TextBlock Text="FileSave QSO:" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="6"  Margin="1" Name="saveQSOFileName"/>
 
 
-                    <TextBlock Text="DX Heard:" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-
-                    <TextBlock Text="" Name="dxCallSign" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="" Name="dxLastHeardTime" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="" Name="dxdbm" Grid.Column="5" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="" Name="dxCount" Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="DX Heard:" Grid.Column="0"          Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxCallSign" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxLastHeardTime" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxdbm" Grid.Column="4"           Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxCount" Grid.Column="5"         Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
 
 
                     <!--<TextBlock Text="cf F1:" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
