@@ -42,8 +42,10 @@ namespace PropoPlot
         public double[] AFavgs = new double[120];
 
         List<string> messages = new List<string>(); // all of the messages.  
-        List<string> heats = new List<string>(); //just for the heat map
+        List<string> heats = new List<string>(); //just for the heat map  This list gets reconstructed in MainWindow.cs from a file
 
+
+        public int heatsListSize = 20000;
         public string prefix = "JTDX";
         public int avgsCounter = 0;
         double laggingAvg = 0;  //wtd avg
@@ -358,8 +360,8 @@ namespace PropoPlot
                                message = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,+8}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont: {continent,-3} \r\n";   //this just a display of data
                             //message = $"UTC:{ul.udptime}\tGrid:{ul.udpqso3}\tdBm:{ul.udpdbm}\tDX:{ul.udpqso2}\tLat:{latitude}\tLong:{longitude} \r\n";   //this just a display of data
 
-                            string messForList = "";  //for what we save as a formatted list
-                            string heatsForList = "";
+                            string messForList = "";  //for what we save as a formatted list 
+                            string heatsForList = ""; //this is the string added to the list heats
                             heatsForList = $"{ul.udptime},{ul.udpdbm},{latitude,-10},{longitude,-10}";
 
 
@@ -458,7 +460,15 @@ namespace PropoPlot
 
 
                             messages.Add(messForList);    // so lets start making a list of the messages
-                            heats.Add(heatsForList);
+
+
+                            // we are going to limit how big this list can be just here
+                            // I dont actuall know how big it should be
+                            if (heats.Count > heatsListSize)
+                                heats.Clear();
+                            else
+                              heats.Add(heatsForList);
+
                         }
 
                         loopCnt.Text = $"{counter.ToString()}";  //is the number of decodes with a grid square

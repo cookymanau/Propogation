@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="World Map" Height="670" Width="1350">
+        FontSize="12"
+        Title="World Map" Height="670" Width="1365">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -31,31 +32,48 @@
                 </DockPanel>
 
                 <DockPanel>
-                  <ComboBox Name="cmboNumPoints" Loaded="cmboNumPoints_Loaded" SelectionChanged="cmboNumPoints_SelectionChanged"  Margin="5,5"/>
+                  <ComboBox Name="cmboNumPoints" Text="5" Loaded="cmboNumPoints_Loaded" SelectionChanged="cmboNumPoints_SelectionChanged"  Margin="5,5"/>
                    <Label Content="Point Number" Margin="0,5" />
                  </DockPanel>
 
                     <CheckBox Name="chkLiveUpdate" Content="Live" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="false" Checked="chkLiveUpdate_Checked" Unchecked="chkLiveUpdate_Unchecked"/>
+                   <ProgressBar x:Name="timerBar" Grid.Column="0" Grid.ColumnSpan="1" Minimum="0" Maximum="30" Height="10" Margin="5,5" Foreground="#FFEBFBEE"/>
+                <TextBlock Text="dBm Spot Show"  Background="#bbb" FontWeight="Bold" Margin="2" Grid.ColumnSpan="2"/>
+                    <CheckBox Name="chkcr1" Content="LT 20" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true" Checked="chkcr1_Checked"/>
+                    <CheckBox Name="chkcr2" Content="-15 - 20dBm" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
+                    <CheckBox Name="chkcr3" Content="-8 to -15dBm" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
+                    <CheckBox Name="chkcr4" Content="0 to -8 dBm" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
+                    <CheckBox Name="chkcr5" Content="GT 0 dBm" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
 
-                <DockPanel>
-                    <TextBox Name="Xscaler" Text="1" Width="35" Margin="5,5" ToolTip=""/>
+                <TextBlock Text="Experimental settings"  Background="#bbb" FontWeight="Bold" Margin="2" Grid.ColumnSpan="2"/>
+                <!--<DockPanel>
+                    <TextBox Name="Xscaler" Text="1" Width="35" Margin="5,5" ToolTip="For adjusting space between dots"/>
                     <Label Content="Yadjust" Margin="0,5" />
-                </DockPanel>
+                </DockPanel>-->
 
-                <DockPanel>
+                <!--<DockPanel>
                     <TextBox Name="Yscaler" Text="1" Width="35" Margin="5,5" ToolTip=""/>
                     <Label Content="Xadjust" Margin="0,5" />
-                </DockPanel>
+                </DockPanel>-->
 
 
                 <DockPanel>
-                    <TextBox Name="wXsizer" Text="1350" Width="35" Margin="5,5" ToolTip=""/>
+                    <TextBox Name="wXsizer" Text="1365" Width="35" Margin="5,5" ToolTip="for adjusting the window size"/>
                     <Label Content="wXsize" Margin="0,5" />
                 </DockPanel>
 
                 <DockPanel>
                     <TextBox Name="wYsizer" Text="670" Width="35" Margin="5,5" ToolTip=""/>
                     <Label Content="wYsize" Margin="0,5" />
+                </DockPanel>
+
+                <DockPanel>
+                    <TextBox Name="txtCount" Text="0" Width="35" Margin="5,5" ToolTip="Count of points through"/>
+                    <Label Content="Count" Margin="0,5" />
+                </DockPanel>
+                <DockPanel>
+                    <TextBox Name="txtListCount" Text="0" Width="35" Margin="5,5" ToolTip="Count of points through"/>
+                    <Label Content="List Count" Margin="0,5" />
                 </DockPanel>
 
 

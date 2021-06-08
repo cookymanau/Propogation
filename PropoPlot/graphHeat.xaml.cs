@@ -33,17 +33,33 @@ namespace PropoPlot
         double[] Ys = new double[arrSize];
         double[] Zs = new double[arrSize];
 
+        double[] pXs = new double[arrSize];
+        double[] pYs = new double[arrSize];
+        double[] pZs = new double[arrSize];
+
         int count = 0;
-     //   ScottPlot.Plottable.BubblePlot hmap;    //hmap = graphHeatmap.Plot.AddBubblePlot();
+        //   ScottPlot.Plottable.BubblePlot hmap;    //hmap = graphHeatmap.Plot.AddBubblePlot();
 
         List<string> thlist;
         public graphHeat(List<string> alist)
         {
             InitializeComponent();
 
-            this.MaxWidth = int.Parse(wXsizer.Text);
+            var bc = new BrushConverter();
+
+           
+
+
+            chkcr1.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1);
+            chkcr2.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2);
+            chkcr3.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);
+            chkcr4.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);
+            chkcr5.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5);
+
+            //set the window size
+            this.MaxWidth = int.Parse(wXsizer.Text);  // for sizing the dot spaceing
             this.MaxHeight = int.Parse(wYsizer.Text);
-            this.MinWidth = int.Parse(wXsizer.Text);
+            this.MinWidth = int.Parse(wXsizer.Text); // for sizing the actual window - works best
             this.MinHeight = int.Parse(wYsizer.Text);
 
             thlist = alist;  //this is where all of the data is  =>>  time, dBm, Lat, Long
@@ -60,35 +76,48 @@ namespace PropoPlot
         {
             try
             {
+                int listCount = thlist.Count();  // get the number of items in our list
 
-                double Xscale = double.Parse(Xscaler.Text);
-                double Yscale = double.Parse(Yscaler.Text);
+                //  double Xscale = double.Parse(Xscaler.Text);
+                //  double Yscale = double.Parse(Yscaler.Text);
 
-               // Yscale = 1;
-              //  Xscale = 1;//0.85;
+                int howMany = int.Parse(cmboNumPoints.Text);
+                txtListCount.Text = listCount.ToString();  //for dubugging
 
-            string[] wrdmsg = { };
-            //  sizeTheArrays(arrSize);
-            foreach (var item in thlist)
-            {
-                wrdmsg = item.Split(',');
-                Xs[count] = double.Parse(wrdmsg[2]) * Xscale;  //Long
-                Ys[count] = double.Parse(wrdmsg[3]) * Yscale;  //Latitude
-                Zs[count] = ((double.Parse(wrdmsg[1])) + 30.0); //dbM the + 30 makes the negative number a positive.
-                count += 1;
+                // Yscale = 1;
+                //  Xscale = 1;//0.85;
 
-                //if(count >= arrSize)
-                //{
-                //    count = 0;
-                //    Array.Clear(Xs,0,arrSize);
-                //    Array.Clear(Ys,0,arrSize);
-                //    Array.Clear(Zs,0,arrSize);
+                string[] wrdmsg = { };
+                //  sizeTheArrays(arrSize);
+                // foreach (var item in thlist)
+
+                //    for (int i = listCount - howMany; i < listCount;i++)  // instead of array resizing, lets just limit how much work we do and get the last n records
+                // all of the points in here should be from the top howMany records in the list
+                // this way were are NOT traversing the entire list as it grows
+                // this array should not be any bigger than ???
+                for (int i = listCount - howMany; i < listCount; i++)  // instead of array resizing, lets just limit how much work we do and get the last n records
+                {
+                    wrdmsg = thlist[i].Split(',');
+                    Xs[count] = double.Parse(wrdmsg[2]);// * Xscale;  //Long
+                    Ys[count] = double.Parse(wrdmsg[3]);//  * Yscale;  //Latitude
+                    Zs[count] = ((double.Parse(wrdmsg[1])) + 30.0); //dbM the + 30 makes the negative number a positive.
+                    count += 1;
+                }
+                // count will be incrementing by howMany each run
+
+                // now lets set up what we want to plot - so this should be 
+                Array.Copy(Xs, count - howMany, pXs, count - howMany, howMany);
+                Array.Copy(Ys, count - howMany, pYs, count - howMany, howMany);
+                Array.Copy(Zs, count - howMany, pZs, count - howMany, howMany);
+                //                    Array.Copy(Ys, pYs, howMany);
+                //                    Array.Copy(Zs, pZs, howMany);
+
                 //}
-            }
 
+                txtCount.Text = count.ToString();
 
-            plotPoints();
-          // plotHeatMAp();
+                plotPoints();
+
             }
             catch (Exception ex)
             {
@@ -106,6 +135,8 @@ namespace PropoPlot
 
         private void plotPoints()
         {
+
+            int howMany = int.Parse(cmboNumPoints.Text);
 
             Bitmap wmap = new Bitmap(@".\Map.png");
             var worldmap = graphHeatmap.Plot.AddImage(wmap, -180, 90);
@@ -132,16 +163,15 @@ namespace PropoPlot
             //                numberOfPoints = 100;
 
 
-            double[] cornerX = new double[] {-180,-180,180,180};
-            double[] cornerY = new double[] {90,-90,90,-90 };
+            // thse pot 4 known points on the map up in the corners
+            double[] cornerX = new double[] { -180, -180, 180, 180 };
+            double[] cornerY = new double[] { 90, -90, 90, -90 };
 
 
 
 
 
-            double[] pXs = new double[arrSize];
-            double[] pYs = new double[arrSize];
-            double[] pZs = new double[arrSize];
+
 
 
             //if (count > numberOfPoints * 2)
@@ -153,43 +183,42 @@ namespace PropoPlot
             //}
             //else
             //  { // this is the start up position
-            Array.Copy(Xs, pXs, count);
-            Array.Copy(Ys, pYs, count);
-            Array.Copy(Zs, pZs, count);
+
+
             //}
             float dGreen = 10;
             float dYellow = 15;
-            float dAcqua = 22 ;
-            float dBlue = 30 ;
+            float dAcqua = 22;
+            float dBlue = 30;
 
-            hmap.Clear();
-            //the corner points
+            //plot the corner points
             for (int i = 0; i < cornerX.Length; i++)
-                hmap.Add(x: cornerX[i], y: cornerY[i], radius: 5, fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
+                hmap.Add(x: cornerX[i], y: cornerY[i], radius: 3, fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
 
-            for (int i = 0; i < pXs.Length; i++)
+            //I only want to plot the top howMany Elements
+            //for (int i = 0; i < pXs.Length; i++)
+
+            for (int i = count - howMany; i < count; i++)
             {
-                
-                if(pZs[i] < dGreen)
- //               hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.LightGreen, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM1)), edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
-               
-                else if (pZs[i] >= dGreen  && pZs[i] < dYellow)
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM2)), edgeWidth: 1, edgeColor: System.Drawing.Color.DarkGreen);
-                
-                else if (pZs[i] >= dYellow  && pZs[i] < dAcqua)
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM3)), edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
-                
-                else if (pZs[i] >= dAcqua  && pZs[i] < dBlue)
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM4)), edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
-                
-                else if (pZs[i] > dBlue)  //dont want to plot 0's
-                hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM5)), edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
+
+                if (pZs[i] < dGreen && chkcr1.IsChecked == true)
+                    //               hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: System.Drawing.Color.LightGreen, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
+                    hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM1)), edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
+
+                else if ((pZs[i] >= dGreen && pZs[i] < dYellow) && chkcr2.IsChecked == true)
+                    hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM2)), edgeWidth: 1, edgeColor: System.Drawing.Color.DarkGreen);
+
+                else if ((pZs[i] >= dYellow && pZs[i] < dAcqua) && chkcr3.IsChecked == true)
+                    hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM3)), edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
+
+                else if ((pZs[i] >= dAcqua && pZs[i] < dBlue) && chkcr4.IsChecked == true)
+                    hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM4)), edgeWidth: 1, edgeColor: System.Drawing.Color.Blue);
+
+                else if (pZs[i] > dBlue && chkcr5.IsChecked == true)  //dont want to plot 0's
+                    hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM5)), edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
             }
 
-          //  hmap.Render();
-            
-           
+            graphHeatmap.Plot.Render();
         }//end
 
 
@@ -199,16 +228,23 @@ namespace PropoPlot
             graphMapRedraw.Content = "Live";
             // now start the timer to process the UDP stuff now that we have started it.
             dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
-            dispatcherTimer2.Interval = new TimeSpan(0, 1, 0);
+            dispatcherTimer2.Interval = new TimeSpan(0, 0, 2);
             dispatcherTimer2.Start();
+
         }
 
-
+        int timercounter = 0;
         private void dispatcherTimer2_Tick(object sender, EventArgs e)
         {
+            timercounter += 2; //going up in 2 second increments.  It seemed less busy that way
+            timerBar.Value = timercounter;  //up date the indicator - something IS happening
 
-            PrepareArrays();
-          //  plotPoints();
+            if (timercounter >= 30) //every timerInterval seconds process the udp strings
+            {
+
+                PrepareArrays();
+                timercounter = 0;
+            }
         }
 
         private void chkLiveUpdate_Unchecked(object sender, RoutedEventArgs e)
@@ -216,32 +252,35 @@ namespace PropoPlot
             graphMapRedraw.Content = "Refresh";
         }
 
-        private void graphMapRedraw_Click(object sender, RoutedEventArgs e)
+        private void graphMapRedraw_Click(object sender, RoutedEventArgs e)  //aka refresh
         {
-
-            //  graphHeatmap.Plot.Clear();
-            //  graphHeatmap.Plot.Render();
-
-            this.Width = int.Parse(wXsizer.Text);
-            this.Height = int.Parse(wYsizer.Text);
-
+            count = 0;
             PrepareArrays();
-            //plotPoints();
         }
+
+        private void graphClear_Click(object sender, RoutedEventArgs e)
+        {
+            graphHeatmap.Plot.Clear();
+            graphHeatmap.Plot.Render();
+            count = 0;
+            Array.Clear(Xs, 0, arrSize);
+            Array.Clear(Ys, 0, arrSize);
+            Array.Clear(Zs, 0, arrSize);
+
+        }
+
 
         private void cmboSize_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> data = new List<string>();
-            data.Add("wee");
-            data.Add("small");
+             data.Add("small");
             data.Add("medium");
-            data.Add("big");
-            data.Add("huge");
+            data.Add("large");
             data.Add("enormous");
 
             var combo = sender as ComboBox;
             combo.ItemsSource = data;
-            combo.SelectedIndex = 2;
+            combo.SelectedIndex = 1;
         }
 
         private void cmboSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -253,47 +292,38 @@ namespace PropoPlot
 
             switch (size)
             {
-                case "wee":
-                    divisor = 10;
-                    break;
                 case "small":
-                    divisor = 8;
-                    break;
-                case "medium":
-                    divisor = 6;
-                    break;
-                case "huge":
                     divisor = 4;
                     break;
-                case "enormous":
+                case "medium":
+                    divisor = 3;
+                    break;
+                case "large":
                     divisor = 2;
                     break;
-                        
+                case "enormous":
+                    divisor = 1;
+                    break;
             }
-
-            graphHeatmap.Plot.Clear();
-            graphHeatmap.Plot.Render();
-
             PrepareArrays();
-
-
-
-
         } //end
 
         private void cmboNumPoints_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> data = new List<string>();
+            data.Add("5");
+            data.Add("10");
+            data.Add("20");
             data.Add("50");
+            data.Add("75");
             data.Add("100");
-            data.Add("500");
+            data.Add("200");
             data.Add("1000");
             data.Add("5000");
-            data.Add("All");
 
             var combo = sender as ComboBox;
             combo.ItemsSource = data;
-            combo.SelectedIndex = 2;
+            combo.SelectedIndex = 0;
 
         }
 
@@ -306,14 +336,26 @@ namespace PropoPlot
 
             switch (Npoints)
             {
+                case "5":
+                    numberOfPoints = 5;
+                    break;
+                case "10":
+                    numberOfPoints = 10;
+                    break;
+                case "20":
+                    numberOfPoints = 20;
+                    break;
                 case "50":
-                   numberOfPoints  = 10;
+                    numberOfPoints = 50;
+                    break;
+                case "75":
+                    numberOfPoints = 75;
                     break;
                 case "100":
                     numberOfPoints = 100;
                     break;
-                case "500":
-                    numberOfPoints = 500;
+                case "200":
+                    numberOfPoints = 200;
                     break;
                 case "1000":
                     numberOfPoints = 1000;
@@ -334,11 +376,9 @@ namespace PropoPlot
 
         }//end
 
-        private void graphClear_Click(object sender, RoutedEventArgs e)
+        private void chkcr1_Checked(object sender, RoutedEventArgs e)
         {
-            graphHeatmap.Plot.Clear();
-            graphHeatmap.Plot.Render();
-            count = 0;
+
         }
     }
 }

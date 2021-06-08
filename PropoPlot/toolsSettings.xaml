@@ -142,7 +142,7 @@
                         <TextBlock  Text="Timer"  Grid.Column="0" Grid.Row="1" Margin="4" ToolTip="This is how often the PropoPlot updates. Leave it at 15 for FT8 "/>
                         <TextBox x:Name="toolsMainTimer" Text="15" Grid.Column="1" Grid.Row="1" Margin="4"/>
                         <TextBlock  Text="panLeft %"  Grid.Column="0" Grid.Row="2" Margin="4" ToolTip="How far the History graph pans each update 0.03 is a starting point for fine tuning."/>
-                        <TextBox x:Name="toolsPanLeftPct" Text="15" Grid.Column="1" Grid.Row="2" Margin="4"/>
+                        <TextBox x:Name="toolsPanLeftPct" Text="0.29" Grid.Column="1" Grid.Row="2" Margin="4"/>
                     </Grid>
                 </StackPanel>
             </GroupBox>

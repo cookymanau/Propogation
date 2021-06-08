@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
-        Title="dBmPerHour" Height="290" Width="660" FontSize="11">
+        Title="dBmPerHour" Height="290" Width="700" FontSize="11">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/> <!-- 0 hour -->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -57,10 +59,15 @@
             <Label Grid.Column="0" Grid.Row="5" Content="OC" HorizontalContentAlignment="Center"/>
             <Label Grid.Column="0" Grid.Row="6" Content="AF" HorizontalContentAlignment="Center"/>
             <Label Grid.Column="0" Grid.Row="7" Content="Usr" HorizontalContentAlignment="Center"/>
-            
-            
-            
-            
+
+            <Label Name="lblcrdbm0" Grid.Column="26" Grid.Row="2" Content="    dBM  " Grid.ColumnSpan="3"/>
+            <Label Name="lblcrdbm1" Grid.Column="26" Grid.Row="3" Content="   LT  20 " Grid.ColumnSpan="3"/>
+            <Label Name="lblcrdbm2" Grid.Column="26" Grid.Row="4" Content="-15 to -20" Grid.ColumnSpan="3"/>
+            <Label Name="lblcrdbm3" Grid.Column="26" Grid.Row="5" Content=" -8 to -15" Grid.ColumnSpan="3"/>
+            <Label Name="lblcrdbm4" Grid.Column="26" Grid.Row="6" Content=" 0  to -8 " Grid.ColumnSpan="3"/>
+            <Label Name="lblcrdbm5" Grid.Column="26" Grid.Row="7" Content="   GT 0   " Grid.ColumnSpan="3"/>
+
+
             <Label Name="Zulu00" Grid.Column="2" Grid.Row="0" Content="0" HorizontalContentAlignment="Center"/>
             <Label Name="Zulu01" Grid.Column="3" Grid.Row="0" Content="1" HorizontalContentAlignment="Center"/>
             <Label Name="Zulu02" Grid.Column="4" Grid.Row="0" Content="2" HorizontalContentAlignment="Center"/>

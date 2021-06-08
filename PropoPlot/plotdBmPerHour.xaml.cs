@@ -39,7 +39,12 @@ namespace PropoPlot
             InitializeComponent();
             thlist = alist;  //this is where all of the data is
 
-
+            var bc = new BrushConverter();
+            lblcrdbm1.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1);
+            lblcrdbm2.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2);
+            lblcrdbm3.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);
+            lblcrdbm4.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);
+            lblcrdbm5.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5);
 
             prepareArrays();
 

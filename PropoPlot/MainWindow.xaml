@@ -9,7 +9,7 @@
         
         mc:Ignorable="d"
        FontSize="11"
-       Title="FT8 Propagation Version 0.1.5 - by VK6DW" Height="560" Width="830"  Name="window" >
+       Title="FT8 Propagation Version 0.1.5 - by VK6DW" Height="560" Width="800"  Name="window" >
 
     <Window.Resources>
         <sys:Double x:Key="fontSize">18</sys:Double>

@@ -673,7 +673,11 @@ namespace PropoPlot
             }
         }
 
-
+        /// <summary>
+        /// This puts together the heats list from a file
+        /// its called from the QSO's open file 
+        /// </summary>
+        /// <param name="line"></param>
         private void reconstructHeats(string line)
         {
 
@@ -704,7 +708,15 @@ namespace PropoPlot
             lona = wrdmsg[5].Split(':');
             lon = lona[1];
 
-            heats.Add($"{utc},{dBm},{lat},{lon}");
+
+            // this list will get overwhelmingly long with time, a few hours only.
+            // so we should try and limit its size to say 20k records.  Means we wont be able to go
+            // back any further than that
+
+            if (heats.Count > 20000)
+                heats.Clear();
+            else
+                heats.Add($"{utc},{dBm},{lat},{lon}");
 
         }
 
