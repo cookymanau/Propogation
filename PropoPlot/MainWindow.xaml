@@ -91,7 +91,7 @@
                     <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />
                     <MenuItem Header="_Population" Name="graphPop" Click="graphPop_Click"   />
                     <MenuItem Header="_dBm by Hour" Name="plotFaros" Click="plotFaros_Click"  />
-                    <MenuItem Header="_Heat" Name="graphHeat" Click="graphHeat_Click"  />
+                    <MenuItem Header="_World Map" Name="graphHeat" Click="graphHeat_Click"  />
                     <!--<MenuItem Header="_Faros" Name="graphFaros" Click="graphFaros_Click"   />-->
 
                 </MenuItem>

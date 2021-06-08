@@ -25,27 +25,35 @@ namespace PropoPlot
 
 
         int divisor = 6;
-        int numberOfPoints = 10;
+        int numberOfPoints = 100000;
 
-        const int arrSize = 1000;
+        const int arrSize = 100000;
 
         double[] Xs = new double[arrSize];
         double[] Ys = new double[arrSize];
         double[] Zs = new double[arrSize];
 
         int count = 0;
+     //   ScottPlot.Plottable.BubblePlot hmap;    //hmap = graphHeatmap.Plot.AddBubblePlot();
 
         List<string> thlist;
         public graphHeat(List<string> alist)
         {
             InitializeComponent();
-          
+
+            this.MaxWidth = int.Parse(wXsizer.Text);
+            this.MaxHeight = int.Parse(wYsizer.Text);
+            this.MinWidth = int.Parse(wXsizer.Text);
+            this.MinHeight = int.Parse(wYsizer.Text);
+
             thlist = alist;  //this is where all of the data is  =>>  time, dBm, Lat, Long
             PrepareArrays();
-            // plotPoints();
-          //  plotHeatMAp();
 
-       }
+
+            // plotPoints();
+            //  plotHeatMAp();
+
+        }
 
 
         private void PrepareArrays()
@@ -53,23 +61,29 @@ namespace PropoPlot
             try
             {
 
+                double Xscale = double.Parse(Xscaler.Text);
+                double Yscale = double.Parse(Yscaler.Text);
+
+               // Yscale = 1;
+              //  Xscale = 1;//0.85;
+
             string[] wrdmsg = { };
             //  sizeTheArrays(arrSize);
             foreach (var item in thlist)
             {
                 wrdmsg = item.Split(',');
-                Xs[count] = double.Parse(wrdmsg[2]);  //Latitude
-                Ys[count] = double.Parse(wrdmsg[3]);  //Latitude
+                Xs[count] = double.Parse(wrdmsg[2]) * Xscale;  //Long
+                Ys[count] = double.Parse(wrdmsg[3]) * Yscale;  //Latitude
                 Zs[count] = ((double.Parse(wrdmsg[1])) + 30.0); //dbM the + 30 makes the negative number a positive.
                 count += 1;
 
-                if(count >= arrSize)
-                {
-                    count = 0;
-                    Array.Clear(Xs,0,arrSize);
-                    Array.Clear(Ys,0,arrSize);
-                    Array.Clear(Zs,0,arrSize);
-                }
+                //if(count >= arrSize)
+                //{
+                //    count = 0;
+                //    Array.Clear(Xs,0,arrSize);
+                //    Array.Clear(Ys,0,arrSize);
+                //    Array.Clear(Zs,0,arrSize);
+                //}
             }
 
 
@@ -94,8 +108,9 @@ namespace PropoPlot
         {
 
             Bitmap wmap = new Bitmap(@".\Map.png");
-            var worldmap = graphHeatmap.Plot.AddImage(wmap,-180,90);
-            var hmap     = graphHeatmap.Plot.AddBubblePlot();
+            var worldmap = graphHeatmap.Plot.AddImage(wmap, -180, 90);
+            var hmap = graphHeatmap.Plot.AddBubblePlot();
+
             var bc = new BrushConverter();
 
 
@@ -113,38 +128,44 @@ namespace PropoPlot
                 numberOfPoints = count;
 
             }
-//            else
-//                numberOfPoints = 100;
-            
+            //            else
+            //                numberOfPoints = 100;
+
+
+            double[] cornerX = new double[] {-180,-180,180,180};
+            double[] cornerY = new double[] {90,-90,90,-90 };
 
 
 
 
 
-            double[] pXs = new double[numberOfPoints];
-            double[] pYs = new double[numberOfPoints];
-            double[] pZs = new double[numberOfPoints];
+            double[] pXs = new double[arrSize];
+            double[] pYs = new double[arrSize];
+            double[] pZs = new double[arrSize];
 
 
-            if (count > numberOfPoints * 2)
-            {
+            //if (count > numberOfPoints * 2)
+            //{
 
-                Array.Copy(Xs, count - numberOfPoints, pXs, 0, numberOfPoints);
-                Array.Copy(Ys, count - numberOfPoints, pYs, 0, numberOfPoints);
-                Array.Copy(Zs, count - numberOfPoints, pZs, 0, numberOfPoints);
-            }
-            else
-            { // this is the start up position
-                Array.Copy(Xs, pXs, count);
-                Array.Copy(Ys, pYs, count);
-                Array.Copy(Zs, pZs, count);
-            }
-            float dGreen = 10 ;
+            //    Array.Copy(Xs, count - numberOfPoints, pXs, 0, numberOfPoints);
+            //    Array.Copy(Ys, count - numberOfPoints, pYs, 0, numberOfPoints);
+            //    Array.Copy(Zs, count - numberOfPoints, pZs, 0, numberOfPoints);
+            //}
+            //else
+            //  { // this is the start up position
+            Array.Copy(Xs, pXs, count);
+            Array.Copy(Ys, pYs, count);
+            Array.Copy(Zs, pZs, count);
+            //}
+            float dGreen = 10;
             float dYellow = 15;
             float dAcqua = 22 ;
             float dBlue = 30 ;
 
-            
+            hmap.Clear();
+            //the corner points
+            for (int i = 0; i < cornerX.Length; i++)
+                hmap.Add(x: cornerX[i], y: cornerY[i], radius: 5, fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
 
             for (int i = 0; i < pXs.Length; i++)
             {
@@ -166,41 +187,10 @@ namespace PropoPlot
                 hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM5)), edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
             }
 
+          //  hmap.Render();
             
-
-
-        
+           
         }//end
-
-
-        private void plotHeatMAp()
-        {
-
-            // resize the arrays for plotting - get rid of all of the 0's
-            int[] pXs = new int[count];
-            int[] pYs = new int[count];
-            double[,] data2D = new double[count,2];
-
-            for(int i = 0; i < count; i++)
-            {
-                pXs[i] = (int)Xs[i];
-                pYs[i] = (int)Ys[i];
-
-                data2D[i, 0] = Xs[i];
-                data2D[i, 1] = Ys[i];
-            }
-
-            //  var hm = graphHeatmap.Plot.AddHeatmap(data2D, lockScales: false);
-            double[,] intensities = ScottPlot.Tools.XYToIntensities(mode: ScottPlot.IntensityMode.Density,  xs: pXs, ys: pYs, width: 100, height: 100, sampleWidth: 4);
-
-            var hm = graphHeatmap.Plot.AddHeatmap(intensities);
-            var cb = graphHeatmap.Plot.AddColorbar(hm);
-            
-            
-        }
-
-
-
 
 
         System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
@@ -228,6 +218,13 @@ namespace PropoPlot
 
         private void graphMapRedraw_Click(object sender, RoutedEventArgs e)
         {
+
+            //  graphHeatmap.Plot.Clear();
+            //  graphHeatmap.Plot.Render();
+
+            this.Width = int.Parse(wXsizer.Text);
+            this.Height = int.Parse(wYsizer.Text);
+
             PrepareArrays();
             //plotPoints();
         }
@@ -332,14 +329,16 @@ namespace PropoPlot
             }
 
 
-            graphHeatmap.Plot.Clear();
-            graphHeatmap.Plot.Render();
 
             PrepareArrays();
 
         }//end
 
-
-
+        private void graphClear_Click(object sender, RoutedEventArgs e)
+        {
+            graphHeatmap.Plot.Clear();
+            graphHeatmap.Plot.Render();
+            count = 0;
+        }
     }
 }
