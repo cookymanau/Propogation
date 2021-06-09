@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
         FontSize="12"
-        Title="World Map" Height="670" Width="1365">
+        Title="QSO Map" Height="670" Width="1365">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>

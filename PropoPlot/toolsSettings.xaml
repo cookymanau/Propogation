@@ -140,7 +140,7 @@
                         <TextBlock  Text="No. Periods"  Grid.Column="0" Grid.Row="0" Margin="4" ToolTip="The number of cycles that are averaged 6 - 10 cycles are good"/>
                         <TextBox x:Name="toolsAvgPrd" Text="6" Grid.Column="1" Grid.Row="0" Margin="4"/> 
                         <TextBlock  Text="Timer"  Grid.Column="0" Grid.Row="1" Margin="4" ToolTip="This is how often the PropoPlot updates. Leave it at 15 for FT8 "/>
-                        <TextBox x:Name="toolsMainTimer" Text="15" Grid.Column="1" Grid.Row="1" Margin="4"/>
+                        <TextBox x:Name="toolsMainTimer" Text="15" Grid.Column="1" Grid.Row="1" Margin="4" IsEnabled="false"/>
                         <TextBlock  Text="panLeft %"  Grid.Column="0" Grid.Row="2" Margin="4" ToolTip="How far the History graph pans each update 0.03 is a starting point for fine tuning."/>
                         <TextBox x:Name="toolsPanLeftPct" Text="0.29" Grid.Column="1" Grid.Row="2" Margin="4"/>
                     </Grid>

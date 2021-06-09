@@ -52,25 +52,31 @@ namespace PropoPlot
             if (value == -100)
                 barname.Background = System.Windows.Media.Brushes.White;
 
-            else if (value < -15)
+            else if (value < -20)
             {
                 barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1);    //System.Windows.Media.Brushes.Yellow;
                 contDbm.Foreground = System.Windows.Media.Brushes.Black;
             }
+
+            else if (value < -15)
+            {
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2);    //System.Windows.Media.Brushes.Yellow;
+                contDbm.Foreground = System.Windows.Media.Brushes.Black;
+            }
             else if (value < -8)
             {
-                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2);  //System.Windows.Media.Brushes.Aqua;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);  //System.Windows.Media.Brushes.Aqua;
                 contDbm.Foreground = System.Windows.Media.Brushes.Black;
             }
 
             else if (value < 0)
             {
-                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);//System.Windows.Media.Brushes.Blue;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);//System.Windows.Media.Brushes.Blue;
                 contDbm.Foreground = System.Windows.Media.Brushes.White;
             }
             else if (value == 0)
             {
-                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);//System.Windows.Media.Brushes.LightGray;
+                barname.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1);//System.Windows.Media.Brushes.LightGray;
                 contDbm.Foreground = System.Windows.Media.Brushes.Black;
             }
             else if (value > 0)

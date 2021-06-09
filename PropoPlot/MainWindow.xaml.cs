@@ -18,6 +18,7 @@ using M0LTE.WsjtxUdpLib.Client;
 using Microsoft.Win32;
 using System.IO;
 using System.Drawing;
+using Serilog;
 
 namespace PropoPlot
 {
@@ -61,7 +62,13 @@ namespace PropoPlot
         public MainWindow()
         {
             InitializeComponent();
-            //continentAVGList.Add("");  // initialising the list with something
+
+          static  Log.Logger = new LoggerConfiguration().WriteTo.File(@"c:\users\cooky\Documents\PropaPlot.log").CreateLogger();
+
+           
+            
+            Log.Information("Log for PropaPlot");
+
 
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             avgFilename = $"propDBM_{now}_{prefix}_Band_Ant";  // Default file name
@@ -314,13 +321,15 @@ namespace PropoPlot
 
         private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
         {
+            
+            Log.CloseAndFlush();
+            this.Close();
+            
             //kill threads some how
             //this the attempt to kill off the zombie process
-            Process[] processes = Process.GetProcessesByName("PropoPlot");
-            processes[0].Kill();
+           // Process[] processes = Process.GetProcessesByName("PropoPlot");
+           // processes[0].Kill();
 
-
-            this.Close();
         }
 
         private void Statistics_Click(object sender, RoutedEventArgs e)
@@ -410,6 +419,9 @@ namespace PropoPlot
         /// <param name="e"></param>
         private void btnResetList_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information($"btnReset Clicked: udpStrings{0}", udpStrings.Count());
+            Log.Information($"btnReset Clicked: contentAVGList{0}", continentAVGList.Count());
+            
             udpStrings.Clear();
             continentAVGList.Clear();
             //continentList.Clear();

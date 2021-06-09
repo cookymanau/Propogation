@@ -91,7 +91,7 @@
                     <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />
                     <MenuItem Header="_Population" Name="graphPop" Click="graphPop_Click"   />
                     <MenuItem Header="_dBm by Hour" Name="plotFaros" Click="plotFaros_Click"  />
-                    <MenuItem Header="_World Map" Name="graphHeat" Click="graphHeat_Click"  />
+                    <MenuItem Header="_QSO Map" Name="graphHeat" Click="graphHeat_Click"  />
                     <!--<MenuItem Header="_Faros" Name="graphFaros" Click="graphFaros_Click"   />-->
 
                 </MenuItem>
@@ -129,15 +129,18 @@
 
                 <Button x:Name="btnUDPStart"  Click="btnUDPStart_Click"  Content="Start Capture" Grid.Column="0" Margin="5,5"  />
                 <ProgressBar x:Name="timerBar" Grid.Column="0" Grid.ColumnSpan="1" Minimum="0" Maximum="14" Height="10" Margin="5,5" Foreground="#FFEBFBEE"/>
- 
+
                 <!--<Border BorderThickness="1" BorderBrush="Black"  Margin="5" >
-                    --><!--These are the buttons to plot the data DX Atlas etc--><!--
+                    -->
+                <!--These are the buttons to plot the data DX Atlas etc-->
+                <!--
                     <TextBlock Text="Mapping"  Background="#bbb" FontWeight="Bold" Margin="1" ToolTip="You can plot to DX Atlas or Google Earth by pressing a button.  You must have these programs installed." />
                 </Border>
                 <Button x:Name="btnDXAtlas" Click="btnDXatlas_Click"  Content="DX Atlas" Grid.Column="0" Margin="5,5" ToolTip="Start and Stop plotting to DX Atlas."/>
                 <Button x:Name="btnClearMap" Content="Clear Dots"  Grid.Column="0" Margin="5,5" Click="btnClearMap_Click" ToolTip="Clear the dots or not each cycle. This is a toggle."/>
                 <Button x:Name="btnClearMapOfArtifacts" Content="Clear Map" Grid.Column="0" Margin="5,5" Click="btnClearMapOfArtifacts_Click" ToolTip="Clear the map back to the time you started keeping the dots."/>
-                --><!--<Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>-->
+                -->
+                <!--<Button x:Name="btnGoogleEarth"   Content="Earth" Grid.Column="0" Margin="5,5"/>-->
 
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnResetList"   Content=" Reset " Grid.Column="0" Margin="5,5" Click="btnResetList_Click" ToolTip="Clears the arrays and lists and starts again."/>
@@ -194,19 +197,22 @@
 
 
                 <Border BorderThickness="1" BorderBrush="Black"  >
-                    <TextBlock Text="dBm Averages by Continent and Cycle Decodes." Background="#bbb" FontWeight="Bold" Margin="1"/>
+                    <TextBlock Text="dBm Averages by Continent and Cycle Decodes." Background="#bbb" FontWeight="Bold" Margin="1"
+                               ToolTip="Top line is Continent, second line is no. of decodes last cycle, 3rd line (coloured by colour ramp) is average dBm over last No. Cycles in Tools Options."/>
                 </Border>
 
                 <!--tHESE ARE  THE Averages by Continent -->
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="11*" />
+                        <ColumnDefinition Width="81*"/>
+                        <ColumnDefinition Width="92*" />
+                        <ColumnDefinition Width="79*" />
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="92*" />
+                        <ColumnDefinition Width="92*" />
+                        <ColumnDefinition Width="92*" />
+                        <ColumnDefinition Width="92*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20" />
@@ -217,66 +223,66 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="20" />
                         <RowDefinition Height="20" />
-                       
-                       
-                       
-                       
+
+
+
+
 
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="EU" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="JA" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="NA" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="OC" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="AF" Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="SA" Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Usr Cont" Grid.Column="6" Grid.Row="0" Name="usrDefinedLabel"  HorizontalAlignment="Center" Height="20" VerticalAlignment="Top"/>
+                    <TextBlock Text="EU" Grid.Row="0" HorizontalAlignment="Left" Grid.Column="1" Margin="28,0,0,0"/>
+                    <TextBlock Text="JA" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="NA" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" Margin="39,0,0,0"/>
+                    <TextBlock Text="OC" Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="AF" Grid.Column="6" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="SA" Grid.Column="7" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Usr Cont" Grid.Column="8" Name="usrDefinedLabel"  HorizontalAlignment="Center" Height="20" VerticalAlignment="Center"/>
 
-                    <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
-                    <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
-                    <TextBlock Name="NAdbmCount" Text="NAcnt" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
-                    <TextBlock Name="OCdbmCount" Text="OCcnt" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
-                    <TextBlock Name="AFdbmCount" Text="AFcnt" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
-                    <TextBlock Name="SAdbmCount" Text="SAcnt" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
-                    <TextBlock Name="FAdbmCount" Text="USRcnt" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Right" Width="65" Padding="20,0,0,0" />
+                    <TextBlock Name="EUdbmCount" Text="EUcnt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="65" Padding="20,0,0,0" Margin="16,0,0,0" />
+                    <TextBlock Name="JAdbmCount" Text="JAcnt" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" Width="65" Padding="20,0,0,0" Margin="27,0,0,0" />
+                    <TextBlock Name="NAdbmCount" Text="NAcnt" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" Width="65" Padding="20,0,0,0" Grid.ColumnSpan="2" Margin="27,0,0,0" />
+                    <TextBlock Name="OCdbmCount" Text="OCcnt" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Left" Width="65" Padding="20,0,0,0" Grid.ColumnSpan="2" Margin="28,0,0,0" />
+                    <TextBlock Name="AFdbmCount" Text="AFcnt" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Left" Width="65" Padding="20,0,0,0" Margin="27,0,0,0" />
+                    <TextBlock Name="SAdbmCount" Text="SAcnt" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left" Width="65" Padding="20,0,0,0" Margin="27,0,0,0" />
+                    <TextBlock Name="FAdbmCount" Text="USRcnt" Grid.Column="8" Grid.Row="1" HorizontalAlignment="Left" Width="65" Padding="20,0,0,0" Margin="27,0,0,0" />
 
-                    <ProgressBar Grid.Column="0" Grid.Row="2" Name="EUprog"/>
-                    <ProgressBar Grid.Column="1" Grid.Row="2" Name="JAprog"/>
-                    <ProgressBar Grid.Column="2" Grid.Row="2" Name="NAprog"/>
-                    <ProgressBar Grid.Column="3" Grid.Row="2" Name="OCprog"/>
-                    <ProgressBar Grid.Column="4" Grid.Row="2" Name="AFprog"/>
-                    <ProgressBar Grid.Column="5" Grid.Row="2" Name="SAprog"/>
-                    <ProgressBar Grid.Column="6" Grid.Row="2" Name="FAprog"/>
+                    <ProgressBar Grid.Column="0" Grid.Row="2" Name="EUprog" Grid.ColumnSpan="2"/>
+                    <ProgressBar Grid.Row="2"                 Name="JAprog" Grid.Column="2"/>
+                    <ProgressBar Grid.Column="3" Grid.Row="2" Name="NAprog" Grid.ColumnSpan="2"/>
+                    <ProgressBar Grid.Column="4" Grid.Row="2" Name="OCprog" Grid.ColumnSpan="2" Margin="13,0,0,0"/>
+                    <ProgressBar Grid.Column="6" Grid.Row="2" Name="AFprog"/>
+                    <ProgressBar Grid.Column="7" Grid.Row="2" Name="SAprog"/>
+                    <ProgressBar Grid.Column="8" Grid.Row="2" Name="FAprog"/>
 
-                    <TextBlock Name="EUdbm" Text="EU" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1" Padding="20,0,0,0"/>
-                    <TextBlock Name="JAdbm" Text="JA" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="NAdbm" Text="NA" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="OCdbm" Text="OC" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="AFdbm" Text="AF" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="SAdbm" Text="SA" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
-                    <TextBlock Name="FAdbm" Text="USR" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" Width="65" Margin="1,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="EUdbm" Text="EU" Grid.Row="2" HorizontalAlignment="Center" Width="64" Margin="0,1,0,1" Padding="20,0,0,0" Grid.Column="1"/>
+                    <TextBlock Name="JAdbm" Text="JA" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Width="64" Margin="0,1,0,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="NAdbm" Text="NA" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" Width="65" Margin="14,1,0,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="OCdbm" Text="OC" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" Width="66" Margin="0,1,0,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="AFdbm" Text="AF" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" Width="66" Margin="0,1,0,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="SAdbm" Text="SA" Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" Width="66" Margin="0,1,0,1" Padding="20,0,0,0"/>
+                    <TextBlock Name="FAdbm" Text="USR" Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" Width="66" Margin="0,1,0,1" Padding="20,0,0,0"/>
 
 
                     <!--The Colour Ramp and spare space to the right of the ramp-->
-                    <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="7" >
+                    <Border BorderThickness="1" BorderBrush="Black" Grid.Row="3" Grid.ColumnSpan="9" >
                         <TextBlock Text="Colour Ramp" Background="#bbb" FontWeight="Bold"  Grid.Row="3"   Margin="1"/>
                     </Border>
-                    <TextBlock Name="dBmCut1" Text="LT -20 dBm" TextAlignment="Center" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="1" Background="LightGreen" Margin="1"/>
-                    <TextBlock Name="dBmCut2" Text="-15dBm to -20dBm" TextAlignment="Center"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Background="Yellow" Margin="1"/>
-                    <TextBlock Name="dBmCut3" Text="-8dBm to -15dBm"  TextAlignment="Center" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1" Background="Aqua" Margin="1"/>
-                    <TextBlock Name="dBmCut4" Text="0dBm to -8dBm" TextAlignment="Center" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="1" Background="Blue" Foreground="White" Margin="1"/>
-                    <TextBlock Name="dBmCut5" Text="GT 0dBm" TextAlignment="Center" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="1" Background="Red" Margin="1,0,1,2"/>
-                    <TextBlock Text="FileSave DbM:" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="6"  Margin="1" Name="saveFileName"/>
-                    <TextBlock Text="FileSave QSO:" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="File Save name" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="6"  Margin="1" Name="saveQSOFileName"/>
+                    <TextBlock Name="dBmCut1" Text="LT -20 dBm" TextAlignment="Center" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="LightGreen" Margin="1,1,1,1"/>
+                    <TextBlock Name="dBmCut2" Text="-15dBm to -20dBm" TextAlignment="Center"  Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1" Background="Yellow" Margin="1,1,1,1"/>
+                    <TextBlock Name="dBmCut3" Text="-8dBm to -15dBm"  TextAlignment="Center" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Background="Aqua" Margin="1,1,1,1"/>
+                    <TextBlock Name="dBmCut4" Text="0dBm to -8dBm" TextAlignment="Center" Grid.Column="5" Grid.Row="4" Grid.ColumnSpan="1" Background="Blue" Foreground="White" Margin="1,1,1,1"/>
+                    <TextBlock Name="dBmCut5" Text="GT 0dBm" TextAlignment="Center" Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="1" Background="Red" Margin="1,0,1,2"/>
+                    <TextBlock Text="FileSave DbM:" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  Margin="1,1,1,1" FontWeight="Bold"/>
+                    <TextBlock Text="File Save name" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="7"  Margin="1,1,1,1" Name="saveFileName"/>
+                    <TextBlock Text="FileSave QSO:" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"  Margin="1,1,1,1" FontWeight="Bold"/>
+                    <TextBlock Text="File Save name" Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="7"  Margin="1,1,1,1" Name="saveQSOFileName"/>
 
 
-                    <TextBlock Text="DX Heard:" Grid.Column="0"          Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="" Name="dxCallSign" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="" Name="dxLastHeardTime" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="" Name="dxdbm" Grid.Column="4"           Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
-                    <TextBlock Text="" Name="dxCount" Grid.Column="5"         Grid.Row="7" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
+                    <TextBlock Text="DX Heard:" Grid.Column="0"          Grid.Row="7" Grid.ColumnSpan="2"  Margin="1,1,1,1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxCallSign" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="2"  Margin="1,1,1,1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxLastHeardTime" Grid.Column="5" Grid.Row="7" Grid.ColumnSpan="1"  Margin="1,1,1,1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxdbm" Grid.Column="6"           Grid.Row="7" Grid.ColumnSpan="1"  Margin="1,1,1,1" FontWeight="Bold"/>
+                    <TextBlock Text="" Name="dxCount" Grid.Column="7"         Grid.Row="7" Grid.ColumnSpan="1"  Margin="1,1,1,1" FontWeight="Bold"/>
 
 
                     <!--<TextBlock Text="cf F1:" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="1"  Margin="1" FontWeight="Bold"/>
