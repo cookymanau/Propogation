@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
+using Serilog;
 
 
 
@@ -25,9 +26,9 @@ namespace PropoPlot
 
 
         int divisor = 6;
-        int numberOfPoints = 100000;
+        int numberOfPoints = 5;
 
-        const int arrSize = 100000;
+        const int arrSize = 1500;
 
         double[] Xs = new double[arrSize];
         double[] Ys = new double[arrSize];
@@ -45,16 +46,16 @@ namespace PropoPlot
         {
             InitializeComponent();
 
+
+            EventLogger.WriteLine("Entered into graphHeat");
+
+
             var bc = new BrushConverter();
-
-           
-
-
-            chkcr1.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1);
-            chkcr2.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2);
-            chkcr3.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3);
-            chkcr4.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4);
-            chkcr5.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5);
+            chkcr1.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM1);
+            chkcr2.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM2);
+            chkcr3.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM3);
+            chkcr4.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM4);
+            chkcr5.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM5);
 
             //set the window size
             this.MaxWidth = int.Parse(wXsizer.Text);  // for sizing the dot spaceing
@@ -84,35 +85,51 @@ namespace PropoPlot
                 int howMany = int.Parse(cmboNumPoints.Text);
                 txtListCount.Text = listCount.ToString();  //for dubugging
 
-                // Yscale = 1;
-                //  Xscale = 1;//0.85;
-
                 string[] wrdmsg = { };
-                //  sizeTheArrays(arrSize);
-                // foreach (var item in thlist)
 
                 //    for (int i = listCount - howMany; i < listCount;i++)  // instead of array resizing, lets just limit how much work we do and get the last n records
                 // all of the points in here should be from the top howMany records in the list
                 // this way were are NOT traversing the entire list as it grows
                 // this array should not be any bigger than ???
+
+                if (howMany > listCount)
+                    howMany = 1;
+
                 for (int i = listCount - howMany; i < listCount; i++)  // instead of array resizing, lets just limit how much work we do and get the last n records
                 {
                     wrdmsg = thlist[i].Split(',');
+                    if (count >= arrSize)
+                    {
+                        Array.Clear(Xs, 0, arrSize);
+                        Array.Clear(Ys, 0, arrSize);
+                        Array.Clear(Zs, 0, arrSize);
+                        count = 0;
+                        EventLogger.WriteLine($"graphHeat: PrepareArrays : Array.Clear Xs na count now : {count} ");
+                    }
                     Xs[count] = double.Parse(wrdmsg[2]);// * Xscale;  //Long
                     Ys[count] = double.Parse(wrdmsg[3]);//  * Yscale;  //Latitude
                     Zs[count] = ((double.Parse(wrdmsg[1])) + 30.0); //dbM the + 30 makes the negative number a positive.
+
+
                     count += 1;
                 }
                 // count will be incrementing by howMany each run
 
                 // now lets set up what we want to plot - so this should be 
+
+                // now we run into a problem where count can be 0 and howmany = 5 so you end up with a - number
+                if (count - howMany <= 0)
+                    howMany = 0;
+
                 Array.Copy(Xs, count - howMany, pXs, count - howMany, howMany);
                 Array.Copy(Ys, count - howMany, pYs, count - howMany, howMany);
                 Array.Copy(Zs, count - howMany, pZs, count - howMany, howMany);
-                //                    Array.Copy(Ys, pYs, howMany);
-                //                    Array.Copy(Zs, pZs, howMany);
 
-                //}
+                EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Xs => pXs: { Xs.Count()} => {pXs.Count()}  ");
+                EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Ys => pYs: { Ys.Count()} => {pYs.Count()}  ");
+                EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Zs => pZs: { Zs.Count()} => {pZs.Count()}  ");
+                
+
 
                 txtCount.Text = count.ToString();
 
@@ -125,6 +142,9 @@ namespace PropoPlot
                 md.messageBoxUpper.Text = $"Error in PrepareArrays of graphHeat ";
                 md.messageBoxLower.Text = $"{ex}";
                 md.Show();
+
+                EventLogger.WriteLine($"graphHeat:PrepareArrays: catch block:{ex}");
+
             }
 
         } //end of function
@@ -140,7 +160,8 @@ namespace PropoPlot
 
             Bitmap wmap = new Bitmap(@".\Map.png");
             var worldmap = graphHeatmap.Plot.AddImage(wmap, -180, 90);
-            var hmap = graphHeatmap.Plot.AddBubblePlot();
+          //  var hmap = graphHeatmap.Plot.AddBubblePlot();
+           
 
             var bc = new BrushConverter();
 
@@ -153,12 +174,14 @@ namespace PropoPlot
             //lets start with 100 points instead of count
 
             //  int numberOfPoints = 0;
+            EventLogger.WriteLine($"graphHeat:plotPoints: count {count} numberOfPoints: {numberOfPoints}");
 
-            if (count < numberOfPoints)
-            {
-                numberOfPoints = count;
+            //if (count < numberOfPoints)
+            //{
+            //    numberOfPoints = count;
+            //     EventLogger.WriteLine($"graphHeat:plotPoints:Inside if (count < numberOfPoints: numberOfPoints is now: {numberOfPoints}");
 
-            }
+            //}
             //            else
             //                numberOfPoints = 100;
 
@@ -168,35 +191,53 @@ namespace PropoPlot
             double[] cornerY = new double[] { 90, -90, 90, -90 };
 
 
-
-
-
-
-
-
-            //if (count > numberOfPoints * 2)
-            //{
-
-            //    Array.Copy(Xs, count - numberOfPoints, pXs, 0, numberOfPoints);
-            //    Array.Copy(Ys, count - numberOfPoints, pYs, 0, numberOfPoints);
-            //    Array.Copy(Zs, count - numberOfPoints, pZs, 0, numberOfPoints);
-            //}
-            //else
-            //  { // this is the start up position
-
-
-            //}
             float dGreen = 10;
             float dYellow = 15;
             float dAcqua = 22;
             float dBlue = 30;
 
+ 
+
+            // polygon plot on the map Europe
+            double[] xs1 = {-12,-12,60,60};
+            double[] ys1 = {30,72,72,30};
+            var hcont = graphHeatmap.Plot.AddPolygon(xs1,ys1);
+            var hcontLabel = graphHeatmap.Plot.AddText("Europe", -12, 30, size: 14);
+
+            double[] JAx = { 130, 130, 145, 145 };
+            double[] JAy = { 30, 46, 46, 30 };
+            var jacont = graphHeatmap.Plot.AddPolygon(JAx, JAy);
+
+            double[] NAx = { -131, -131, -54, -54 };
+            double[] NAy = { 12, 90, 90, 12 };
+            var nacont = graphHeatmap.Plot.AddPolygon(NAx, NAy);
+
+            double[] SAx = { -90, -90, -32, -32 };
+            double[] SAy = { -60, 12, 12, -60 };
+            var sacont = graphHeatmap.Plot.AddPolygon(SAx, SAy);
+
+            double[] AFx = { -20, -20, 50, 50 };
+            double[] AFy = { -35, 34, 34, -35 };
+            var afcont = graphHeatmap.Plot.AddPolygon(AFx, AFy);
+
+            double[] OCx = { 112, 112, 126, 126 };
+            double[] OCy = { -54, 28, 28, -54 };
+            var occont = graphHeatmap.Plot.AddPolygon(OCx, OCy);
+
+            double[] FAx = { 60, 60, 144, 144 };
+            double[] FAy = { -9, 90, 90, -9 };
+            var facont = graphHeatmap.Plot.AddPolygon(FAx, FAy);
+
+            var hmap = graphHeatmap.Plot.AddBubblePlot();
             //plot the corner points
             for (int i = 0; i < cornerX.Length; i++)
                 hmap.Add(x: cornerX[i], y: cornerY[i], radius: 3, fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
 
+
             //I only want to plot the top howMany Elements
             //for (int i = 0; i < pXs.Length; i++)
+            if (count - howMany <= 0)
+                howMany = 0;
 
             for (int i = count - howMany; i < count; i++)
             {
@@ -254,7 +295,7 @@ namespace PropoPlot
 
         private void graphMapRedraw_Click(object sender, RoutedEventArgs e)  //aka refresh
         {
-            count = 0;
+          //  count = 0;  
             PrepareArrays();
         }
 
@@ -273,7 +314,7 @@ namespace PropoPlot
         private void cmboSize_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> data = new List<string>();
-             data.Add("small");
+            data.Add("small");
             data.Add("medium");
             data.Add("large");
             data.Add("enormous");
@@ -319,7 +360,7 @@ namespace PropoPlot
             data.Add("100");
             data.Add("200");
             data.Add("1000");
-            data.Add("5000");
+            
 
             var combo = sender as ComboBox;
             combo.ItemsSource = data;

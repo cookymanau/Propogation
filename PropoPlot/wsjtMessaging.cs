@@ -599,8 +599,8 @@ namespace PropoPlot
             //now some code to plot to dxAtlas
             //
 
-            if (plotToDxAtlas == true)
-                DXAtlasplotPoints();
+            //if (plotToDxAtlas == true)
+            //    DXAtlasplotPoints();
 
             setTimerBarColour(laggingAvg); //this is our progress bar
 

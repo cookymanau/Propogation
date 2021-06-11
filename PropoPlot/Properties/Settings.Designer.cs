@@ -12,7 +12,7 @@ namespace PropoPlot.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -865,7 +865,7 @@ namespace PropoPlot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("##FF10D100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF10D100")]
         public string crDBM1 {
             get {
                 return ((string)(this["crDBM1"]));
@@ -913,7 +913,7 @@ namespace PropoPlot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("##FFF21717")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFF21717")]
         public string crDBM5 {
             get {
                 return ((string)(this["crDBM5"]));

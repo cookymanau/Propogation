@@ -213,7 +213,7 @@
       <Value Profile="(Default)">#FF008B8B</Value>
     </Setting>
     <Setting Name="crDBM1" Type="System.String" Scope="User">
-      <Value Profile="(Default)">##FF10D100</Value>
+      <Value Profile="(Default)">#FF10D100</Value>
     </Setting>
     <Setting Name="crDBM2" Type="System.String" Scope="User">
       <Value Profile="(Default)">#FF008B8B</Value>
@@ -225,7 +225,7 @@
       <Value Profile="(Default)">#FF008B8B</Value>
     </Setting>
     <Setting Name="crDBM5" Type="System.String" Scope="User">
-      <Value Profile="(Default)">##FFF21717</Value>
+      <Value Profile="(Default)">#FFF21717</Value>
     </Setting>
     <Setting Name="dBm1Value" Type="System.String" Scope="User">
       <Value Profile="(Default)">-20</Value>

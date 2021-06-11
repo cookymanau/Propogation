@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Platforms>AnyCPU;x86</Platforms>
+    <Platforms>AnyCPU;x86;x64</Platforms>
     <ApplicationIcon>propoplot.ico</ApplicationIcon>
     <StartupObject>PropoPlot.App</StartupObject>
   </PropertyGroup>
@@ -26,12 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Interop.DxAtlas">
-      <HintPath>..\..\Loginfo\Loginfo\Interop.DxAtlas.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.OmniRig">
-      <HintPath>..\..\Loginfo\Loginfo\Interop.OmniRig.dll</HintPath>
-    </Reference>
     <Reference Include="WsjtxUdpLib">
       <HintPath>..\..\WsjtxUdpLib\WsjtxUdpLib\bin\Debug\netstandard2.0\WsjtxUdpLib.dll</HintPath>
     </Reference>

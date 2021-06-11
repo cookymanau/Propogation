@@ -90,7 +90,7 @@ namespace PropoPlot
             crDBM5.SelectedColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.crDBM5);
 
             //these are the cut off values
-          dBm1Value.Value = int.Parse(Properties.Settings.Default.dBm1Value); 
+            dBm1Value.Value = int.Parse(Properties.Settings.Default.dBm1Value); 
           dBm2Value.Value = int.Parse(Properties.Settings.Default.dBm2Value); 
           dBm3Value.Value = int.Parse(Properties.Settings.Default.dBm3Value); 
           dBm4Value.Value = int.Parse(Properties.Settings.Default.dBm4Value); 

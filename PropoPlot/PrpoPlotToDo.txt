@@ -84,6 +84,17 @@
 	• Be able to hilight a row with a certain call sign....like V* or VK* or VK6DW and the row would turn Bright Green or somesuch
 	•  Select continents by gridsquare, not by lat and long.  So an array of OF88 BD36 etc to define what we want, but this would need and
 	interface like a map covered in grid squares that you highlight to produuce the array  string[] SA = new string[]{"AB12","AB13" etc}
+	• scale theplots and fonts for richard
+	•Be able to have a timespan of dots showing on the map...show last n minutes
+	•dBm per hour plot - have number of QSO's per hour as well
+	•Radar plot - qsos as well
+	•dBm / hour to every 15 minutes, as well as hourly?
+	•change the way we specify a continent by grid squares
+	•smaller map for the world map with different maps  raster versus vector map
+	•
+	•
+	•
+	•
 	•
 	•
 

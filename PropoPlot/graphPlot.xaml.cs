@@ -31,33 +31,34 @@ namespace PropoPlot
     /// </summary>
     public partial class graphPlot : Window
     {
+        const int arrSize= 100000;
 
         List<string> _thlist;
 
-        double[] dataX = new double[10000] ;
-        double[] dataEU = new double[10000] ;
-        double[] dataEUA = new double[10000] ;
-        double[] dataEUC = new double[10000] ;
+        double[] dataX = new double[arrSize] ;
+        double[] dataEU = new double[arrSize] ;
+        double[] dataEUA = new double[arrSize] ;
+        double[] dataEUC = new double[arrSize] ;
 
-        double[] dataJA = new double[10000] ;
-        double[] dataJAA = new double[10000] ;
-        double[] dataJAC = new double[10000] ;
+        double[] dataJA = new double[arrSize] ;
+        double[] dataJAA = new double[arrSize] ;
+        double[] dataJAC = new double[arrSize] ;
 
-        double[] dataNA = new double[10000] ;
-        double[] dataNAA = new double[10000] ;
-        double[] dataNAC = new double[10000] ;
-        double[] dataOC = new double[10000] ;
-        double[] dataOCA = new double[10000] ;
-        double[] dataOCC = new double[10000] ;
-        double[] dataAF = new double[10000] ;
-        double[] dataAFA = new double[10000] ;
-        double[] dataAFC = new double[10000] ;
-        double[] dataSA = new double[10000] ;
-        double[] dataSAA = new double[10000] ;
-        double[] dataSAC = new double[10000] ;
-        double[] dataFA = new double[10000] ;
-        double[] dataFAA = new double[10000] ;
-        double[] dataFAC = new double[10000] ;
+        double[] dataNA = new double[arrSize] ;
+        double[] dataNAA = new double[arrSize] ;
+        double[] dataNAC = new double[arrSize] ;
+        double[] dataOC = new double[arrSize] ;
+        double[] dataOCA = new double[arrSize] ;
+        double[] dataOCC = new double[arrSize] ;
+        double[] dataAF = new double[arrSize] ;
+        double[] dataAFA = new double[arrSize] ;
+        double[] dataAFC = new double[arrSize] ;
+        double[] dataSA = new double[arrSize] ;
+        double[] dataSAA = new double[arrSize] ;
+        double[] dataSAC = new double[arrSize] ;
+        double[] dataFA = new double[arrSize] ;
+        double[] dataFAA = new double[arrSize] ;
+        double[] dataFAC = new double[arrSize] ;
 
 
         string usrLabel = Properties.Settings.Default.UsrDefinedName + "Raw";

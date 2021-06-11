@@ -20,8 +20,10 @@ using System.IO;
 using System.Drawing;
 using Serilog;
 
+
 namespace PropoPlot
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -43,7 +45,9 @@ namespace PropoPlot
 
         toolsContLatLongSetting tll = new toolsContLatLongSetting();  //this class here so we can see it every where we need it Holds the lat min, lat max longMin and longMax for the continents
 
-        static toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
+         // toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
+
+        
 
         UdpDataload ul = new UdpDataload(); //make a global instatiation of our class. We store the current data load here Only ever one record
 
@@ -53,34 +57,35 @@ namespace PropoPlot
         string avgFilename = "";
         string qsoFilename = "";
 
-        //int dBm1Cut = int.Parse(Properties.Settings.Default.dBm1Value);
-        //int dBm2Cut = int.Parse(Properties.Settings.Default.dBm2Value);
-        //int dBm3Cut = int.Parse(Properties.Settings.Default.dBm3Value);
-        //int dBm4Cut = int.Parse(Properties.Settings.Default.dBm4Value);
-
+ 
+ 
 
         public MainWindow()
         {
             InitializeComponent();
 
-          static  Log.Logger = new LoggerConfiguration().WriteTo.File(@"c:\users\cooky\Documents\PropaPlot.log").CreateLogger();
+            EventLogger.DeleteLog();
+            EventLogger.WriteLine("Propaplot started");
 
-           
-            
-            Log.Information("Log for PropaPlot");
+       //     Log.Logger = new LoggerConfiguration().WriteTo.File(@"c:\users\cooky\Documents\PropaPlot.log").CreateLogger();
+       //     Log.Information("Log for PropaPlot");
+       //     Log.Verbose("another line");
+       //     
 
 
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
             avgFilename = $"propDBM_{now}_{prefix}_Band_Ant";  // Default file name
             qsoFilename = $"propQSO_{now}_{prefix}_Band_Ant";  // Default file name
 
-            var bc = new BrushConverter();
 
-            dBmCut1.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM1); 
-            dBmCut2.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM2); 
-            dBmCut3.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM3); 
-            dBmCut4.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM4); 
-            dBmCut5.Background = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5); 
+            // this throws an error in a stand alone published version
+
+            BrushConverter bc = new BrushConverter();
+            dBmCut1.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM1);
+            dBmCut2.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM2);
+            dBmCut3.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM3);
+            dBmCut4.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM4);
+            dBmCut5.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM5);
 
 
 
@@ -88,8 +93,28 @@ namespace PropoPlot
             GraphsMainMenu.IsEnabled = false;
 
             window.FontSize = double.Parse(Properties.Settings.Default.myFontSize);
-
         }
+
+
+
+        private System.Windows.Media.Brush DrawingColorToBrush(System.Drawing.Color color)
+        {
+            System.Windows.Media.Brush ret = null;
+            BrushConverter m = new BrushConverter();
+            string s = "#" + color.ToArgb().ToString("X8");
+            if (m.CanConvertFrom(typeof(string)))
+            {
+                ret = (System.Windows.Media.Brush)m.ConvertFromString(s);
+            }
+            return ret;
+        }
+
+
+
+
+
+
+
 
         private void ButtonUDPport_click(object sender, RoutedEventArgs e)
         {
@@ -121,10 +146,7 @@ namespace PropoPlot
         //    }
         //}
 
-        private void btnGoogleEarth_Click(object sender, RoutedEventArgs e)
-        {
-            // GetQsosFromList();
-        }
+ 
 
         /// <summary>
         /// This is a wrapper around the wsjtMessaging I got from git hub. I dont want
@@ -244,7 +266,7 @@ namespace PropoPlot
 
         private void btnClearMapOfArtifacts_Click(object sender, RoutedEventArgs e)
         {
-            DxAtlasMapClear();
+         //   DxAtlasMapClear();
         }
 
         private void cmboUDP_Loaded(object sender, RoutedEventArgs e)
@@ -279,8 +301,13 @@ namespace PropoPlot
 
         }//end function
 
+
         private void saveAvgCont_Click(object sender, RoutedEventArgs e)
         {
+            //Log.Logger = new LoggerConfiguration().WriteTo.File(@"c:\users\cooky\Documents\PropaPlot.log").CreateLogger();
+            EventLogger.WriteLine("Save File DBm");
+
+
             //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
             //using System.IO; is for SttreamWriter
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
@@ -321,14 +348,15 @@ namespace PropoPlot
 
         private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
         {
-            
-            Log.CloseAndFlush();
-            this.Close();
+
+            //Log.CloseAndFlush();
+            EventLogger.WriteLine("Closing PropaPlot");
             
             //kill threads some how
             //this the attempt to kill off the zombie process
-           // Process[] processes = Process.GetProcessesByName("PropoPlot");
-           // processes[0].Kill();
+            Process[] processes = Process.GetProcessesByName("PropoPlot");
+            processes[0].Kill();
+            this.Close();
 
         }
 
@@ -419,8 +447,8 @@ namespace PropoPlot
         /// <param name="e"></param>
         private void btnResetList_Click(object sender, RoutedEventArgs e)
         {
-            Log.Information($"btnReset Clicked: udpStrings{0}", udpStrings.Count());
-            Log.Information($"btnReset Clicked: contentAVGList{0}", continentAVGList.Count());
+            EventLogger.WriteLine($"btnReset Clicked: udpStrings Count: { udpStrings.Count()}");
+            EventLogger.WriteLine($"btnReset Clicked: contentAVGList Count: {continentAVGList.Count()}");
             
             udpStrings.Clear();
             continentAVGList.Clear();
