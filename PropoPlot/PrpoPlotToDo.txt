@@ -45,6 +45,14 @@
 	• added Zoom to the main interface 20210601
 	• Reworked the labelling on the Comparer Graph so you KNOW which line is which
 	• Reworked the UI a lot.  Made the colors user selectable, using major,minor,patch versioning
+	•Whe you change a continent, lat and long, it needs to update the variables straight away.  At the moment
+	I have to stop and start the program 20210613
+	• Add a history of propagation indicator for the continents  Done
+		○ Maybe like a little square with a colour in it every 15 minutes?  but this needs to be done
+	• DX Atlas keeps grabbing the mouse.  Look for an alternative to plot things.  Simons World Map?  Brewed my own, DX Atlas is no longer part of the deal  20210613
+	the code for DX atlas is still there, we could launch DX Atlas in its own and send it points wather than binding in the DLL
+	• We are 64 bit now.
+	• Put a compiled version up on Git Hub? Long since done
 
 
 
@@ -54,19 +62,15 @@
 	• The 'singlePlot' Live does not stop when I untick it.
 	• Can't reliably run two instances of the program on different UDP ports
 		○ Is that because we are multiCast instead of singleCast?
-	• Add a history of propagation indicator for the continents
-		○ Maybe like a little square with a colour in it every 15 minutes?
 	• In the compare plots - align the start times some how
 	• Get rid of the dots on the All Continents graphs
 	• Upgrade the help dialog boxes to have formatted text
-	• Put a compiled version up on Git Hub?
 	• A running average for the averages?
 	• Statistics like a line that is average +- 1 SD being plotted?  I want to see the trend!!!
 	• An option to auto save the file every X minutes would be nice
 	• Add cat control and a schedule for band changing
 	• When I reset the Avgs using the 0 Avgs button - I should also see the averages reset to startup conditions.
 	• Single plot-  When you turn off Decodes chk box, then change the Yaxis to -30 to +5
-	• DX Atlas keeps grabbing the mouse.  Look for an alternative to plot things.  Simons World Map?
 	•Investigate getting Tx receptioon reports.  I want the recption reports from the other guy.  
 	  Maybe I can get the result from the RBN network, can get it from the PSK site maybe but its going to be 
 	  at least 5minutes old.
@@ -77,8 +81,6 @@
 	with the data sutably coloured
 	•Hilight any decodes from the Usr continent
 	•Hilighted decodes by colour.  Colours need to be usere definaeble?
-	•Whe you change a continent, lat and long, it needs to update the variables straight away.  At the moment
-	I have to stop and start the program
 	• Be able to exclude a continent from the Radar Plot - VK6BMW
 	• Write an interface / suggest an interface to Simons World Map
 	• Be able to hilight a row with a certain call sign....like V* or VK* or VK6DW and the row would turn Bright Green or somesuch

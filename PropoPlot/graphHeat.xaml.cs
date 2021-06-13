@@ -196,38 +196,48 @@ namespace PropoPlot
             float dAcqua = 22;
             float dBlue = 30;
 
- 
+            if (chkShowContinents.IsChecked == true){ 
 
-            // polygon plot on the map Europe
-            double[] xs1 = {-12,-12,60,60};
-            double[] ys1 = {30,72,72,30};
-            var hcont = graphHeatmap.Plot.AddPolygon(xs1,ys1);
-            var hcontLabel = graphHeatmap.Plot.AddText("Europe", -12, 30, size: 14);
+            // put a box on the screen so we can see ourt continents
+            graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.EULongMin), double.Parse(Properties.Settings.Default.EULatMin), double.Parse(Properties.Settings.Default.EULongMax), double.Parse(Properties.Settings.Default.EULatMin), System.Drawing.Color.Blue, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.EULongMax), double.Parse(Properties.Settings.Default.EULatMin), double.Parse(Properties.Settings.Default.EULongMax), double.Parse(Properties.Settings.Default.EULatMax), System.Drawing.Color.Green, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.EULongMin), double.Parse(Properties.Settings.Default.EULatMax), double.Parse(Properties.Settings.Default.EULongMax), double.Parse(Properties.Settings.Default.EULatMax), System.Drawing.Color.Magenta, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.EULongMin), double.Parse(Properties.Settings.Default.EULatMin), double.Parse(Properties.Settings.Default.EULongMin), double.Parse(Properties.Settings.Default.EULatMax), System.Drawing.Color.Red, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.JALongMin), double.Parse(Properties.Settings.Default.JALatMin), double.Parse(Properties.Settings.Default.JALongMax), double.Parse(Properties.Settings.Default.JALatMin), System.Drawing.Color.Blue, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.JALongMax), double.Parse(Properties.Settings.Default.JALatMin), double.Parse(Properties.Settings.Default.JALongMax), double.Parse(Properties.Settings.Default.JALatMax), System.Drawing.Color.Green, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.JALongMin), double.Parse(Properties.Settings.Default.JALatMax), double.Parse(Properties.Settings.Default.JALongMax), double.Parse(Properties.Settings.Default.JALatMax), System.Drawing.Color.Magenta, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.JALongMin), double.Parse(Properties.Settings.Default.JALatMin), double.Parse(Properties.Settings.Default.JALongMin), double.Parse(Properties.Settings.Default.JALatMax), System.Drawing.Color.Red, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.NALongMin), double.Parse(Properties.Settings.Default.NALatMin), double.Parse(Properties.Settings.Default.NALongMax), double.Parse(Properties.Settings.Default.NALatMin), System.Drawing.Color.Blue, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.NALongMax), double.Parse(Properties.Settings.Default.NALatMin), double.Parse(Properties.Settings.Default.NALongMax), double.Parse(Properties.Settings.Default.NALatMax), System.Drawing.Color.Green, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.NALongMin), double.Parse(Properties.Settings.Default.NALatMax), double.Parse(Properties.Settings.Default.NALongMax), double.Parse(Properties.Settings.Default.NALatMax), System.Drawing.Color.Magenta, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.NALongMin), double.Parse(Properties.Settings.Default.NALatMin), double.Parse(Properties.Settings.Default.NALongMin), double.Parse(Properties.Settings.Default.NALatMax), System.Drawing.Color.Red, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.SALongMin), double.Parse(Properties.Settings.Default.SALatMin), double.Parse(Properties.Settings.Default.SALongMax), double.Parse(Properties.Settings.Default.SALatMin), System.Drawing.Color.Blue, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.SALongMax), double.Parse(Properties.Settings.Default.SALatMin), double.Parse(Properties.Settings.Default.SALongMax), double.Parse(Properties.Settings.Default.SALatMax), System.Drawing.Color.Green, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.SALongMin), double.Parse(Properties.Settings.Default.SALatMax), double.Parse(Properties.Settings.Default.SALongMax), double.Parse(Properties.Settings.Default.SALatMax), System.Drawing.Color.Magenta, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.SALongMin), double.Parse(Properties.Settings.Default.SALatMin), double.Parse(Properties.Settings.Default.SALongMin), double.Parse(Properties.Settings.Default.SALatMax), System.Drawing.Color.Red, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.AFLongMin), double.Parse(Properties.Settings.Default.AFLatMin), double.Parse(Properties.Settings.Default.AFLongMax), double.Parse(Properties.Settings.Default.AFLatMin), System.Drawing.Color.Blue, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.AFLongMax), double.Parse(Properties.Settings.Default.AFLatMin), double.Parse(Properties.Settings.Default.AFLongMax), double.Parse(Properties.Settings.Default.AFLatMax), System.Drawing.Color.Green, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.AFLongMin), double.Parse(Properties.Settings.Default.AFLatMax), double.Parse(Properties.Settings.Default.AFLongMax), double.Parse(Properties.Settings.Default.AFLatMax), System.Drawing.Color.Magenta, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.AFLongMin), double.Parse(Properties.Settings.Default.AFLatMin), double.Parse(Properties.Settings.Default.AFLongMin), double.Parse(Properties.Settings.Default.AFLatMax), System.Drawing.Color.Red, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.FALongMin), double.Parse(Properties.Settings.Default.FALatMin), double.Parse(Properties.Settings.Default.FALongMax), double.Parse(Properties.Settings.Default.FALatMin), System.Drawing.Color.Blue, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.FALongMax), double.Parse(Properties.Settings.Default.FALatMin), double.Parse(Properties.Settings.Default.FALongMax), double.Parse(Properties.Settings.Default.FALatMax), System.Drawing.Color.Green, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.FALongMin), double.Parse(Properties.Settings.Default.FALatMax), double.Parse(Properties.Settings.Default.FALongMax), double.Parse(Properties.Settings.Default.FALatMax), System.Drawing.Color.Magenta, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.FALongMin), double.Parse(Properties.Settings.Default.FALatMin), double.Parse(Properties.Settings.Default.FALongMin), double.Parse(Properties.Settings.Default.FALatMax), System.Drawing.Color.Red, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.OCLongMin), double.Parse(Properties.Settings.Default.OCLatMin), double.Parse(Properties.Settings.Default.OCLongMax), double.Parse(Properties.Settings.Default.OCLatMin), System.Drawing.Color.Blue, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.OCLongMax), double.Parse(Properties.Settings.Default.OCLatMin), double.Parse(Properties.Settings.Default.OCLongMax), double.Parse(Properties.Settings.Default.OCLatMax), System.Drawing.Color.Green, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.OCLongMin), double.Parse(Properties.Settings.Default.OCLatMax), double.Parse(Properties.Settings.Default.OCLongMax), double.Parse(Properties.Settings.Default.OCLatMax), System.Drawing.Color.Magenta, 1);
+                graphHeatmap.Plot.AddLine(double.Parse(Properties.Settings.Default.OCLongMin), double.Parse(Properties.Settings.Default.OCLatMin), double.Parse(Properties.Settings.Default.OCLongMin), double.Parse(Properties.Settings.Default.OCLatMax), System.Drawing.Color.Red, 1);
 
-            double[] JAx = { 130, 130, 145, 145 };
-            double[] JAy = { 30, 46, 46, 30 };
-            var jacont = graphHeatmap.Plot.AddPolygon(JAx, JAy);
+                var EUcontLabel = graphHeatmap.Plot.AddText("Europe", double.Parse(Properties.Settings.Default.EULongMin), double.Parse(Properties.Settings.Default.EULatMax), size: 18);
+                var JAcontLabel = graphHeatmap.Plot.AddText("Japan", double.Parse(Properties.Settings.Default.JALongMin), double.Parse(Properties.Settings.Default.JALatMax), size: 18);
+                var NAcontLabel = graphHeatmap.Plot.AddText("NorthAmerica", double.Parse(Properties.Settings.Default.NALongMin), double.Parse(Properties.Settings.Default.NALatMax), size: 18);
+                var SAcontLabel = graphHeatmap.Plot.AddText("SouthAmerica", double.Parse(Properties.Settings.Default.SALongMin), double.Parse(Properties.Settings.Default.SALatMax), size: 18);
+                var AFcontLabel = graphHeatmap.Plot.AddText("Africa", double.Parse(Properties.Settings.Default.AFLongMin), double.Parse(Properties.Settings.Default.AFLatMax), size: 18);
+                var OCcontLabel = graphHeatmap.Plot.AddText("Oceania", double.Parse(Properties.Settings.Default.OCLongMin), double.Parse(Properties.Settings.Default.OCLatMax), size: 18);
+                var FAcontLabel = graphHeatmap.Plot.AddText("User", double.Parse(Properties.Settings.Default.FALongMin), double.Parse(Properties.Settings.Default.FALatMax), size: 18);
+            }
 
-            double[] NAx = { -131, -131, -54, -54 };
-            double[] NAy = { 12, 90, 90, 12 };
-            var nacont = graphHeatmap.Plot.AddPolygon(NAx, NAy);
-
-            double[] SAx = { -90, -90, -32, -32 };
-            double[] SAy = { -60, 12, 12, -60 };
-            var sacont = graphHeatmap.Plot.AddPolygon(SAx, SAy);
-
-            double[] AFx = { -20, -20, 50, 50 };
-            double[] AFy = { -35, 34, 34, -35 };
-            var afcont = graphHeatmap.Plot.AddPolygon(AFx, AFy);
-
-            double[] OCx = { 112, 112, 126, 126 };
-            double[] OCy = { -54, 28, 28, -54 };
-            var occont = graphHeatmap.Plot.AddPolygon(OCx, OCy);
-
-            double[] FAx = { 60, 60, 144, 144 };
-            double[] FAy = { -9, 90, 90, -9 };
-            var facont = graphHeatmap.Plot.AddPolygon(FAx, FAy);
-
+            // now tha actula points
             var hmap = graphHeatmap.Plot.AddBubblePlot();
             //plot the corner points
             for (int i = 0; i < cornerX.Length; i++)

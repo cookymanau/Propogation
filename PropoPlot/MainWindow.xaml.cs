@@ -390,7 +390,7 @@ namespace PropoPlot
         private void toolsContLatLongSettings_Click(object sender, RoutedEventArgs e)
         {
             toolsContLatLongSetting tll = new toolsContLatLongSetting();
-            tll.ShowDialog();
+            tll.Show();
         }
 
         private void toolOptions_Click(object sender, RoutedEventArgs e)

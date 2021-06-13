@@ -66,10 +66,17 @@ namespace PropoPlot
         private void toolContLatLongExit_Click(object sender, RoutedEventArgs e)
         {
 
+            saveSettings();
+            this.Close();
+        }
+
+private void saveSettings()
+        {
+
             Properties.Settings.Default.FALatMin = FALatMin.Text;
             Properties.Settings.Default.FALatMax = FALatMax.Text;
             Properties.Settings.Default.FALongMin = FALongMin.Text;
-            Properties.Settings.Default.FALongMax = FALongMax.Text;            
+            Properties.Settings.Default.FALongMax = FALongMax.Text;
             Properties.Settings.Default.EULatMin = EULatMin.Text;
             Properties.Settings.Default.EULatMax = EULatMax.Text;
             Properties.Settings.Default.EULongMin = EULongMin.Text;
@@ -97,18 +104,25 @@ namespace PropoPlot
             Properties.Settings.Default.AFLatMax = AFLatMax.Text;
             Properties.Settings.Default.AFLongMin = AFLongMin.Text;
             Properties.Settings.Default.AFLongMax = AFLongMax.Text;
-            
+
             Properties.Settings.Default.UsrDefinedName = UsrDefinedName.Text;
-
-
             Properties.Settings.Default.Save();
-            this.Close();
+
         }
+
+
+
+
 
         private void UsrDefinedName_TextChanged(object sender, TextChangedEventArgs e)
         {
 
 
         }//end
+
+        private void toolContLatLongApply_Click(object sender, RoutedEventArgs e)
+        {
+            saveSettings();
+        }
     }
 }
