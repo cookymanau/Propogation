@@ -401,7 +401,7 @@ namespace PropoPlot
 
             radar =  graphSingle.Plot.AddRadar(values,independentAxes:false );
 
-            radar.CategoryLabels = new string[] {"JA","NA","SA","OC","AF","Usr","EU" };
+            radar.CategoryLabels = new string[] {"JA","NA","SA","OC","AF",Properties.Settings.Default.UsrDefinedName,"EU" };
             radar.ShowAxisValues = false;
             radar.AxisType = RadarAxis.None;
             

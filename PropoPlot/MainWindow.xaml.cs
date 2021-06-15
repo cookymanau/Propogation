@@ -36,19 +36,9 @@ namespace PropoPlot
         continentData cdAvg = new continentData();  //this is our class holding all of the data we generate dBm WEIGHTED average, number of decodes
 
         List<string> udpStrings = new List<string>(); // this is our in memory buffer. It belongs to all threads. Its where write the decode period for 15 seconds
-
-        //  List<string> continentList = new List<string>();  //we store the data into a new list record every period
-        //  List<string> continentListDC = new List<string>();  //we store the data into a new list record every period
-
-        // static List<string>  continentAVGList = new List<string>();  //we store the data into a new list record every period
         List<string> continentAVGList = new List<string>();  //we store the data into a new list record every period
 
         toolsContLatLongSetting tll = new toolsContLatLongSetting();  //this class here so we can see it every where we need it Holds the lat min, lat max longMin and longMax for the continents
-
-         // toolsSettings tset = new toolsSettings(); //this is the tools options dialog box
-
-        
-
         UdpDataload ul = new UdpDataload(); //make a global instatiation of our class. We store the current data load here Only ever one record
 
         int timercounter = 0;
@@ -97,17 +87,17 @@ namespace PropoPlot
 
 
 
-        private System.Windows.Media.Brush DrawingColorToBrush(System.Drawing.Color color)
-        {
-            System.Windows.Media.Brush ret = null;
-            BrushConverter m = new BrushConverter();
-            string s = "#" + color.ToArgb().ToString("X8");
-            if (m.CanConvertFrom(typeof(string)))
-            {
-                ret = (System.Windows.Media.Brush)m.ConvertFromString(s);
-            }
-            return ret;
-        }
+        //private System.Windows.Media.Brush DrawingColorToBrush(System.Drawing.Color color)
+        //{
+        //    System.Windows.Media.Brush ret = null;
+        //    BrushConverter m = new BrushConverter();
+        //    string s = "#" + color.ToArgb().ToString("X8");
+        //    if (m.CanConvertFrom(typeof(string)))
+        //    {
+        //        ret = (System.Windows.Media.Brush)m.ConvertFromString(s);
+        //    }
+        //    return ret;
+        //}
 
 
 
@@ -247,22 +237,7 @@ namespace PropoPlot
 
         }
 
-        //private void btnClearMap_Click(object sender, RoutedEventArgs e)
-        //{
-        //    clearDXAtlasEachTime = !clearDXAtlasEachTime;
 
-        //    if (clearDXAtlasEachTime == true)
-        //    {
-
-        //        btnClearMap.Content = "Clear Dots";
-        //        // DxAtlasMapClear();  //does not do anything
-
-        //    }
-        //    else  //does this when false
-        //    {
-        //        btnClearMap.Content = "Keep Dots";
-        //    }
-        //}
 
         private void btnClearMapOfArtifacts_Click(object sender, RoutedEventArgs e)
         {
@@ -302,51 +277,7 @@ namespace PropoPlot
         }//end function
 
 
-        private void saveAvgCont_Click(object sender, RoutedEventArgs e)
-        {
-            //Log.Logger = new LoggerConfiguration().WriteTo.File(@"c:\users\cooky\Documents\PropaPlot.log").CreateLogger();
-            EventLogger.WriteLine("Save File DBm");
-
-
-            //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
-            //using System.IO; is for SttreamWriter
-            string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = avgFilename; //$"propdBm_{now}_{prefix}_Band_Ant";  // Default file name
-            dlg.DefaultExt = ".csv"; // Default file extension
-            dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
-
-            // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process save file dialog box results
-            if (result == true)
-            {
-                // Save document
-                string filename = dlg.FileName;
-                
-                saveFileName.Text = dlg.FileName;  //write the file name on the UI
-                avgFilename = dlg.FileName; // saving it for ron
-
-                // now send all to the filename
-                using (StreamWriter writer = new StreamWriter(filename))
-                {
-                    writer.WriteLine($"{prefix},UTC,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
-
-                    foreach (string item in continentAVGList)
-                    {
-                        //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
-                        writer.WriteLine(item);
-                    }//end foreach - writing the list
-                }//und using
-
-
-            }//end if result == true
-
-            avgFilename = dlg.FileName;  //write it back to the variable just in case we changed it
-        }
-
-        private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
+         private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
         {
 
             //Log.CloseAndFlush();
@@ -360,20 +291,11 @@ namespace PropoPlot
 
         }
 
-        private void Statistics_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
+        //private void Continent_Click(object sender, RoutedEventArgs e)
+        //{
 
-        private void dbmAvg_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Continent_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //}
 
         private void UDP_Click(object sender, RoutedEventArgs e)
         {
@@ -447,13 +369,17 @@ namespace PropoPlot
         /// <param name="e"></param>
         private void btnResetList_Click(object sender, RoutedEventArgs e)
         {
-            EventLogger.WriteLine($"btnReset Clicked: udpStrings Count: { udpStrings.Count()}");
-            EventLogger.WriteLine($"btnReset Clicked: contentAVGList Count: {continentAVGList.Count()}");
+            EventLogger.WriteLine($"btnReset Clicked: udpStrings cleared Count: { udpStrings.Count()}");
+            EventLogger.WriteLine($"btnReset Clicked: contentAVGList cleared Count: {continentAVGList.Count()}");
+            EventLogger.WriteLine($"btnReset Clicked: messages cleared Count: {messages.Count()}");
+            EventLogger.WriteLine($"btnReset Clicked: heats cleared Count: {heats.Count()}");
             
             udpStrings.Clear();
             continentAVGList.Clear();
-            //continentList.Clear();
+            messages.Clear();
+            heats.Clear();
             displayTotalDecodes.Text = "0";
+            displayTotalCycles.Text = "0";
             frmMessageDialog md = new frmMessageDialog();
             md.messageBoxUpper.Text = $"Cleared The Lists ";
             md.messageBoxLower.Text = $"{e}";
@@ -483,8 +409,6 @@ namespace PropoPlot
             md.messageBoxUpper.Text = $"Cleared The Lists ";
             md.messageBoxLower.Text = $"{e}";
             md.Show();
-
-
         }
 
         private void graphLive_Click(object sender, RoutedEventArgs e)
@@ -501,63 +425,7 @@ namespace PropoPlot
 
         }
 
-        private void readAvgCont_Click(object sender, RoutedEventArgs e)
-        {
-            Cursor fred = this.Cursor; //sav e the current cursor
-                                       //this.Cursor = Cursors.Wait;
-
-
-            {
-                //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
-                //using System.IO; is for SttreamWriter
-                string now = DateTime.Now.ToString("h_mm tt");
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-                dlg.FileName = $"Propo";  // Default file name
-                dlg.DefaultExt = ".csv"; // Default file extension
-                dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
-
-                int count = 0;
-                // Show save file dialog box
-                Nullable<bool> result = dlg.ShowDialog();
-                // Process save file dialog box results
-                if (result == true)
-                {
-
-                    // Open document
-                    string filename = dlg.FileName;
-                    saveFileName.Text = dlg.FileName;  //write the file name on the UI
-
-                    //// now send all to the filename
-                    //continentAVGList.Add("RingAnt,Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
-                    using (StreamReader reader = new StreamReader(filename))
-                    {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            if (count > 0) //miss the first row of the file - it has header info we dont want
-                            {
-                                continentAVGList.Add(line);
-                                
-                            }
-                            count += 1;
-                        }
-
-                    }//end using
-                }//end if result == true
-
-               // colourQSO(continentAVGList);
-
-                //continentAVGList.RemoveAt(0);
-                //remove the first line of the list - it breaks things
-                displayTotalDecodes.Text = (int.Parse(displayTotalDecodes.Text) + count).ToString();
-                this.Cursor = fred;
-                GraphsMainMenu.IsEnabled = true;
-            } //end of method
-
-
-
-        }
-
+ 
         private void graphHeat_Click(object sender, RoutedEventArgs e)
         {
             graphHeat gh = new graphHeat(heats);
@@ -626,92 +494,7 @@ namespace PropoPlot
             }
         }
 
-        private void saveQSOCont_Click(object sender, RoutedEventArgs e)
-        {
-            //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
-            //using System.IO; is for SttreamWriter
-            string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = qsoFilename; //$"propQSO_{now}_{prefix}_Band_Ant";  // Default file name
-            dlg.DefaultExt = ".csv"; // Default file extension
-            dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
-
-            // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process save file dialog box results
-            if (result == true)
-            {
-                // Save document
-                string filename = dlg.FileName;
-                saveQSOFileName.Text = dlg.FileName;  //write the file name on the UI
-
-                // now send all to the filename
-                using (StreamWriter writer = new StreamWriter(filename))
-                {
-                    writer.WriteLine($"{prefix},UTC,dB,dT,Freq"); //this is the csv file header
-
-                    foreach (string item in messages)
-                    {
-                        //writer.WriteLine($"Kenwood 1,{cd.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cd.pAFnumber},{cd.pSAdbm} ,{cd.pSAnumber},{cd.pFAdbm} ,{cd.pFAnumber}");
-                        writer.WriteLine(item);
-                    }//end foreach - writing the list
-                }//und using
-
-            }
-            qsoFilename = dlg.FileName;
-        }
-
-        private void readQSOCont_Click(object sender, RoutedEventArgs e)
-        {
-            {
-                //you need to have using Microsoft.Win32; up top.  No dragging a toolbox item onto the form
-                //using System.IO; is for SttreamWriter
-                string now = DateTime.Now.ToString("h_mm tt");
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-                dlg.FileName = $"PropoQSO";  // Default file name
-                dlg.DefaultExt = ".csv"; // Default file extension
-                dlg.Filter = "PropoPlot documents (.csv)|*.csv|All files (*.*)|*.*"; // Filter files by extension
-
-                int count = 0;
-                // Show save file dialog box
-                Nullable<bool> result = dlg.ShowDialog();
-                // Process save file dialog box results
-                if (result == true)
-                {
-
-                    // Open document
-                    string filename = dlg.FileName;
-                    saveFileName.Text = dlg.FileName;  //write the file name on the UI
-
-                    //// now send all to the filename
-                    //continentAVGList.Add("RingAnt,Zulu,EUdbm,EUdbmAVG,EUcnt,JAdbm,JAdbmAVG,JAcnt,NAdbm,NAdbmAVG,NAcnt,OCdbm,OCdbmAVG,OCcnt,AFdbm,AFdbmAVG,AFcnt,SAdbm,SAdbmAVG,SAcnt,FAdbm,FAdbmAVG,FAcnt"); //this is the csv file header
-                    using (StreamReader reader = new StreamReader(filename))
-                    {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            if (count > 0) //miss the first row of the file - it has header info we dont want
-                            {
-                                messages.Add($"{line}\r\n");
-                                reconstructHeats(line);
-                            }
-                            count += 1;
-                        }
-
-                    }//end using
-                }//end if result == true
-
-                colourQSO(messages);
-
-                //continentAVGList.RemoveAt(0);
-                //remove the first line of the list - it breaks things
-                displayTotalDecodes.Text = (int.Parse(displayTotalDecodes.Text) + count).ToString();
-                GraphsMainMenu.IsEnabled = true;
-
-                //window.FontSize = 8.0;
-            }
-        }
+ 
 
         /// <summary>
         /// This puts together the heats list from a file
@@ -754,7 +537,12 @@ namespace PropoPlot
             // back any further than that
 
             if (heats.Count > 20000)
+            {
                 heats.Clear();
+                EventLogger.WriteLine($"btnReset Clicked: udpStrings cleared Count: { udpStrings.Count()}");
+                EventLogger.WriteLine($"reconstructHeats: heats Count exceeded 20000 and cleared: { heats.Count()}");
+
+            }
             else
                 heats.Add($"{utc},{dBm},{lat},{lon}");
 
@@ -769,6 +557,14 @@ namespace PropoPlot
                 ++window.FontSize;
             if (e.Delta < 0 && window.FontSize > 1)
                 --window.FontSize;
+
+            EventLogger.WriteLine($"TextBlock_PreviewMouseWheel: FontSize Changed with mouse wheel: {window.FontSize.ToString()}");
+        }
+
+        private void graphRadarHistory_Click(object sender, RoutedEventArgs e)
+        {
+            graphRadarHistory grh = new graphRadarHistory(continentAVGList);
+            grh.Show();
         }
     }//end of class
 

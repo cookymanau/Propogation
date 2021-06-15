@@ -53,6 +53,7 @@
 	the code for DX atlas is still there, we could launch DX Atlas in its own and send it points wather than binding in the DLL
 	• We are 64 bit now.
 	• Put a compiled version up on Git Hub? Long since done
+	• Add a Heatmap with a world map as the background to replace DX Atlas...Done June 2021
 
 
 
@@ -75,7 +76,6 @@
 	  Maybe I can get the result from the RBN network, can get it from the PSK site maybe but its going to be 
 	  at least 5minutes old.
 	  I can get it fro the ALL.TXT 
-	• Add a Heatmap with a world map as the background to replace DX Atlas
 
 	•i want to average the data over 15 minute intervals (4 per hour) and show a 24 bars in a stacked bargraph
 	with the data sutably coloured

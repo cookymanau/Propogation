@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PropoPlot"
         mc:Ignorable="d"
         FontSize="12"
-        Title="QSO Map" Height="670" Width="1365">
+        Title="QSO Map" Height="550" Width="1135">
     <Border Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
                     <CheckBox Name="chkcr4" Content="0 to -8 dBm" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
                     <CheckBox Name="chkcr5" Content="GT 0 dBm" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
 
-                <TextBlock Text="Settings"  Background="#bbb" FontWeight="Bold" Margin="2" Grid.ColumnSpan="2"/>
+                <!--<TextBlock Text="Settings"  Background="#bbb" FontWeight="Bold" Margin="2" Grid.ColumnSpan="2"/>-->
                 <!--<DockPanel>
                     <TextBox Name="Xscaler" Text="1" Width="35" Margin="5,5" ToolTip="For adjusting space between dots"/>
                     <Label Content="Yadjust" Margin="0,5" />
@@ -57,15 +57,15 @@
                 </DockPanel>-->
 
 
-                <DockPanel>
+                <!--<DockPanel>
                     <TextBox Name="wXsizer" Text="1365" Width="35" Margin="5,5" ToolTip="for adjusting the window size"/>
                     <Label Content="wXsize" Margin="0,5" />
-                </DockPanel>
+                </DockPanel>-->
 
-                <DockPanel>
+                <!--<DockPanel>
                     <TextBox Name="wYsizer" Text="670" Width="35" Margin="5,5" ToolTip=""/>
                     <Label Content="wYsize" Margin="0,5" />
-                </DockPanel>
+                </DockPanel>-->
                 <TextBlock Text="Information"  Background="#bbb" FontWeight="Bold" Margin="2" Grid.ColumnSpan="2"/>
                 <CheckBox Name="chkShowContinents" Content="Show Continents" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
                 <DockPanel>

@@ -57,11 +57,17 @@ namespace PropoPlot
             chkcr4.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM4);
             chkcr5.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM5);
 
+
+            double hi = this.Height;
+            double wi = this.Width;
+
             //set the window size
-            this.MaxWidth = int.Parse(wXsizer.Text);  // for sizing the dot spaceing
-            this.MaxHeight = int.Parse(wYsizer.Text);
-            this.MinWidth = int.Parse(wXsizer.Text); // for sizing the actual window - works best
-            this.MinHeight = int.Parse(wYsizer.Text);
+            this.MaxWidth = wi; // int.Parse(wXsizer.Text);  // for sizing the dot spaceing
+            this.MaxHeight = hi; // int.Parse(wYsizer.Text);
+            this.MinWidth = wi;// int.Parse(wXsizer.Text); // for sizing the actual window - works best
+            this.MinHeight = hi; // int.Parse(wYsizer.Text);
+
+
 
             thlist = alist;  //this is where all of the data is  =>>  time, dBm, Lat, Long
             PrepareArrays();
@@ -159,7 +165,10 @@ namespace PropoPlot
             int howMany = int.Parse(cmboNumPoints.Text);
 
             Bitmap wmap = new Bitmap(@".\Map.png");
+           // Bitmap wmap = new Bitmap(@".\MapOz.png");
+
             var worldmap = graphHeatmap.Plot.AddImage(wmap, -180, 90);
+//            var worldmap = graphHeatmap.Plot.AddImage(wmap, -34, 90);
           //  var hmap = graphHeatmap.Plot.AddBubblePlot();
            
 
@@ -243,6 +252,7 @@ namespace PropoPlot
             for (int i = 0; i < cornerX.Length; i++)
                 hmap.Add(x: cornerX[i], y: cornerY[i], radius: 3, fillColor: System.Drawing.Color.Red, edgeWidth: 1, edgeColor: System.Drawing.Color.Black);
 
+            
 
             //I only want to plot the top howMany Elements
             //for (int i = 0; i < pXs.Length; i++)
@@ -268,6 +278,9 @@ namespace PropoPlot
                 else if (pZs[i] > dBlue && chkcr5.IsChecked == true)  //dont want to plot 0's
                     hmap.Add(x: pYs[i], y: pXs[i], radius: pZs[i] / divisor, fillColor: (ColorTranslator.FromHtml(Properties.Settings.Default.crDBM5)), edgeWidth: 1, edgeColor: System.Drawing.Color.Red);
             }
+
+            //graphHeatmap.Plot.AxisScaleLock(true);
+           
 
             graphHeatmap.Plot.Render();
         }//end

@@ -88,7 +88,8 @@
                 <MenuItem Header="_Graphs" IsEnabled="True" Name="GraphsMainMenu">
                     <MenuItem Header="_All Continents" Name="graphAll" Click="graphAll_Click"  />
                     <MenuItem Header="_History" Name="graphLive" Click="graphLive_Click"/>
-                    <MenuItem Header="_Radar" Name="graphSingle" Click="graphSingle_Click"  />
+                    <MenuItem Header="_Radar Now" Name="graphSingle" Click="graphSingle_Click"  />
+                    <MenuItem Header="_Radar History" Name="graphRadarHistory" Click="graphRadarHistory_Click"   />
                     <MenuItem Header="_Population" Name="graphPop" Click="graphPop_Click"   />
                     <MenuItem Header="_dBm by Hour" Name="plotFaros" Click="plotFaros_Click"  />
                     <MenuItem Header="_QSO Map" Name="graphHeat" Click="graphHeat_Click"  />
@@ -99,9 +100,9 @@
                 <MenuItem Header="_Help" >
                     <MenuItem Header="_Overview" Name="Overview" Click="Overview_Click"/>
                     <MenuItem Header="_UDP capture" Name="UDP" Click="UDP_Click" />
-                    <MenuItem Header="_Continents" Name="Continent" Click="Continent_Click"/>
-                    <MenuItem Header="_dBm Averages" Name="dbmAvg" Click="dbmAvg_Click" />
-                    <MenuItem Header="_Statistics" Name="Statistics" Click="Statistics_Click" />
+                    <!--<MenuItem Header="_Continents" Name="Continent" Click="Continent_Click"/>-->
+                    <!--<MenuItem Header="_dBm Averages" Name="dbmAvg" Click="dbmAvg_Click" />-->
+                    <!--<MenuItem Header="_Statistics" Name="Statistics" Click="Statistics_Click" />-->
                 </MenuItem>
 
             </Menu>
