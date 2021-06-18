@@ -22,7 +22,7 @@ namespace PropoPlot
     {
 
         //arays to hold the data for one continent and one AVG, Raw or Count
-        const int arrsize = 200;
+        const int arrsize = 600;
 
         double[,] values = new double[2, arrsize];
 
@@ -65,7 +65,7 @@ namespace PropoPlot
                 if (wrdmsg[4] != "")
                 {
 
-                    values[0, count] = double.Parse(wrdmsg[3]);
+                    values[0, count] = 0;// double.Parse(wrdmsg[3]);
                     values[1, count] = double.Parse(wrdmsg[4]);
                     piVals[count] = double.Parse(wrdmsg[4]);
 
@@ -76,11 +76,11 @@ namespace PropoPlot
                 }
             }
 
-      //    var rp =  graphRH.Plot.AddRadar(values);
-      //      rp.AxisType = RadarAxis.None;
+          var rp =  graphRH.Plot.AddRadar(values);
+            rp.AxisType = RadarAxis.None;
 
 
-            var piplot = graphRH.Plot.AddPie(piVals);
+         //   var piplot = graphRH.Plot.AddPie(piVals);
 
 
 

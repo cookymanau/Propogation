@@ -63,7 +63,7 @@ namespace PropoPlot
         //public bool wsjtClientAbort = false;
 
 
-        public string[,] Udppoint = new string[100, 6];  //101 rows of 3 columns Stores the data from the last decode run so we can write it to display
+        public string[,] Udppoint = new string[100, 6];  //101 rows of 6 columns Stores the data from the last 15 second decode run so we can write it to display
         //0 = callsign
         //1 = dBm
         //2 = maidenhead
@@ -107,6 +107,7 @@ namespace PropoPlot
         /// <param name="message"></param>
         //private void GetQsos(string message)  //this should be asyn task as well maybe
         //currently just processes the UDP list and adds to out UdpDataload class
+        // it is called every 15 seconds from the Mainwindow thread
         private void GetQsosFromList()  //this should be asyn task as well maybe
         {
             try
@@ -150,7 +151,8 @@ namespace PropoPlot
                 //          double sumFAarray = 0;
                 //          double averageFAarray = 0;
 
-                foreach (var item in udpStrings)
+                foreach (var item in udpStrings)   //udpStrings is declared at the top of MainWindow.xaml.cs   Doing this, this way means we process the entire list each time I think
+                                                   // The list comprises JUST the last 15 second interval.  So we are limited to 0 to maybe 30 or 40 items
                 {
                     RegexOptions options = RegexOptions.None;
                     Regex regex = new Regex("[ ]{2,}", options); //gets rid of the multiple spaces
@@ -161,11 +163,10 @@ namespace PropoPlot
                     if (wrdmsg[0] == "Status")
                         prefix = "WSJT-X";
 
-                    if (wrdmsg[0] == "Decode")  //wsjt-x puts ou lots of data lines without Decodes. We want to ig nore them
+                    // over in MainWindow we instantiated our dataclass to hold the decoded data momentarily Called it ul
+
+                    if (wrdmsg[0] == "Decode")  //wsjt-x puts out lots of data lines without Decodes. We want to ignore them
                     {
-
-
-
                         if (wrdmsg.Length == 11)   //this is normal  CQ VK6DW OF88
                         {
                             ul.udptime = wrdmsg[1];
@@ -227,7 +228,7 @@ namespace PropoPlot
                          ))
                         { //this fires for every string that has grid data
 
-                            //lets try putting data into our matrix udppoint  //using counter (which is the number of decoded qsos with a grid square
+                            //lets try putting data into our matrix Udppoint  //using counter (which is the number of decoded qsos with a grid square
                             Udppoint[counter, 0] = ul.udpqso2;
                             Udppoint[counter, 1] = ul.udpdbm;
                             Udppoint[counter, 2] = ul.udpqso3;

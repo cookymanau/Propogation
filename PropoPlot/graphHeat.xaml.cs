@@ -131,9 +131,9 @@ namespace PropoPlot
                 Array.Copy(Ys, count - howMany, pYs, count - howMany, howMany);
                 Array.Copy(Zs, count - howMany, pZs, count - howMany, howMany);
 
-                EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Xs => pXs: { Xs.Count()} => {pXs.Count()}  ");
-                EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Ys => pYs: { Ys.Count()} => {pYs.Count()}  ");
-                EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Zs => pZs: { Zs.Count()} => {pZs.Count()}  ");
+             //   EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Xs => pXs: { Xs.Count()} => {pXs.Count()}  ");
+             //   EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Ys => pYs: { Ys.Count()} => {pYs.Count()}  ");
+            //    EventLogger.WriteLine($"graphHeat: PrepareArrays : ArrayCopy Zs => pZs: { Zs.Count()} => {pZs.Count()}  ");
                 
 
 

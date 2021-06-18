@@ -72,8 +72,8 @@ namespace PropoPlot
 
             string[] wrdmsg = { };
 
-            string time = "";
-            int count = 0;
+            //string time = "";
+            //int count = 0;
 
             //these are the time spans these are 15minutes
 

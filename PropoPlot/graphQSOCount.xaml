@@ -1,0 +1,48 @@
+﻿<Window x:Class="PropoPlot.graphQSOCount"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropoPlot"
+        mc:Ignorable="d"
+        Title="graphQSOCount" Height="850" Width="1100">
+    <Border Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <!--<RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>-->
+
+            </Grid.RowDefinitions>
+            <TextBlock Text="QSO Counts per Hour for the Continents." Grid.Column="1" Grid.Row="0"  TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="ALL" Grid.Column="0" Grid.Row="1"  TextAlignment="Center" VerticalAlignment="Center"/>
+            <!--<TextBlock Text="EU" Grid.Column="0" Grid.Row="1"  TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="JA" Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="NA" Grid.Column="0" Grid.Row="3" TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="OC" Grid.Column="0" Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="AF" Grid.Column="0" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="SA" Grid.Column="0" Grid.Row="6" TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="USR" Grid.Column="0" Grid.Row="7" TextAlignment="Center" VerticalAlignment="Center"/>-->
+
+            <WpfPlot Name="QsoCountPlotALL"  Grid.Column="1" Grid.Row="1"/>
+            <!--<WpfPlot Name="QsoCountPlotEU"  Grid.Column="1" Grid.Row="1"/>
+            <WpfPlot Name="QsoCountPlotJA"  Grid.Column="1" Grid.Row="2"/>
+            <WpfPlot Name="QsoCountPlotNA"  Grid.Column="1" Grid.Row="3"/>
+            <WpfPlot Name="QsoCountPlotOC"  Grid.Column="1" Grid.Row="4"/>
+            <WpfPlot Name="QsoCountPlotAF"  Grid.Column="1" Grid.Row="5"/>
+            <WpfPlot Name="QsoCountPlotSA"  Grid.Column="1" Grid.Row="6"/>
+            <WpfPlot Name="QsoCountPlotFA"  Grid.Column="1" Grid.Row="7"/>-->
+
+        </Grid>
+    </Border>
+</Window>

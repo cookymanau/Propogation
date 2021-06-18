@@ -54,6 +54,11 @@ namespace PropoPlot
         {
             InitializeComponent();
 
+            this.Height = Properties.Settings.Default.mainwindowheight;
+            this.Width =  Properties.Settings.Default.mainwindowwidth;
+
+
+
             EventLogger.DeleteLog();
             EventLogger.WriteLine("Propaplot started");
 
@@ -279,6 +284,11 @@ namespace PropoPlot
 
          private void ExitPropoPlot_Click(object sender, RoutedEventArgs e)
         {
+
+            EventLogger.WriteLine($"MainWindow.Xaml.cs:ExitPropoPlot: Final Window size: Width {this.Width}, Height: {this.Height}");
+            Properties.Settings.Default.mainwindowheight = this.Height;
+            Properties.Settings.Default.mainwindowwidth = this.Width;
+            Properties.Settings.Default.Save();
 
             //Log.CloseAndFlush();
             EventLogger.WriteLine("Closing PropaPlot");
@@ -565,6 +575,14 @@ namespace PropoPlot
         {
             graphRadarHistory grh = new graphRadarHistory(continentAVGList);
             grh.Show();
+        }
+
+ 
+        private void graphQSOcount_Click_1(object sender, RoutedEventArgs e)
+        {
+            graphQSOCount gc = new graphQSOCount(continentAVGList);
+            gc.Show();
+
         }
     }//end of class
 

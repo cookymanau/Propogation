@@ -970,5 +970,29 @@ namespace PropoPlot.Properties {
                 this["dBm4Value"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1200")]
+        public double mainwindowwidth {
+            get {
+                return ((double)(this["mainwindowwidth"]));
+            }
+            set {
+                this["mainwindowwidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public double mainwindowheight {
+            get {
+                return ((double)(this["mainwindowheight"]));
+            }
+            set {
+                this["mainwindowheight"] = value;
+            }
+        }
     }
 }
