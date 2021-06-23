@@ -84,6 +84,8 @@ namespace PropoPlot
         private void wsjtmessages()  //should this be returning a Task cause void is bad?
         {
 
+           
+
             int UDPport = int.Parse(UDPportEntry.Text);
 
             //input parameters
@@ -591,6 +593,8 @@ namespace PropoPlot
             catch (Exception ex)
             {
 
+                EventLogger.WriteLine($"Error: GetQSOFromList{ex}");
+
                 // frmMessageDialog md = new frmMessageDialog();
                 // md.messageBoxUpper.Text = $"Error in GetQsosFromList() {ul.udphz} {ul.udpdbm}{ul.udpqso1}{ul.udpqso2} {ul.udpqso3} {ul.udpqso3}";
                 // md.messageBoxLower.Text = $"{ex}";
@@ -598,8 +602,6 @@ namespace PropoPlot
             }
 
             //now some code to plot to dxAtlas
-            //
-
             //if (plotToDxAtlas == true)
             //    DXAtlasplotPoints();
 

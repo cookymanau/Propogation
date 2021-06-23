@@ -11,6 +11,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="*"/>
+                <!--<ColumnDefinition Width="80"/>-->
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -25,23 +26,21 @@
 
             </Grid.RowDefinitions>
             <TextBlock Text="QSO Counts per Hour for the Continents." Grid.Column="1" Grid.Row="0"  TextAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="ALL" Grid.Column="0" Grid.Row="1"  TextAlignment="Center" VerticalAlignment="Center"/>
-            <!--<TextBlock Text="EU" Grid.Column="0" Grid.Row="1"  TextAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="JA" Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="NA" Grid.Column="0" Grid.Row="3" TextAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="OC" Grid.Column="0" Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="AF" Grid.Column="0" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="SA" Grid.Column="0" Grid.Row="6" TextAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="USR" Grid.Column="0" Grid.Row="7" TextAlignment="Center" VerticalAlignment="Center"/>-->
-
+            <TextBlock Text="ALL" Grid.Column="0" Grid.Row="1"  TextAlignment="Center" VerticalAlignment="Center" 
+                       ToolTip="All continents QSO counts as a percentage of the whole. "/>
+            <Button Content="Refresh" VerticalAlignment="Bottom" Grid.Row="1" Click="Button_Click"/>
             <WpfPlot Name="QsoCountPlotALL"  Grid.Column="1" Grid.Row="1"/>
-            <!--<WpfPlot Name="QsoCountPlotEU"  Grid.Column="1" Grid.Row="1"/>
-            <WpfPlot Name="QsoCountPlotJA"  Grid.Column="1" Grid.Row="2"/>
-            <WpfPlot Name="QsoCountPlotNA"  Grid.Column="1" Grid.Row="3"/>
-            <WpfPlot Name="QsoCountPlotOC"  Grid.Column="1" Grid.Row="4"/>
-            <WpfPlot Name="QsoCountPlotAF"  Grid.Column="1" Grid.Row="5"/>
-            <WpfPlot Name="QsoCountPlotSA"  Grid.Column="1" Grid.Row="6"/>
-            <WpfPlot Name="QsoCountPlotFA"  Grid.Column="1" Grid.Row="7"/>-->
+
+            <!--The legend-->
+            <!--<StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
+                <TextBlock Name="cntCol1" Text="Usr"  TextAlignment="Center"/>
+                <TextBlock Name="cntCol2" Text="SA"   TextAlignment="Center"/>
+                <TextBlock Name="cntCol3" Text="AF"  TextAlignment="Center" />
+                <TextBlock Name="cntCol4" Text="OC"   TextAlignment="Center"/>
+                <TextBlock Name="cntCol5" Text="NA"  TextAlignment="Center" />
+                <TextBlock Name="cntCol6" Text="JA"  TextAlignment="Center" />
+                <TextBlock Name="cntCol7" Text="EU"  TextAlignment="Center" />
+            </StackPanel>-->
 
         </Grid>
     </Border>

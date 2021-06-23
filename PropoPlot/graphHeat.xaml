@@ -69,12 +69,20 @@
                 <TextBlock Text="Information"  Background="#bbb" FontWeight="Bold" Margin="2" Grid.ColumnSpan="2"/>
                 <CheckBox Name="chkShowContinents" Content="Show Continents" Margin="5,5" VerticalAlignment="Bottom" Grid.Column="0" IsChecked="true"/>
                 <DockPanel>
-                    <TextBox Name="txtCount" Text="0" Width="35" Margin="5,5" ToolTip="Count of points to plot"/>
-                    <Label Content="Count" Margin="0,5" />
+                    <TextBox Name="txtListCount" Text="0" Width="35" Margin="5,5" ToolTip="Count of the total number of records records collected since starting"/>
+                    <Label Content="Total QSO Count" Margin="0,5" />
                 </DockPanel>
                 <DockPanel>
-                    <TextBox Name="txtListCount" Text="0" Width="35" Margin="5,5" ToolTip="Count of records in list"/>
-                    <Label Content="List Count" Margin="0,5" />
+                    <TextBox Name="txtCount" Text="0" Width="35" Margin="5,5" ToolTip="How many points to show on the map"/>
+                    <Label Content="points to plot" Margin="0,5" />
+                </DockPanel>
+                <DockPanel>
+                    <TextBox Name="txtEarliestTime" Text="0" Width="60" Margin="5,5" ToolTip="Oldest QSO being shown"/>
+                    <Label Content="Oldest QSO" Margin="0,5" />
+                </DockPanel>
+                <DockPanel>
+                    <TextBox Name="txtYoungestTime" Text="0" Width="60" Margin="5,5" ToolTip="Youngest QSO being shown"/>
+                    <Label Content="Youngest QSO" Margin="0,5" />
                 </DockPanel>
 
 

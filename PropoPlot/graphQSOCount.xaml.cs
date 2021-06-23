@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Serilog;
 
 namespace PropoPlot
 {
@@ -50,7 +51,13 @@ namespace PropoPlot
         double[] AFStackedHr = new double[HrArrSize];
         double[] FAStackedHr = new double[HrArrSize];
 
-
+        double[] EUArrayToPlot = new double[HrArrSize];
+        double[] JAArrayToPlot = new double[HrArrSize];
+        double[] NAArrayToPlot = new double[HrArrSize];
+        double[] SAArrayToPlot = new double[HrArrSize];
+        double[] OCArrayToPlot = new double[HrArrSize];
+        double[] AFArrayToPlot = new double[HrArrSize];
+        double[] FAArrayToPlot = new double[HrArrSize];
 
 
         int EUcnt = 0;
@@ -67,7 +74,11 @@ namespace PropoPlot
         {
             InitializeComponent();
             thlist = athlist;
+
             PrepareArrays();
+            prepareArraysForPlotting();
+            plotArrays();
+
         }
 
 
@@ -390,9 +401,7 @@ namespace PropoPlot
 
             }
 
-            
 
-            plotArrays();
 
         }//end
 
@@ -415,30 +424,37 @@ namespace PropoPlot
         }
 
  
+         private void prepareArraysForPlotting()
+        {
+
+            for (int i = 0; i < HrArrSize; i++)
+            {
+                EUArrayToPlot[i] = EUStackedHr[i];  //do this to keep all the array names similar, EU always on the bottom
+                JAArrayToPlot[i] = EUStackedHr[i] + JAStackedHr[i];
+                NAArrayToPlot[i] = EUStackedHr[i] + JAStackedHr[i] + NAStackedHr[i];
+                OCArrayToPlot[i] = EUStackedHr[i] + JAStackedHr[i] + NAStackedHr[i] + OCStackedHr[i];
+                AFArrayToPlot[i] = EUStackedHr[i] + JAStackedHr[i] + NAStackedHr[i] + OCStackedHr[i] + AFStackedHr[i];
+                SAArrayToPlot[i] = EUStackedHr[i] + JAStackedHr[i] + NAStackedHr[i] + OCStackedHr[i] + AFStackedHr[i] + SAStackedHr[i];
+                FAArrayToPlot[i] = EUStackedHr[i] + JAStackedHr[i] + NAStackedHr[i] + OCStackedHr[i] + AFStackedHr[i] + SAStackedHr[i]+FAStackedHr[i];
+
+
+            }
+
+        }
 
 
  private void plotArrays() {
 
 
-            //var EUplot = QsoCountPlotALL.Plot.AddBar(EUhr);
-            //var JAplot = QsoCountPlotALL.Plot.AddBar(JAhr);
-            //var NAplot = QsoCountPlotALL.Plot.AddBar(NAhr);
-            //var OCplot = QsoCountPlotALL.Plot.AddBar(OChr);
-            //var AFplot = QsoCountPlotALL.Plot.AddBar(AFhr);
-            //var SAplot = QsoCountPlotALL.Plot.AddBar(SAhr);
-            //var FAplot = QsoCountPlotALL.Plot.AddBar(FAhr);
+            QsoCountPlotALL.Plot.Clear();
 
-            var EUplot = QsoCountPlotALL.Plot.AddBar(EUStackedHr);
-            var JAplot = QsoCountPlotALL.Plot.AddBar(JAStackedHr);
-            var NAplot = QsoCountPlotALL.Plot.AddBar(NAStackedHr);
-            var OCplot = QsoCountPlotALL.Plot.AddBar(OCStackedHr);
-            var AFplot = QsoCountPlotALL.Plot.AddBar(AFStackedHr);
-            var SAplot = QsoCountPlotALL.Plot.AddBar(SAStackedHr);
-            var FAplot = QsoCountPlotALL.Plot.AddBar(FAStackedHr);
-
-
-
-
+            var FAplot = QsoCountPlotALL.Plot.AddBar(FAArrayToPlot);
+            var SAplot = QsoCountPlotALL.Plot.AddBar(SAArrayToPlot);
+            var AFplot = QsoCountPlotALL.Plot.AddBar(AFArrayToPlot);
+            var OCplot = QsoCountPlotALL.Plot.AddBar(OCArrayToPlot);
+            var NAplot = QsoCountPlotALL.Plot.AddBar(NAArrayToPlot);
+            var JAplot = QsoCountPlotALL.Plot.AddBar(JAArrayToPlot);
+            var EUplot = QsoCountPlotALL.Plot.AddBar(EUArrayToPlot);
 
             EUplot.Label = "EU";
             JAplot.Label = "JA";
@@ -448,22 +464,31 @@ namespace PropoPlot
             SAplot.Label = "SA";
             FAplot.Label = "Usr";
 
-            QsoCountPlotALL.Plot.Legend(location: ScottPlot.Alignment.UpperRight);
+
+           // BrushConverter bc = new BrushConverter();
+            //cntCol1.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM1);
+            //cntCol2.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM2);
+            //cntCol3.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM3);
+            //cntCol4.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM4);
+            //cntCol5.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM5);
+            //cntCol6.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM1);
+            //cntCol7.Background = (System.Windows.Media.Brush)bc.ConvertFromString(Properties.Settings.Default.crDBM2);
 
 
 
-            // EUplot.Plot.Legend(); //(location: Alignment.LowerLeft);
-            //EUplot.Plot.Y("dBm");
-            //dataPlotFA.plt.XLabel("Periods");
-
-            // EUplot.ShowValuesAboveBars = true;
-           
+            //FAplot.FillColor = ScottPlot.Drawing.Colormap.
 
 
-
+               QsoCountPlotALL.Plot.Legend(location: ScottPlot.Alignment.UpperRight);
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PrepareArrays();
+            prepareArraysForPlotting();
+            plotArrays();
 
-
-        }//end
+//            QsoCountPlotALL.Plot.Render();
+        }
+    }//end
 }

@@ -62,10 +62,10 @@ namespace PropoPlot
             EventLogger.DeleteLog();
             EventLogger.WriteLine("Propaplot started");
 
-       //     Log.Logger = new LoggerConfiguration().WriteTo.File(@"c:\users\cooky\Documents\PropaPlot.log").CreateLogger();
-       //     Log.Information("Log for PropaPlot");
-       //     Log.Verbose("another line");
-       //     
+            Log.Logger = new LoggerConfiguration().WriteTo.File(@"c:\users\cooky\Documents\PropaPlot.log").CreateLogger();
+            Log.Information("Log for PropaPlot");
+            Log.Verbose("another line");
+
 
 
             string now = DateTime.Now.ToString("yyyyMMdd_hhmm tt");

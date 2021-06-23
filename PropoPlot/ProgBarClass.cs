@@ -27,23 +27,26 @@ namespace PropoPlot
         private void setTimerBarColour(double value)
         {
 
-            if (value < -15)
+            if (value < -20)
+                timerBar.Foreground = System.Windows.Media.Brushes.LightGreen;
+
+            else if (value < -15)
                 timerBar.Foreground = System.Windows.Media.Brushes.LightYellow;
 
-            if (value < -8)
+            else if (value < -8)
                 timerBar.Foreground = System.Windows.Media.Brushes.Aqua;
-
-            if (value < 0)
+            else if (value < 0)
                 timerBar.Foreground = System.Windows.Media.Brushes.Blue;
 
-            if (value == 0)
+
+            else if (value == 0)
                 timerBar.Foreground = System.Windows.Media.Brushes.LightGray;
 
-            if (value > 0)
+            else if (value > 0)
                 timerBar.Foreground = System.Windows.Media.Brushes.Red;
         }
 
-  
+
 
         private void setBarColour(double value,ProgressBar barname,TextBlock contDbm)
         {
