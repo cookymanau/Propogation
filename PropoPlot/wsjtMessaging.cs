@@ -124,6 +124,15 @@ namespace PropoPlot
                 int aJA = 0;
                 int aDXA = 0; //for the callsign we are chasing
                 int aDEA = 0;  // for my callsign  VK6DW
+                int bFA = 0;  // used to track no decodes
+                int bSA = 0;
+                int bNA = 0;
+                int bOC = 0;
+                int bAF = 0;
+                int bEU = 0;
+                int bJA = 0;
+                int bDXA = 0; //for the callsign we are chasing
+                
 
                 string continent = "";
                 int counter = 0;
@@ -262,6 +271,7 @@ namespace PropoPlot
                                 totaldbmJA += double.Parse(ul.udpdbm);  //this is the running tally of the dbms
                                 counterJA += 1;                         //this is the number of stations in the continent
                                 aJA = 1;
+                                bFA = 1;
                                 continent = "JA";
                             }
 
@@ -272,6 +282,7 @@ namespace PropoPlot
                                 totaldbmEU += double.Parse(ul.udpdbm);
                                 counterEU += 1;
                                 aEU = 1;
+                                bEU = 1;
                                 continent = "EU";
                             }
 
@@ -282,6 +293,7 @@ namespace PropoPlot
                                 totaldbmNA += double.Parse(ul.udpdbm);
                                 counterNA += 1;
                                 aNA = 1;
+                                bNA = 1;
                                 continent = "NA";
                             }
 
@@ -293,6 +305,7 @@ namespace PropoPlot
                                 totaldbmOC += double.Parse(ul.udpdbm);
                                 counterOC += 1;
                                 aOC = 1;
+                                bOC = 1;
                                 continent = "OC";
                             }
 
@@ -304,6 +317,7 @@ namespace PropoPlot
                                 totaldbmAF += double.Parse(ul.udpdbm);
                                 counterAF += 1;
                                 aAF = 1;
+                                bAF = 1;
                                 continent = "AF";
                             }
 
@@ -314,6 +328,7 @@ namespace PropoPlot
                                 totaldbmSA += double.Parse(ul.udpdbm);
                                 counterSA += 1;
                                 aSA = 1;
+                                bSA = 1;
                                 continent = "SA";
                             }
                             //FA Far East China india indonesia phillppines Japan
@@ -323,6 +338,7 @@ namespace PropoPlot
                                 totaldbmFA += double.Parse(ul.udpdbm);
                                 counterFA += 1;
                                 aFA = 1;
+                                bFA = 1;
                                 continent = Properties.Settings.Default.UsrDefinedName;
                             }
                             else
@@ -402,7 +418,7 @@ namespace PropoPlot
                                 //run.FontWeight = FontWeights.ExtraBold;
                                 //run.FontSize = 10;
                                 plotmessage.Inlines.Add(run);
-                                aAF = 0;
+                              //  aAF = 0;
                                 messForList = $"UTC: {ul.udptime,-12}\tGrid: {ul.udpqso3,-6}\tdBm: {ul.udpdbm,-6}\tDX: {ul.udpqso2,-8}\tLat: {latitude,-10}\tLong: {longitude,-10}\tCont:AF";
                             }
                             else if (aJA == 1)
@@ -483,10 +499,63 @@ namespace PropoPlot
 
                         displayTotalDecodes.Text = totalDecodes.ToString();
                     } // end of if wrdmsg[0]="Decode"
-                }//end of foreach loop
-                             plotmessage.Inlines.Add ("----------------------------------------------------- -------------------------------------------------\n");
 
-             
+
+                }//end of foreach loop ***********************************************************
+                plotmessage.Inlines.Add ("------------------------------------------------------------------//-------------------------------------------------------------\n");
+
+                //// this is an attempt to not carry over null records with the last reading
+                //if (double.Parse(cd.pEUnumber)==0) //means we have no qsos this 15 second
+                //{
+                //    cd.pEUdbm = "-30";
+                //    // cdAvg.pEUnumber = "0";
+
+                //}
+
+                ////if (bJA == 0) //means we have no qsos this 15 second
+                //{
+                //    cd.pJAdbm = "-30";
+                //    //cdAvg.pJAnumber = "0";
+                //}
+
+                //if (bNA == 0) //means we have no qsos this 15 second
+                //{
+                //    cd.pNAdbm = "-30";
+                //    //cdAvg.pNAnumber = "0";
+                //}
+                //if (bAF == 0) //means we have no qsos this 15 second
+                //{
+                //    cd.pAFdbm = "-30";
+                //    //cdAvg.pAFnumber = "0";
+                //}
+                //if (bSA == 0) //means we have no qsos this 15 second
+                //{
+                //    cd.pSAdbm = "-30";
+                //    //cdAvg.pSAnumber = "0";
+                //}
+                //if (bOC == 0) //means we have no qsos this 15 second
+                //{
+                //    cd.pOCdbm = "-30";
+                //    //cdAvg.pOCnumber = "0";
+                //}
+                //if (bFA == 0) //means we have no qsos this 15 second
+                //{
+                //    cd.pFAdbm = "-30";
+                //   // cdAvg.pFAnumber = "0";
+                //}
+
+                bEU = 0;
+                bNA = 0;
+                bSA = 0;
+                bFA = 0;
+                bAF = 0;
+                bOC = 0;
+                bJA = 0;
+
+
+                // -------------------- end of taking care of no decodes
+
+ 
 
                 // we count all of the good grids only - ie where there is at least one grid
                 if (counter > 0)
@@ -497,42 +566,42 @@ namespace PropoPlot
                 }
 
 
-                //thes call a series of functions to calculate the weightd average of the dBm
+                //these call a series of functions to calculate the weightd average of the dBm
                 if (totaldbmEU / counterEU > -40)
-                {
                     runningEUContinentalAverage(totaldbmEU / counterEU, EUprog, EUdbm, counterEU, EUavgs);
-                }
+                else
+                    runningEUContinentalAverage(0, EUprog, EUdbm, 0, EUavgs);
  
                 if (totaldbmFA / counterFA > -40)
-                {
                     runningFAContinentalAverage(totaldbmFA / counterFA, FAprog, FAdbm, counterFA, FAavgs);
-                }//end of if
+                else
+                    runningFAContinentalAverage(0, FAprog, FAdbm, 0, FAavgs);
  
 
-                if (totaldbmJA / counterJA > -40)
-                {
+               if (totaldbmJA / counterJA > -40)
                     runningJAContinentalAverage(totaldbmJA / counterJA, JAprog, JAdbm, counterJA, JAavgs);
-                }//end of if
-
+               else
+                    runningJAContinentalAverage(0, JAprog, JAdbm, 0, JAavgs);
+ 
                 if (totaldbmNA / counterNA > -40)
-                {
                     runningNAContinentalAverage(totaldbmNA / counterNA, NAprog, NAdbm, counterNA, NAavgs);
-                }//end of if
+                else
+                    runningNAContinentalAverage(0, NAprog, NAdbm, 0, NAavgs);
 
                 if (totaldbmOC / counterOC > -40) //-------------------------------
-                {
-                    runningOCContinentalAverage(totaldbmOC / counterOC, OCprog, OCdbm, counterOC, OCavgs);
-                }//end of if
+                     runningOCContinentalAverage(totaldbmOC / counterOC, OCprog, OCdbm, counterOC, OCavgs);
+                else
+                    runningOCContinentalAverage(0, OCprog, OCdbm, 0, OCavgs);
 
                 if (totaldbmAF / counterAF > -40) //---------------------------------
-                {
                     runningAFContinentalAverage(totaldbmAF / counterAF, AFprog, AFdbm, counterAF, AFavgs);
-                }//end of if
+                else
+                    runningAFContinentalAverage(0, AFprog, AFdbm, 0, AFavgs);
 
                 if (totaldbmSA / counterSA > -40) //-----------------------------------
-                {
                     runningSAContinentalAverage(totaldbmSA / counterSA, SAprog, SAdbm, counterSA, SAavgs);
-                }//end 
+                else
+                    runningSAContinentalAverage(0, SAprog, SAdbm, 0, SAavgs);
 
 
                 //now we save the last lot of data to our continent list
@@ -543,7 +612,13 @@ namespace PropoPlot
                 // trouble is thats a bit hard.  The data only exist in the list at the moment
 
                 //continentAVGList.Add($"WTDavg,{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
-                continentAVGList.Add($"{prefix},{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber}");
+ 
+
+
+
+                //added EUnumber at end to test on the old line.  New line has actual counts not the Avg counts
+               // continentAVGList.Add($"{prefix},{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cdAvg.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cdAvg.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cdAvg.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cdAvg.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cdAvg.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cdAvg.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cdAvg.pFAnumber},{cd.pEUnumber},{cd.pJAnumber},{cd.pNAnumber},{cd.pOCnumber}");
+                continentAVGList.Add($"{prefix},{cd.pTime},{cd.pEUdbm},{cdAvg.pEUdbm},{cd.pEUnumber},{cd.pJAdbm},{cdAvg.pJAdbm},{cd.pJAnumber},{cd.pNAdbm},{cdAvg.pNAdbm},{cd.pNAnumber},{cd.pOCdbm},{cdAvg.pOCdbm},{cd.pOCnumber},{cd.pAFdbm},{cdAvg.pAFdbm},{cd.pAFnumber},{cd.pSAdbm},{cdAvg.pSAdbm},{cd.pSAnumber},{cd.pFAdbm},{cdAvg.pFAdbm},{cd.pFAnumber}");
 
 
 

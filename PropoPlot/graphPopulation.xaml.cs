@@ -21,7 +21,7 @@ namespace PropoPlot
     {
         
 
-        const int arrSize = 5000;
+        const int arrSize = 15000;
 
         double[] dataX = new double[arrSize];
         DateTime[] DTdates = new DateTime[arrSize];
@@ -29,7 +29,7 @@ namespace PropoPlot
 
 //        double[] dataEUA = new double[arrSize]; //Average
         double[] dataEUR = new double[arrSize]; //Raw
- //       double[] dataEUC = new double[arrSize]; //Count
+        double?[] dataEUnull = new double?[arrSize]; //trying out a nullable array
 
 
   //      double[] dataJAA = new double[arrSize];
@@ -125,50 +125,40 @@ private void arrayToFullSize()
                 Dubdates[count] = DTdates[count].ToOADate();
 
                 double.TryParse(wrdmsg[2], out dataEUR[count]); //Europe
-          //      double.TryParse(wrdmsg[3], out dataEUA[count]); //EuropeAverage
-          //      double.TryParse(wrdmsg[4], out dataEUC[count]); //EuropeAverage
-
                 double.TryParse(wrdmsg[5], out dataJAR[count]); //Japan
-            //    double.TryParse(wrdmsg[6], out dataJAA[count]); //JapanAvg
-            //    double.TryParse(wrdmsg[7], out dataJAC[count]); //JapanAvg
-
                 double.TryParse(wrdmsg[8], out dataNAR[count]);
-             //   double.TryParse(wrdmsg[9], out dataNAA[count]);
-             //   double.TryParse(wrdmsg[10], out dataNAC[count]);
-
                 double.TryParse(wrdmsg[11], out dataOCR[count]);
-             //   double.TryParse(wrdmsg[12], out dataOCA[count]);
-             //   double.TryParse(wrdmsg[13], out dataOCC[count]);
-
                 double.TryParse(wrdmsg[14], out dataAFR[count]);
-             //   double.TryParse(wrdmsg[15], out dataAFA[count]);
-             //   double.TryParse(wrdmsg[16], out dataAFC[count]);
-
                 double.TryParse(wrdmsg[17], out dataSAR[count]);
-             //   double.TryParse(wrdmsg[18], out dataSAA[count]);
-             //   double.TryParse(wrdmsg[19], out dataSAC[count]);
-
                 double.TryParse(wrdmsg[20], out dataFAR[count]);
-             //   double.TryParse(wrdmsg[21], out dataFAA[count]);
-             //   double.TryParse(wrdmsg[22], out dataFAC[count]);
 
                 count += 1;
             }
             currentArrSize = count;
 
             dataEUR = smoothArray(dataEUR);
+            dataEUR = rz(dataEUR);
+          //  RemoveZeros(dataEUR,dataEUnull);  //turns into a nullable array to double
+          // swapem(dataEUR, dataEUnull);
+
             //dataEUA = smoothArray(dataEUA);
             dataJAR = smoothArray(dataJAR);
+            dataJAR = rz(dataJAR);
             //dataJAA = smoothArray(dataJAA);
             dataNAR = smoothArray(dataNAR);
+            dataNAR = rz(dataNAR);
             //dataNAA = smoothArray(dataNAA);
             dataSAR = smoothArray(dataSAR);
+            dataSAR = rz(dataSAR);
             //dataSAA = smoothArray(dataSAA);
             dataFAR = smoothArray(dataFAR);
+            dataFAR = rz(dataFAR);
             //dataFAA = smoothArray(dataFAA);
             dataAFR = smoothArray(dataAFR);
+            dataAFR = rz(dataAFR);
             //dataAFA = smoothArray(dataAFA);
             dataOCR = smoothArray(dataOCR);
+            dataOCR = rz(dataOCR);
 
 
         }
@@ -179,6 +169,7 @@ private void arrayToFullSize()
 
             //going to try reducing the arrays
             Array.Resize(ref dataEUR, currentArrSize);
+           // Array.Resize(ref dataEUnull, currentArrSize);
             Array.Resize(ref dataOCR, currentArrSize);
             Array.Resize(ref dataJAR, currentArrSize);
             Array.Resize(ref dataNAR, currentArrSize);
@@ -186,28 +177,13 @@ private void arrayToFullSize()
             Array.Resize(ref dataAFR, currentArrSize);
             Array.Resize(ref dataFAR, currentArrSize);
 
-            //dataNAR = smoothArray(dataNAR);
-            //dataOCR = smoothArray(dataOCR);
-            //dataJAR = smoothArray(dataJAR);
-            //dataEUR = smoothArray(dataEUR);
-            //dataSAR = smoothArray(dataSAR);
-            //dataAFR = smoothArray(dataAFR);
-            //dataFAR = smoothArray(dataFAR);
-
-            var OCRpop = new ScottPlot.Statistics.Population(dataOCR);
-            //var OCRpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataOCR) }, "OC");
             var EURpop = new ScottPlot.Statistics.Population(dataEUR);
-            //var EURpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataEUR) }, "EU");
             var JARpop = new ScottPlot.Statistics.Population(dataJAR);
-            //var JARpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataJAR) }, "JA");
+            var OCRpop = new ScottPlot.Statistics.Population(dataOCR);
             var NARpop = new ScottPlot.Statistics.Population(dataNAR);
-            //var NARpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataNAR) }, "NA");
             var SARpop = new ScottPlot.Statistics.Population(dataSAR);
-            //var SARpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataSAR) }, "SA");
             var AFRpop = new ScottPlot.Statistics.Population(dataAFR);
-            //var AFRpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataAFR) }, "AF");
             var FARpop = new ScottPlot.Statistics.Population(dataFAR);
-            //var FARpop = new ScottPlot.Statistics.PopulationSeries(new ScottPlot.Statistics.Population[] { new ScottPlot.Statistics.Population(dataFAR) }, Properties.Settings.Default.UsrDefinedName);
 
             // combine several populations into an array and plot it
             var populations = new ScottPlot.Statistics.Population[]{  EURpop, JARpop, NARpop, OCRpop, AFRpop, SARpop, FARpop };
@@ -220,6 +196,9 @@ private void arrayToFullSize()
 //            graphPop.Plot.AddPopulation(OCRpop);
             graphPop.Plot.XTicks(populationNames);
             graphPop.Plot.YLabel("dBm");
+
+            graphPop.Plot.SetAxisLimits(yMin: -30, yMax: 10);
+            graphPop.Plot.YAxis.Layout(20, -32, 20);
 
             // and now show the stats
             EUmean.Text = Math.Round(EURpop.mean,0).ToString();
@@ -339,6 +318,47 @@ private void arrayToFullSize()
             }
             return arr;
         }
+
+ 
+        private double[] rz(double[] arr)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+
+                if (arr[i] == 0)
+
+                    arr[i] = -35;
+            }
+
+                return arr;
+        }
+
+        
+        private void RemoveZeros(double[] arr, double?[] arrout)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                if (arr[i] == 0)
+                    arrout[i] = null ;
+            }
+        }
+
+        private void swapem(double[] arr, double?[] arrout)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                
+                   arr[i] = (double)arrout[i];
+            }
+        }
+
+
+
+
+
+
+
+
 
 
         //declared outside of method so I can reference it in other methods as per below

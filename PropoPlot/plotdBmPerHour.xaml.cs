@@ -288,7 +288,7 @@ namespace PropoPlot
 
 
             else if (avg == 0 )
-                grid.Fill = System.Windows.Media.Brushes.Black;  //special case for 0
+                grid.Fill = System.Windows.Media.Brushes.LightGray;  //special case for 0
 
             else if (avg > 0 )
                 grid.Fill = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.crDBM5); //System.Windows.Media.Brushes.Red;
